@@ -12,7 +12,7 @@ harm-avoidance, user autonomy against user wellbeing. Sometimes they refuse;
 often they comply, though hedged, caveated, or visibly reluctant. This project asks
 whether *being in such a situation* has a consistent internal representation,
 detectable in residual-stream activations at the final prompt-token position,
-before generation begins.
+before generation begins **CLARIFY THIS**.
 
 **Working operational definition.** A prompt instantiates *value conflict*
 iff it engages two of the model's behavioral commitments such that any
@@ -21,7 +21,7 @@ name both commitments and the cost from the prompt alone. This deliberately
 excludes: plain harmful requests (one commitment, no tension: these are
 *low-conflict refusal controls*), epistemic ambiguity (missing information,
 not opposed values), and post-decision regret (nothing live at measurement
-time).
+time). **MAKE CODE BOOK**
 
 **Value conflict is not harmfulness.** The dataset is a 2×2 [behavior
 (comply/refuse) × conflict (present/absent)] built from minimal pairs that
@@ -57,12 +57,12 @@ SAE-Lens/Gemma Scope (Phase 5)
 
 ## Roadmap
 
-- [ ] **Phase 0** — Measurement-point validation: replicate the
+- [x] **Phase 0** — Measurement-point validation: replicate the
       anchor-predicts-response-activations finding on `gemma-2-2b-it`
-      (`notebooks/00_anchor_replication.ipynb`) *(in progress)*
+      (`notebooks/00_anchor_replication.ipynb`) *(completed)*
 - [ ] **Phase 1** — Dataset construction: 2×2 battery from minimal pairs;
       inter-rater sorting check on the operational definition before any
-      extraction
+      extraction *(in progress)*
 - [ ] **Phase 2** — Activation extraction and caching at the anchor
 - [ ] **Phase 3** — Per-layer probe training; layer-accuracy profile (P1–P3)
 - [ ] **Phase 4** — Representation analysis (PCA, reference-direction
