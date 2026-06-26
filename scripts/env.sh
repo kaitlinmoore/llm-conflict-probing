@@ -1,0 +1,1 @@
+export HF_HOME=/workspace/hf_cache
