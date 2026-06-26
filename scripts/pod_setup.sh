@@ -3,7 +3,7 @@ set -euo pipefail
 
 pip install transformer_lens transformers accelerate huggingface-hub anthropic \
     scikit-learn pandas numpy matplotlib seaborn tqdm ipywidgets nbformat sentencepiece
-pip uninstall -y torchaudio || true   # install drags it back; ABI clash crashes TL import
+pip uninstall -y torchaudio torchvision || true   # install drags it back; ABI clash crashes TL import
 
 export HF_HOME=/workspace/hf_cache    # persist weights on the volume
 
