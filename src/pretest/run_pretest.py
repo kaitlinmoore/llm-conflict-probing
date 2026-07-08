@@ -52,8 +52,9 @@ MODEL_REGISTRY = {
     "meta-llama/Llama-3.1-8B-Instruct": {
         "tag": "llama8b",
         # anchor: final position of templated prompt with add_generation_prompt=True
-        # (double newline after the assistant header). Verified by decode-assert.
-        "anchor_expect_decoded_suffix": "assistant\n\n",
+        # (double newline after the assistant header). Verified by decode-assert;
+        # decode keeps special tokens, so the suffix includes <|end_header_id|>.
+        "anchor_expect_decoded_suffix": "assistant<|end_header_id|>\n\n",
     },
     "google/gemma-2-2b-it": {
         "tag": "gemma2b",
@@ -161,6 +162,21 @@ def main():
     activations = {}
     anchor_samples = []
     rows = []
+    gen_path = out_dir / "generations.csv"
+    log_path = out_dir / "run.log"
+    act_path = out_dir / f"activations_{spec['tag']}.pt"
+    fieldnames = ["prompt_key", "probe_id", "variant", "response",
+                  "parsed_choice", "prelabel_heuristic", "needs_manual_label"]
+    gen_f = open(gen_path, "w", newline="")
+    writer = csv.DictWriter(gen_f, fieldnames=fieldnames)
+    writer.writeheader(); gen_f.flush()
+    log_f = open(log_path, "a")
+
+    def log(msg):
+        print(msg)
+        log_f.write(msg + "\n"); log_f.flush()
+
+    CHECKPOINT_EVERY = 25
     with torch.no_grad():
         for prompt_key, probe_id, variant, user_text in tasks:
             prompt_str = templated(tokenizer, user_text)
@@ -205,18 +221,17 @@ def main():
                 row["parsed_choice"] = choice or ""
                 row["needs_manual_label"] = "no" if choice else "yes"
             rows.append(row)
-            print(f"[{len(rows)}/{len(tasks)}] {prompt_key}")
+            writer.writerow(row); gen_f.flush()          # incremental: survives interruption
+            log(f"[{len(rows)}/{len(tasks)}] {prompt_key}")
+            if len(rows) % CHECKPOINT_EVERY == 0:
+                torch.save({"activations": activations, "partial": True,
+                            "n_layers": model.cfg.n_layers, "d_model": model.cfg.d_model}, act_path)
+                log(f"  checkpoint: {len(activations)} activation sets -> {act_path.name}")
 
-    # --- write outputs ---
-    gen_path = out_dir / "generations.csv"
-    with open(gen_path, "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-        w.writeheader()
-        w.writerows(rows)
-
-    act_path = out_dir / f"activations_{spec['tag']}.pt"
+    gen_f.close()
+    # --- final outputs ---
     torch.save(
-        {"activations": activations,
+        {"activations": activations, "partial": False,
          "layout": "per prompt_key: tensor [n_layers, d_model], resid_post, final prompt position (anchor)",
          "n_layers": model.cfg.n_layers, "d_model": model.cfg.d_model},
         act_path,
@@ -243,6 +258,7 @@ def main():
     (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2))
 
     n_manual = sum(1 for r in rows if r["needs_manual_label"] == "yes")
+    log_f.close()
     print(f"\nDone. {len(rows)} generations -> {gen_path}")
     print(f"Activations -> {act_path}")
     print(f"Manifest -> {out_dir / 'manifest.json'}")
