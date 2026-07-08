@@ -1,0 +1,31 @@
+{
+  "run_id": "20260708_165459_llama8b_pilot",
+  "run_role": "pilot",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "model_tag": "llama8b",
+  "dtype": "bfloat16",
+  "max_new_tokens": 256,
+  "decoding": "greedy (do_sample=False), seed 0",
+  "probe_file": "data/pretest/pretest_probes_v1.jsonl",
+  "probe_file_sha256": "b42258a41e7e2d409ffc48e8e825573c4b8eaaedf046ba7e2dac126e092296ee",
+  "n_probe_units": 160,
+  "n_prompt_texts": 240,
+  "anchor_spec": "assistant<|end_header_id|>\n\n",
+  "anchor_verification_samples": [
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    }
+  ],
+  "torch_version": "2.8.0+cu128",
+  "timestamp": "2026-07-08T17:45:20.649890",
+  "notes": "Labeling authority: rubric + human audit for resistance; structural parse for choice with manual fallback. Certification computed in the analysis notebook, not here."
+}
