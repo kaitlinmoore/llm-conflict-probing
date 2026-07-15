@@ -273,9 +273,14 @@ def validate(drafts, records):
 #                        (tranche-2 shape: value from the dict key, channel
 #                        from the block key). }
 # Main-battery probe fields (spec §3 + tranche-2 _meta declarations):
-#   resistance: template/role_set/severity_tier/self_contained[/role_exclusions]
+#   resistance: template/role_set/severity_tier/self_contained
+#               [/role_exclusions/self_template]
 #   choice: scenario/options/context_sentence/value_favored/role_set/
 #           texture_dimension/orthogonality[/swap_at_freeze/role_exclusions/note]
+# Role coverage is BLOCKING: role_set ∪ role_exclusions keys must equal the
+# menu exactly for every role-carrying probe. self_template (resistance only):
+# verbatim first-person text used for role == self instead of mechanical
+# reduction; required whenever self co-occurs with non-possessive "my {role}".
 # swap_at_freeze: true — researcher decision 2026-07-09 (tranche-2a _meta):
 #   the freezer swaps option_a/option_b AND flips value_favored when composing
 #   the frozen set; counterbalance and duplicate-options validators run AFTER
@@ -452,6 +457,12 @@ def compose_v2(merged):
         roles = p.get("role_set") or [None]
         if p.get("channel") == "resistance":
             for role in roles:
+                # role == self with a self_template: use it VERBATIM (authored
+                # first-person phrasing) instead of mechanical reduction.
+                if role == "self" and p.get("self_template"):
+                    prompt = p["self_template"]
+                else:
+                    prompt = render_role(p.get("template", ""), role)
                 records.append({
                     "schema_version": "v2",
                     "probe_id": p.get("id"),
@@ -460,7 +471,7 @@ def compose_v2(merged):
                     "channel": "resistance",
                     "block": "main",
                     "role": role,
-                    "prompt": render_role(p.get("template", ""), role),
+                    "prompt": prompt,
                     "severity_tier": p.get("severity_tier"),
                     "self_contained": p.get("self_contained"),
                     "hypothesis": VALUE_SPECS.get(p.get("value"), {}).get("hypothesis", {}).get("resistance"),
@@ -506,37 +517,54 @@ def validate_v2(merged, records, allow_partial=False):
             problems.append(f"{label}: roles not in menu {ROLE_MENU}: {unknown}")
         if len(rs) < MIN_ROLE_SET:
             warnings.append(f"{label}: role_set has {len(rs)} roles (spec default is >= {MIN_ROLE_SET})")
-        # role_policy (tranche-2 _meta): every menu role is in role_set or
-        # coded in role_exclusions with an auditable reason.
+        # role_policy (tranche-2 _meta), BLOCKING: every menu role is in
+        # role_set or coded in role_exclusions — the union must equal the menu
+        # exactly, so exclusions are researcher-auditable and nothing is
+        # silently dropped.
         excl = p.get("role_exclusions") or {}
         bad_codes = {r: c for r, c in excl.items() if c not in ROLE_EXCLUSION_CODES}
         if bad_codes:
             warnings.append(f"{label}: role_exclusions codes not in {sorted(ROLE_EXCLUSION_CODES)}: {bad_codes}")
-        if excl:
-            uncovered = set(ROLE_MENU) - set(rs) - set(excl)
+        covered = set(rs) | set(excl)
+        if covered != set(ROLE_MENU):
+            uncovered = set(ROLE_MENU) - covered
+            extra = covered - set(ROLE_MENU)
+            detail = []
             if uncovered:
-                warnings.append(f"{label}: menu roles neither in role_set nor role_exclusions: {sorted(uncovered)}")
-            overlap = set(rs) & set(excl)
-            if overlap:
-                warnings.append(f"{label}: roles both in role_set and role_exclusions: {sorted(overlap)}")
-        # 'self' + non-possessive "my {role}" renders as "me" — often wrong in
+                detail.append(f"menu roles neither in role_set nor role_exclusions: {sorted(uncovered)}")
+            if extra:
+                detail.append(f"non-menu keys: {sorted(extra)}")
+            problems.append(f"{label}: role coverage must equal the menu exactly — " + "; ".join(detail))
+        overlap = set(rs) & set(excl)
+        if overlap:
+            warnings.append(f"{label}: roles both in role_set and role_exclusions: {sorted(overlap)}")
+        # 'self' + non-possessive "my {role}" renders as "me" — wrong in
         # subject position ("saying me had...") and leaves they/them referents
-        # dangling. Mechanically unresolvable; flag for curation.
+        # dangling. Mechanically unresolvable, so BLOCKING unless the probe
+        # supplies a verbatim self_template (resistance only) or drops self.
         if "self" in rs:
             fields = [p.get(f, "") or "" for f in ("template", "scenario", "context_sentence",
                                                    "option_a", "option_b")]
+            has_bare_my_role = False
             for t in fields:
                 low = t.lower()
                 idx = low.find("my {role}")
                 while idx != -1:
                     if not low[idx + len("my {role}"):].startswith("'s"):
-                        warnings.append(f"{label}: 'self' in role_set with non-possessive 'my {{role}}' — "
-                                        f"renders as 'me'; check grammar/referents or exclude self")
+                        has_bare_my_role = True
                         break
                     idx = low.find("my {role}", idx + 1)
+                if has_bare_my_role:
+                    break
+            if has_bare_my_role:
+                if p.get("channel") == "resistance":
+                    if not p.get("self_template"):
+                        problems.append(f"{label}: 'self' in role_set with non-possessive 'my {{role}}' — "
+                                        f"renders as 'me'; supply a self_template or exclude self")
                 else:
-                    continue
-                break
+                    problems.append(f"{label}: 'self' in role_set with non-possessive 'my {{role}}' in a "
+                                    f"choice field — self_template only covers the resistance template; "
+                                    f"rephrase or exclude self")
 
     def check_choice_common(p, label, require_context=True):
         for field in ("scenario", "option_a", "option_b"):

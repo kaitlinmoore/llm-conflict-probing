@@ -219,3 +219,6 @@ __marimo__/
 data/transcripts.json
 results/*.csv
 results/emotion_vectors.pt
+
+# Office lock files (curation workbooks open in Excel)
+~$*
