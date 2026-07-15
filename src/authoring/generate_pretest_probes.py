@@ -277,10 +277,19 @@ def validate(drafts, records):
 #               [/role_exclusions/self_template]
 #   choice: scenario/options/context_sentence/value_favored/role_set/
 #           texture_dimension/orthogonality[/swap_at_freeze/role_exclusions/note]
-# Role coverage is BLOCKING: role_set ∪ role_exclusions keys must equal the
-# menu exactly for every role-carrying probe. self_template (resistance only):
-# verbatim first-person text used for role == self instead of mechanical
-# reduction; required whenever self co-occurs with non-possessive "my {role}".
+# Role-cell taxonomy (replaces role_exclusions; legacy field accepted as an
+# alias for role_skipped with a deprecation warning):
+#   role_included_base — roles whose cells are BASE measurement cells
+#   role_predictions   — {role: code} validation cells: rendered (they are in
+#                        role_set) but analyzed separately to test the
+#                        predicted exclusion signature
+#   role_skipped       — {role: reason} not rendered at all
+# BLOCKING: role_set ∪ role_skipped keys must equal the menu exactly;
+# role_included_base ⊆ role_set and disjoint from role_predictions keys.
+# Rendered records are stamped is_base_cell / role_prediction per role.
+# self_template (resistance only): verbatim first-person text used for
+# role == self instead of mechanical reduction; required whenever self
+# co-occurs with non-possessive "my {role}".
 # swap_at_freeze: true — researcher decision 2026-07-09 (tranche-2a _meta):
 #   the freezer swaps option_a/option_b AND flips value_favored when composing
 #   the frozen set; counterbalance and duplicate-options validators run AFTER
@@ -294,7 +303,20 @@ EXPECTED_NULL_COMPARISON = 16   # one per value (spec §10)
 MIN_ROLE_SET = 3                # spec §10 says >= 3; committed tranche-1 content
                                 # has size-2 sets, so this is a WARNING, not blocking.
 SEVERITY_TIERS = {"mild", "moderate", "battery-matched"}  # tranche-2b _meta severity_note
-ROLE_EXCLUSION_CODES = {"incoherent", "severity-shift", "value-switch", "implausible"}
+ROLE_PREDICTION_CODES = {"incoherent", "severity-shift", "value-switch", "implausible"}
+
+
+def role_cell_tags(probe, role):
+    """(is_base_cell, role_prediction) for one rendered role.
+
+    Probes without role_included_base (older drafts) have every role_set cell
+    treated as base. Role-free records (calibration) are base by definition.
+    """
+    if role is None:
+        return True, None
+    base = probe.get("role_included_base")
+    is_base = True if base is None else role in base
+    return is_base, (probe.get("role_predictions") or {}).get(role)
 
 
 def detect_schema_version(draft: dict) -> str:
@@ -424,6 +446,7 @@ def compose_v2(merged):
         option_b = render_role(p.get("option_b", ""), role)
         context = render_role(p.get("context_sentence"), role)
         fields = {"scenario": scenario, "option_a": option_a, "option_b": option_b}
+        is_base, prediction = role_cell_tags(p, role)
         rec = {
             "schema_version": "v2",
             "probe_id": p.get("id"),
@@ -440,6 +463,8 @@ def compose_v2(merged):
             "option_b": option_b,
             "context_sentence": context,
             "value_favored": p.get("value_favored"),
+            "is_base_cell": is_base,
+            "role_prediction": prediction,
         }
         rec["pair_id"] = rec["render_id"]
         if block == "main":
@@ -448,7 +473,7 @@ def compose_v2(merged):
             rec["hypothesis"] = VALUE_SPECS.get(rec["value"], {}).get("hypothesis", {}).get("choice")
         if block == "null_comparison":
             rec["paired_with"] = p.get("paired_with")
-        for passthrough in ("swapped_at_freeze", "role_exclusions", "note"):
+        for passthrough in ("swapped_at_freeze", "note"):
             if p.get(passthrough) is not None:
                 rec[passthrough] = p[passthrough]
         return rec
@@ -463,6 +488,7 @@ def compose_v2(merged):
                     prompt = p["self_template"]
                 else:
                     prompt = render_role(p.get("template", ""), role)
+                is_base, prediction = role_cell_tags(p, role)
                 records.append({
                     "schema_version": "v2",
                     "probe_id": p.get("id"),
@@ -472,10 +498,11 @@ def compose_v2(merged):
                     "block": "main",
                     "role": role,
                     "prompt": prompt,
+                    "is_base_cell": is_base,
+                    "role_prediction": prediction,
                     "severity_tier": p.get("severity_tier"),
                     "self_contained": p.get("self_contained"),
                     "hypothesis": VALUE_SPECS.get(p.get("value"), {}).get("hypothesis", {}).get("resistance"),
-                    **({"role_exclusions": p["role_exclusions"]} if p.get("role_exclusions") else {}),
                 })
         else:
             for role in roles:
@@ -517,27 +544,55 @@ def validate_v2(merged, records, allow_partial=False):
             problems.append(f"{label}: roles not in menu {ROLE_MENU}: {unknown}")
         if len(rs) < MIN_ROLE_SET:
             warnings.append(f"{label}: role_set has {len(rs)} roles (spec default is >= {MIN_ROLE_SET})")
-        # role_policy (tranche-2 _meta), BLOCKING: every menu role is in
-        # role_set or coded in role_exclusions — the union must equal the menu
-        # exactly, so exclusions are researcher-auditable and nothing is
-        # silently dropped.
-        excl = p.get("role_exclusions") or {}
-        bad_codes = {r: c for r, c in excl.items() if c not in ROLE_EXCLUSION_CODES}
-        if bad_codes:
-            warnings.append(f"{label}: role_exclusions codes not in {sorted(ROLE_EXCLUSION_CODES)}: {bad_codes}")
-        covered = set(rs) | set(excl)
+        # Role-cell taxonomy, BLOCKING: every menu role is rendered (role_set =
+        # base + validation cells) or coded in role_skipped — the union must
+        # equal the menu exactly, so nothing is silently dropped.
+        skipped = p.get("role_skipped")
+        if skipped is None and p.get("role_exclusions") is not None:
+            skipped = p["role_exclusions"]   # legacy alias: same not-rendered semantics
+            warnings.append(f"{label}: role_exclusions is deprecated — treated as role_skipped; "
+                            f"migrate to role_included_base/role_predictions/role_skipped")
+        skipped = skipped or {}
+        covered = set(rs) | set(skipped)
         if covered != set(ROLE_MENU):
             uncovered = set(ROLE_MENU) - covered
             extra = covered - set(ROLE_MENU)
             detail = []
             if uncovered:
-                detail.append(f"menu roles neither in role_set nor role_exclusions: {sorted(uncovered)}")
+                detail.append(f"menu roles neither in role_set nor role_skipped: {sorted(uncovered)}")
             if extra:
                 detail.append(f"non-menu keys: {sorted(extra)}")
             problems.append(f"{label}: role coverage must equal the menu exactly — " + "; ".join(detail))
-        overlap = set(rs) & set(excl)
+        overlap = set(rs) & set(skipped)
         if overlap:
-            warnings.append(f"{label}: roles both in role_set and role_exclusions: {sorted(overlap)}")
+            warnings.append(f"{label}: roles both in role_set and role_skipped: {sorted(overlap)}")
+
+        base = p.get("role_included_base")
+        predictions = p.get("role_predictions") or {}
+        bad_codes = {r: c for r, c in predictions.items() if c not in ROLE_PREDICTION_CODES}
+        if bad_codes:
+            warnings.append(f"{label}: role_predictions codes not in {sorted(ROLE_PREDICTION_CODES)}: {bad_codes}")
+        never_rendered = set(predictions) - set(rs)
+        if never_rendered:
+            warnings.append(f"{label}: role_predictions keys not in role_set (never rendered): "
+                            f"{sorted(never_rendered)}")
+        if base is None:
+            if predictions:
+                warnings.append(f"{label}: role_predictions without role_included_base — "
+                                f"all role_set cells default to base")
+        else:
+            not_in_set = set(base) - set(rs)
+            if not_in_set:
+                problems.append(f"{label}: role_included_base must be a subset of role_set — "
+                                f"not in role_set: {sorted(not_in_set)}")
+            clash = set(base) & set(predictions)
+            if clash:
+                problems.append(f"{label}: role_included_base must be disjoint from role_predictions — "
+                                f"overlap: {sorted(clash)}")
+            unaccounted = set(rs) - set(base) - set(predictions)
+            if unaccounted:
+                warnings.append(f"{label}: role_set cells neither base nor predicted validation cells: "
+                                f"{sorted(unaccounted)}")
         # 'self' + non-possessive "my {role}" renders as "me" — wrong in
         # subject position ("saying me had...") and leaves they/them referents
         # dangling. Mechanically unresolvable, so BLOCKING unless the probe

@@ -30,13 +30,16 @@ class StubTokenizer:
         return [99, 98]  # multi-token: not attributable to the first position
 
 
-def v2_choice_record(i=0, roles=("friend",), block="main", with_value_prompt=True):
+def v2_choice_record(i=0, roles=("friend",), block="main", with_value_prompt=True,
+                     base_roles=None):
     recs = []
     for role in roles:
         recs.append({
             "schema_version": "v2", "probe_id": f"PT2-test-C{i}",
             "render_id": f"PT2-test-C{i}::{role}", "value": "honesty",
             "channel": "choice", "block": block, "role": role,
+            "is_base_cell": (role in base_roles) if base_roles is not None else True,
+            "role_prediction": None,
             "scenario": "A scenario.", "option_a": f"Opt A {i}", "option_b": f"Opt B {i}",
             "context_sentence": "Context." if with_value_prompt else None,
             "neutral_prompt": f"A scenario. {i}\nOption A\nOption B\nWhich?",
@@ -123,6 +126,22 @@ class TestEnumeration(unittest.TestCase):
         self.assertEqual(kinds.count("choice"), 5)
         self.assertEqual(kinds.count("resistance"), 2)
         self.assertEqual(rl.expected_total_rows(tasks, sample_k=10), 5 + 2 * 11)
+
+    def test_is_base_cell_carried_and_defaulted(self):
+        records = v2_choice_record(0, roles=("friend", "coworker"), base_roles=("friend",))
+        tasks = rl.enumerate_tasks(records)
+        flags = {(t["prompt_key"]): t["is_base_cell"] for t in tasks}
+        self.assertTrue(flags["PT2-test-C0::friend::neutral"])
+        self.assertFalse(flags["PT2-test-C0::coworker::neutral"])
+        # records without the field (older frozen files) default to base
+        legacy = v2_resistance_record(0)
+        for r in legacy:
+            r.pop("is_base_cell", None)
+        self.assertTrue(all(t["is_base_cell"] for t in rl.enumerate_tasks(legacy)))
+        # screen tasks carry the tag too
+        screen = rl.enumerate_screen_tasks(records, "rebalance")
+        self.assertEqual({t["role"]: t["is_base_cell"] for t in screen},
+                         {"friend": True, "coworker": False})
 
     def test_mixed_schema_rejected(self):
         v1 = {"probe_id": "PT-x-R1", "channel": "resistance", "prompt": "x"}

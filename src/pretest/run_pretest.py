@@ -146,13 +146,14 @@ def heuristic_resistance_prelabel(response: str) -> str:
 
 V1_FIELDNAMES = ["prompt_key", "probe_id", "variant", "response",
                  "parsed_choice", "prelabel_heuristic", "needs_manual_label"]
-V2_FIELDNAMES = ["prompt_key", "probe_id", "variant", "role", "block", "seed",
+V2_FIELDNAMES = ["prompt_key", "probe_id", "variant", "role", "block",
+                 "is_base_cell", "seed",
                  "response", "parsed_choice", "p_a", "p_b", "mass_combined",
                  "low_mass_flag", "choice_source",
                  "prelabel_heuristic", "needs_manual_label"]
 SCREEN_FIELDNAMES = ["prompt_key", "probe_id", "role", "value", "mode",
-                     "p_a", "p_b", "mass_combined", "low_mass_flag",
-                     "p_metric", "in_band"]
+                     "is_base_cell", "p_a", "p_b", "mass_combined",
+                     "low_mass_flag", "p_metric", "in_band"]
 
 CHECKPOINT_EVERY = 25
 
@@ -332,6 +333,7 @@ def main():
                     band = rl.REBALANCE_BAND
                 emit({"prompt_key": prompt_key, "probe_id": task["probe_id"],
                       "role": task["role"] or "", "value": task["value"], "mode": args.screen,
+                      "is_base_cell": int(task["is_base_cell"]),
                       "p_a": r["p_a"], "p_b": r["p_b"], "mass_combined": r["mass_combined"],
                       "low_mass_flag": int(r["low_mass_flag"]),
                       "p_metric": p_metric, "in_band": int(rl.in_band(p_metric, band))})
@@ -343,7 +345,8 @@ def main():
                 r = readout_row(entry)
                 row = {"prompt_key": prompt_key, "probe_id": task["probe_id"],
                        "variant": task["variant"], "role": task["role"] or "",
-                       "block": task["block"], "seed": "",
+                       "block": task["block"], "is_base_cell": int(task["is_base_cell"]),
+                       "seed": "",
                        "response": "", "parsed_choice": "",
                        "p_a": r["p_a"], "p_b": r["p_b"], "mass_combined": r["mass_combined"],
                        "low_mass_flag": int(r["low_mass_flag"]), "choice_source": "logit",
@@ -368,7 +371,8 @@ def main():
                 activations[prompt_key] = entry["per_layer"]
                 base = {"prompt_key": prompt_key, "probe_id": task["probe_id"],
                         "variant": "sample", "role": task["role"] or "",
-                        "block": task["block"], "parsed_choice": "",
+                        "block": task["block"], "is_base_cell": int(task["is_base_cell"]),
+                        "parsed_choice": "",
                         "p_a": "", "p_b": "", "mass_combined": "", "low_mass_flag": "",
                         "choice_source": "", "needs_manual_label": "no"}
                 for seed in range(args.sample_k):

@@ -154,7 +154,10 @@ def enumerate_tasks(records):
             continue
         base = {"probe_id": r["probe_id"], "role": r.get("role"),
                 "block": r.get("block"), "value": r.get("value"),
-                "value_favored": r.get("value_favored")}
+                "value_favored": r.get("value_favored"),
+                # base measurement cell vs validation cell (role_predictions);
+                # older frozen files without the field are all-base
+                "is_base_cell": r.get("is_base_cell", True)}
         if r["channel"] == "resistance":
             tasks.append({**base, "kind": "resistance", "prompt_key": r["render_id"],
                           "variant": "resistance", "user_text": r["prompt"]})
@@ -196,6 +199,7 @@ def enumerate_screen_tasks(records, mode):
                       "probe_id": r["probe_id"], "variant": f"screen_{mode}",
                       "role": r.get("role"), "block": r.get("block"),
                       "value": r["value"], "value_favored": r.get("value_favored"),
+                      "is_base_cell": r.get("is_base_cell", True),
                       "user_text": text})
     return tasks
 
