@@ -29,10 +29,20 @@ Design constraints enforced here (from the derivation doc & design decisions):
     instructing the model), controlling epistemic deference and ambient
     instruction-following.
 
-Usage:
+Usage (v1, unchanged):
   python generate_pretest_probes.py --drafts data/pretest/probe_drafts_v1.json \
       --out data/pretest/pretest_probes_v1.jsonl \
       --report data/pretest/validation_report_v1.md
+
+Usage (v2, per docs/pretest_v2_spec.md sections 3 and 8; tranche files merge):
+  python generate_pretest_probes.py \
+      --drafts data/pretest/probe_drafts_v2_tranche1.json \
+      --drafts data/pretest/probe_drafts_v2_tranche2.json \
+      --out data/pretest/pretest_probes_v2.jsonl \
+      --report data/pretest/validation_report_v2.md
+  Add --allow-partial for pre-freeze (screen-stage / staged-tranche) runs: it
+  downgrades battery-completeness and paired_with-resolution problems to
+  warnings. A real freeze runs WITHOUT it and must exit 0.
 """
 
 import argparse
@@ -249,36 +259,422 @@ def validate(drafts, records):
     return problems, warnings, stats
 
 
+# ===========================================================================
+# v2 (instrument-validation instrument) — docs/pretest_v2_spec.md §3.
+#
+# Draft-file shape v2 (staged tranches, merged over multiple --drafts):
+#   { "_meta": {...},
+#     "calibration":     [ {id, domain, scenario, option_a, option_b,
+#                           value_favored: null}, ... ],
+#     "null_comparison": [ choice-probe objects + paired_with, ... ],
+#     <any other key>:   [ main-battery probe objects (channel field), ... ] }
+# Main-battery probes are flat objects per spec §3 (resistance: template/
+# role_set/severity_tier/self_contained; choice: scenario/options/context_
+# sentence/value_favored/role_set/texture_dimension/orthogonality).
+# ===========================================================================
+
+ROLE_MENU = ["self", "friend", "sibling", "coworker", "boss", "stranger"]
+V2_RESERVED_KEYS = {"calibration", "null_comparison"}
+EXPECTED_CALIBRATION = 16       # one per value domain (spec §10)
+EXPECTED_NULL_COMPARISON = 16   # one per value (spec §10)
+MIN_ROLE_SET = 3                # spec §10 says >= 3; committed tranche-1 content
+                                # has size-2 sets, so this is a WARNING, not blocking.
+
+
+def detect_schema_version(draft: dict) -> str:
+    """v2 iff _meta.version says so, or all non-meta top-level values are lists."""
+    version = str(draft.get("_meta", {}).get("version", ""))
+    if version.startswith("v2"):
+        return "v2"
+    if version.startswith("v1"):
+        return "v1"
+    blocks = [v for k, v in draft.items() if not k.startswith("_")]
+    return "v2" if blocks and all(isinstance(b, list) for b in blocks) else "v1"
+
+
+def render_role(text, role):
+    """Render {role} / {role_poss} slots for one role.
+
+    Rules (rendering, not content editing — chosen so the committed tranche-1
+    text and the spec §3 examples read naturally; see validation report):
+      - role != self: {role} -> the role noun ("friend"); {role_poss} ->
+        "my friend's". Authors write "my {role}" / "my {role}'s" directly for
+        the common first-person case.
+      - role == self: possessive constructions collapse to "my"
+        ("my {role}'s" and "{role_poss}" -> "my"); "my {role}" -> "me";
+        bare {role} -> "myself".
+    Leftover '{role' after rendering is a blocking validation problem.
+    """
+    if text is None or role is None:
+        return text
+    if role == "self":
+        for pat, rep in (("my {role}'s", "my"), ("My {role}'s", "My"),
+                         ("{role_poss}", "my"),
+                         ("my {role}", "me"), ("My {role}", "Me"),
+                         ("{role}", "myself")):
+            text = text.replace(pat, rep)
+        return text
+    return text.replace("{role_poss}", f"my {role}'s").replace("{role}", role)
+
+
+def merge_v2_drafts(paths):
+    """Merge staged tranche files. Returns (merged, problems).
+
+    merged = {"main": [...], "calibration": [...], "null_comparison": [...]}
+    Duplicate ids across/within tranches are blocking.
+    """
+    merged = {"main": [], "calibration": [], "null_comparison": []}
+    problems = []
+    seen_ids = {}
+    for path in paths:
+        draft = json.loads(Path(path).read_text(encoding="utf-8"))
+        for key, block in draft.items():
+            if key.startswith("_"):
+                continue
+            if not isinstance(block, list):
+                problems.append(f"{Path(path).name}: v2 top-level key {key!r} is not a list of probes")
+                continue
+            dest = key if key in V2_RESERVED_KEYS else "main"
+            for probe in block:
+                pid = probe.get("id")
+                if not pid:
+                    problems.append(f"{Path(path).name}/{key}: probe without an 'id'")
+                    continue
+                if pid in seen_ids:
+                    problems.append(f"duplicate probe id {pid!r} ({seen_ids[pid]} and {Path(path).name})")
+                    continue
+                seen_ids[pid] = Path(path).name
+                merged[dest].append(probe)
+    return merged, problems
+
+
+def compose_v2(merged):
+    """Render probes x roles into frozen records.
+
+    One record per (probe, role); role is fixed within a choice pair's
+    neutral/value variants BY CONSTRUCTION (both variants rendered here from
+    the same role in one step). Calibration pairs are role-free (role=None)
+    and have only a neutral prompt (no context sentence by definition).
+    """
+    records = []
+
+    def choice_record(p, role, block):
+        scenario = render_role(p.get("scenario", ""), role)
+        option_a = render_role(p.get("option_a", ""), role)
+        option_b = render_role(p.get("option_b", ""), role)
+        context = render_role(p.get("context_sentence"), role)
+        fields = {"scenario": scenario, "option_a": option_a, "option_b": option_b}
+        rec = {
+            "schema_version": "v2",
+            "probe_id": p.get("id"),
+            "render_id": p.get("id") if role is None else f"{p.get('id')}::{role}",
+            "value": p.get("value") or p.get("domain"),
+            "channel": "choice",
+            "block": block,
+            "role": role,
+            "neutral_prompt": CHOICE_TEMPLATE_NEUTRAL.format(**fields),
+            "value_prompt": (CHOICE_TEMPLATE_VALUE.format(context_sentence=context, **fields)
+                             if context else None),
+            "scenario": scenario,
+            "option_a": option_a,
+            "option_b": option_b,
+            "context_sentence": context,
+            "value_favored": p.get("value_favored"),
+        }
+        rec["pair_id"] = rec["render_id"]
+        if block == "main":
+            rec["texture_dimension"] = p.get("texture_dimension")
+            rec["orthogonality"] = p.get("orthogonality")
+            rec["hypothesis"] = VALUE_SPECS.get(rec["value"], {}).get("hypothesis", {}).get("choice")
+        if block == "null_comparison":
+            rec["paired_with"] = p.get("paired_with")
+        return rec
+
+    for p in merged["main"]:
+        roles = p.get("role_set") or [None]
+        if p.get("channel") == "resistance":
+            for role in roles:
+                records.append({
+                    "schema_version": "v2",
+                    "probe_id": p.get("id"),
+                    "render_id": p.get("id") if role is None else f"{p.get('id')}::{role}",
+                    "value": p.get("value"),
+                    "channel": "resistance",
+                    "block": "main",
+                    "role": role,
+                    "prompt": render_role(p.get("template", ""), role),
+                    "severity_tier": p.get("severity_tier"),
+                    "self_contained": p.get("self_contained"),
+                    "hypothesis": VALUE_SPECS.get(p.get("value"), {}).get("hypothesis", {}).get("resistance"),
+                })
+        else:
+            for role in roles:
+                records.append(choice_record(p, role, "main"))
+
+    for p in merged["calibration"]:
+        records.append(choice_record(p, None, "calibration"))
+
+    for p in merged["null_comparison"]:
+        for role in (p.get("role_set") or [None]):
+            records.append(choice_record(p, role, "null_comparison"))
+
+    return records
+
+
+def validate_v2(merged, records, allow_partial=False):
+    """Blocking problems / warnings / stats for the v2 instrument.
+
+    Blocking (spec §8.1): nonempty role_set; texture_dimension on textured
+    (main-battery choice) pairs; severity_tier + self_contained on resistance
+    probes; duplicate options; calibration position counterbalance;
+    null_comparison paired_with resolution; plus structural checks
+    (pair integrity, rendered-slot leftovers, unknown values/roles).
+    Under --allow-partial, completeness and paired_with resolution downgrade
+    to warnings (staged tranches / pre-freeze screens).
+    """
+    problems, warnings, stats = [], [], []
+
+    def partial_problem(msg):
+        (warnings if allow_partial else problems).append(msg + (" [allow-partial: warning]" if allow_partial else ""))
+
+    def check_role_set(p, label):
+        rs = p.get("role_set")
+        if not rs:
+            problems.append(f"{label}: empty or missing role_set")
+            return
+        unknown = [r for r in rs if r not in ROLE_MENU]
+        if unknown:
+            problems.append(f"{label}: roles not in menu {ROLE_MENU}: {unknown}")
+        if len(rs) < MIN_ROLE_SET:
+            warnings.append(f"{label}: role_set has {len(rs)} roles (spec default is >= {MIN_ROLE_SET})")
+
+    def check_choice_common(p, label, require_context=True):
+        for field in ("scenario", "option_a", "option_b"):
+            if not p.get(field):
+                problems.append(f"{label}: missing {field}")
+        if p.get("option_a", "").strip() and p.get("option_a", "").strip() == p.get("option_b", "").strip():
+            problems.append(f"{label}: duplicate options (caught in pilot: tradition-C2)")
+        if require_context:
+            if not p.get("context_sentence"):
+                problems.append(f"{label}: missing context_sentence")
+            if p.get("value_favored") not in ("A", "B"):
+                problems.append(f"{label}: value_favored must be 'A' or 'B'")
+
+    # ---- main battery ----
+    main_choice_ids = set()
+    values_seen = {}
+    for p in merged["main"]:
+        label = p.get("id", "<no id>")
+        value, channel = p.get("value"), p.get("channel")
+        if value not in VALUE_SPECS:
+            problems.append(f"{label}: unknown value {value!r}")
+        if channel not in ("resistance", "choice"):
+            problems.append(f"{label}: channel must be 'resistance' or 'choice', got {channel!r}")
+            continue
+        values_seen.setdefault(value, {"resistance": 0, "choice": 0})[channel] += 1
+        check_role_set(p, label)
+        if channel == "resistance":
+            if not p.get("template"):
+                problems.append(f"{label}: resistance probe missing template")
+            if not p.get("severity_tier"):
+                problems.append(f"{label}: resistance probe missing severity_tier (severity-matching rule, spec §2.8)")
+            if p.get("self_contained") is not True:
+                problems.append(f"{label}: resistance probe must be self_contained: true (pilot defect #3)")
+        else:
+            main_choice_ids.add(label)
+            check_choice_common(p, label)
+            if not p.get("texture_dimension"):
+                problems.append(f"{label}: textured choice pair missing texture_dimension")
+
+    # per-value option-position counterbalance (carried over from v1)
+    for value, counts in values_seen.items():
+        favored = [p.get("value_favored") for p in merged["main"]
+                   if p.get("value") == value and p.get("channel") == "choice"]
+        if favored and max(favored.count("A"), favored.count("B")) > 4:
+            warnings.append(f"{value}: value-favored option sits on one side in "
+                            f"{max(favored.count('A'), favored.count('B'))}/{len(favored)} pairs")
+
+    # ---- calibration block ----
+    lengths_a_longer, lengths_b_longer = 0, 0
+    for p in merged["calibration"]:
+        label = p.get("id", "<no id>")
+        domain = p.get("domain") or p.get("value")
+        if domain not in VALUE_SPECS:
+            problems.append(f"{label}: calibration domain {domain!r} not a rostered value")
+        check_choice_common(p, label, require_context=False)
+        if p.get("value_favored") is not None:
+            problems.append(f"{label}: calibration pairs must have value_favored: null")
+        if p.get("context_sentence"):
+            problems.append(f"{label}: calibration pairs are null pairs — no context_sentence allowed")
+        la, lb = len(p.get("option_a", "")), len(p.get("option_b", ""))
+        if la > lb:
+            lengths_a_longer += 1
+        elif lb > la:
+            lengths_b_longer += 1
+    n_untied = lengths_a_longer + lengths_b_longer
+    if n_untied:
+        tolerance = max(1, round(n_untied * 0.125))
+        if max(lengths_a_longer, lengths_b_longer) > n_untied // 2 + tolerance:
+            problems.append(
+                f"calibration: position counterbalance violated — longer paraphrase (chars) sits in "
+                f"A for {lengths_a_longer} and B for {lengths_b_longer} of {n_untied} untied pairs "
+                f"(need ~half each, tolerance ±{tolerance})")
+        stats.append(f"calibration counterbalance: longer paraphrase in A {lengths_a_longer} / B {lengths_b_longer} (ties excluded)")
+
+    # ---- null_comparison block ----
+    for p in merged["null_comparison"]:
+        label = p.get("id", "<no id>")
+        if p.get("value") not in VALUE_SPECS:
+            problems.append(f"{label}: unknown value {p.get('value')!r}")
+        check_role_set(p, label)
+        check_choice_common(p, label)
+        target = p.get("paired_with")
+        if not target:
+            problems.append(f"{label}: null_comparison probe missing paired_with")
+        elif target not in main_choice_ids:
+            partial_problem(f"{label}: paired_with {target!r} does not resolve to a main-battery choice pair")
+        else:
+            twin = next(q for q in merged["main"] if q.get("id") == target)
+            if twin.get("value") != p.get("value"):
+                warnings.append(f"{label}: value {p.get('value')!r} differs from paired probe's {twin.get('value')!r}")
+            if twin.get("role_set") != p.get("role_set"):
+                warnings.append(f"{label}: role_set differs from paired probe {target} (paired comparison loses roles)")
+
+    # ---- completeness (a real freeze must carry the full instrument) ----
+    missing_values = set(VALUE_SPECS) - set(values_seen)
+    if missing_values:
+        partial_problem(f"main battery missing values: {sorted(missing_values)}")
+    for value, counts in sorted(values_seen.items()):
+        if counts["resistance"] != EXPECTED_RESISTANCE:
+            partial_problem(f"{value}: {counts['resistance']} resistance probes (expected {EXPECTED_RESISTANCE})")
+        if counts["choice"] != EXPECTED_CHOICE_PAIRS:
+            partial_problem(f"{value}: {counts['choice']} choice pairs (expected {EXPECTED_CHOICE_PAIRS})")
+    if len(merged["calibration"]) != EXPECTED_CALIBRATION:
+        partial_problem(f"calibration block has {len(merged['calibration'])} pairs (expected {EXPECTED_CALIBRATION})")
+    if len(merged["null_comparison"]) != EXPECTED_NULL_COMPARISON:
+        partial_problem(f"null_comparison block has {len(merged['null_comparison'])} probes (expected {EXPECTED_NULL_COMPARISON})")
+
+    # ---- rendered-text checks over all records ----
+    for rec in records:
+        texts = [t for t in (rec.get("prompt"), rec.get("neutral_prompt"), rec.get("value_prompt")) if t]
+        for t in texts:
+            if "{role" in t:
+                problems.append(f"{rec['render_id']}: unrendered role slot survives in prompt text")
+            low = t.lower()
+            for artifact in ("my my ", "self's", "me's"):
+                if artifact in low:
+                    warnings.append(f"{rec['render_id']}: rendering artifact {artifact.strip()!r} — check slot usage")
+        # pair integrity: value prompt differs from neutral ONLY by context sentence
+        if rec["channel"] == "choice" and rec.get("value_prompt"):
+            stripped = rec["value_prompt"].replace(" " + rec["context_sentence"], "")
+            if stripped != rec["neutral_prompt"]:
+                problems.append(f"{rec['render_id']}: pair integrity violated (non-context differences)")
+        # lexical leakage (guardrail — extend datasets, never weaken the filter)
+        terms = VALUE_SPECS.get(rec["value"], {}).get("leakage_terms", [])
+        for t in texts:
+            low = t.lower()
+            for term in terms:
+                if term.lower() in low:
+                    warnings.append(f"{rec['value']} / {rec['render_id']}: possible lexical leakage: '{term.strip()}'")
+
+    # ---- stats ----
+    n_by_block = {}
+    for rec in records:
+        n_by_block[rec["block"]] = n_by_block.get(rec["block"], 0) + 1
+    stats.append("rendered records by block: " + ", ".join(f"{k}={v}" for k, v in sorted(n_by_block.items())))
+    role_counts = {}
+    for rec in records:
+        role_counts[rec.get("role") or "(none)"] = role_counts.get(rec.get("role") or "(none)", 0) + 1
+    stats.append("rendered records by role: " + ", ".join(f"{k}={v}" for k, v in sorted(role_counts.items())))
+    r_len = [len(rec["prompt"].split()) for rec in records if rec["channel"] == "resistance"]
+    c_len = [len(rec["neutral_prompt"].split()) for rec in records if rec["channel"] == "choice"]
+    if r_len:
+        stats.append(f"resistance prompt words: median {statistics.median(r_len)}")
+    if c_len:
+        stats.append(f"choice neutral-prompt words: median {statistics.median(c_len)}")
+
+    return problems, warnings, stats
+
+
+def write_report(path, title, header_counts, problems, warnings, stats):
+    lines = [f"# {title}", "", header_counts, "",
+             "## Blocking problems" if problems else "## Blocking problems\n\nNone."]
+    lines += [f"- {p}" for p in problems]
+    lines += ["", "## Warnings (review during curation)"]
+    lines += [f"- {w}" for w in warnings] or ["None."]
+    lines += ["", "## Statistics", ""]
+    lines += [f"- {s}" for s in stats]
+    Path(path).write_text("\n".join(lines), encoding="utf-8")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--drafts", required=True)
+    ap.add_argument("--drafts", required=True, action="append",
+                    help="Draft JSON file; repeat for staged v2 tranches (merged). v1 takes exactly one.")
     ap.add_argument("--out", required=True)
     ap.add_argument("--report", required=True)
+    ap.add_argument("--allow-partial", action="store_true",
+                    help="v2 only: downgrade battery-completeness and paired_with-resolution "
+                         "problems to warnings (staged tranches / pre-freeze screens). "
+                         "A real freeze runs without this flag.")
     args = ap.parse_args()
 
-    drafts = json.loads(Path(args.drafts).read_text())
-    records = compose(drafts)
-    problems, warnings, stats = validate(drafts, records)
+    versions = {detect_schema_version(json.loads(Path(p).read_text(encoding="utf-8"))) for p in args.drafts}
+    if len(versions) > 1:
+        sys.exit("Cannot mix v1 and v2 draft files in one invocation.")
+    version = versions.pop()
 
-    with open(args.out, "w") as f:
+    if version == "v1":
+        if len(args.drafts) > 1:
+            sys.exit("v1 drafts are a single file; multiple --drafts is a v2 (tranche) feature.")
+        if args.allow_partial:
+            sys.exit("--allow-partial is a v2 flag.")
+        drafts = json.loads(Path(args.drafts[0]).read_text())
+        records = compose(drafts)
+        problems, warnings, stats = validate(drafts, records)
+
+        with open(args.out, "w") as f:
+            for rec in records:
+                f.write(json.dumps(rec) + "\n")
+
+        n_r = sum(1 for r in records if r["channel"] == "resistance")
+        n_c = sum(1 for r in records if r["channel"] == "choice")
+        lines = [
+            "# Pre-test probe validation report (v1)", "",
+            f"Values: {len([v for v in drafts if not v.startswith('_')])}  |  "
+            f"Resistance probes: {n_r}  |  Choice pairs: {n_c}  |  "
+            f"Probe units: {n_r + n_c}  |  Prompt texts: {n_r + 2 * n_c}", "",
+            "## Blocking problems" if problems else "## Blocking problems\n\nNone.",
+        ]
+        lines += [f"- {p}" for p in problems]
+        lines += ["", "## Warnings (review during curation)"]
+        lines += [f"- {w}" for w in warnings] or ["None."]
+        lines += ["", "## Length statistics", ""]
+        lines += [f"- {s}" for s in stats]
+        Path(args.report).write_text("\n".join(lines))
+
+        print(f"records: {len(records)}  problems: {len(problems)}  warnings: {len(warnings)}")
+        sys.exit(1 if problems else 0)
+
+    # ---- v2 ----
+    merged, merge_problems = merge_v2_drafts(args.drafts)
+    records = compose_v2(merged)
+    problems, warnings, stats = validate_v2(merged, records, allow_partial=args.allow_partial)
+    problems = merge_problems + problems
+
+    with open(args.out, "w", encoding="utf-8") as f:
         for rec in records:
             f.write(json.dumps(rec) + "\n")
 
     n_r = sum(1 for r in records if r["channel"] == "resistance")
     n_c = sum(1 for r in records if r["channel"] == "choice")
-    lines = [
-        "# Pre-test probe validation report (v1)", "",
-        f"Values: {len([v for v in drafts if not v.startswith('_')])}  |  "
-        f"Resistance probes: {n_r}  |  Choice pairs: {n_c}  |  "
-        f"Probe units: {n_r + n_c}  |  Prompt texts: {n_r + 2 * n_c}", "",
-        "## Blocking problems" if problems else "## Blocking problems\n\nNone.",
-    ]
-    lines += [f"- {p}" for p in problems]
-    lines += ["", "## Warnings (review during curation)"]
-    lines += [f"- {w}" for w in warnings] or ["None."]
-    lines += ["", "## Length statistics", ""]
-    lines += [f"- {s}" for s in stats]
-    Path(args.report).write_text("\n".join(lines))
+    n_texts = sum(1 for r in records if r["channel"] == "resistance") \
+        + sum(1 for r in records if r["channel"] == "choice" and r.get("value_prompt")) * 2 \
+        + sum(1 for r in records if r["channel"] == "choice" and not r.get("value_prompt"))
+    header = (f"Drafts: {', '.join(Path(p).name for p in args.drafts)}  |  "
+              f"Rendered resistance records: {n_r}  |  Rendered choice records: {n_c}  |  "
+              f"Prompt texts: {n_texts}  |  allow_partial: {args.allow_partial}")
+    write_report(args.report, "Pre-test probe validation report (v2)", header, problems, warnings, stats)
 
     print(f"records: {len(records)}  problems: {len(problems)}  warnings: {len(warnings)}")
     sys.exit(1 if problems else 0)
