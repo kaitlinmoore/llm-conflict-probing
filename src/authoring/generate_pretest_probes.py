@@ -267,10 +267,19 @@ def validate(drafts, records):
 #     "calibration":     [ {id, domain, scenario, option_a, option_b,
 #                           value_favored: null}, ... ],
 #     "null_comparison": [ choice-probe objects + paired_with, ... ],
-#     <any other key>:   [ main-battery probe objects (channel field), ... ] }
-# Main-battery probes are flat objects per spec §3 (resistance: template/
-# role_set/severity_tier/self_contained; choice: scenario/options/context_
-# sentence/value_favored/role_set/texture_dimension/orthogonality).
+#     <main battery>:    EITHER a list of flat probe objects carrying their
+#                        own value+channel fields (spec §3 examples), OR
+#                        "choice"/"resistance" keys mapping {value: [probes]}
+#                        (tranche-2 shape: value from the dict key, channel
+#                        from the block key). }
+# Main-battery probe fields (spec §3 + tranche-2 _meta declarations):
+#   resistance: template/role_set/severity_tier/self_contained[/role_exclusions]
+#   choice: scenario/options/context_sentence/value_favored/role_set/
+#           texture_dimension/orthogonality[/swap_at_freeze/role_exclusions/note]
+# swap_at_freeze: true — researcher decision 2026-07-09 (tranche-2a _meta):
+#   the freezer swaps option_a/option_b AND flips value_favored when composing
+#   the frozen set; counterbalance and duplicate-options validators run AFTER
+#   the swap (they operate on the merged, post-swap probes).
 # ===========================================================================
 
 ROLE_MENU = ["self", "friend", "sibling", "coworker", "boss", "stranger"]
@@ -279,6 +288,8 @@ EXPECTED_CALIBRATION = 16       # one per value domain (spec §10)
 EXPECTED_NULL_COMPARISON = 16   # one per value (spec §10)
 MIN_ROLE_SET = 3                # spec §10 says >= 3; committed tranche-1 content
                                 # has size-2 sets, so this is a WARNING, not blocking.
+SEVERITY_TIERS = {"mild", "moderate", "battery-matched"}  # tranche-2b _meta severity_note
+ROLE_EXCLUSION_CODES = {"incoherent", "severity-shift", "value-switch", "implausible"}
 
 
 def detect_schema_version(draft: dict) -> str:
@@ -317,34 +328,78 @@ def render_role(text, role):
     return text.replace("{role_poss}", f"my {role}'s").replace("{role}", role)
 
 
+def apply_freeze_swap(probe):
+    """swap_at_freeze: true — swap options and flip value_favored at compose
+    time (researcher decision 2026-07-09, tranche-2a _meta.counterbalance).
+    Returns a new dict; marks it swapped_at_freeze for provenance. Validators
+    run on the post-swap probes."""
+    if not probe.get("swap_at_freeze"):
+        return probe
+    p = dict(probe)
+    p["option_a"], p["option_b"] = p.get("option_b"), p.get("option_a")
+    p["value_favored"] = {"A": "B", "B": "A"}.get(p.get("value_favored"), p.get("value_favored"))
+    p["swapped_at_freeze"] = True
+    del p["swap_at_freeze"]
+    return p
+
+
 def merge_v2_drafts(paths):
     """Merge staged tranche files. Returns (merged, problems).
 
     merged = {"main": [...], "calibration": [...], "null_comparison": [...]}
+    Main-battery blocks come in two shapes: flat lists of probes carrying
+    value+channel fields (spec §3), or "choice"/"resistance" dicts keyed by
+    value (tranche-2 shape) — normalized here so downstream code sees flat
+    probes. swap_at_freeze is applied here, BEFORE validation.
     Duplicate ids across/within tranches are blocking.
     """
     merged = {"main": [], "calibration": [], "null_comparison": []}
     problems = []
     seen_ids = {}
+
+    def add(dest, probe, src, block_key):
+        pid = probe.get("id")
+        if not pid:
+            problems.append(f"{src}/{block_key}: probe without an 'id'")
+            return
+        if pid in seen_ids:
+            problems.append(f"duplicate probe id {pid!r} ({seen_ids[pid]} and {src})")
+            return
+        seen_ids[pid] = src
+        merged[dest].append(apply_freeze_swap(probe))
+
     for path in paths:
+        src = Path(path).name
         draft = json.loads(Path(path).read_text(encoding="utf-8"))
         for key, block in draft.items():
             if key.startswith("_"):
                 continue
-            if not isinstance(block, list):
-                problems.append(f"{Path(path).name}: v2 top-level key {key!r} is not a list of probes")
-                continue
-            dest = key if key in V2_RESERVED_KEYS else "main"
-            for probe in block:
-                pid = probe.get("id")
-                if not pid:
-                    problems.append(f"{Path(path).name}/{key}: probe without an 'id'")
+            if key in V2_RESERVED_KEYS:
+                if not isinstance(block, list):
+                    problems.append(f"{src}: v2 block {key!r} must be a list of probes")
                     continue
-                if pid in seen_ids:
-                    problems.append(f"duplicate probe id {pid!r} ({seen_ids[pid]} and {Path(path).name})")
+                for probe in block:
+                    add(key, probe, src, key)
+            elif isinstance(block, list):  # flat main-battery probes (spec §3)
+                for probe in block:
+                    add("main", probe, src, key)
+            elif isinstance(block, dict):  # tranche-2 shape: {value: [probes]}
+                if key not in ("choice", "resistance"):
+                    problems.append(f"{src}: dict-shaped main block must be keyed "
+                                    f"'choice' or 'resistance', got {key!r}")
                     continue
-                seen_ids[pid] = Path(path).name
-                merged[dest].append(probe)
+                for value, probes in block.items():
+                    if not isinstance(probes, list):
+                        problems.append(f"{src}/{key}/{value}: expected a list of probes")
+                        continue
+                    for probe in probes:
+                        probe = dict(probe)
+                        probe.setdefault("value", value)
+                        probe.setdefault("channel", key)
+                        add("main", probe, src, key)
+            else:
+                problems.append(f"{src}: v2 top-level key {key!r} is neither a probe list nor "
+                                f"a {{value: [probes]}} dict")
     return merged, problems
 
 
@@ -388,6 +443,9 @@ def compose_v2(merged):
             rec["hypothesis"] = VALUE_SPECS.get(rec["value"], {}).get("hypothesis", {}).get("choice")
         if block == "null_comparison":
             rec["paired_with"] = p.get("paired_with")
+        for passthrough in ("swapped_at_freeze", "role_exclusions", "note"):
+            if p.get(passthrough) is not None:
+                rec[passthrough] = p[passthrough]
         return rec
 
     for p in merged["main"]:
@@ -406,6 +464,7 @@ def compose_v2(merged):
                     "severity_tier": p.get("severity_tier"),
                     "self_contained": p.get("self_contained"),
                     "hypothesis": VALUE_SPECS.get(p.get("value"), {}).get("hypothesis", {}).get("resistance"),
+                    **({"role_exclusions": p["role_exclusions"]} if p.get("role_exclusions") else {}),
                 })
         else:
             for role in roles:
@@ -447,6 +506,37 @@ def validate_v2(merged, records, allow_partial=False):
             problems.append(f"{label}: roles not in menu {ROLE_MENU}: {unknown}")
         if len(rs) < MIN_ROLE_SET:
             warnings.append(f"{label}: role_set has {len(rs)} roles (spec default is >= {MIN_ROLE_SET})")
+        # role_policy (tranche-2 _meta): every menu role is in role_set or
+        # coded in role_exclusions with an auditable reason.
+        excl = p.get("role_exclusions") or {}
+        bad_codes = {r: c for r, c in excl.items() if c not in ROLE_EXCLUSION_CODES}
+        if bad_codes:
+            warnings.append(f"{label}: role_exclusions codes not in {sorted(ROLE_EXCLUSION_CODES)}: {bad_codes}")
+        if excl:
+            uncovered = set(ROLE_MENU) - set(rs) - set(excl)
+            if uncovered:
+                warnings.append(f"{label}: menu roles neither in role_set nor role_exclusions: {sorted(uncovered)}")
+            overlap = set(rs) & set(excl)
+            if overlap:
+                warnings.append(f"{label}: roles both in role_set and role_exclusions: {sorted(overlap)}")
+        # 'self' + non-possessive "my {role}" renders as "me" — often wrong in
+        # subject position ("saying me had...") and leaves they/them referents
+        # dangling. Mechanically unresolvable; flag for curation.
+        if "self" in rs:
+            fields = [p.get(f, "") or "" for f in ("template", "scenario", "context_sentence",
+                                                   "option_a", "option_b")]
+            for t in fields:
+                low = t.lower()
+                idx = low.find("my {role}")
+                while idx != -1:
+                    if not low[idx + len("my {role}"):].startswith("'s"):
+                        warnings.append(f"{label}: 'self' in role_set with non-possessive 'my {{role}}' — "
+                                        f"renders as 'me'; check grammar/referents or exclude self")
+                        break
+                    idx = low.find("my {role}", idx + 1)
+                else:
+                    continue
+                break
 
     def check_choice_common(p, label, require_context=True):
         for field in ("scenario", "option_a", "option_b"):
@@ -478,6 +568,8 @@ def validate_v2(merged, records, allow_partial=False):
                 problems.append(f"{label}: resistance probe missing template")
             if not p.get("severity_tier"):
                 problems.append(f"{label}: resistance probe missing severity_tier (severity-matching rule, spec §2.8)")
+            elif p.get("severity_tier") not in SEVERITY_TIERS:
+                warnings.append(f"{label}: severity_tier {p.get('severity_tier')!r} not in {sorted(SEVERITY_TIERS)}")
             if p.get("self_contained") is not True:
                 problems.append(f"{label}: resistance probe must be self_contained: true (pilot defect #3)")
         else:
