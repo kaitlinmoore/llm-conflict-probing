@@ -2,8 +2,10 @@
 
 Exact commands to verify the v2 pipeline on a GPU pod, **in order**. Run from
 the repo root, inside tmux (`tmux new -s pretest`), with the usual env
-(`source scripts/env.sh`; `HF_TOKEN` set; `uv sync` done). Total GPU time is a
-few minutes. **STOP the pod after.**
+(`source scripts/env.sh` in every terminal BEFORE `uv sync`/`uv run`, or uv
+builds a duplicate venv on the network volume; `HF_TOKEN` set; `uv sync` done).
+All `python` commands in this file are run as `uv run python`. Total GPU time
+is a few minutes. **STOP the pod after.**
 
 ## 1. Unit tests (includes the torch-only merge test skipped off-pod)
 

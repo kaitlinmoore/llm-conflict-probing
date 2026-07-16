@@ -222,3 +222,6 @@ results/emotion_vectors.pt
 
 # Office lock files (curation workbooks open in Excel)
 ~$*
+
+# Cached activation tensors: volume-resident, re-derivable, never committed
+results/**/activations_*.pt

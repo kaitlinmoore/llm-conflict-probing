@@ -58,6 +58,19 @@ ask. Never silently change it.
   keys; never echo them in output.
 - **STOP pods** when runs finish.
 
+### Pod environment setup (uv)
+
+- The environment is **uv-managed**: `uv sync` from the repo root, and run
+  everything as `uv run python ...`.
+- `source scripts/env.sh` in **every fresh terminal, BEFORE any uv command** —
+  otherwise uv silently builds a duplicate venv on the network volume and hits
+  quota. The venv lives at `/root/venv` on pod-local disk and rebuilds in
+  ~5–10 min per pod (accepted tradeoff; volume quota is the constraint).
+- `pyproject.toml` pins are the loader-consistency guarantee — never
+  pip-install around them. The `[tool.uv]` override of transformer-lens's
+  torchvision constraint is deliberate: the working environment has never
+  contained torchvision; pip never enforced that constraint, uv does.
+
 ## Run discipline
 
 - Run dirs are timestamped and **never overwritten**
