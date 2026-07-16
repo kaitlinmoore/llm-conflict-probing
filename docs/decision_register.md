@@ -157,6 +157,26 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
 - **D27. Rewrite queue seeded from judge+audit flags.** Four items entered
   `docs/rewrite_queue.md` (honesty-C5, loyalty-C3, desert-C2, collective_welfare-C3),
   pending screen results. → docs/rewrite_queue.md.
+- **D28. Dominance amendment adopted.** Ratified 2026-07-16 (researcher). Pairs at
+  neutral-form ceiling (mean p_vf > 0.8 across base cells) report the auxiliary
+  dominance indicator instead of shift; the calibration block serves as the
+  format-bias null; cutoffs deferred to the post-IV thresholds decision.
+  → docs/screen_findings_2026-07-16.md.
+- **D29. Rewrite scope.** Ratified 2026-07-16 (researcher). Value-driven ceilings not
+  rewritten; the single pass covered the standing queue plus harm_avoidance-C5
+  (attractiveness-driven per the judge-loading discriminator).
+  → docs/screen_findings_2026-07-16.md.
+- **D30. honesty-C5 edited for claim-count symmetry.** Ratified 2026-07-16
+  (researcher), notwithstanding its benign screen result.
+  → docs/screen_findings_2026-07-16.md.
+- **D31. Mass finding deferred by design.** Ratified 2026-07-16 (researcher). IV
+  proceeds on the declared elicitation format; a sensitivity analysis quantifies the
+  low-mass effect; a format change, if warranted, enters the documented-adjustments
+  round pre-certification. → docs/screen_findings_2026-07-16.md.
+- **D32. Rewrite pass of 2026-07-16 executed and closed.** Ratified 2026-07-16
+  (researcher). 19 field edits across 14 pairs + 2 null-twin syncs; the
+  single-iteration rule is satisfied for this administration.
+  → docs/screen_findings_2026-07-16.md.
 
 ## 2. STANDING RECOMMENDATIONS (REC — awaiting researcher sign-off)
 
