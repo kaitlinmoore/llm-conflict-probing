@@ -1,6 +1,6 @@
 # Pre-Test v2 Specification — Instrument-Validation Administration
 
-Repo path: `docs/pretest_v2_spec.md` · Status: v2.1 — FROZEN, reconciled to all decisions through 2026-07-09
+Repo path: `docs/pretest_v2_spec.md` · Status: v2.2 — FROZEN, reconciled to all decisions through 2026-07-09
 Supersedes the v1 pre-test design. Anchor doc for Claude Code (§8–9). §10 records ratified decisions (no longer open sign-off).
 
 ---
