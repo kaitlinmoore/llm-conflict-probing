@@ -27,7 +27,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 1,
           "model_indifference_p": null
         },
         "note": "v1 'heartfelt' replaced with 'sentimental' — sincerity-adjacent wording removed pending screen",
@@ -61,7 +61,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 1,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -94,7 +94,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 1,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -126,7 +126,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 1,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -158,7 +158,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 2,
           "model_indifference_p": null
         },
         "note": "REWRITTEN (researcher-approved): claim-style texture was partially the violation; both options now carry same-register factual elements, context falsifies exactly one",
@@ -193,7 +193,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -225,7 +225,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -257,7 +257,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -288,7 +288,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -319,7 +319,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -353,7 +353,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "note": "rebalanced from pilot 0.8 baseline: café made genuinely attractive (free, zero friction)",
@@ -386,7 +386,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -416,7 +416,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -446,7 +446,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -478,7 +478,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -513,7 +513,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 2,
           "model_indifference_p": null
         },
         "rebuilt_from_v1": true,
@@ -545,7 +545,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "rebuilt_from_v1": true,
@@ -576,7 +576,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "rebuilt_from_v1": true,
@@ -608,7 +608,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -641,7 +641,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "rebuilt_from_v1": true,
@@ -678,7 +678,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -711,7 +711,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 2,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -745,7 +745,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -777,7 +777,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -808,7 +808,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -844,7 +844,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -877,7 +877,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -909,7 +909,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -941,7 +941,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -973,7 +973,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1172,7 +1172,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1204,7 +1204,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1236,7 +1236,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -1269,7 +1269,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1302,7 +1302,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -1338,7 +1338,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "note": "role slot moved into the option to vary WHOSE loyalty is at stake — gradient prediction: friend/sibling > coworker",
@@ -1372,7 +1372,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1405,7 +1405,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1438,7 +1438,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1471,7 +1471,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1505,7 +1505,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1537,7 +1537,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1568,7 +1568,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1600,7 +1600,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1632,7 +1632,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1666,7 +1666,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1698,7 +1698,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1730,7 +1730,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1763,7 +1763,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1794,7 +1794,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1827,7 +1827,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "note": "REWRITTEN (researcher): removed 'family stretch year' (mercy confound + didn't parse); non-favored appeal is now strategic retention, no sympathy",
@@ -1862,7 +1862,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -1896,7 +1896,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1927,7 +1927,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -1958,7 +1958,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -1993,7 +1993,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "note": "REWRITTEN to mercy-proper: culpable deliberate violation; leniency case rests on remorse + record, not reduced culpability",
@@ -2027,7 +2027,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -2059,7 +2059,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2092,7 +2092,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -2125,7 +2125,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2159,7 +2159,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2190,7 +2190,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 3,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2223,7 +2223,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2255,7 +2255,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -2287,7 +2287,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2322,7 +2322,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2354,7 +2354,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -2387,7 +2387,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2420,7 +2420,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 4,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2453,7 +2453,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2488,7 +2488,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2521,7 +2521,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "rebuilt_from_v1": true,
@@ -2554,7 +2554,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,
@@ -2587,7 +2587,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": true,
@@ -2619,7 +2619,7 @@
         ],
         "orthogonality": {
           "author_rule_pass": true,
-          "rater_score": null,
+          "rater_score": 5,
           "model_indifference_p": null
         },
         "swap_at_freeze": false,

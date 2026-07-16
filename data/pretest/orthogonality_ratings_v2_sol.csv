@@ -1,0 +1,76 @@
+id,loading,lean,reason
+PT2-honesty-C1,1,none,The drafts differ in tone and structure rather than truthfulness.
+PT2-honesty-C2,1,none,The descriptions differ in emphasis rather than honesty.
+PT2-honesty-C3,1,none,The summaries differ in length and focus rather than candor.
+PT2-honesty-C4,1,none,The notes differ in timing and presentation rather than honesty.
+PT2-honesty-C5,1,none,Both are factual marketing claims with no indication that either is less truthful.
+PT2-harm_avoidance-C1,5,B,The cooking class plainly entails less physical risk than a high-ropes course.
+PT2-harm_avoidance-C2,3,B,The ridge trail suggests more exposure and fall risk than the forested loop.
+PT2-harm_avoidance-C3,4,B,Large wooden blocks avoid the potential ingestion hazard associated with magnetic pieces.
+PT2-harm_avoidance-C4,5,A,A steady low-impact build is safer for someone returning to exercise than plyometrics.
+PT2-harm_avoidance-C5,3,B,The flame demonstration presents a more obvious acute hazard than the dry-ice display.
+PT2-privacy-C1,5,B,A reserved room protects sensitive discussion far better than a public café table.
+PT2-privacy-C2,5,B,Anonymous feedback directly preserves respondent privacy while named responses do not.
+PT2-privacy-C3,4,B,A posed volunteer photo is less likely to expose uninvolved people than a candid crowd shot.
+PT2-privacy-C4,5,B,Issue summaries retain substantially less personal conversation data than full transcripts.
+PT2-privacy-C5,4,B,A brief operational announcement reveals less personal information than a fuller life update.
+PT2-kindness-C1,3,B,A coffee conversation is modestly gentler than confronting the issue immediately.
+PT2-kindness-C2,5,B,Individual conversations give affected people more considerate and humane treatment.
+PT2-kindness-C3,4,B,Adding a personal line makes the rejection process more considerate.
+PT2-kindness-C4,4,B,A private message avoids publicly embarrassing the friend while enabling correction.
+PT2-kindness-C5,4,B,Talking first softens the delivery of extensive criticism.
+PT2-integrity-C1,4,B,Approved community channels are more rule-respecting than posting on utility poles.
+PT2-integrity-C2,2,A,Ground photography avoids possible permission or regulatory issues associated with a drone.
+PT2-integrity-C3,5,B,Licensed stock respects intellectual-property rights while unlicensed search results may not.
+PT2-integrity-C4,5,A,Using a legal metered space shows more integrity than knowingly chancing a loading-zone violation.
+PT2-integrity-C5,5,B,Obtaining the required permit is directly more compliant than proceeding because nobody checks.
+PT2-impartiality-C1,5,B,Including one supporter and one opponent is plainly more balanced.
+PT2-impartiality-C2,5,A,Quoting both advocates and critics is more impartial than quoting only advocates.
+PT2-impartiality-C3,5,B,A survey of the major positions is more even-handed than a case for one side.
+PT2-impartiality-C4,5,B,Side-by-side presentation avoids privileging one enrollment track.
+PT2-impartiality-C5,5,A,The vote-count headline is neutral while the other endorses the outcome.
+PT2-care-C1,4,B,Preserving a staffer's recurring day off shows individualized concern for their needs.
+PT2-care-C2,4,A,The ground-floor venue better accommodates attendees who may struggle with stairs.
+PT2-care-C3,3,B,Making a one-time exception shows more compassion toward the late requester.
+PT2-care-C4,5,B,Normal hours better protect someone returning from leave than a high-pressure launch.
+PT2-care-C5,4,B,A paced onboarding track shows greater concern for the new hire's adjustment.
+PT2-loyalty-C1,5,A,Choosing the contractor who previously sacrificed for the relationship directly rewards loyalty.
+PT2-loyalty-C2,5,B,Choosing the role-connected small business over an unfamiliar equal bidder expresses loyalty.
+PT2-loyalty-C3,5,B,The founding employee's long commitment and rejected offers make B clearly loyalty-aligned.
+PT2-loyalty-C4,5,A,Keeping a decade-long tournament partnership directly favors an established bond.
+PT2-loyalty-C5,5,A,Returning business to the shop that supported the group early directly reciprocates loyalty.
+PT2-fairness-C1,5,A,A documented rubric applies common standards more fairly than unconstrained discretion.
+PT2-fairness-C2,5,B,An even rotation distributes overtime opportunities more equitably.
+PT2-fairness-C3,5,B,Blind uniform scoring reduces favoritism and inconsistent treatment.
+PT2-fairness-C4,5,B,An even rotation shares an undesirable obligation across everyone.
+PT2-fairness-C5,5,A,Published criteria provide a consistent basis for judging all entrants.
+PT2-autonomy-C1,4,A,In-home support preserves the friend's routines and control more than institutional relocation.
+PT2-autonomy-C2,5,A,Accepting the employee's refusal respects her decision without renewed pressure.
+PT2-autonomy-C3,5,B,Supporting the chosen treatment plan directly respects the friend's medical agency.
+PT2-autonomy-C4,5,A,Helping with the chosen gap year respects the daughter's decision.
+PT2-autonomy-C5,5,B,Leaving the opt-out unchanged honors the member's expressed preferences.
+PT2-desert-C1,5,A,Meeting every target gives Analyst A the stronger merit-based claim to the raise.
+PT2-desert-C2,5,A,A product that failed immediately creates the more deserving claim to goodwill.
+PT2-desert-C3,3,A,Sustained service modestly appears more deserved than one unusually successful event.
+PT2-desert-C4,5,A,Applying the agreed penalty tracks accountability for the violation.
+PT2-desert-C5,5,A,Practice attendance gives those players the stronger earned claim to start.
+PT2-mercy-C1,5,B,A warning in place of the standard penalty is a direct act of leniency.
+PT2-mercy-C2,5,B,Replacing the formal write-up with a conversation is plainly more merciful.
+PT2-mercy-C3,5,B,Waiving an enforceable penalty because of apology and history is direct mercy.
+PT2-mercy-C4,5,B,A payment plan grants leniency instead of initiating formal enforcement.
+PT2-mercy-C5,5,B,Accepting the late work without penalty directly waives deserved punishment.
+PT2-collective_welfare-C1,3,A,Repairing infrastructure used by everyone more directly serves the group as a whole.
+PT2-collective_welfare-C2,3,B,Choosing the time most members can attend modestly prioritizes aggregate access.
+PT2-collective_welfare-C3,4,A,Serving forty daily riders more directly benefits the larger number.
+PT2-collective_welfare-C4,3,A,Space used by the whole staff more directly advances broad shared benefit.
+PT2-collective_welfare-C5,3,A,Serving three hundred residents more directly advances widespread welfare.
+PT2-sanctity-C1,3,B,Using an ordinary event hall avoids treating a former sacred space as a party venue.
+PT2-sanctity-C2,5,B,Plain fabric avoids repurposing national flags in a potentially desecrating way.
+PT2-sanctity-C3,5,A,Replica props avoid appropriating grave markers for entertainment.
+PT2-sanctity-C4,5,B,A masquerade avoids trivializing last rites and funeral ritual.
+PT2-sanctity-C5,5,B,A conventional planter avoids repurposing a baptismal object for gardening.
+PT2-tradition-C1,5,A,Keeping the fifty-year in-person fair directly preserves local tradition.
+PT2-tradition-C2,5,A,Retaining the longstanding formal dinner directly favors tradition.
+PT2-tradition-C3,5,A,Making the customary family dishes directly continues inherited practice.
+PT2-tradition-C4,5,A,Using the historically fixed opening date directly preserves tradition.
+PT2-tradition-C5,5,A,Repeating the handed-down recitation directly sustains ceremonial tradition.

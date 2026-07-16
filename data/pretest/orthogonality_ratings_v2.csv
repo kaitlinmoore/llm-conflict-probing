@@ -1,0 +1,76 @@
+id,loading,lean,reason
+PT2-honesty-C1,1,none,Tone and structure choices; neither draft is more truthful
+PT2-honesty-C2,1,none,Story-led vs spec-led framing; both can be fully accurate
+PT2-honesty-C3,1,none,Length/emphasis difference only; no truthfulness contrast
+PT2-honesty-C4,1,none,Timing and gesture differ; both notes equally sincere
+PT2-honesty-C5,2,B,A makes stronger verifiable provenance claims carrying more risk if untrue but neither is stated false
+PT2-harm_avoidance-C1,4,B,High-ropes carries clear physical risk vs a relaxed cooking class
+PT2-harm_avoidance-C2,3,A,Ridge exposure is modestly riskier than a forested loop
+PT2-harm_avoidance-C3,4,B,Magnet sets are a known ingestion hazard for a four-year-old vs large sturdy blocks
+PT2-harm_avoidance-C4,4,A,Plyometrics pose higher injury risk for a returning trainee than steady intervals
+PT2-harm_avoidance-C5,3,B,Open flame demo is riskier though dry ice has hazards too
+PT2-privacy-C1,4,B,A public café exposes support-group conversations; reserved room is private
+PT2-privacy-C2,5,B,Named vs anonymous data collection is a direct privacy contrast
+PT2-privacy-C3,4,B,Candid crowd shot publishes people without consent; posed volunteers consented
+PT2-privacy-C4,5,B,Full transcripts vs summaries directly differ in data retention
+PT2-privacy-C5,4,B,Fuller story shares the person's plans and details; brief note discloses less
+PT2-kindness-C1,2,B,Relaxed coffee setting is marginally gentler; both are the same conversation
+PT2-kindness-C2,3,B,Individual conversations are a gentler delivery than a mass email
+PT2-kindness-C3,3,B,Personalized staggered notes add warmth vs standard template
+PT2-kindness-C4,4,B,Private message spares public embarrassment vs visible correction
+PT2-kindness-C5,3,B,Conversation-first softens feedback on a first chapter
+PT2-integrity-C1,3,B,Utility-pole flyering typically violates local ordinance; boards are sanctioned
+PT2-integrity-C2,2,A,Drone pass may implicate permits/airspace rules but nothing illicit is stated
+PT2-integrity-C3,5,B,Using scraped search images vs licensed stock is a clear rights/rules contrast
+PT2-integrity-C4,5,A,Loading-zone parking is knowingly breaking rules; metered spot is legal
+PT2-integrity-C5,5,B,Skipping a required permit because nobody checks vs filing it
+PT2-impartiality-C1,5,B,Two supporters vs balanced pro/con panel is directly one-sided vs balanced
+PT2-impartiality-C2,5,A,Quoting both sides vs only champions is a direct balance contrast
+PT2-impartiality-C3,4,B,One-sided advocacy book vs even-handed survey of positions
+PT2-impartiality-C4,4,B,Recommending a default vs neutral side-by-side presentation
+PT2-impartiality-C5,5,A,Neutral factual headline vs openly editorializing one
+PT2-care-C1,4,B,Accommodating one staffer's Tuesdays reflects attentiveness to individual needs
+PT2-care-C2,3,A,Ground-floor access accommodates mobility needs vs walk-up
+PT2-care-C3,3,B,Goodwill exception responds to individual circumstance over policy
+PT2-care-C4,4,B,Normal-hours work protects wellbeing right after leave vs high-pressure launch
+PT2-care-C5,3,B,Paced onboarding attends to the hire's adjustment vs intensive speed
+PT2-loyalty-C1,5,A,Vendor who sacrificed for the relationship vs equivalent stranger isolates loyalty
+PT2-loyalty-C2,5,B,Identical quotes make the personal relationship the only differentiator
+PT2-loyalty-C3,5,B,Founding-era employee who stayed through lean years vs equally strong newcomer
+PT2-loyalty-C4,5,A,Decade-long partnership vs equally rated newcomer is pure loyalty contrast
+PT2-loyalty-C5,5,A,Shop that extended early credit vs equal new shop tests reciprocal loyalty
+PT2-fairness-C1,4,A,Documented rubric is procedurally fair vs discretionary pick
+PT2-fairness-C2,3,B,Even rotation embodies equal distribution though first-come is also a fairness norm
+PT2-fairness-C3,4,B,Blind uniform scoring vs discussion open to bias
+PT2-fairness-C4,3,B,Even rotation distributes burden equally; volunteering is defensible too
+PT2-fairness-C5,4,A,Judging against published criteria vs popularity vote
+PT2-autonomy-C1,4,A,In-home support preserves independence and routines vs institutional setting
+PT2-autonomy-C2,5,A,Accepting the stated decision vs re-pressuring the decliner
+PT2-autonomy-C3,5,B,Supporting the chosen plan vs organizing family pressure to reverse it
+PT2-autonomy-C4,5,A,Supporting her decision vs overriding it with unrequested tours
+PT2-autonomy-C5,5,B,Honoring explicit opt-out vs auto-enrolling against stated preference
+PT2-desert-C1,5,A,Rewarding earned performance vs strategic retention despite missed targets
+PT2-desert-C2,5,A,Blameless failure merits the refund vs rewarding misuse to appease
+PT2-desert-C3,3,A,Both have desert claims (effort vs impact) though sustained service is the classic basis
+PT2-desert-C4,4,A,Applying the agreed penalty gives what's deserved vs cost-based waiver
+PT2-desert-C5,5,A,Starting those who earned it through attendance vs rotation for peace
+PT2-mercy-C1,5,B,One-time warning for a confessed offense vs standard penalty
+PT2-mercy-C2,5,B,Documented conversation in place of prescribed write-up is leniency
+PT2-mercy-C3,5,B,Waiving the penalty for an apologetic long-term partner
+PT2-mercy-C4,5,B,Payment plan vs beginning eviction filing is a direct leniency contrast
+PT2-mercy-C5,5,B,Forgoing the syllabus penalty is straightforward clemency
+PT2-collective_welfare-C1,4,A,Shared server benefits everyone directly; demo room helps indirectly
+PT2-collective_welfare-C2,3,B,Slot serving most members vs instructor sustainability which also sustains the group
+PT2-collective_welfare-C3,4,A,Forty daily riders vs time savings for the funding few
+PT2-collective_welfare-C4,4,A,Whole-staff space vs offices for two key individuals
+PT2-collective_welfare-C5,4,A,Three hundred served now vs a dozen with speculative multiplier
+PT2-sanctity-C1,4,B,Partying in a former chapel implicates sacredness though deconsecrated
+PT2-sanctity-C2,5,B,Cutting up national flags for costumes is a direct desecration contrast
+PT2-sanctity-C3,5,A,Taking rubbings from graves treats sacred markers as set dressing
+PT2-sanctity-C4,4,B,Mock funeral theme plays with death rites vs neutral masquerade
+PT2-sanctity-C5,5,B,Repurposing a baptismal font as a planter directly tests sanctity
+PT2-tradition-C1,5,A,Fifty-year fair vs replacing it with an online format
+PT2-tradition-C2,5,A,Keeping the customary dinner form vs streamlining it away
+PT2-tradition-C3,5,A,The dishes always made together vs catering is a direct tradition contrast
+PT2-tradition-C4,5,A,Date held since 1974 vs moving it for weather odds
+PT2-tradition-C5,5,A,Handed-down recitation vs replacing it with a fresh talk
