@@ -213,9 +213,14 @@ class TestV2ComposeAndMerge(unittest.TestCase):
 
     def test_construct_field_tolerated_and_passed_through(self):
         probe = main_choice_probe(construct="excuse-control")
-        recs, problems, _ = run_v2([fixture_draft(probes=[probe])])
+        recs, problems, warnings = run_v2([fixture_draft(probes=[probe])])
         self.assertEqual(problems, [])                       # non-blocking (spec v2.1 §8.1)
         self.assertEqual(recs[0]["construct"], "excuse-control")
+        self.assertFalse(any("construct" in w for w in warnings))
+        # enum is the only validation, warning-tier
+        _, problems2, warnings2 = run_v2([fixture_draft(probes=[main_choice_probe(construct="hardship")])])
+        self.assertFalse(any("construct" in p for p in problems2))
+        self.assertTrue(any("construct 'hardship'" in w for w in warnings2))
 
     def test_uncoded_skip_reason_warns(self):
         probe = main_resistance_probe(

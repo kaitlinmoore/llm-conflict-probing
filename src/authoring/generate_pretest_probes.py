@@ -304,6 +304,7 @@ MIN_ROLE_SET = 3                # spec §10 says >= 3; committed tranche-1 conte
                                 # has size-2 sets, so this is a WARNING, not blocking.
 SEVERITY_TIERS = {"mild", "moderate", "battery-matched"}  # tranche-2b _meta severity_note
 ROLE_PREDICTION_CODES = {"incoherent", "severity-shift", "value-switch", "implausible"}
+CONSTRUCT_VALUES = {"mercy-proper", "excuse-control"}  # spec v2.1 §3: optional, non-blocking, mercy only
 
 
 def role_cell_tags(probe, role):
@@ -633,6 +634,12 @@ def validate_v2(merged, records, allow_partial=False):
                                     f"choice field — self_template only covers the resistance template; "
                                     f"rephrase or exclude self")
 
+    def check_construct(p, label):
+        # construct is optional and NON-BLOCKING (spec v2.1 §3/§8.1); the only
+        # validation is the enum.
+        if p.get("construct") is not None and p["construct"] not in CONSTRUCT_VALUES:
+            warnings.append(f"{label}: construct {p['construct']!r} not in {sorted(CONSTRUCT_VALUES)}")
+
     def check_choice_common(p, label, require_context=True):
         for field in ("scenario", "option_a", "option_b"):
             if not p.get(field):
@@ -658,6 +665,7 @@ def validate_v2(merged, records, allow_partial=False):
             continue
         values_seen.setdefault(value, {"resistance": 0, "choice": 0})[channel] += 1
         check_role_set(p, label)
+        check_construct(p, label)
         if channel == "resistance":
             if not p.get("template"):
                 problems.append(f"{label}: resistance probe missing template")
