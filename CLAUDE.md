@@ -10,7 +10,8 @@ linearly-decodable representation in a model's residual stream at the
 **pre-generation anchor token**, dissociable from (a) the Arditi-style refusal
 direction and (b) the nearest emotion vectors from Anthropic's
 "Emotion Concepts" paper (Transformer Circuits, Apr 2026).
-Dev model: `gemma-2-2b-it`. Scale-up target: `Llama-3.1-8B-Instruct`.
+Models: **primary** `Llama-3.1-8B-Instruct`; **replication legs**
+`gemma-2-2b-it` / `gemma-2-9b-it`; **control** `Llama-3.1-8B` (base).
 
 ## Scientific invariants. Do not "fix" these.
 
@@ -45,27 +46,69 @@ ask. Never silently change it.
 
 ## Environment
 
-- Hardware: single RTX 5080 laptop GPU (**16 GB VRAM**, Blackwell), 64 GB RAM.
-  Blackwell needs torch built for cu128+; "no kernel image" errors mean a
-  stale torch build, not a code bug.
-- Gemma is **gated** on Hugging Face: requires `HF_TOKEN` with license
-  accepted at huggingface.co/google/gemma-2-2b-it.
+- Execution is on **RunPod A100 pods** (torch 2.8+cu128 there). The local
+  machine is for code, stdlib tests, and analysis of committed artifacts —
+  no GPU work happens locally.
+- Every pod session: `export HF_HOME=/workspace/hf_cache` (persistent volume;
+  avoids re-downloading weights). Every long run goes inside **tmux**.
+- Models are **gated** on Hugging Face: `HF_TOKEN` with licenses accepted
+  (meta-llama/Llama-3.1-8B[-Instruct], google/gemma-2-2b-it / 9b-it).
 - Anthropic API key (`ANTHROPIC_API_KEY`) is used only by
   `data/generate_stories.py` (stronger-model story generation). Never commit
   keys; never echo them in output.
+- **STOP pods** when runs finish.
 
-## Memory rules (16 GB)
+## Run discipline
 
-- bf16 everywhere; `torch.set_grad_enabled(False)` globally. Nothing here
-  needs gradients except probe training, which runs on CPU/sklearn over
-  cached activations.
-- Always cache selectively: `names_filter=lambda n: n.endswith("hook_resid_post")`
-  (or a single layer). Never bare `run_with_cache` on the 8B model.
-- 8B workflow: Generate with HF `transformers` (or quantized); save
-  transcripts; then a single TransformerLens/nnsight forward pass per
-  transcript for activations. Batch size 1. Layer subset (every other layer).
-- `del cache; torch.cuda.empty_cache()` after each transcript. Move cached
-  activations to CPU immediately (64 GB RAM is the working store).
+- Run dirs are timestamped and **never overwritten**
+  (`results/pretest/{run_id}/...`); rerunning creates a new dir. Every script
+  writes incrementally and is resumable: CSV rows flushed as produced,
+  activation checkpoints every 25 rows with a `partial` flag. Killing and
+  rerunning is always safe; nothing is clobbered.
+- Model-code conventions: bf16, `torch.no_grad()`, selective caching
+  (`names_filter=lambda n: n.endswith("hook_resid_post")`), activations moved
+  to CPU immediately. Probe training runs on CPU/sklearn over cached
+  activations — nothing needs gradients.
+
+## Pre-test subsystem (Stage 1)
+
+Anchor doc: **`docs/pretest_v2_spec.md`** (v2.1 — FROZEN). Entry points, in
+pipeline order:
+
+- `src/authoring/generate_pretest_probes.py` — validates and freezes probe
+  drafts (v1 single file, or v2 tranches via repeatable `--drafts`;
+  `--allow-partial` for pre-freeze/screen runs). Exit 1 on any blocking
+  problem; writes the frozen `.jsonl` + a validation report.
+- `src/authoring/apply_role_tiering.py` — applies the ratified tiered
+  run-all role design to tranche files (provenance record; idempotent).
+- `src/pretest/run_pretest.py` — generations / logit readouts + anchor
+  activation caching. `--run-role {pilot,certification,instrument_validation}`;
+  `--screen {indifference,rebalance}` (logits-only, spec §5);
+  `--sample-k`/`--temperature` (resistance k-sampling, seeds 0..k-1, +
+  `greedy_ref`); `--shard i/N` (deterministic split over rendered prompts).
+- `src/pretest/merge_shards.py` — recombines shard outputs with count + sha256
+  verification against the frozen set; refuses on any mismatch.
+- `notebooks/pretest_analysis.ipynb` — IV analysis: base-cell-filtered pull and
+  gradient estimates, calibration bias, textured-vs-null pairing, exclusion
+  validation, audit round-trip. **Non-gating for IV.**
+- `src/pretest/SMOKE_TEST.md` — exact pod verification commands, in order.
+  Tests: `python -m unittest discover -s tests` (stdlib; torch-only cases
+  skip off-pod).
+
+Probe schema (v2, spec §3/§3a): `role_set` (= base + rendered validation
+cells), `role_included_base` (pull/gradient estimates use ONLY these cells),
+`role_predictions` ({role: expected defect signature} for rendered validation
+cells), `role_skipped` ({role: reason}; `role_set ∪ role_skipped` = menu
+exactly is a blocking validator), `self_template` (verbatim first-person text
+used when rendering role == self), `swap_at_freeze` (freezer swaps options and
+flips `value_favored`, records `swap_applied`), `construct` (mercy probes only:
+mercy-proper / excuse-control, non-blocking), `severity_tier`,
+`self_contained`, `texture_dimension`, `orthogonality`.
+
+**Repo is the interface.** Claude Code works only from committed files; probe
+content arrives as commits from the design session and is never edited here.
+v1 pilot code paths are preserved and regression-tested (byte-identical frozen
+output).
 
 ## Repository conventions
 
