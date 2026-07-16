@@ -107,7 +107,7 @@ A100 pods for extraction and generation.
 ```
 CLAUDE.md              # working instructions for Claude Code sessions
 docs/
-  pretest_v2_spec.md         # anchor spec for the enactment pre-test (v2.1)
+  pretest_v2_spec.md         # anchor spec for the enactment pre-test (v2.2)
   pretest_v2_checklist.md    # execution checklist
   labeling_rubric.md         # resistance-labeling rubric (v1.1)
   decision_register.md       # ratified / recommended / open decisions

@@ -2,7 +2,7 @@
 """
 apply_role_tiering.py (v2) — apply the tiered run-all role design to tranche files.
 
-Design (researcher-ratified 2026-07-09; rendering-scope rule ratified 2026-07-15):
+Design (researcher-ratified 2026-07-15; rendering-scope rule ratified 2026-07-15):
   - Base role sets are UNTOUCHED (authored/curated content; pull and gradient estimates
     use ONLY these cells, frozen pre-run) — with one ratified exception below.
   - Each menu role NOT in the base set carries an exclusion code (its pre-registered
@@ -134,7 +134,7 @@ def probes_of(d):
     return []
 
 
-POLICY = ("TIERED run-all v2 (tiering ratified 2026-07-09; rendering-scope rule ratified 2026-07-15). "
+POLICY = ("TIERED run-all v2 (tiering ratified 2026-07-15; rendering-scope rule ratified 2026-07-15). "
           "role_included_base = authored/curated roles; pull and gradient estimates use ONLY these, frozen "
           "pre-run (single ratified exception: self removed from kindness/harm_avoidance base sets — "
           "definitional value-switch). Additionally rendered as pre-registered VALIDATION cells: all "
