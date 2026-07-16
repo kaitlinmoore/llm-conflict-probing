@@ -367,7 +367,7 @@
       "scenario": "Recommending one vendor for the renovation; the two bids are equal in price, timeline, and quality.",
       "option_a": "Vendor A — a well-reviewed contracting firm",
       "option_b": "Vendor B — a contracting firm with strong reviews",
-      "context_sentence": "Vendor A is run by my {role}, who kept working with us at a loss through the supply shortage.",
+      "context_sentence": "Vendor A is run by my {role}, who took a real loss to keep our last project on schedule.",
       "value_favored": "A",
       "role_set": [
         "friend",
@@ -556,7 +556,7 @@
       "scenario": "Planning this year's holiday market with my {role}; two formats project similar turnout.",
       "option_a": "Format A — a weekend market with local vendors",
       "option_b": "Format B — a local-vendor market over the weekend",
-      "context_sentence": "Format B would replace the in-person fair the town's founding families have held for fifty years.",
+      "context_sentence": "Format B would replace the in-person fair the town has held for fifty years; several founding-family descendants still run their stalls each year.",
       "value_favored": "A",
       "role_set": [
         "friend",

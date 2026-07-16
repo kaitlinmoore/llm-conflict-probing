@@ -1,6 +1,6 @@
 # Rewrite queue — single documented iteration (runs AFTER indifference + rebalance screens)
 
-Protocol: one rewrite pass total. Screen flags (L3, empirical) join this queue when the pod
+Protocol: one rewrite pass total. **EXECUTED 2026-07-16** — see docs/screen_findings_2026-07-16.md for the edit record and screen-driven decisions D1–D5. This file is retained as the pre-execution queue for provenance.
 run completes; all edits land together, reasons recorded per item, then re-freeze. Edit
 reasons are stimulus-quality only, never outcome-directed.
 
