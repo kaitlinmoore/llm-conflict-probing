@@ -42,7 +42,7 @@ ask. Never silently change it.
    P1–P5 in README.md don't get edited to match results. New analyses are
    welcome as clearly-labeled exploratory additions.
 6. **Findings log is append-only.** `notebooks/` findings-log cells and
-   `results/findings.md` get dated additions, never deletions or rewrites.
+   `docs/findings_log.md` get dated additions, never deletions or rewrites.
 
 ## Environment
 
