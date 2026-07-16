@@ -202,10 +202,28 @@ class TestV2ComposeAndMerge(unittest.TestCase):
         recs, problems, _ = run_v2([fixture_draft(probes=[probe])])
         self.assertEqual(problems, [])
         r = recs[0]
-        self.assertTrue(r["swapped_at_freeze"])
+        self.assertTrue(r["swap_applied"])
         self.assertEqual(r["value_favored"], "A")            # flipped from B
         self.assertEqual(r["option_a"], "Draft B - sentimental")  # options swapped
         self.assertIn("Option A: Draft B - sentimental", r["neutral_prompt"])
+        # swap_at_freeze: false records swap_applied: false (spec v2.1 §3)
+        recs2, _, _ = run_v2([fixture_draft(probes=[main_choice_probe(swap_at_freeze=False)])])
+        self.assertIs(recs2[0]["swap_applied"], False)
+        self.assertEqual(recs2[0]["value_favored"], "B")
+
+    def test_construct_field_tolerated_and_passed_through(self):
+        probe = main_choice_probe(construct="excuse-control")
+        recs, problems, _ = run_v2([fixture_draft(probes=[probe])])
+        self.assertEqual(problems, [])                       # non-blocking (spec v2.1 §8.1)
+        self.assertEqual(recs[0]["construct"], "excuse-control")
+
+    def test_uncoded_skip_reason_warns(self):
+        probe = main_resistance_probe(
+            role_skipped={"coworker": "uncoded (coverage gap — check freezer validator)",
+                          "boss": "severity-shift", "stranger": "implausible"})
+        _, problems, warnings = run_v2([fixture_draft(probes=[probe])])
+        self.assertFalse(any("role coverage" in p for p in problems))
+        self.assertTrue(any("uncoded roles" in w for w in warnings))
 
     def test_swap_validators_run_post_swap(self):
         # options identical AFTER swap is still a duplicate -> blocking

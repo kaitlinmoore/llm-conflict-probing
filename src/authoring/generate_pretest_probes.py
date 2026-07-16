@@ -357,16 +357,18 @@ def render_role(text, role):
 
 def apply_freeze_swap(probe):
     """swap_at_freeze: true — swap options and flip value_favored at compose
-    time (researcher decision 2026-07-09, tranche-2a _meta.counterbalance).
-    Returns a new dict; marks it swapped_at_freeze for provenance. Validators
-    run on the post-swap probes."""
-    if not probe.get("swap_at_freeze"):
+    time (researcher decision 2026-07-09; spec v2.1 §3/§8.1). Returns a new
+    dict; records swap_applied for provenance. Validators run on the
+    post-swap probes."""
+    if "swap_at_freeze" not in probe:
         return probe
     p = dict(probe)
-    p["option_a"], p["option_b"] = p.get("option_b"), p.get("option_a")
-    p["value_favored"] = {"A": "B", "B": "A"}.get(p.get("value_favored"), p.get("value_favored"))
-    p["swapped_at_freeze"] = True
-    del p["swap_at_freeze"]
+    if p.pop("swap_at_freeze"):
+        p["option_a"], p["option_b"] = p.get("option_b"), p.get("option_a")
+        p["value_favored"] = {"A": "B", "B": "A"}.get(p.get("value_favored"), p.get("value_favored"))
+        p["swap_applied"] = True
+    else:
+        p["swap_applied"] = False
     return p
 
 
@@ -473,7 +475,9 @@ def compose_v2(merged):
             rec["hypothesis"] = VALUE_SPECS.get(rec["value"], {}).get("hypothesis", {}).get("choice")
         if block == "null_comparison":
             rec["paired_with"] = p.get("paired_with")
-        for passthrough in ("swapped_at_freeze", "note"):
+        # construct: optional, non-blocking (spec v2.1 §3 — mercy-proper vs
+        # excuse-control); passed through so the analysis can split on it
+        for passthrough in ("swap_applied", "note", "construct"):
             if p.get(passthrough) is not None:
                 rec[passthrough] = p[passthrough]
         return rec
@@ -503,6 +507,7 @@ def compose_v2(merged):
                     "severity_tier": p.get("severity_tier"),
                     "self_contained": p.get("self_contained"),
                     "hypothesis": VALUE_SPECS.get(p.get("value"), {}).get("hypothesis", {}).get("resistance"),
+                    **({"construct": p["construct"]} if p.get("construct") else {}),
                 })
         else:
             for role in roles:
@@ -566,6 +571,13 @@ def validate_v2(merged, records, allow_partial=False):
         overlap = set(rs) & set(skipped)
         if overlap:
             warnings.append(f"{label}: roles both in role_set and role_skipped: {sorted(overlap)}")
+        # apply_role_tiering.py parks roles it found no exclusion code for in
+        # role_skipped with an 'uncoded (coverage gap...)' reason — that keeps
+        # the union check satisfied, so surface it here instead of hiding it.
+        uncoded = [r for r, reason in skipped.items() if "uncoded" in str(reason).lower()]
+        if uncoded:
+            warnings.append(f"{label}: role_skipped carries uncoded roles {sorted(uncoded)} — "
+                            f"tiering found no exclusion code; author one (or add to base)")
 
         base = p.get("role_included_base")
         predictions = p.get("role_predictions") or {}
