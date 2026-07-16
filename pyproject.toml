@@ -2,7 +2,8 @@
 name = "llm-conflict-probing"
 version = "0.1.0"
 description = "Probing for internal value-conflict states in LLM residual streams"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
+
 dependencies = [
     # --- core ML stack (pinned to the known-good cu128 pair) ---
     "torch==2.11.0",
@@ -35,6 +36,10 @@ dependencies = [
     # --- experiment tracking (optional; was present in prior env) ---
     "wandb==0.27.2",
 ]
+
+[tool.uv]
+environments = ["sys_platform == 'linux'"]
+override-dependencies = ["torchvision; sys_platform == 'never'"]
 
 # Bind torch + torchvision to the PyTorch CUDA 12.8 wheel index so they never
 # silently resolve to a CPU build from PyPI. This is the line that stops the
