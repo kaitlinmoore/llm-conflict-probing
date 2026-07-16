@@ -1,0 +1,94 @@
+{
+  "run_id": "20260716_155148_llama8b_instrument_validation_screen-rebalance",
+  "run_role": "instrument_validation",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "model_tag": "llama8b",
+  "dtype": "bfloat16",
+  "max_new_tokens": 256,
+  "decoding": "screen (rebalance): logits-only readout at anchor, no generation",
+  "probe_file": "data/pretest/pretest_probes_v2.jsonl",
+  "probe_file_sha256": "d7617b169dc9ae9f0319be36437f46326c09231561230cacb8ec2756205a0f65",
+  "n_probe_units": 661,
+  "n_prompt_texts": 275,
+  "anchor_spec": "assistant<|end_header_id|>\n\n",
+  "anchor_verification_samples": [
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    }
+  ],
+  "torch_version": "2.11.0+cu128",
+  "timestamp": "2026-07-16T16:00:11.299861",
+  "notes": "Labeling authority: rubric + human audit for resistance; structural parse for choice with manual fallback. Certification computed in the analysis notebook, not here.",
+  "schema_version": "v2",
+  "screen_mode": "rebalance",
+  "shard": null,
+  "shard_index": null,
+  "shard_total": null,
+  "n_tasks_total": 275,
+  "n_tasks_shard": 275,
+  "sample_k": null,
+  "temperature": null,
+  "seed_list": null,
+  "choice_token_variants": {
+    "A": {
+      "ids": [
+        32,
+        362,
+        52374,
+        30233,
+        48349,
+        64,
+        264,
+        26248,
+        57793
+      ],
+      "forms": [
+        "A",
+        " A",
+        "'A",
+        "\"A",
+        "\u201cA",
+        "a",
+        " a",
+        "'a",
+        "\"a"
+      ]
+    },
+    "B": {
+      "ids": [
+        33,
+        426,
+        47055,
+        64690,
+        65,
+        293,
+        91953
+      ],
+      "forms": [
+        "B",
+        " B",
+        "'B",
+        "\"B",
+        "b",
+        " b",
+        "'b"
+      ]
+    }
+  },
+  "low_mass_threshold": 0.5,
+  "screen_band": [
+    0.35,
+    0.65
+  ],
+  "expected_rows": 275,
+  "n_unique_prompt_texts": 256
+}
