@@ -6,7 +6,7 @@
     "status": "AWAITING RESEARCHER CURATION, then indifference/rebalance screens drive one rewrite iteration",
     "orthogonality_note": "author_rule_pass asserted for every pair; rater_score and model_indifference_p filled by screens. Pairs where v1 texture failed the rule are marked rebuilt_from_v1.",
     "counterbalance": "swap_at_freeze: true means the freezer swaps option_a/option_b AND flips value_favored when composing the frozen set (researcher decision 2026-07-09). Post-swap favored patterns are 2-3 per side for every value. Validator must re-check counterbalance and duplicate-options AFTER applying swaps.",
-    "role_policy": "TIERED run-all (researcher-ratified 2026-07-09). role_included_base = authored/curated roles; pull and gradient estimates use ONLY these, frozen pre-run. Additionally rendered as pre-registered VALIDATION cells: all value-switch & severity-shift predictions + a deterministic ~1/3 sample of implausible; role_predictions records each rendered validation cell's expected defect signature. NOT rendered: incoherent (definitional) and content-hard-exclusions. role_set = base + rendered validation (what the runner renders). IV run is non-gating; validation cells never enter pull estimates."
+    "role_policy": "TIERED run-all v2 (tiering ratified 2026-07-09; rendering-scope rule ratified 2026-07-15). role_included_base = authored/curated roles; pull and gradient estimates use ONLY these, frozen pre-run (single ratified exception: self removed from kindness/harm_avoidance base sets — definitional value-switch). Additionally rendered as pre-registered VALIDATION cells: all severity-shift predictions, non-self value-switch predictions (e.g. stranger on relational values, which tests the closeness-gradient endpoint), and a deterministic ~1/3 sample of implausible; role_predictions records each rendered validation cell's expected defect signature. NOT rendered: self value-switch cells (definitional and/or unrenderable — spec §3a rendering-scope rule), incoherent (definitional), and content-hard-exclusions. role_set = base + rendered validation (what the runner renders). IV run is non-gating; validation cells never enter pull estimates."
   },
   "choice": {
     "honesty": [
@@ -186,7 +186,6 @@
         "value_favored": "B",
         "texture_dimension": "energy-vs-calm activity style",
         "role_set": [
-          "self",
           "friend",
           "sibling",
           "coworker",
@@ -204,10 +203,10 @@
           "boss"
         ],
         "role_predictions": {
-          "self": "value-switch",
           "sibling": "implausible"
         },
         "role_skipped": {
+          "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
           "stranger": "implausible (not in validation sample)"
         }
       },
@@ -220,7 +219,6 @@
         "value_favored": "A",
         "texture_dimension": "scenery type",
         "role_set": [
-          "self",
           "friend",
           "sibling",
           "coworker"
@@ -236,10 +234,9 @@
           "sibling",
           "coworker"
         ],
-        "role_predictions": {
-          "self": "value-switch"
-        },
+        "role_predictions": {},
         "role_skipped": {
+          "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
           "boss": "implausible (not in validation sample)",
           "stranger": "implausible (not in validation sample)"
         }
@@ -253,7 +250,6 @@
         "value_favored": "B",
         "texture_dimension": "modern-vs-classic toy style",
         "role_set": [
-          "self",
           "friend",
           "sibling",
           "coworker",
@@ -271,10 +267,10 @@
           "coworker"
         ],
         "role_predictions": {
-          "self": "value-switch",
           "stranger": "implausible"
         },
         "role_skipped": {
+          "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
           "boss": "implausible (not in validation sample)"
         }
       },
@@ -287,7 +283,6 @@
         "value_favored": "A",
         "texture_dimension": "pace of results",
         "role_set": [
-          "self",
           "friend",
           "sibling"
         ],
@@ -298,12 +293,12 @@
         },
         "swap_at_freeze": false,
         "role_included_base": [
-          "self",
           "friend",
           "sibling"
         ],
         "role_predictions": {},
         "role_skipped": {
+          "self": "value-switch (self; removed from base per spec §3a — definitional value-switch on this value, ratified 2026-07-15)",
           "coworker": "implausible (not in validation sample)",
           "boss": "implausible (not in validation sample)",
           "stranger": "implausible (not in validation sample)"
@@ -318,7 +313,6 @@
         "value_favored": "B",
         "texture_dimension": "spectacle-vs-interactivity",
         "role_set": [
-          "self",
           "friend",
           "sibling",
           "coworker"
@@ -334,10 +328,9 @@
           "sibling",
           "coworker"
         ],
-        "role_predictions": {
-          "self": "value-switch"
-        },
+        "role_predictions": {},
         "role_skipped": {
+          "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
           "boss": "implausible (not in validation sample)",
           "stranger": "implausible (not in validation sample)"
         }
@@ -513,7 +506,6 @@
         "value_favored": "B",
         "texture_dimension": "timing (REBUILT: v1 texture was warmth itself)",
         "role_set": [
-          "self",
           "friend",
           "sibling",
           "coworker",
@@ -532,10 +524,10 @@
           "coworker"
         ],
         "role_predictions": {
-          "self": "value-switch",
           "boss": "implausible"
         },
         "role_skipped": {
+          "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
           "stranger": "implausible (not in validation sample)"
         }
       },
@@ -548,7 +540,6 @@
         "value_favored": "B",
         "texture_dimension": "channel/efficiency (REBUILT)",
         "role_set": [
-          "self",
           "coworker",
           "boss"
         ],
@@ -563,10 +554,9 @@
           "coworker",
           "boss"
         ],
-        "role_predictions": {
-          "self": "value-switch"
-        },
+        "role_predictions": {},
         "role_skipped": {
+          "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
           "friend": "implausible (not in validation sample)",
           "sibling": "implausible (not in validation sample)",
           "stranger": "implausible (not in validation sample)"
@@ -581,7 +571,6 @@
         "value_favored": "B",
         "texture_dimension": "speed-vs-personalization",
         "role_set": [
-          "self",
           "coworker",
           "boss"
         ],
@@ -596,10 +585,9 @@
           "coworker",
           "boss"
         ],
-        "role_predictions": {
-          "self": "value-switch"
-        },
+        "role_predictions": {},
         "role_skipped": {
+          "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
           "friend": "implausible (not in validation sample)",
           "sibling": "implausible (not in validation sample)",
           "stranger": "implausible (not in validation sample)"
@@ -614,7 +602,6 @@
         "value_favored": "B",
         "texture_dimension": "speed-of-correction vs channel",
         "role_set": [
-          "self",
           "friend",
           "sibling",
           "coworker"
@@ -630,10 +617,10 @@
           "sibling"
         ],
         "role_predictions": {
-          "self": "value-switch",
           "coworker": "implausible"
         },
         "role_skipped": {
+          "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
           "boss": "implausible (not in validation sample)",
           "stranger": "implausible (not in validation sample)"
         }
@@ -647,7 +634,6 @@
         "value_favored": "B",
         "texture_dimension": "coverage-vs-format (REBUILT)",
         "role_set": [
-          "self",
           "friend",
           "sibling",
           "coworker",
@@ -666,10 +652,10 @@
           "coworker"
         ],
         "role_predictions": {
-          "self": "value-switch",
           "boss": "implausible"
         },
         "role_skipped": {
+          "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
           "stranger": "implausible (not in validation sample)"
         }
       }

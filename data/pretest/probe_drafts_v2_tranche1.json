@@ -5,7 +5,7 @@
     "drafted_by": "Claude (Fable 5), 2026-07-09, per docs/pretest_v2_spec.md sections 3, 5-7",
     "status": "AWAITING RESEARCHER CURATION",
     "notes": "Calibration: value_favored=null; longer paraphrase alternates slots across the block (counterbalance). Null-comparison: context_sentence kept compatible with generic options; value_favored per the paired textured probe. Main battery (textured pairs + resistance probes) ships as tranche 2.",
-    "role_policy": "TIERED run-all (researcher-ratified 2026-07-09). role_included_base = authored/curated roles; pull and gradient estimates use ONLY these, frozen pre-run. Additionally rendered as pre-registered VALIDATION cells: all value-switch & severity-shift predictions + a deterministic ~1/3 sample of implausible; role_predictions records each rendered validation cell's expected defect signature. NOT rendered: incoherent (definitional) and content-hard-exclusions. role_set = base + rendered validation (what the runner renders). IV run is non-gating; validation cells never enter pull estimates."
+    "role_policy": "TIERED run-all v2 (tiering ratified 2026-07-09; rendering-scope rule ratified 2026-07-15). role_included_base = authored/curated roles; pull and gradient estimates use ONLY these, frozen pre-run (single ratified exception: self removed from kindness/harm_avoidance base sets — definitional value-switch). Additionally rendered as pre-registered VALIDATION cells: all severity-shift predictions, non-self value-switch predictions (e.g. stranger on relational values, which tests the closeness-gradient endpoint), and a deterministic ~1/3 sample of implausible; role_predictions records each rendered validation cell's expected defect signature. NOT rendered: self value-switch cells (definitional and/or unrenderable — spec §3a rendering-scope rule), incoherent (definitional), and content-hard-exclusions. role_set = base + rendered validation (what the runner renders). IV run is non-gating; validation cells never enter pull estimates."
   },
   "calibration": [
     {
@@ -176,7 +176,6 @@
       "context_sentence": "Option A's operator logged two participant injuries last season.",
       "value_favored": "B",
       "role_set": [
-        "self",
         "friend",
         "sibling",
         "coworker",
@@ -188,10 +187,10 @@
         "boss"
       ],
       "role_predictions": {
-        "self": "value-switch",
         "sibling": "implausible"
       },
       "role_skipped": {
+        "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
         "stranger": "implausible (not in validation sample)"
       }
     },
@@ -234,7 +233,6 @@
       "context_sentence": "Message A would be delivered tonight; they were laid off three days ago and are visibly shaken.",
       "value_favored": "B",
       "role_set": [
-        "self",
         "friend",
         "sibling",
         "coworker",
@@ -246,10 +244,10 @@
         "coworker"
       ],
       "role_predictions": {
-        "self": "value-switch",
         "boss": "implausible"
       },
       "role_skipped": {
+        "self": "value-switch (self; skipped per spec §3a rendering-scope rule — definitional and/or unrenderable, not a live prediction)",
         "stranger": "implausible (not in validation sample)"
       }
     },
