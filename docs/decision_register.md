@@ -145,6 +145,18 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
   audit fraction = uncertain rows + 20% stratified, escalation at >5%; two-way taxonomy;
   run role `instrument_validation`; tiered run-all role design; culpability-based mercy;
   role-menu expansion deferred. → spec §10 (whole table).
+- **D26. Layer-2 orthogonality judge certified.** Ratified 2026-07-16 (researcher).
+  Judge: Claude Fable 5 in a fresh context fills the pre-registered single-judge slot
+  (`orthogonality.rater_score`); ChatGPT 5.6 Sol retained as cross-vendor robustness
+  exhibit (quadratic-weighted κ = 0.83, 73/75 lean agreement, one clerical lean slip on
+  harm_avoidance-C2 adjudicated in the audit record). Human audit: 15 pairs, 13/13
+  loading ratings within 1 of the certified judge, zero wiring inversions
+  instrument-wide. Same-vendor-judge risk (item author and judge share a model)
+  mitigated by human audit, cross-vendor agreement, and the layer-3 behavioral
+  indifference screen. → docs/orthogonality_audit_2026-07-16.md.
+- **D27. Rewrite queue seeded from judge+audit flags.** Four items entered
+  `docs/rewrite_queue.md` (honesty-C5, loyalty-C3, desert-C2, collective_welfare-C3),
+  pending screen results. → docs/rewrite_queue.md.
 
 ## 2. STANDING RECOMMENDATIONS (REC — awaiting researcher sign-off)
 
