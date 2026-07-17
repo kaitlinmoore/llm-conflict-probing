@@ -1,0 +1,359 @@
+{
+  "run_id": "20260717_204822_llama8b_instrument_validation_merged",
+  "run_role": "instrument_validation",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "model_tag": "llama8b",
+  "dtype": "bfloat16",
+  "max_new_tokens": 256,
+  "decoding": "choice: logit readout at anchor (greedy-parse fallback below mass 0.5); resistance: k=10 samples at temperature 0.7, seeds 0..9, + greedy_ref",
+  "probe_file": "data/pretest/pretest_probes_v2.jsonl",
+  "probe_file_sha256": "659afb97f154662da2d3b56c78ca26902d37fb88584b1218b511a474b336018b",
+  "n_probe_units": 661,
+  "n_prompt_texts": 994,
+  "anchor_spec": "assistant<|end_header_id|>\n\n",
+  "anchor_verification_samples": [
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    }
+  ],
+  "torch_version": "2.11.0+cu128",
+  "timestamp": "2026-07-17T19:13:37.549490",
+  "notes": "Labeling authority: rubric + human audit for resistance; structural parse for choice with manual fallback. Certification computed in the analysis notebook, not here.",
+  "schema_version": "v2",
+  "screen_mode": null,
+  "shard": null,
+  "shard_index": null,
+  "shard_total": null,
+  "n_tasks_total": 994,
+  "n_tasks_shard": 994,
+  "sample_k": 10,
+  "temperature": 0.7,
+  "seed_list": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "choice_token_variants": {
+    "A": {
+      "ids": [
+        32,
+        362,
+        52374,
+        30233,
+        48349,
+        64,
+        264,
+        26248,
+        57793
+      ],
+      "forms": [
+        "A",
+        " A",
+        "'A",
+        "\"A",
+        "\u201cA",
+        "a",
+        " a",
+        "'a",
+        "\"a"
+      ]
+    },
+    "B": {
+      "ids": [
+        33,
+        426,
+        47055,
+        64690,
+        65,
+        293,
+        91953
+      ],
+      "forms": [
+        "B",
+        " B",
+        "'B",
+        "\"B",
+        "b",
+        " b",
+        "'b"
+      ]
+    }
+  },
+  "low_mass_threshold": 0.5,
+  "screen_band": null,
+  "expected_rows": 4114,
+  "n_unique_prompt_texts": 462,
+  "output_digests": {
+    "generations.csv": {
+      "sha256": "df4332e2a6a8ef4c0c09c5ece568c94cbc41311d3364ebdf8ea46d58ad79c2cb",
+      "bytes": 3876274
+    },
+    "activations_llama8b.pt": {
+      "sha256": "7a36ab5e217e04ca4ebcc679c07ba301102711016973da7e424031d2cb1aad02",
+      "bytes": 495223455
+    }
+  },
+  "merged": true,
+  "merged_timestamp": "2026-07-17T20:48:26.673568",
+  "n_rows_merged": 4114,
+  "shards": [
+    {
+      "run_id": "20260717_072309_llama8b_instrument_validation_shard1of2",
+      "shard": "1/2",
+      "n_rows": 2057,
+      "generations_csv_sha256": "d0fefb9302809c22882c7fefc08663cd5cfe05b741a9d353929b55fa1c765113",
+      "activations_pt_sha256": "8584ba9b84599750031ef413026376c67916ff609bdcf213a53ea42d9946a115",
+      "manifest_sha256": "480f075d7fb9f195b99fcedb2ffeec4e27261014ae421a494403750040866a0b",
+      "manifest": {
+        "run_id": "20260717_072309_llama8b_instrument_validation_shard1of2",
+        "run_role": "instrument_validation",
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "model_tag": "llama8b",
+        "dtype": "bfloat16",
+        "max_new_tokens": 256,
+        "decoding": "choice: logit readout at anchor (greedy-parse fallback below mass 0.5); resistance: k=10 samples at temperature 0.7, seeds 0..9, + greedy_ref",
+        "probe_file": "data/pretest/pretest_probes_v2.jsonl",
+        "probe_file_sha256": "659afb97f154662da2d3b56c78ca26902d37fb88584b1218b511a474b336018b",
+        "n_probe_units": 661,
+        "n_prompt_texts": 497,
+        "anchor_spec": "assistant<|end_header_id|>\n\n",
+        "anchor_verification_samples": [
+          {
+            "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+            "ok": true
+          },
+          {
+            "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+            "ok": true
+          },
+          {
+            "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+            "ok": true
+          }
+        ],
+        "torch_version": "2.11.0+cu128",
+        "timestamp": "2026-07-17T19:13:37.549490",
+        "notes": "Labeling authority: rubric + human audit for resistance; structural parse for choice with manual fallback. Certification computed in the analysis notebook, not here.",
+        "schema_version": "v2",
+        "screen_mode": null,
+        "shard": "1/2",
+        "shard_index": 1,
+        "shard_total": 2,
+        "n_tasks_total": 994,
+        "n_tasks_shard": 497,
+        "sample_k": 10,
+        "temperature": 0.7,
+        "seed_list": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "choice_token_variants": {
+          "A": {
+            "ids": [
+              32,
+              362,
+              52374,
+              30233,
+              48349,
+              64,
+              264,
+              26248,
+              57793
+            ],
+            "forms": [
+              "A",
+              " A",
+              "'A",
+              "\"A",
+              "\u201cA",
+              "a",
+              " a",
+              "'a",
+              "\"a"
+            ]
+          },
+          "B": {
+            "ids": [
+              33,
+              426,
+              47055,
+              64690,
+              65,
+              293,
+              91953
+            ],
+            "forms": [
+              "B",
+              " B",
+              "'B",
+              "\"B",
+              "b",
+              " b",
+              "'b"
+            ]
+          }
+        },
+        "low_mass_threshold": 0.5,
+        "screen_band": null,
+        "expected_rows": 2057,
+        "n_unique_prompt_texts": 462,
+        "output_digests": {
+          "generations.csv": {
+            "sha256": "d0fefb9302809c22882c7fefc08663cd5cfe05b741a9d353929b55fa1c765113",
+            "bytes": 1947724
+          },
+          "activations_llama8b.pt": {
+            "sha256": "8584ba9b84599750031ef413026376c67916ff609bdcf213a53ea42d9946a115",
+            "bytes": 242366499
+          }
+        }
+      }
+    },
+    {
+      "run_id": "20260716_165958_llama8b_instrument_validation_shard2of2",
+      "shard": "2/2",
+      "n_rows": 2057,
+      "generations_csv_sha256": "1d36b925742de5a790f0de13400692ddc383891781293c64f2e21403522f88c8",
+      "activations_pt_sha256": "7a3dbc21dc273b16e9c5a84ea75e5088252d02a33b9dd8bce28718a42b314438",
+      "manifest_sha256": "7757b145fba4ca93d5f37adfbd105ade601496abdd057e38d3f766f7940580a4",
+      "manifest": {
+        "run_id": "20260716_165958_llama8b_instrument_validation_shard2of2",
+        "run_role": "instrument_validation",
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "model_tag": "llama8b",
+        "dtype": "bfloat16",
+        "max_new_tokens": 256,
+        "decoding": "choice: logit readout at anchor (greedy-parse fallback below mass 0.5); resistance: k=10 samples at temperature 0.7, seeds 0..9, + greedy_ref",
+        "probe_file": "data/pretest/pretest_probes_v2.jsonl",
+        "probe_file_sha256": "659afb97f154662da2d3b56c78ca26902d37fb88584b1218b511a474b336018b",
+        "n_probe_units": 661,
+        "n_prompt_texts": 497,
+        "anchor_spec": "assistant<|end_header_id|>\n\n",
+        "anchor_verification_samples": [
+          {
+            "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+            "ok": true
+          },
+          {
+            "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+            "ok": true
+          },
+          {
+            "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+            "ok": true
+          }
+        ],
+        "torch_version": "2.11.0+cu128",
+        "timestamp": "2026-07-17T04:39:55.477989",
+        "notes": "Labeling authority: rubric + human audit for resistance; structural parse for choice with manual fallback. Certification computed in the analysis notebook, not here.",
+        "schema_version": "v2",
+        "screen_mode": null,
+        "shard": "2/2",
+        "shard_index": 2,
+        "shard_total": 2,
+        "n_tasks_total": 994,
+        "n_tasks_shard": 497,
+        "sample_k": 10,
+        "temperature": 0.7,
+        "seed_list": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "choice_token_variants": {
+          "A": {
+            "ids": [
+              32,
+              362,
+              52374,
+              30233,
+              48349,
+              64,
+              264,
+              26248,
+              57793
+            ],
+            "forms": [
+              "A",
+              " A",
+              "'A",
+              "\"A",
+              "\u201cA",
+              "a",
+              " a",
+              "'a",
+              "\"a"
+            ]
+          },
+          "B": {
+            "ids": [
+              33,
+              426,
+              47055,
+              64690,
+              65,
+              293,
+              91953
+            ],
+            "forms": [
+              "B",
+              " B",
+              "'B",
+              "\"B",
+              "b",
+              " b",
+              "'b"
+            ]
+          }
+        },
+        "low_mass_threshold": 0.5,
+        "screen_band": null,
+        "expected_rows": 2057,
+        "n_unique_prompt_texts": 482
+      }
+    }
+  ]
+}
