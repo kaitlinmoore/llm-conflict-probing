@@ -287,8 +287,11 @@ def main():
 
     def checkpoint_if_due():
         if not args.screen and len(rows) % CHECKPOINT_EVERY == 0:
-            torch.save({"activations": activations, "partial": True,
-                        "n_layers": model.cfg.n_layers, "d_model": model.cfg.d_model}, act_path)
+            # atomic: checkpoint rewrites must never truncate the previous
+            # complete checkpoint (2026-07-17 incident)
+            rl.atomic_write(act_path, lambda f: torch.save(
+                {"activations": activations, "partial": True,
+                 "n_layers": model.cfg.n_layers, "d_model": model.cfg.d_model}, f))
             log(f"  checkpoint: {len(activations)} activation sets -> {act_path.name}")
 
     def readout_row(entry):
@@ -404,12 +407,12 @@ def main():
 
     # ---- final outputs ----
     if not args.screen:
-        torch.save(
+        rl.atomic_write(act_path, lambda f: torch.save(
             {"activations": activations, "partial": False,
              "layout": "per prompt_key: tensor [n_layers, d_model], resid_post, final prompt position (anchor)",
              "n_layers": model.cfg.n_layers, "d_model": model.cfg.d_model},
-            act_path,
-        )
+            f,
+        ))
 
     if args.screen:
         # per-pair aggregate over roles (band checks are advisory here; the
@@ -418,7 +421,8 @@ def main():
         by_probe = {}
         for row in rows:
             by_probe.setdefault(row["probe_id"], []).append(row)
-        with open(out_dir / f"screen_{args.screen}_summary.csv", "w", newline="") as f:
+
+        def write_summary(f):
             w = csv.DictWriter(f, fieldnames=["probe_id", "value", "mode", "n_roles",
                                               "p_metric_mean", "p_metric_min", "p_metric_max",
                                               "in_band_mean", "any_low_mass"])
@@ -435,6 +439,9 @@ def main():
                     "any_low_mass": int(any(r["low_mass_flag"] for r in group)),
                 })
 
+        rl.atomic_write(out_dir / f"screen_{args.screen}_summary.csv", write_summary,
+                        mode="w", newline="")
+
     if schema_version == "v1":
         decoding = "greedy (do_sample=False), seed 0"
     elif args.screen:
@@ -443,6 +450,18 @@ def main():
         decoding = (f"choice: logit readout at anchor (greedy-parse fallback below mass "
                     f"{rl.LOW_MASS_THRESHOLD}); resistance: k={args.sample_k} samples at "
                     f"temperature {args.temperature}, seeds 0..{args.sample_k - 1}, + greedy_ref")
+
+    # ---- completion digests: computed by RE-READING the persisted files so
+    # they are evidence the bytes survived on disk (2026-07-17 incident) ----
+    digest_paths = [gen_path]
+    if args.screen:
+        digest_paths.append(out_dir / f"screen_{args.screen}_summary.csv")
+    else:
+        digest_paths.append(act_path)
+    output_digests = {}
+    for p in digest_paths:
+        sha, size = rl.file_digest(p)
+        output_digests[p.name] = {"sha256": sha, "bytes": size}
 
     manifest = {
         "run_id": run_id,
@@ -478,8 +497,14 @@ def main():
                         else list(rl.REBALANCE_BAND) if args.screen == "rebalance" else None),
         "expected_rows": rl.expected_total_rows(tasks, args.sample_k if schema_version == "v2" else 0),
         "n_unique_prompt_texts": len(memo),
+        # digests of the other outputs, re-read from disk after their final
+        # writes; the manifest can't contain its own hash — that one exists
+        # only in the printed DIGEST line
+        "output_digests": output_digests,
     }
-    (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2))
+    manifest_path = out_dir / "manifest.json"
+    rl.atomic_write(manifest_path, lambda f: f.write(json.dumps(manifest, indent=2)), mode="w")
+    manifest_sha, manifest_bytes = rl.file_digest(manifest_path)
 
     n_manual = sum(1 for r in rows if r.get("needs_manual_label") == "yes")
     log_f.close()
@@ -488,6 +513,9 @@ def main():
         print(f"Activations -> {act_path}")
     print(f"Manifest -> {out_dir / 'manifest.json'}")
     print(f"Rows needing manual labeling: {n_manual}")
+    for name, d in output_digests.items():
+        print(f"DIGEST {d['sha256']} {d['bytes']} {name}")
+    print(f"DIGEST {manifest_sha} {manifest_bytes} manifest.json")
 
 
 if __name__ == "__main__":

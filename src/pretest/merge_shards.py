@@ -225,13 +225,19 @@ def main():
     all_rows.sort(key=lambda r: order[(r["prompt_key"], r.get("variant", ""), r.get("seed", ""))])
     fieldnames = list(all_rows[0].keys())
     gen_path = out_dir / "generations.csv"
-    with open(gen_path, "w", newline="") as f:
+
+    def write_gen(f):
         w = csv.DictWriter(f, fieldnames=fieldnames)
         w.writeheader()
         w.writerows(all_rows)
 
+    # atomic tmp-then-fsync-then-rename on every merged output — same failure
+    # surface as the runner (2026-07-17 shard-1 truncation incident)
+    rl.atomic_write(gen_path, write_gen, mode="w", newline="")
+
     act_path = out_dir / f"activations_{tag}.pt"
-    torch.save({"activations": merged_activations, "partial": False, **act_meta}, act_path)
+    rl.atomic_write(act_path, lambda f: torch.save(
+        {"activations": merged_activations, "partial": False, **act_meta}, f))
 
     manifest = dict(reference)  # merged run inherits the shard params...
     manifest.update({           # ...and is extended with merge provenance
@@ -259,7 +265,8 @@ def main():
             "manifest": s["manifest"],
         } for s in shards],
     })
-    (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2))
+    rl.atomic_write(out_dir / "manifest.json",
+                    lambda f: f.write(json.dumps(manifest, indent=2)), mode="w")
 
     print(f"Merged {len(shards)} shards -> {out_dir}")
     print(f"  rows: {len(all_rows)} (verified against {probes_path.name})")

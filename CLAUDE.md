@@ -70,6 +70,10 @@ ask. Never silently change it.
   pip-install around them. The `[tool.uv]` override of transformer-lens's
   torchvision constraint is deliberate: the working environment has never
   contained torchvision; pip never enforced that constraint, uv does.
+- `uv run` must never be invoked in a shell that hasn't sourced
+  `scripts/env.sh` — it silently builds a duplicate venv onto the network
+  volume. When in doubt, use the blessed direct interpreter `runpy`
+  (= `/root/venv/bin/python`, defined in env.sh), which bypasses uv entirely.
 
 ## Run discipline
 

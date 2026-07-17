@@ -18,7 +18,9 @@ Measurement contract (docs/pretest_v2_spec.md §4–§5):
     context sentence (textured pairs' neutral options).
 """
 
+import hashlib
 import math
+import os
 
 LOW_MASS_THRESHOLD = 0.5          # spec §4: below this, flag + greedy-parse fallback
 INDIFFERENCE_BAND = (0.40, 0.60)  # spec §5 / §10 defaults
@@ -54,6 +56,44 @@ SCREEN_TEMPLATE_INDIFFERENCE = (
     "Option B: {option_b}\n"
     "Which option is more {value_adjective}? Answer 'A' or 'B'."
 )
+
+
+# ---------------------------------------------------------------------------
+# Durable writes (2026-07-17 shard-1 truncation incident — see
+# docs/incident_2026-07-17_shard1_truncation.md). Whole-file artifacts are
+# written tmp-then-fsync-then-rename so the real filename only ever points at
+# a complete previous version or a complete new one. The incremental CSV
+# row-append path is NOT routed through this: append-only is already the safe
+# pattern.
+# ---------------------------------------------------------------------------
+
+def atomic_write(path, write_fn, mode="wb", **open_kwargs):
+    """Write a whole file durably: <path>.tmp -> flush -> os.fsync ->
+    os.replace onto the real name.
+
+    write_fn receives the open handle (works for torch.save(obj, f), csv
+    writers, plain .write). On failure the real file is untouched and the
+    .tmp is deliberately left behind as evidence.
+    """
+    tmp = f"{path}.tmp"
+    with open(tmp, mode, **open_kwargs) as f:
+        write_fn(f)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, path)
+
+
+def file_digest(path):
+    """(sha256_hex, byte_size) computed by RE-READING the persisted file —
+    evidence the bytes survived on disk, never derived from in-memory
+    content."""
+    h = hashlib.sha256()
+    size = 0
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+            size += len(chunk)
+    return h.hexdigest(), size
 
 
 # ---------------------------------------------------------------------------

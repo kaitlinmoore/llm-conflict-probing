@@ -11,7 +11,7 @@ is a few minutes. **STOP the pod after.**
 
 ```bash
 python -m unittest discover -s tests -v
-# expect: 64 tests, OK, 0 skipped
+# expect: 73 tests, OK, 0 skipped
 ```
 
 ## 2. Freezer — v1 regression
