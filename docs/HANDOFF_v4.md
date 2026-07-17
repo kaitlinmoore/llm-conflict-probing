@@ -1,4 +1,4 @@
-# HANDOFF v4 — boot document (supersedes HANDOFF_v3)
+# HANDOFF v4 — boot document (supersedes HANDOFF_v3; updated at migration, IV closeout complete)
 
 Written 2026-07-17, during the shard-1 re-run of the IV administration. Purpose: everything a
 fresh session needs that is not already obvious from the repo. The repo is the interface;
@@ -29,9 +29,21 @@ activations, all committed/volume-resident. Shard 1/2 first execution completed 
 (2,057 rows, committed) but its activations + manifest were truncated to zero-byte ~1h
 post-completion — see docs/incident_2026-07-17_shard1_truncation.md; verdict: unattributed
 MooseFS durable-write failure, human commands and merge exonerated, contributing factor:
-in-place whole-file checkpoint rewrites. **Re-run of shard 1/2 launched 2026-07-17 on the
-hardened runner** (fresh timestamped dir). Expected ~9–12h wall clock (the original took
-~12h, NOT the ~5h estimated in-session — timestamps: 16:58 → 04:49).
+in-place whole-file checkpoint rewrites. **Re-run of shard 1/2 COMPLETED and closed out 2026-07-17** (run
+20260717_072309_..., ~13h wall clock): verify_run.py all-PASS, committed and pushed
+(generations.csv sha d0fefb930280…, 1,947,724 bytes — byte-size-identical to the first
+execution's committed CSV; same-seed reproduction diff still pending [REC], a likely
+byte-identical receipt). **Merged dataset committed: results/pretest/
+20260717_204822_llama8b_instrument_validation_merged** — 4,114 rows, 994 activation sets,
+all seven verify checks PASS (generations sha df4332e2a6a8…, activations sha
+7a36ab5e217e…, 495MB volume-resident/gitignored). Second incident caught and fixed during
+closeout: merge_shards.py inherited shard 1's output_digests into the merged manifest
+(dict(reference) seeding) instead of recomputing — verify_run.py caught it, Code fixed it
+(+8 lines, recompute-by-re-read; end-to-end test extended), first bad merged dir deleted
+uncommitted. The verification layer caught a real bug on day one. Zero-byte corpses in the
+old truncated shard1 dir deleted; its generations.csv + run.log remain committed as record.
+Pods stopped, zombie pods terminated. NO POD IS NEEDED until Stage 3 activation work or a
+certification re-administration (if fast-path is not taken).
 
 **Hardening landed** (same-day commit): atomic tmp→fsync→rename on all manifest/activation
 writes (runner + merge, checkpoint + final); completion DIGEST lines (sha256+bytes,
@@ -44,14 +56,13 @@ immediately upon completion, before anything else touches the run directory.
 
 **Ops facts:** pods bill; the two IV-run pods were terminated at zero balance (no data
 loss — volume + git held everything, including shard logs). Volume llm_conflict_study_volume,
-EUR-IS-1, 50GB, ~21GB used. HF cache (20GB) is an asset, keep. Four stopped zombie pods
-remain to terminate (Terminate ≠ volume deletion — read the dialog). Env ritual per fresh
+EUR-IS-1, 50GB, ~21GB used. HF cache (20GB) is an asset, keep. Env ritual per fresh
 terminal: `cd /workspace/llm-conflict-probing && source scripts/env.sh` BEFORE any uv
 command (else duplicate venv builds onto the volume — quota incident class). `runpy` works
 interactively; **nohup cannot see shell functions — use /root/venv/bin/python under nohup.**
 uv sync ~5–10 min per fresh pod (venv on container disk by design).
 
-## 2. Closeout checklist for the re-run (execute on pod, in order)
+## 2. Closeout checklist — EXECUTED 2026-07-17, retained as template for future runs
 
 1. `tail -5 shard1_rerun.log` → completion lines + **three DIGEST lines** (their absence
    means pre-hardening code ran — stop and investigate).
@@ -72,7 +83,7 @@ uv sync ~5–10 min per fresh pod (venv on container disk by design).
 generations.csv (modulo run_id fields). Match = a reproducibility receipt few studies have;
 mismatch = important fact about stack determinism to know before certification claims.
 
-## 3. Post-merge pipeline (Stage 1 completion)
+## 3. Post-merge pipeline (Stage 1 completion) — THE LIVE NEXT STEP AT MIGRATION
 
 1. **Audit-sample export** lands in <MERGED> (or runner equivalent) → Cowork builds the
    labeling workbook per its standing brief (docs/handoff_cowork.md): wrapped text, frozen
@@ -173,11 +184,9 @@ when decision goes live; training one = joint RL on two full models, out of scop
 written — offered, pending. Advisor framing: "a second, independent instrument that reads
 internal states in natural language — convergent evidence, multitrait-multimethod."
 
-## 9. Working norms (unchanged, load-bearing)
+## 8. Working norms (unchanged, load-bearing)
 
-One rewrite iteration per administration (executed for IV; next sanctioned round =
-pre-certification documented adjustments). Reasons stimulus-quality only, never
-outcome-directed. Append-only logs; decisions attributed to researcher in the register.
+Append-only logs; decisions attributed to researcher in the register.
 Confirmation-type context defects attenuate SHIFT and are INVISIBLE to screens (screens
 measure neutral-form balance only) — decide such flags on construct grounds. Judge
 loading discriminates value-driven ceilings (don't rewrite; dominance) from
@@ -187,3 +196,7 @@ Code/Cowork on instruction. Deliverables grounded in executed work; gaps named. 
 advisor-facing; measurement framing there. Fresh-context judging for independence.
 Claude's memory of this project compacts and dies — the repo and this document are what
 persist; update HANDOFF at each major transition (v5 due when Stage 2 design settles).
+Project-knowledge GitHub sync [REC, may already be configured]: sync docs/ + CLAUDE.md from
+the repo into project knowledge and hit "Sync now" after each push burst — this file is then
+always current at boot without uploads. Read-whole-at-boot files: this handoff, findings
+log, decision register. Search-and-retrieve: transcripts, literature, superseded handoffs.
