@@ -173,18 +173,6 @@ when decision goes live; training one = joint RL on two full models, out of scop
 written — offered, pending. Advisor framing: "a second, independent instrument that reads
 internal states in natural language — convergent evidence, multitrait-multimethod."
 
-## 8. Advisor state
-
-Sara has: Pretest_Status_Update_2026-07-16.docx (with §6 full-form questions 1–3),
-6-slide two-panel deck + speaker notes, Study_Overview_Plain_Language.docx (whole-study,
-committed spine only — AO/NLA deliberately absent as gated contingencies; one-paragraph
-Stage 3 addition drafted-in-principle if a read-out is ever adopted). Choice-channel
-probability explanation delivered at 3 depths (core: read P(A)/P(B) from next-token
-distribution at the answer point; caveat: mass renormalization + per-item logging).
-"Why remove values" answer on record: enactment gate = manipulation check; three fates
-(excluded→controls, merged→discovery, indeterminate→deferred); pre-registered failures
-give the gate teeth. [OPEN] Her answers to Q1–Q3 → thresholds decision.
-
 ## 9. Working norms (unchanged, load-bearing)
 
 One rewrite iteration per administration (executed for IV; next sanctioned round =
