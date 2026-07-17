@@ -1,0 +1,102 @@
+{
+  "run_id": "20260716_165958_llama8b_instrument_validation_shard2of2",
+  "run_role": "instrument_validation",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "model_tag": "llama8b",
+  "dtype": "bfloat16",
+  "max_new_tokens": 256,
+  "decoding": "choice: logit readout at anchor (greedy-parse fallback below mass 0.5); resistance: k=10 samples at temperature 0.7, seeds 0..9, + greedy_ref",
+  "probe_file": "data/pretest/pretest_probes_v2.jsonl",
+  "probe_file_sha256": "659afb97f154662da2d3b56c78ca26902d37fb88584b1218b511a474b336018b",
+  "n_probe_units": 661,
+  "n_prompt_texts": 497,
+  "anchor_spec": "assistant<|end_header_id|>\n\n",
+  "anchor_verification_samples": [
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    }
+  ],
+  "torch_version": "2.11.0+cu128",
+  "timestamp": "2026-07-17T04:39:55.477989",
+  "notes": "Labeling authority: rubric + human audit for resistance; structural parse for choice with manual fallback. Certification computed in the analysis notebook, not here.",
+  "schema_version": "v2",
+  "screen_mode": null,
+  "shard": "2/2",
+  "shard_index": 2,
+  "shard_total": 2,
+  "n_tasks_total": 994,
+  "n_tasks_shard": 497,
+  "sample_k": 10,
+  "temperature": 0.7,
+  "seed_list": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "choice_token_variants": {
+    "A": {
+      "ids": [
+        32,
+        362,
+        52374,
+        30233,
+        48349,
+        64,
+        264,
+        26248,
+        57793
+      ],
+      "forms": [
+        "A",
+        " A",
+        "'A",
+        "\"A",
+        "\u201cA",
+        "a",
+        " a",
+        "'a",
+        "\"a"
+      ]
+    },
+    "B": {
+      "ids": [
+        33,
+        426,
+        47055,
+        64690,
+        65,
+        293,
+        91953
+      ],
+      "forms": [
+        "B",
+        " B",
+        "'B",
+        "\"B",
+        "b",
+        " b",
+        "'b"
+      ]
+    }
+  },
+  "low_mass_threshold": 0.5,
+  "screen_band": null,
+  "expected_rows": 2057,
+  "n_unique_prompt_texts": 482
+}
