@@ -239,6 +239,13 @@ def main():
     rl.atomic_write(act_path, lambda f: torch.save(
         {"activations": merged_activations, "partial": False, **act_meta}, f))
 
+    # digests of the MERGED outputs, re-read from disk (same semantics as the
+    # runner's completion digests) — never inherited from a shard manifest
+    output_digests = {}
+    for p in (gen_path, act_path):
+        sha, size = rl.file_digest(p)
+        output_digests[p.name] = {"sha256": sha, "bytes": size}
+
     manifest = dict(reference)  # merged run inherits the shard params...
     manifest.update({           # ...and is extended with merge provenance
         "run_id": run_id,
@@ -253,6 +260,7 @@ def main():
         "n_rows_merged": len(all_rows),
         "probe_file": str(probes_path),
         "probe_file_sha256": probes_sha,
+        "output_digests": output_digests,
         "anchor_verification_samples": [x for s in shards
                                         for x in s["manifest"]["anchor_verification_samples"]],
         "shards": [{

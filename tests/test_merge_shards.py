@@ -78,10 +78,15 @@ def build_shard_dirs(tmp, probes_path, n_shards, mutate=None):
         }
         if mutate:
             mutate(i, manifest, rows)
-        (d / "manifest.json").write_text(json.dumps(manifest))
         with open(d / "generations.csv", "w", newline="") as f:
             w = csv.DictWriter(f, fieldnames=["prompt_key", "variant", "seed", "response"])
             w.writeheader(); w.writerows(rows)
+        # per-shard digests, as the hardened runner records them — a merge
+        # must NEVER inherit these into the merged manifest
+        csv_sha, csv_size = rl.file_digest(d / "generations.csv")
+        manifest.setdefault("output_digests",
+                            {"generations.csv": {"sha256": csv_sha, "bytes": csv_size}})
+        (d / "manifest.json").write_text(json.dumps(manifest))
         dirs.append(d)
     return dirs, tasks
 
@@ -203,6 +208,16 @@ class TestFullMerge(unittest.TestCase):
         for s in manifest["shards"]:
             for key in ("generations_csv_sha256", "activations_pt_sha256", "manifest_sha256"):
                 self.assertRegex(s[key], r"^[0-9a-f]{64}$")
+        # merged output_digests must be recomputed from the MERGED files on
+        # disk, never inherited from a shard manifest (bug fixed 2026-07-17)
+        recomputed = {}
+        for p in (out / "generations.csv", out / "activations_llama8b.pt"):
+            sha, size = rl.file_digest(p)
+            recomputed[p.name] = {"sha256": sha, "bytes": size}
+        self.assertEqual(manifest["output_digests"], recomputed)
+        shard1_digest = json.loads((dirs[0] / "manifest.json").read_text())["output_digests"]
+        self.assertNotEqual(manifest["output_digests"]["generations.csv"],
+                            shard1_digest["generations.csv"])
 
 
 if __name__ == "__main__":
