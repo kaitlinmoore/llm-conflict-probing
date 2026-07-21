@@ -216,6 +216,21 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
   0.20. Slot-A bias (+0.383; 15/16 calibration pairs favor A) recorded as an
   instrument finding. Plan header flipped DRAFT → RATIFIED.
   → docs/prereg_analysis_plan.md (A1–A3 inline); findings log 2026-07-21.
+- **D36. Both-orders administration for battery choice items.** Ratified 2026-07-21
+  (researcher). Every choice item administered in both option orders; analyses use
+  order-averaged/differenced quantities; order-flipping items yield no stable
+  resolution reading. Rationale: measured +0.38 first-position bias (calibration
+  block, findings log 2026-07-21).
+- **D37. Rewrite policy for Stage 2.** Ratified 2026-07-21 (researcher). The
+  per-administration single-rewrite bound is retired for battery authoring;
+  unlimited iterations permitted until the instrument verifies. Retained: each
+  rewrite documented with stimulus-quality rationale; behavioral verification
+  re-run per rewrite; outcome-directed rewrites prohibited.
+- **D38. O11 resolved; concordant-check item added.** Ratified 2026-07-21
+  (researcher). Decline-to-choose adopted as the preference-family hedge analogue
+  (resolves O11; ratified with O10 when O10 lands). New open item registered (O17):
+  concordant two-value check cells (both values agree) as an optional discriminant
+  set — priced, not adopted.
 
 ## 2. STANDING RECOMMENDATIONS (REC — awaiting researcher sign-off)
 
@@ -277,7 +292,8 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
   battery schema and all stage-4 authoring. → HANDOFF_v3 §4.
 - **O11. Hedge-label analogue in the preference family** (refusal-to-choose /
   both-sidesing). → HANDOFF_v3 §4; rubric §6 flags `decline-to-choose` treatment as the
-  same open territory.
+  same open territory. **RESOLVED by D38 (2026-07-21): decline-to-choose adopted;
+  formal ratification travels with O10.**
 - **O12. Cross-family generalization pre-registration details.** → HANDOFF_v3 §4.
 - **O13. Desert/fairness and kindness/care merge questions** (distinctness screen
   adjudicates). → HANDOFF_v3 §4.
@@ -288,6 +304,9 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
 - **O16. `docs/prereg_analysis_plan.md`** — flagged alongside this register as one of the
   two most important artifacts still to create; not yet created. → HANDOFF_v3 §4.
   **RESOLVED by D33 (2026-07-21): plan created and thresholds recorded there.**
+- **O17. Concordant two-value check cells.** Cells where both values agree, as an
+  optional discriminant set for the battery — priced, not adopted. Registered by D38
+  (2026-07-21).
 
 ## 4. Flagged source discrepancies (recorded, not resolved)
 
