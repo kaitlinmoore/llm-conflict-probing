@@ -177,6 +177,27 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
   (researcher). 19 field edits across 14 pairs + 2 null-twin syncs; the
   single-iteration rule is satisfied for this administration.
   → docs/screen_findings_2026-07-16.md.
+- **D33. Stage 1 certification thresholds finalized (pre-unblinding).** Ratified
+  2026-07-21 (researcher), before computation of the per-value enactment matrix.
+  Resistance ≥ 0.80 (R7 ratified). Choice channel: dual criterion — Δ ≥ 0.25, or
+  calibration-derived odds-ratio cutoff with guard floor Δ ≥ 0.05. Dominance
+  acceptable as enactment evidence, calibration block as sole format-bias
+  control, dominance-alone certification permitted (Q1). Captured-mass floor
+  0.5, adjustable only pre-unblinding on mass/calibration data via the defined
+  window; below-floor channels indeterminate-pending-format-fix per D31;
+  answer-only format reserved as targeted supplementary. Resolves O4 and O16;
+  amends R7. → docs/prereg_analysis_plan.md.
+- **D34. Fast-path exercised; no further pre-test administrations.** Ratified
+  2026-07-21 (researcher), on advisor direction (Kingsley): proceed from IV data
+  to the conflict battery. Consequences: (a) IV data adopted as certification
+  data; the documented-adjustments round is documentation-only — instrument
+  defects (e.g., authority-C1, self-reference failure across null twin,
+  variants, and roles) are recorded, affected pairs handled per rubric C3, no
+  rewrite-and-re-run; (b) answer-only format contingency (D31) not exercisable
+  this round; below-mass-floor channels are indeterminate-deferred, excluded
+  from battery, revivable; (c) distinctness screen runs on IV response
+  profiles — resolves the HANDOFF v4 §4 open question, no new data.
+  → docs/prereg_analysis_plan.md §§5, 7.
 
 ## 2. STANDING RECOMMENDATIONS (REC — awaiting researcher sign-off)
 
@@ -206,7 +227,8 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
   decomposition option stays cheap to revive. → HANDOFF_v3 §2.14.
 - **R7. Proposed enactment thresholds.** 0.80 resistance / 0.25 choice-shift remain
   PROPOSED (not ratified); finalization is queued post-IV (see O4). → HANDOFF_v3 §3;
-  spec §1.
+  spec §1. **RATIFIED as amended by D33 (2026-07-21): resistance ratified at 0.80;
+  choice channel amended to the dual criterion.**
 
 ## 3. OPEN
 
@@ -220,7 +242,8 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
   pilot severity; severity-matched v2 probes retest; if policy-mode pull doesn't recover,
   they reclassify as preference-mode values. [OPEN pending IV data.] → HANDOFF_v3 §2.3.
 - **O4. Thresholds finalization** (after IV, disclosed protocol amendment; proposed
-  defaults in R7). → HANDOFF_v3 §3, §4; spec §1, §10 note.
+  defaults in R7). → HANDOFF_v3 §3, §4; spec §1, §10 note. **RESOLVED by D33
+  (2026-07-21).**
 - **O5. Narration trigger criterion sign-off** (criterion itself in R1). → HANDOFF_v3 §4.
 - **O6. Boundary cells keep/cut** (recommendation in R2). → HANDOFF_v3 §4.
 - **O7. Base-vs-instruct leg keep/cut.** → HANDOFF_v3 §4.
@@ -246,6 +269,7 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
   taxonomy is the open design work). → HANDOFF_v3 §4.
 - **O16. `docs/prereg_analysis_plan.md`** — flagged alongside this register as one of the
   two most important artifacts still to create; not yet created. → HANDOFF_v3 §4.
+  **RESOLVED by D33 (2026-07-21): plan created and thresholds recorded there.**
 
 ## 4. Flagged source discrepancies (recorded, not resolved)
 
