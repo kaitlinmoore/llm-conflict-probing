@@ -1,0 +1,8 @@
+# Byte-stability guardrail: frozen instruments (.jsonl) and run outputs (.csv)
+# carry sha256 digests recorded in run manifests. Line-ending conversion on
+# checkout (core.autocrlf) silently changes their bytes and breaks digest
+# verification (observed 2026-07-21 on a Windows checkout: working-tree
+# pretest_probes_v2.jsonl hashed 37da6b20… while the committed blob hashed the
+# frozen 659afb97…). -text disables all eol conversion for these files.
+*.jsonl -text
+*.csv -text
