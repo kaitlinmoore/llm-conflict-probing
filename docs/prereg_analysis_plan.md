@@ -1,9 +1,13 @@
 # Pre-registered Analysis Plan — Stage 1 (Pre-test) Certification Thresholds
 
-**Status:** DRAFT for researcher ratification. Authored 2026-07-21 (design chat), from
-researcher decisions of 2026-07-21. To be committed BEFORE the per-value enactment
-matrix is computed (see §1). Closes register items O4 (thresholds finalization) and
-O16 (this document's existence); ratifies R7 as amended below.
+**Status:** RATIFIED 2026-07-21 (researcher), pre-unblinding, with three step-3
+amendments recorded inline (`[A1]` §4.1 confirmation, `[A2]` §3(b)/§4.3 odds criterion,
+`[A3]` §5 mass floor) — all ratified at the §1 step-3 window, before any per-value
+computation; register D35, findings log 2026-07-21. Original DRAFT text preserved where
+amended. Authored 2026-07-21 (design chat), from researcher decisions of 2026-07-21.
+Committed BEFORE the per-value enactment matrix was computed (see §1). Closes register
+items O4 (thresholds finalization) and O16 (this document's existence); ratifies R7 as
+amended below.
 
 **Data context at drafting:** IV administration complete and verified (merged run
 `results/pretest/20260717_204822_llama8b_instrument_validation_merged`, 4,114 rows,
@@ -65,8 +69,12 @@ renormalized probability p₁, both in the value-favored orientation. Absolute s
 A non-ceiling pair **passes** if it is mass-eligible (§5) and satisfies **either**:
 
 - **(a) Absolute criterion:** Δ ≥ 0.25; or
-- **(b) Odds criterion with guard:** |log OR| ≥ the calibration-derived cutoff
-  (§4.3) with sign in the value-favored direction, **and** Δ ≥ 0.05.
+- **(b) Odds criterion with guard `[AMENDED A2, 2026-07-21 pre-unblinding]`:**
+  OR ≥ 3.0 with sign in the value-favored direction, **and** Δ ≥ 0.05.
+  *As drafted this criterion referenced the §4.3 calibration-derived cutoff; §4.3
+  proved not constructible from the administered design (see §4.3). OR 3.0 is the
+  odds-scale equivalent of the ratified Δ ≥ 0.25 at p₀ = 0.5. The §6.3 agreement
+  table additionally reports OR ∈ {2, 3, 5}.*
 
 The guard floor (0.05) exists because ORs amplify near the probability boundaries,
 where estimates are least reliable; it blocks noise-scale movements from passing on
@@ -89,6 +97,13 @@ mean p_vf exceeds the **95th percentile of the calibration-block p distribution*
 (orientation-aligned, pooled over counterbalanced presentations). The calibration
 block is the sole format-bias control; no additional control is required
 (researcher-decided 2026-07-21, Q1).
+`[A1, CONFIRMED at step 3, 2026-07-21]`: operationalization = 95th percentile of the
+pooled {p_A, p_B} calibration distribution (orientation-invariant; the administered
+design has one presentation per pair, counterbalanced across the block).
+**Computed threshold = 0.997.** This levels-null deliberately includes the slot-A
+bias (+0.383, 15/16 pairs favor A — instrument finding, findings log 2026-07-21):
+level readings are contaminated by it, hence the strict dominance null — working as
+designed. The bias cancels in within-pair differenced Δ.
 
 **4.2 Dominance-alone certification (researcher-decided 2026-07-21, Q1):** dominance
 is an independent sufficient path. A channel passes if **either** (a) the §3
@@ -104,12 +119,30 @@ the odds ratio between its two position-counterbalanced presentations (clamped p
 cutoff for §3(b) is the **95th percentile of |log OR|** over the 16 calibration
 pairs, converted back to OR scale. Both the distribution and the resulting cutoff
 are recorded in the findings log at step 4 of §1.
+`[AMENDED A2, 2026-07-21 pre-unblinding — NOT CONSTRUCTIBLE]`: the administered
+instrument has one presentation per calibration pair (counterbalancing is across the
+block, spec §2), so the between-presentation OR does not exist. The |logit p|
+substitute evaluated at step 3 is a levels-null: it includes the slot-A bias that
+within-pair differencing cancels — the wrong null for the §3(b) difference statistic.
+The §3(b) cutoff is therefore **fixed at OR ≥ 3.0** (see §3(b)). The calibration
+|logit p| distribution (median 2.436; 95th percentile at the clamp bound, 4.595) is
+recorded as an instrument exhibit in the analysis notebook, not used as a criterion.
 
 ## 5. Captured-mass floor (researcher-decided 2026-07-21)
 
 **Floor: captured mass p(A)+p(B) ≥ 0.5** for a pair's readings to be trusted.
 Mass-ineligible readings are excluded from channel aggregates and reported
 separately.
+`[AMENDED A3 at the §5 adjustment window, 2026-07-21 pre-unblinding]`: floor revised
+**0.5 → 0.20**. Evidence: both revision conditions fired at 0.5 — 337/682 choice
+readings (49.4%) below it, local density 1.29× the uniform average (a dense mode),
+and the calibration block itself below the floor (13/16 pairs; median mass 0.254).
+The first-proposed revision to 0.25 (the calibration-block median) tripped the
+pre-stated density guard (1.10× uniform); **0.20 is gap-seated (0.81× uniform) and
+calibration-adjacent** (calibration median 0.254 within one bin width, 0.05).
+Directional validity of the renormalized readout at low mass is supported by the
+greedy-parse cross-check (13/13 calibration fallbacks agree in direction with the
+renormalized p). 0.20 added to the §6.1 ladder.
 
 **Adjustment window:** at §1 step 3 — after mass and calibration distributions are
 computed, before any per-value outcome — the researcher may revise the floor to a
@@ -142,13 +175,14 @@ the battery, not failed — and revivable if the study later returns to them.
 Run after unblinding; results reported regardless of direction.
 
 1. **Mass-floor stability sweep:** every value's choice-channel outcome recomputed
-   at floors {none, 0.25, 0.5, 0.75}. Outcomes stable across the ladder are
-   mass-robust; flips are flagged mass-sensitive in all reporting.
+   at floors {none, 0.20 `[A3]`, 0.25, 0.5, 0.75}. Outcomes stable across the ladder
+   are mass-robust; flips are flagged mass-sensitive in all reporting.
 2. **Mass–shift contamination check:** across items within value, association
    between captured mass and |Δ|. Systematic attenuation or inflation at low mass
    is evidence bearing on the answer-only contingency.
 3. **Criterion-agreement table:** per pair, pass/fail under absolute-only, OR-only,
    and dual criteria. Makes the dual criterion's marginal effect fully visible.
+   Additionally reports OR ∈ {2, 3, 5} `[A2]`.
 4. **Readout-robustness spot check (optional):** token-variant-sum readout on a
    subset; agreement with the two-token readout distinguishes preamble mass loss
    from option-token fragmentation.

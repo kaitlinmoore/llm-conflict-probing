@@ -198,6 +198,24 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
   from battery, revivable; (c) distinctness screen runs on IV response
   profiles — resolves the HANDOFF v4 §4 open question, no new data.
   → docs/prereg_analysis_plan.md §§5, 7.
+- **D35. Step-3 pre-unblinding amendments; thresholds locked; plan RATIFIED.**
+  Ratified 2026-07-21 (researcher), at plan §1 step 3, before any per-value
+  computation. (A1) §4.1 dominance operationalization confirmed (95th percentile of
+  the pooled {p_A, p_B} calibration distribution); computed threshold **0.997**.
+  (A2) §4.3 calibration-derived OR cutoff not constructible from the administered
+  design (one presentation per calibration pair; a |logit p| substitute is a
+  levels-null that includes the slot bias within-pair differencing cancels — wrong
+  null for a difference statistic); §3(b) replaced by **fixed OR ≥ 3.0** in the
+  value-favored direction (odds-scale equivalent of Δ = 0.25 at p₀ = 0.5), Δ ≥ 0.05
+  guard unchanged; §6.3 additionally reports OR ∈ {2, 3, 5}. (A3) Mass floor revised
+  **0.5 → 0.20**: both §5 revision conditions fired at 0.5 (dense mode 1.29×;
+  calibration block below floor, median 0.254); first-proposed 0.25 tripped the
+  pre-stated density guard (1.10×); 0.20 is gap-seated (0.81×) and
+  calibration-adjacent; 0.20 added to the §6.1 ladder. Locked criteria: resistance
+  ≥ 0.80; choice Δ ≥ 0.25 or (OR ≥ 3.0 and Δ ≥ 0.05); dominance > 0.997; mass floor
+  0.20. Slot-A bias (+0.383; 15/16 calibration pairs favor A) recorded as an
+  instrument finding. Plan header flipped DRAFT → RATIFIED.
+  → docs/prereg_analysis_plan.md (A1–A3 inline); findings log 2026-07-21.
 
 ## 2. STANDING RECOMMENDATIONS (REC — awaiting researcher sign-off)
 
