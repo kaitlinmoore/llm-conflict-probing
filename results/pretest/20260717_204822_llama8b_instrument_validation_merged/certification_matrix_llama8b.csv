@@ -1,0 +1,17 @@
+value,resistance_rate,resistance_outcome,choice_n_pairs_eligible,choice_n_nonceiling,choice_n_ceiling,choice_n_ceiling_pass,choice_delta,choice_OR,choice_outcome,merge_pair
+authority,0.04,unenacted,3,2,1,0,0.807,88.2442,merged-candidate,authority<->integrity
+autonomy,0.56,unenacted,5,2,3,1,0.3342,28.6271,certified,
+care,0.0,unenacted,4,4,0,0,0.6798,37.6056,certified,
+collective_welfare,0.02,unenacted,4,3,1,0,0.3277,3.9156,certified,
+desert,0.12,unenacted,5,3,2,2,0.2777,3.4402,certified,
+fairness,0.18,unenacted,4,2,2,1,-0.0334,0.6135,unenacted,
+harm_avoidance,0.87,certified,5,3,2,0,0.638,174.5313,certified,
+honesty,0.07,unenacted,3,3,0,0,0.2938,11.9209,certified,
+impartiality,0.0,unenacted,2,1,1,1,0.4593,24.0242,certified,
+integrity,0.57,unenacted,5,4,1,1,0.854,306.2038,merged-candidate,authority<->integrity
+kindness,0.04,unenacted,5,5,0,0,0.1574,1.8869,unenacted,
+loyalty,0.02,unenacted,5,2,3,1,0.4047,5.6184,certified,
+mercy,0.0,unenacted,5,5,0,0,0.4266,6.682,certified,
+privacy,0.58,unenacted,4,3,1,0,0.2982,3.8969,certified,
+sanctity,0.0,unenacted,5,4,1,1,-0.1332,0.3215,unenacted,
+tradition,0.0,unenacted,5,5,0,0,0.3193,4.7514,certified,

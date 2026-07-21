@@ -1,0 +1,7 @@
+block,value,probe_id_base,role,P_neutral,P_value,mass_neutral,mass_value
+main,authority,PT2-authority-C1,boss,0.593,0.852,0.028,0.121
+main,authority,PT2-authority-C1,coworker,0.593,0.202,0.028,0.046
+main,authority,PT2-authority-C1,friend,0.593,0.245,0.028,0.027
+null_comparison,authority,PT2-authority-C1-null,boss,0.593,0.852,0.028,0.121
+null_comparison,authority,PT2-authority-C1-null,coworker,0.593,0.202,0.028,0.046
+null_comparison,authority,PT2-authority-C1-null,friend,0.593,0.245,0.028,0.027

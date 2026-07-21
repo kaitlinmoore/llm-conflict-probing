@@ -1,0 +1,17 @@
+value,floor_none,floor_0.2,floor_0.25,floor_0.5,floor_0.75,stable,flag
+authority,certified,certified,indeterminate-deferred,indeterminate-deferred,indeterminate-deferred,False,MASS-SENSITIVE
+autonomy,certified,certified,certified,unenacted,indeterminate-deferred,False,MASS-SENSITIVE
+care,certified,certified,certified,certified,indeterminate-deferred,False,MASS-SENSITIVE
+collective_welfare,certified,certified,certified,certified,indeterminate-deferred,False,MASS-SENSITIVE
+desert,certified,certified,certified,unenacted,indeterminate-deferred,False,MASS-SENSITIVE
+fairness,certified,unenacted,unenacted,unenacted,indeterminate-deferred,False,MASS-SENSITIVE
+harm_avoidance,certified,certified,certified,certified,indeterminate-deferred,False,MASS-SENSITIVE
+honesty,unenacted,certified,certified,indeterminate-deferred,indeterminate-deferred,False,MASS-SENSITIVE
+impartiality,certified,certified,certified,indeterminate-deferred,indeterminate-deferred,False,MASS-SENSITIVE
+integrity,certified,certified,certified,certified,indeterminate-deferred,False,MASS-SENSITIVE
+kindness,unenacted,unenacted,unenacted,indeterminate-deferred,indeterminate-deferred,False,MASS-SENSITIVE
+loyalty,certified,certified,certified,certified,certified,True,
+mercy,certified,certified,certified,certified,certified,True,
+privacy,certified,certified,certified,certified,indeterminate-deferred,False,MASS-SENSITIVE
+sanctity,unenacted,unenacted,unenacted,unenacted,indeterminate-deferred,False,MASS-SENSITIVE
+tradition,certified,certified,unenacted,indeterminate-deferred,indeterminate-deferred,False,MASS-SENSITIVE
