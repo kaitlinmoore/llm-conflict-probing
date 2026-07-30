@@ -188,7 +188,10 @@ def main(argv=None):
                     lambda f: f.write(json.dumps(manifest, indent=2) + "\n"),
                     mode="w", encoding="utf-8", newline="\n")
     print(f"CAPTURE OK — {len(activations)} activation sets -> {out_dir}")
-    print(f"next: python scripts/verify_run.py {out_dir.as_posix()}")
+    print(f"next (verify before anything else touches this dir): "
+          f"python scripts/verify_run.py {out_dir.as_posix()}")
+    print(f"then: python src/comparators/refusal_direction.py "
+          f"--run-dir {out_dir.as_posix()}")
     return 0
 
 

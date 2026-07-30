@@ -83,6 +83,11 @@ def main(argv=None):
     ap.add_argument("--ablate-layers", default=None,
                     help="comma-separated layer indices whose direction is "
                          "ablated (default: >= 0.9*peak reliability band)")
+    ap.add_argument("--out-suffix", default="",
+                    help="appended to output filenames, e.g. '_L21'. Required "
+                         "when running a layer sweep into one run dir: without "
+                         "it each run overwrites the previous run's CSV/JSON "
+                         "and the manifest digests point only at the last one.")
     ap.add_argument("--limit", type=int, default=None,
                     help="cap prompts per class (dry-run only)")
     args = ap.parse_args(argv)
@@ -136,7 +141,7 @@ def main(argv=None):
     hooks = [(f"blocks.{l}.hook_resid_post", ablate_hook)
              for l in range(model.cfg.n_layers)]
 
-    csv_path = run_dir / f"ablation_check_{model_tag}.csv"
+    csv_path = run_dir / f"ablation_check_{model_tag}{args.out_suffix}.csv"
     f = open(csv_path, "w", newline="", encoding="utf-8")
     writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
     writer.writeheader()
@@ -195,7 +200,7 @@ def main(argv=None):
             None if b is None or a is None else round(a - b, 4))
     print(json.dumps(summary["rates"], indent=2))
 
-    json_path = run_dir / f"ablation_summary_{model_tag}.json"
+    json_path = run_dir / f"ablation_summary_{model_tag}{args.out_suffix}.json"
     rl.atomic_write(json_path,
                     lambda fh: fh.write(json.dumps(summary, indent=2) + "\n"),
                     mode="w", encoding="utf-8", newline="\n")
