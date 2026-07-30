@@ -17,11 +17,30 @@ This schema does NOT fix prompt rendering (how stem / inserts / options
 compose into the administered prompt). Rendering is the freezer/runner's
 contract and is deliberately out of scope here.
 
-## Record fields
+## Record types
+
+Two record types, discriminated by `record_type`:
+`"battery_cell"` (one condition of one scenario — the main format below) and
+`"topical_control"` (topic-matched value-free control items from a
+workbook's `Topical_controls` sheet; ingested by researcher direction
+2026-07-30, distinct item class; more control sheets arrive with types
+9–10). Control records go to `<type_id>.controls.jsonl` beside the cell
+file.
+
+`topical_control` fields: `schema_version`, `record_type`, `type_id`,
+`type_num`, `family`, `type_values` (the type's two value names, parsed from
+`type_id`, used for blocklist scoping — controls are value-free but must
+still pass the type's leakage lists), `control_id`, `matched_domain`,
+`stem`, `option_A`, `option_B`, `note` (authoring commentary, non-stimulus),
+`metadata` (same shape as below). Control stimulus fields for
+leakage-checking: `stem`, `option_A`, `option_B`.
+
+## Record fields (`battery_cell`)
 
 | field | type | notes |
 |---|---|---|
 | `schema_version` | str | `"battery_draft_v1"` |
+| `record_type` | str | `"battery_cell"` |
 | `type_id` | str | from workbook filename `CB_<type_id>.xlsx`, e.g. `type1_honesty_vs_care` |
 | `type_num` | int | parsed from `type_id` |
 | `family` | str | `choice` (types 1–6) / `refusal` (types 7–12), per the twelve-type slate in `docs/WEEK_PLAN_stage2.md` |
@@ -85,15 +104,13 @@ legitimately name the values under test.
 - `shared_opposition_text` byte-identical across the two `oppose_tip_*` cells.
 - `option_A`, `option_B` nonempty and mutually distinct; `expected_pick` ∈ {A, B}.
 
-## Open questions for the researcher (defaulted, not decided here)
+## Open questions for the researcher
 
-1. **Leakage-check scope** — the task says "every text field of every cell";
-   this schema defaults to the five stimulus fields above, because checking
-   `design_note` / `condition_label` (which legitimately name values, e.g.
-   "tipped to A (honesty)") would flag every row. Confirm or override.
-2. **Type-2 `Topical_controls` sheet** — present in
-   `CB_type2_privacy_vs_care.xlsx`, not covered by the task's ingest spec
-   (sheet `Scenarios` only). Currently NOT ingested. Say the word and it gets
-   its own record type.
-3. **`shared_conflict_text` header** — normalized here; if instead the
-   workbooks should converge on one header, that is an authoring-side edit.
+1. **Leakage-check scope** — RESOLVED 2026-07-30: researcher confirmed
+   stimulus-fields-only is correct.
+2. **Type-2 `Topical_controls` sheet** — RESOLVED 2026-07-30: researcher
+   directed ingest; `topical_control` record type added (see Record types
+   above).
+3. **`shared_conflict_text` header** — still open: normalized at ingest; if
+   instead the workbooks should converge on one header, that is an
+   authoring-side edit.

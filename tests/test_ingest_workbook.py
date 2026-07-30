@@ -158,6 +158,54 @@ class IngestTestCase(unittest.TestCase):
             self.make_workbook(rows=rows))
         self.assertTrue(all(r["stem"].endswith("   ") for r in records))
 
+    CONTROL_HEADERS = ["control_id", "matched_domain", "stem", "option_A",
+                       "option_B", "note", "reviewer_verdict",
+                       "reviewer_comments"]
+
+    def control_rows(self):
+        return [["TC-1", "health", "A stem about clinics.", "The closer one.",
+                 "The quicker one.", "note", "", ""],
+                ["TC-2", "work", "A stem about jobs.", "Lead with A.",
+                 "Lead with B.", "", "", ""]]
+
+    def test_type_values_parsing(self):
+        self.assertEqual(iw.type_values("type2_privacy_vs_care"),
+                         ["privacy", "care"])
+        self.assertEqual(iw.type_values("type8_harm_avoidance_vs_privacy"),
+                         ["harm_avoidance", "privacy"])
+        with self.assertRaises(ValueError):
+            iw.type_values("type9_noseparator")
+
+    def test_controls_absent_is_empty(self):
+        _, controls = iw.ingest_controls(self.make_workbook())
+        self.assertEqual(controls, [])
+
+    def test_controls_ingested(self):
+        wb = self.make_workbook(extra_sheets={
+            "Topical_controls": [self.CONTROL_HEADERS] + self.control_rows()})
+        _, controls = iw.ingest_controls(wb)
+        self.assertEqual(len(controls), 2)
+        rec = controls[0]
+        self.assertEqual(rec["record_type"], "topical_control")
+        self.assertEqual(rec["type_values"], ["honesty", "care"])
+        self.assertEqual(rec["control_id"], "TC-1")
+        self.assertEqual(rec["metadata"]["source"]["sheet"], "Topical_controls")
+
+    def test_main_writes_controls_file(self):
+        wb = self.make_workbook(extra_sheets={
+            "Topical_controls": [self.CONTROL_HEADERS] + self.control_rows()})
+        out_dir = self.dir / "drafts"
+        code = iw.main(["--workbooks", str(wb), "--out-dir", str(out_dir)])
+        self.assertEqual(code, 0)
+        out = out_dir / "type1_honesty_vs_care.controls.jsonl"
+        records = [json.loads(l) for l in
+                   out.read_text(encoding="utf-8").splitlines()]
+        self.assertEqual(len(records), 2)
+        manifest = json.loads((out_dir / "ingest_manifest.json")
+                              .read_text(encoding="utf-8"))
+        self.assertIn("type1_honesty_vs_care.controls.jsonl",
+                      manifest["files"])
+
     def test_main_writes_jsonl_and_manifest(self):
         wb = self.make_workbook()
         out_dir = self.dir / "drafts"

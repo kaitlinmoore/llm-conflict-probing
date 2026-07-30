@@ -1,33 +1,43 @@
 {
   "files": {
     "type1_honesty_vs_care.jsonl": {
-      "sha256": "7d68d3cbd930599eaa1a30c9cdd6f024785c693f26137c6aa9fb28888736d112",
-      "bytes": 27692,
+      "sha256": "bd986c4e7f97af1ff480779c8ccfbe9780dc764dd54194bc8938f2e5be4301ea",
+      "bytes": 28312,
       "n_records": 20,
       "source_workbook": "CB_type1_honesty_vs_care.xlsx",
       "source_workbook_sha256": "7c507ae400bc634b08d745c2b78b08ae853f0ed691bb27964fa7ebe74d659da7",
       "source_workbook_bytes": 13781,
-      "ingested_utc": "2026-07-30T12:06:55+00:00",
+      "ingested_utc": "2026-07-30T14:02:51+00:00",
       "schema_version": "battery_draft_v1"
     },
     "type2_privacy_vs_care.jsonl": {
-      "sha256": "2b49c0725bc75e9af6672f38093c6a295bdb855c00ee1e30132fd6adf97142ac",
-      "bytes": 30564,
+      "sha256": "8940aa5209aed7f31718dafeadc3591c14d45c2bf6cda650396352e9fc02f4ba",
+      "bytes": 31184,
       "n_records": 20,
       "source_workbook": "CB_type2_privacy_vs_care.xlsx",
       "source_workbook_sha256": "266d773c320700aac9dc3ef6433fbe27609e8e59506aa64f8f81e0b7d38d58cb",
       "source_workbook_bytes": 15981,
-      "ingested_utc": "2026-07-30T12:06:55+00:00",
+      "ingested_utc": "2026-07-30T14:02:51+00:00",
       "schema_version": "battery_draft_v1"
     },
     "type3_mercy_vs_desert.jsonl": {
-      "sha256": "fd35ef1c58caec8fbfb71828d762764d4b2c2eb37f16a97b7aadf9add03b6c12",
-      "bytes": 32642,
+      "sha256": "56b777c4ed15714576d8b89e817c036f84bcfa87e939592a9e06f4473d355fa2",
+      "bytes": 33262,
       "n_records": 20,
       "source_workbook": "CB_type3_mercy_vs_desert.xlsx",
       "source_workbook_sha256": "fe15a87fcdf3faf818aa83836b41b77a927b9d45ef9c6b542ed93989c5525e87",
       "source_workbook_bytes": 14659,
-      "ingested_utc": "2026-07-30T12:06:55+00:00",
+      "ingested_utc": "2026-07-30T14:02:51+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type2_privacy_vs_care.controls.jsonl": {
+      "sha256": "5ff0c7840624c9eef37f85b12a6ad7aefa04346a74dec92017d6ae6912bb1b45",
+      "bytes": 3326,
+      "n_records": 4,
+      "source_workbook": "CB_type2_privacy_vs_care.xlsx",
+      "source_workbook_sha256": "266d773c320700aac9dc3ef6433fbe27609e8e59506aa64f8f81e0b7d38d58cb",
+      "source_workbook_bytes": 15981,
+      "ingested_utc": "2026-07-30T14:02:51+00:00",
       "schema_version": "battery_draft_v1"
     }
   }

@@ -2,24 +2,21 @@
   "_notes": [
     "Lexeme blocklists for battery stimulus text (WEEK_PLAN authoring rule: no giveaway vocabulary).",
     "Matching is whole-word and case-insensitive, applied by src/battery/validate_battery.py to the",
-    "stimulus fields defined in data/battery/battery_schema.md.",
-    "'global' applies to every item; 'per_value' lists apply to items whose value_A or value_B matches.",
+    "stimulus fields defined in data/battery/battery_schema.md (scope researcher-confirmed 2026-07-30).",
+    "'global' applies to every item; 'per_value' lists apply to items whose values match.",
     "Adding a value or a lexeme is a one-line edit to 'per_value'.",
-    "Seed lists are exactly as specified in the session task spec (2026-07-30); inflectional variants",
-    "(e.g. 'punished', 'forgiven') are NOT auto-derived — extend lists explicitly.",
-    "'pending_researcher' marks values whose lists are not yet ratified; the validator surfaces these",
-    "as researcher-decision flags (non-blocking) on every run that touches them."
+    "Seed lists per session task spec 2026-07-30; care + privacy lists researcher-ratified 2026-07-30.",
+    "Inflectional variants are NOT auto-derived — extend lists explicitly.",
+    "care: the bare word 'care/cared/caring' is deliberately NOT blocked (too common and polysemous);",
+    "it is an authoring DISCIPLINE item only — reviewers watch for value-loaded uses by hand."
   ],
   "global": ["fair", "unfair", "conflict", "conflicted", "torn", "dilemma", "value", "values"],
   "per_value": {
     "honesty": ["honest", "honesty", "truthful", "candid", "frank", "unvarnished"],
-    "care": [],
+    "care": ["compassion", "compassionate", "empathy", "empathetic", "kindness", "nurture", "nurturing"],
     "mercy": ["mercy", "merciful", "lenient", "leniency", "forgive", "forgiveness"],
     "desert": ["deserve", "deserves", "deserved", "punish", "punishment"],
-    "privacy": []
+    "privacy": ["privacy", "private", "privately", "secret", "secretly", "secrecy", "confidential", "confidentially", "confide", "confided", "confiding", "betray", "betrayal"]
   },
-  "pending_researcher": {
-    "care": "seed list tbd — flagged for researcher in the session task spec",
-    "privacy": "no seed list in the task spec (type-2 workbook arrived after the spec was written) — researcher to supply"
-  }
+  "pending_researcher": {}
 }

@@ -173,6 +173,45 @@ class ValidatorTestCase(unittest.TestCase):
         self.assertIn("Researcher decisions needed", report)
         self.assertIn("'care'", report)
 
+    @staticmethod
+    def make_control(cid="TC-1", **over):
+        rec = {"schema_version": "battery_draft_v1",
+               "record_type": "topical_control",
+               "type_id": "type1_honesty_vs_care", "type_num": 1,
+               "family": "choice", "type_values": ["honesty", "care"],
+               "control_id": cid, "matched_domain": "health",
+               "stem": "A stem about clinics.",
+               "option_A": "The closer one.", "option_B": "The quicker one.",
+               "note": "honesty may appear in notes",
+               "metadata": {"reviewer_verdict": "", "reviewer_comments": "",
+                            "source": {"workbook": "w.xlsx",
+                                       "workbook_sha256": "0",
+                                       "sheet": "Topical_controls", "row": 2}}}
+        rec.update(over)
+        return rec
+
+    def test_clean_controls_pass(self):
+        code, report = self.run_validator([self.make_control(),
+                                           self.make_control("TC-2")])
+        self.assertEqual(code, 0)
+        self.assertIn("2 topical controls", report)
+
+    def test_control_blocklist_hit_blocks(self):
+        ctrl = self.make_control(stem="An honest answer about clinics.")
+        code, report = self.run_validator([ctrl])
+        self.assertEqual(code, 1)
+        self.assertIn("'honest'", report)
+
+    def test_control_note_not_leakage_checked(self):
+        code, _ = self.run_validator([self.make_control()])
+        self.assertEqual(code, 0)  # note contains 'honesty'; not stimulus
+
+    def test_duplicate_control_id_blocks(self):
+        code, report = self.run_validator([self.make_control(),
+                                           self.make_control()])
+        self.assertEqual(code, 1)
+        self.assertIn("duplicate control_id", report)
+
     def test_agree_cell_with_shared_text_warns_not_blocks(self):
         cells = make_scenario()
         cells[0]["shared_opposition_text"] = "Should be empty here."

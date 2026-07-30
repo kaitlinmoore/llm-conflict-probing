@@ -88,9 +88,53 @@ class Findings:
         self.warnings.append((check, loc, detail))
 
 
+CONTROL_STIMULUS_FIELDS = ("stem", "option_A", "option_B")
+
+
+def validate_controls(path, records, blockdata, blockcompiled, f):
+    """topical_control records: id uniqueness, option sanity, leakage via
+    global + the type's value lists (schema doc, researcher 2026-07-30).
+    No 4-cell structure / stem / shared-text / length checks — different
+    item class."""
+    f.lines.append(f"### `{path.name}` — {len(records)} topical controls")
+    f.lines.append("")
+    seen_ids = set()
+    for rec in records:
+        cid = rec.get("control_id", "")
+        loc = f"{path.name}:{cid or '<no id>'}"
+        if not cid:
+            f.block("d.structure", loc, "empty control_id")
+        elif cid in seen_ids:
+            f.block("d.structure", loc, "duplicate control_id")
+        seen_ids.add(cid)
+        if not rec.get("option_A", ""):
+            f.block("d.structure", loc, "option_A empty")
+        if not rec.get("option_B", ""):
+            f.block("d.structure", loc, "option_B empty")
+        if rec.get("option_A") and rec.get("option_A") == rec.get("option_B"):
+            f.block("d.structure", loc, "option_A == option_B (duplicate options)")
+        scopes = ["global"] + [v for v in rec.get("type_values", [])
+                               if v in blockcompiled]
+        for field in CONTROL_STIMULUS_FIELDS:
+            text = rec.get(field, "") or ""
+            for scope in scopes:
+                for lexeme, pattern in blockcompiled[scope]:
+                    if pattern.search(text):
+                        f.block("a.lexeme", f"{loc}:{field}",
+                                f"blocked lexeme {lexeme!r} (list: {scope})")
+
+
 def validate_file(path: Path, blockdata, blockcompiled, f: Findings):
     records = [json.loads(l) for l in
                path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    controls = [r for r in records
+                if r.get("record_type") == "topical_control"]
+    records = [r for r in records
+               if r.get("record_type", "battery_cell") == "battery_cell"]
+    if controls:
+        validate_controls(path, controls, blockdata, blockcompiled, f)
+    if not records:
+        return len(controls), []
     f.lines.append(f"### `{path.name}` — {len(records)} cells")
     f.lines.append("")
 
@@ -264,9 +308,10 @@ def main(argv=None):
     report.extend(f.lines)
     report.append("Notes: token counts are whitespace-split tokens (proxy — "
                   "model tokenizer not loadable off-pod). Blocklist scope is "
-                  "the stimulus fields listed in data/battery/battery_schema.md; "
-                  "the schema doc records this as an open interpretation "
-                  "question for the researcher.")
+                  "the stimulus fields listed in data/battery/battery_schema.md "
+                  "(researcher-confirmed 2026-07-30). Bare 'care/cared/caring' "
+                  "is authoring discipline, not blocklisted — see "
+                  "docs/battery_validator_backlog.md for pending edits.")
     report.append("")
     text = "\n".join(report)
 

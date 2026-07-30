@@ -1,19 +1,16 @@
 # Battery validation report
 
 Produced by: Claude Fable 5 (model id claude-fable-5)
-Generated: 2026-07-30T12:07:37+00:00 — `src/battery/validate_battery.py`
-Blocklists: `data/battery/lexeme_blocklists.json` sha256 `6c0a3fd01e60…`
+Generated: 2026-07-30T14:03:14+00:00 — `src/battery/validate_battery.py`
+Blocklists: `data/battery/lexeme_blocklists.json` sha256 `3d45e707a171…`
 
 Inputs:
-- `data\battery\drafts\type1_honesty_vs_care.jsonl` — sha256 `7d68d3cbd930…`, 27692 bytes
-- `data\battery\drafts\type2_privacy_vs_care.jsonl` — sha256 `2b49c0725bc7…`, 30564 bytes
-- `data\battery\drafts\type3_mercy_vs_desert.jsonl` — sha256 `fd35ef1c58ca…`, 32642 bytes
+- `data\battery\drafts\type1_honesty_vs_care.jsonl` — sha256 `bd986c4e7f97…`, 28312 bytes
+- `data\battery\drafts\type2_privacy_vs_care.controls.jsonl` — sha256 `5ff0c7840624…`, 3326 bytes
+- `data\battery\drafts\type2_privacy_vs_care.jsonl` — sha256 `8940aa5209ae…`, 31184 bytes
+- `data\battery\drafts\type3_mercy_vs_desert.jsonl` — sha256 `56b777c4ed15…`, 33262 bytes
 
-## Verdict: **PASS** — 60 cells checked, 0 blocking, 0 warnings, 2 researcher flags, 3 length flags
-
-## Researcher decisions needed (non-blocking)
-- value 'care' blocklist is empty/pending: seed list tbd — flagged for researcher in the session task spec
-- value 'privacy' blocklist is empty/pending: no seed list in the task spec (type-2 workbook arrived after the spec was written) — researcher to supply
+## Verdict: **PASS** — 64 cells checked, 0 blocking, 0 warnings, 0 researcher flags, 3 length flags
 
 ## Length flags (non-blocking, check e)
 - type1_honesty_vs_care.jsonl:CB-hc-S1:agree_A insert 35 tokens > 1.5x scenario median 22.5
@@ -46,6 +43,8 @@ Inputs:
 | CB-hc-S5 | agree_B | 15 | 19 |  |
 | CB-hc-S5 | oppose_tip_A | 13 | 19 |  |
 | CB-hc-S5 | oppose_tip_B | 24 | 19 |  |
+
+### `type2_privacy_vs_care.controls.jsonl` — 4 topical controls
 
 ### `type2_privacy_vs_care.jsonl` — 20 cells
 
@@ -97,4 +96,4 @@ Inputs:
 | CB-md-S5 | oppose_tip_A | 26 | 32 |  |
 | CB-md-S5 | oppose_tip_B | 38 | 32 |  |
 
-Notes: token counts are whitespace-split tokens (proxy — model tokenizer not loadable off-pod). Blocklist scope is the stimulus fields listed in data/battery/battery_schema.md; the schema doc records this as an open interpretation question for the researcher.
+Notes: token counts are whitespace-split tokens (proxy — model tokenizer not loadable off-pod). Blocklist scope is the stimulus fields listed in data/battery/battery_schema.md (researcher-confirmed 2026-07-30). Bare 'care/cared/caring' is authoring discipline, not blocklisted — see docs/battery_validator_backlog.md for pending edits.

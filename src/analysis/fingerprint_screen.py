@@ -507,16 +507,21 @@ def main(argv=None):
     med_rel = np.median(rel_mat, axis=0)
     sep = med_rel - mean_cross
     l_star = int(np.argmax(sep))
-    lines.append("## Exploratory addendum — layer profile (not part of the "
-                 "pre-specced screen)")
+    lines.append(f"## Operative reading — layer-{l_star} view (registered "
+                 "by researcher direction, 2026-07-30)")
     lines.append("")
-    lines.append("The specced flag rule saturated: every battery pairing "
-                 "flagged, all at layers 0–2. Diagnosis from the per-layer "
-                 "data: at early layers mean cross-value similarity equals "
-                 "median reliability (separation ≈ 0) — fingerprints there "
-                 "are dominated by shared prompt-format variance, which is "
-                 "itself highly split-half reliable, so the best-shared-"
-                 "reliability criterion lands exactly where the screen "
+    lines.append("This section is the **operative reading** of the screen; "
+                 "the specced flag list above is retained as the "
+                 "pre-registered computation but is superseded for "
+                 "interpretation. **Criterion defect, documented:** the "
+                 "specced rule reports similarity at the best "
+                 "shared-reliability layer, and every battery pairing "
+                 "flagged there, all at layers 0–2 — where mean cross-value "
+                 "similarity equals median reliability (separation ≈ 0). "
+                 "Early-layer fingerprints are dominated by shared "
+                 "prompt-format variance, which is itself highly split-half "
+                 "reliable: **reliability-max = content-min**, so the "
+                 "criterion selects exactly the layers where the screen "
                  "cannot discriminate. Value-specific signal is clearest "
                  f"where separation peaks: **layer {l_star}** "
                  f"(median reliability {med_rel[l_star]:.3f}, mean "
@@ -552,6 +557,14 @@ def main(argv=None):
         lines.append(f"| {va}–{vb} | {';'.join(f'type{t}' for t in types)} | "
                      f"{c:.3f} | {pct:.2f} | {min_rel:.3f} |")
     lines.append("")
+    ai = all_cos.get(("authority", "integrity"))
+    if ai is not None:
+        c_ai = float(ai[l_star])
+        pct_ai = sum(x <= c_ai for x in ranked) / len(ranked)
+        lines.append(f"authority–integrity: cosine {c_ai:.3f} at layer "
+                     f"{l_star}, percentile {pct_ai:.2f} — descriptive only "
+                     "— pairing decision unaffected.")
+        lines.append("")
     elevated = [p for p in addendum_pairs if p[4] >= 0.90]
     if elevated:
         lines.append("Battery pairings in the top decile of cross-value "

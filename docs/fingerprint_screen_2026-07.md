@@ -1,7 +1,7 @@
 # Value-fingerprint screen — pre-test activations (2026-07)
 
 Produced by: Claude Fable 5 (model id claude-fable-5)
-Generated: 2026-07-30T13:36:58+00:00 — `src/analysis/fingerprint_screen.py` -> `results/fingerprint_screen/20260730_133655_llama8b`
+Generated: 2026-07-30T14:03:18+00:00 — `src/analysis/fingerprint_screen.py` -> `results/fingerprint_screen/20260730_140315_llama8b`
 Subject model of the underlying data: **meta-llama/Llama-3.1-8B-Instruct** (merged IV run `20260717_204822_llama8b_instrument_validation_merged`, instrument sha256 `659afb97…`).
 
 **This is a screen, not a finding.** The pre-test confounds value with topic by design (each value's probes live in their own scenarios), so similarity here is **suggestive, not diagnostic**. Flags only — no verdicts. Its one actionable output: a flagged pairing that co-occurs in a planned battery tension type deserves reconsideration before that type is authored.
@@ -172,9 +172,9 @@ Full per-layer matrices: `similarity_layers.csv`. Pairs involving a NOT-ESTIMABL
 
 Reminder: topic confound (above) — a flag is a prompt to reconsider, a clean screen is not evidence of distinctness.
 
-## Exploratory addendum — layer profile (not part of the pre-specced screen)
+## Operative reading — layer-12 view (registered by researcher direction, 2026-07-30)
 
-The specced flag rule saturated: every battery pairing flagged, all at layers 0–2. Diagnosis from the per-layer data: at early layers mean cross-value similarity equals median reliability (separation ≈ 0) — fingerprints there are dominated by shared prompt-format variance, which is itself highly split-half reliable, so the best-shared-reliability criterion lands exactly where the screen cannot discriminate. Value-specific signal is clearest where separation peaks: **layer 12** (median reliability 0.547, mean cross-pair cosine 0.430).
+This section is the **operative reading** of the screen; the specced flag list above is retained as the pre-registered computation but is superseded for interpretation. **Criterion defect, documented:** the specced rule reports similarity at the best shared-reliability layer, and every battery pairing flagged there, all at layers 0–2 — where mean cross-value similarity equals median reliability (separation ≈ 0). Early-layer fingerprints are dominated by shared prompt-format variance, which is itself highly split-half reliable: **reliability-max = content-min**, so the criterion selects exactly the layers where the screen cannot discriminate. Value-specific signal is clearest where separation peaks: **layer 12** (median reliability 0.547, mean cross-pair cosine 0.430).
 
 | layer | mean cross-pair cosine | median reliability | separation |
 |---|---|---|---|
@@ -209,5 +209,7 @@ Battery pairings ranked at layer 12, with each cosine's percentile among all 120
 | desert–mercy | type3 | 0.358 | 0.23 | 0.484 |
 | integrity–mercy | type11 | 0.354 | 0.22 | 0.633 |
 | authority–autonomy | type6 | 0.113 | 0.03 | 0.414 |
+
+authority–integrity: cosine 0.207 at layer 12, percentile 0.08 — descriptive only — pairing decision unaffected.
 
 Battery pairings in the top decile of cross-value similarity at the max-separation layer: **care–privacy** (type 2, type 10, cosine 0.682, percentile 1.00); **harm_avoidance–privacy** (type 8, cosine 0.650, percentile 0.98); **harm_avoidance–integrity** (type 9, cosine 0.622, percentile 0.95). Same caveat as everywhere in this screen: the pre-test confounds value with topic, and some of these pairings share topic bridges by design.

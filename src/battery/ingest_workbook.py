@@ -48,6 +48,8 @@ except ImportError:  # running as a plain script from src/battery/
 
 SCHEMA_VERSION = "battery_draft_v1"
 SHEET_NAME = "Scenarios"
+CONTROL_SHEET = "Topical_controls"  # optional; ingested per researcher
+                                    # direction 2026-07-30 (schema doc)
 CONDITIONS = ("agree_A", "agree_B", "oppose_tip_A", "oppose_tip_B")
 
 # Canonical core headers. Anything else in the sheet lands in extra_fields
@@ -151,6 +153,15 @@ def parse_type_id(workbook_name: str):
     return m.group(1), int(m.group(2))
 
 
+def type_values(type_id: str):
+    """['privacy', 'care'] from 'type2_privacy_vs_care' — the '_vs_'
+    separator is unambiguous even for underscore value names."""
+    body = type_id.split("_", 1)[1]
+    if "_vs_" not in body:
+        raise ValueError(f"type_id {type_id!r} has no _vs_ separator")
+    return body.split("_vs_", 1)
+
+
 def ingest_workbook(xlsx_path: Path):
     """-> (type_id, [records]). Raises on structural problems that make the
     mapping ambiguous (unknown option headers, missing shared-text column)."""
@@ -185,6 +196,7 @@ def ingest_workbook(xlsx_path: Path):
                              f"shared_opposition_text/shared_conflict_text column")
         records.append({
             "schema_version": SCHEMA_VERSION,
+            "record_type": "battery_cell",
             "type_id": type_id,
             "type_num": type_num,
             "family": family_for_type(type_num),
@@ -217,6 +229,45 @@ def ingest_workbook(xlsx_path: Path):
     return type_id, records
 
 
+def ingest_controls(xlsx_path: Path):
+    """Topical_controls sheet -> topical_control records ([] if the sheet is
+    absent — types without control sheets are normal)."""
+    type_id, type_num = parse_type_id(xlsx_path.name)
+    wb_sha, _ = file_digest(xlsx_path)
+    try:
+        rows = read_sheet(xlsx_path, CONTROL_SHEET)
+    except KeyError:
+        return type_id, []
+    tvals = type_values(type_id)
+    records = []
+    for row, rnum in rows:
+        records.append({
+            "schema_version": SCHEMA_VERSION,
+            "record_type": "topical_control",
+            "type_id": type_id,
+            "type_num": type_num,
+            "family": family_for_type(type_num),
+            "type_values": tvals,
+            "control_id": row.get("control_id", ""),
+            "matched_domain": row.get("matched_domain", ""),
+            "stem": row.get("stem", ""),
+            "option_A": row.get("option_A", ""),
+            "option_B": row.get("option_B", ""),
+            "note": row.get("note", ""),
+            "metadata": {
+                "reviewer_verdict": row.get("reviewer_verdict", ""),
+                "reviewer_comments": row.get("reviewer_comments", ""),
+                "source": {
+                    "workbook": xlsx_path.name,
+                    "workbook_sha256": wb_sha,
+                    "sheet": CONTROL_SHEET,
+                    "row": rnum,
+                },
+            },
+        })
+    return type_id, records
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--workbooks", nargs="*", default=None,
@@ -240,28 +291,32 @@ def main(argv=None):
     for path in paths:
         try:
             type_id, records = ingest_workbook(path)
+            _, controls = ingest_controls(path)
         except Exception as e:
             print(f"INGEST FAIL — {path.name}: {e}")
             status = 1
             continue
-        out_path = out_dir / f"{type_id}.jsonl"
-        payload = "".join(json.dumps(r, ensure_ascii=False) + "\n"
-                          for r in records)
-        atomic_write(out_path, lambda f: f.write(payload),
-                     mode="w", encoding="utf-8", newline="\n")
-        sha, size = file_digest(out_path)
         wb_sha, wb_size = file_digest(path)
-        manifest["files"][out_path.name] = {
-            "sha256": sha, "bytes": size, "n_records": len(records),
-            "source_workbook": path.name,
-            "source_workbook_sha256": wb_sha,
-            "source_workbook_bytes": wb_size,
-            "ingested_utc": datetime.datetime.now(
-                datetime.timezone.utc).isoformat(timespec="seconds"),
-            "schema_version": SCHEMA_VERSION,
-        }
-        print(f"Wrote {out_path} ({len(records)} records)")
-        print(f"DIGEST {sha} {size} {out_path.name}")
+        outputs = [(out_dir / f"{type_id}.jsonl", records)]
+        if controls:
+            outputs.append((out_dir / f"{type_id}.controls.jsonl", controls))
+        for out_path, recs in outputs:
+            payload = "".join(json.dumps(r, ensure_ascii=False) + "\n"
+                              for r in recs)
+            atomic_write(out_path, lambda f, p=payload: f.write(p),
+                         mode="w", encoding="utf-8", newline="\n")
+            sha, size = file_digest(out_path)
+            manifest["files"][out_path.name] = {
+                "sha256": sha, "bytes": size, "n_records": len(recs),
+                "source_workbook": path.name,
+                "source_workbook_sha256": wb_sha,
+                "source_workbook_bytes": wb_size,
+                "ingested_utc": datetime.datetime.now(
+                    datetime.timezone.utc).isoformat(timespec="seconds"),
+                "schema_version": SCHEMA_VERSION,
+            }
+            print(f"Wrote {out_path} ({len(recs)} records)")
+            print(f"DIGEST {sha} {size} {out_path.name}")
 
     atomic_write(manifest_path,
                  lambda f: f.write(json.dumps(manifest, indent=2) + "\n"),
