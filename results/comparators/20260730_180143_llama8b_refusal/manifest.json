@@ -1,0 +1,99 @@
+{
+  "run_id": "20260730_180143_llama8b_refusal",
+  "run_role": "refusal_comparator_capture",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "model_tag": "llama8b",
+  "dtype": "bfloat16",
+  "schema_version": "refusal_capture_v1",
+  "probe_file": "data/comparators/refusal_prompts.jsonl",
+  "probe_file_sha256": "1cf1fd8ef69eac84e3392d0d5f458d4e97922e39c269cbd05bcd2fb7b571f3b8",
+  "n_prompts": 320,
+  "expected_rows": 320,
+  "row_count_file": "prompts.csv",
+  "anchor_spec": "assistant<|end_header_id|>\n\n",
+  "anchor_verification_samples": [
+    {
+      "tail_decoded": " media<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": " users<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": " people<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    }
+  ],
+  "n_layers": 32,
+  "d_model": 4096,
+  "torch_version": "2.11.0+cu128",
+  "timestamp": "2026-07-30T18:07:27.399120",
+  "notes": "Prompt-only anchor capture; no generation. Direction estimation and the ablation check are separate scripts.",
+  "output_digests": {
+    "prompts.csv": {
+      "sha256": "56e6629d388e83dfd04b445d421a62925398df914a71bdd684368d50f1935c2a",
+      "bytes": 12136
+    },
+    "activations_llama8b.pt": {
+      "sha256": "704735d800eac68735227133238731df20343b43b4470742cd67b3a7efb27a5d",
+      "bytes": 167867711
+    },
+    "refusal_direction_llama8b.npz": {
+      "sha256": "cfb51ad8fccf925d7bd3a64fad1b64236f90e4aacdd539803ce375b2750a928e",
+      "bytes": 527046
+    },
+    "refusal_reliability_llama8b.csv": {
+      "sha256": "d825566a5dcd65a2e8f2a08f9fc3bd6a79d68777c14dc3dd62a616617b5eee6b",
+      "bytes": 706
+    },
+    "ablation_check_llama8b_L06.csv": {
+      "sha256": "0ea3953d6371fcc2a2f173ac0108995052c52b53d5258b52871a336b51ab6d91",
+      "bytes": 35704
+    },
+    "ablation_summary_llama8b_L06.json": {
+      "sha256": "d1905c2335a8c7bbeb5a90b7d7c9664775fd679fc126feb8a29b69312c5aa1aa",
+      "bytes": 449
+    },
+    "ablation_check_llama8b_L12.csv": {
+      "sha256": "1aa66ab6fcc308ad5d1ece1f090a45fd481d342e76502c9e124407a9ec2e7761",
+      "bytes": 40685
+    },
+    "ablation_summary_llama8b_L12.json": {
+      "sha256": "ba6706d8b69bf5fea9bb41128ab59bec41c7ee918d93b09c306c9dd6750d9195",
+      "bytes": 448
+    },
+    "ablation_check_llama8b_L18.csv": {
+      "sha256": "feb646d2644ef56b1f629880c657b4a2158c64bd105b25498a7e9ee80d0a39ea",
+      "bytes": 34297
+    },
+    "ablation_summary_llama8b_L18.json": {
+      "sha256": "35790f12d968988b5831d0646862ac1500a2ed6a5a7df05b7e173274a7b4bae3",
+      "bytes": 452
+    },
+    "ablation_check_llama8b_L21.csv": {
+      "sha256": "43ea4d2ec6e9f08c04bf2220a1c393b857c517fd2b3ffb28333e83f4257d0498",
+      "bytes": 33933
+    },
+    "ablation_summary_llama8b_L21.json": {
+      "sha256": "556c21cf2fa695aaa9aed86d77352927854a98647b89b84475eb19a059397072",
+      "bytes": 445
+    },
+    "ablation_check_llama8b_L26.csv": {
+      "sha256": "ac35b766a2fd966c7bcf8386060d67a75ec1c4a2ace0e9ac410258ba12598dc6",
+      "bytes": 33484
+    },
+    "ablation_summary_llama8b_L26.json": {
+      "sha256": "309a4a231982dc53cf6483867dee886006bea882361ba643f37bae74e05e5b62",
+      "bytes": 445
+    }
+  },
+  "direction_estimation": {
+    "n_pairs": 128,
+    "n_splits": 200,
+    "seed": 23,
+    "split_unit": "length_matched_pair",
+    "peak_layer": 21,
+    "peak_reliability": 0.987136
+  }
+}

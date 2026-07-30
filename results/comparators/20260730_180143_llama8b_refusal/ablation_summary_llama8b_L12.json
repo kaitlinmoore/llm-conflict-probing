@@ -1,0 +1,22 @@
+{
+  "run_id": "20260730_180143_llama8b_refusal",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "ablate_layers": [
+    12
+  ],
+  "max_new_tokens": 64,
+  "labeler": "pretest heuristic_resistance_prelabel (REFUSAL_MARKERS)",
+  "n_prompts": 64,
+  "rates": {
+    "harmful": {
+      "baseline": 0.9375,
+      "ablated": 0.0625,
+      "delta": -0.875
+    },
+    "harmless": {
+      "baseline": 0.0,
+      "ablated": 0.0,
+      "delta": 0.0
+    }
+  }
+}
