@@ -10,6 +10,8 @@ this on the pod right after the runner's DIGEST lines print.
 Checks:
   - manifest.json parses and contains the required keys
   - the run CSV's row count matches the manifest's expected_rows
+    (which CSV: manifest key `row_count_file` if present, else
+    screen_{mode}.csv for screen runs, else generations.csv)
   - activations file loads and its `partial` flag is False
     (skipped for screen runs — detected via manifest screen_mode)
   - recomputed sha256 + byte size match the manifest's output_digests
@@ -68,8 +70,11 @@ def main(argv=None):
           f"missing: {missing}" if missing else ", ".join(REQUIRED_KEYS))
 
     # ---- CSV row count vs expected_rows ----
+    # Row-count artifact: manifest-declared when present (comparator captures
+    # write prompts.csv, not generations.csv), else the pre-test convention.
     screen_mode = manifest.get("screen_mode")
-    csv_name = f"screen_{screen_mode}.csv" if screen_mode else "generations.csv"
+    csv_name = manifest.get("row_count_file") or (
+        f"screen_{screen_mode}.csv" if screen_mode else "generations.csv")
     try:
         with open(run_dir / csv_name, newline="") as f:
             n_rows = sum(1 for _ in csv.DictReader(f))
