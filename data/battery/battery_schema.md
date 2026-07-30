@@ -1,0 +1,99 @@
+# Battery draft schema — `battery_draft_v1`
+
+Produced by: Claude Fable 5 (model id `claude-fable-5`), 2026-07-30 session 1.
+Status: infrastructure definition for Stage 2 ingest/validation. Content
+decisions remain the researcher's; open questions are listed at the bottom
+for researcher decision, per standing rules.
+
+## Scope
+
+Defines the JSONL record format emitted by `src/battery/ingest_workbook.py`
+into `data/battery/drafts/<type_id>.jsonl`, and consumed by
+`src/battery/validate_battery.py`. One record = one **cell** (one condition of
+one scenario). The freezer (later task) consumes these drafts; only rows whose
+`metadata.reviewer_verdict == "approve"` are freeze-eligible.
+
+This schema does NOT fix prompt rendering (how stem / inserts / options
+compose into the administered prompt). Rendering is the freezer/runner's
+contract and is deliberately out of scope here.
+
+## Record fields
+
+| field | type | notes |
+|---|---|---|
+| `schema_version` | str | `"battery_draft_v1"` |
+| `type_id` | str | from workbook filename `CB_<type_id>.xlsx`, e.g. `type1_honesty_vs_care` |
+| `type_num` | int | parsed from `type_id` |
+| `family` | str | `choice` (types 1–6) / `refusal` (types 7–12), per the twelve-type slate in `docs/WEEK_PLAN_stage2.md` |
+| `scenario_id` | str | e.g. `CB-hc-S1`; scenario = 4 cells |
+| `title` | str | workbook-facing scenario name |
+| `condition` | str | exactly one of `agree_A`, `agree_B`, `oppose_tip_A`, `oppose_tip_B` |
+| `condition_label` | str | workbook-facing long label |
+| `stem` | str | shared scenario text; must be byte-identical across a scenario's 4 cells |
+| `option_A` | str | verbatim option text (stimulus) |
+| `option_B` | str | verbatim option text (stimulus) |
+| `value_A` | str | value name parsed from the workbook's `option_A_<value>` header |
+| `value_B` | str | value name parsed from the workbook's `option_B_<value>` header |
+| `shared_opposition_text` | str | empty in `agree_*` cells; byte-identical across the two `oppose_tip_*` cells of a scenario |
+| `condition_insert` | str | the cell's condition-specific text (stimulus) |
+| `expected_pick` | str | `A` or `B` |
+| `design_note` | str | author-facing rationale; NOT stimulus |
+| `extra_fields` | dict | per-type authoring columns passed through 1:1 under their original headers (e.g. `structure`, `investment` / `stakes` / `domain`, `ask`, `relationship`) |
+| `metadata` | dict | see below |
+
+`metadata`:
+
+| key | notes |
+|---|---|
+| `reviewer_verdict` | carried verbatim from the workbook (`approve` / empty / other) |
+| `reviewer_comments` | carried verbatim |
+| `source.workbook` | workbook filename |
+| `source.workbook_sha256` | sha256 of the workbook file at ingest time |
+| `source.sheet` | always `Scenarios` |
+| `source.row` | 1-based row number in the sheet |
+| `source.shared_text_header` | the original column header that populated `shared_opposition_text` (see normalization note) |
+
+## Normalizations applied at ingest (all recorded in metadata)
+
+1. **`shared_conflict_text` → `shared_opposition_text`.** The type-1 workbook
+   names this column `shared_conflict_text`; types 2–3 and the task spec say
+   `shared_opposition_text`. Ingest normalizes to the spec name and records
+   the source header. No text is altered.
+2. **`option_A_<value>` / `option_B_<value>` → `option_A` / `option_B` +
+   `value_A` / `value_B`.** The value names ride in the workbook headers; they
+   are split out so validation can select the right lexeme blocklists.
+
+No cell text is trimmed, re-encoded, or otherwise modified: byte-identity
+checks downstream are meaningful only if ingest is byte-faithful.
+
+## Stimulus vs. non-stimulus fields (leakage-check scope)
+
+Fields treated as **stimulus** (lexeme-blocklist-checked, blocking):
+`stem`, `option_A`, `option_B`, `shared_opposition_text`, `condition_insert`.
+
+Fields treated as **non-stimulus** (not checked): `title`, `condition_label`,
+`design_note`, `extra_fields`, all metadata. Rationale: these are
+workbook/reviewer-facing and are not part of the rendered prompt; design notes
+legitimately name the values under test.
+
+## Uniqueness and completeness invariants (enforced by the validator)
+
+- `(scenario_id, condition)` unique within a type file.
+- Each `scenario_id` has exactly the 4 conditions
+  `{agree_A, agree_B, oppose_tip_A, oppose_tip_B}`.
+- `stem` byte-identical across a scenario's 4 cells.
+- `shared_opposition_text` byte-identical across the two `oppose_tip_*` cells.
+- `option_A`, `option_B` nonempty and mutually distinct; `expected_pick` ∈ {A, B}.
+
+## Open questions for the researcher (defaulted, not decided here)
+
+1. **Leakage-check scope** — the task says "every text field of every cell";
+   this schema defaults to the five stimulus fields above, because checking
+   `design_note` / `condition_label` (which legitimately name values, e.g.
+   "tipped to A (honesty)") would flag every row. Confirm or override.
+2. **Type-2 `Topical_controls` sheet** — present in
+   `CB_type2_privacy_vs_care.xlsx`, not covered by the task's ingest spec
+   (sheet `Scenarios` only). Currently NOT ingested. Say the word and it gets
+   its own record type.
+3. **`shared_conflict_text` header** — normalized here; if instead the
+   workbooks should converge on one header, that is an authoring-side edit.
