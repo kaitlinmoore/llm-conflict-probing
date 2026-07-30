@@ -1,0 +1,17 @@
+value,n_pairs,n_splits,best_layer,best_layer_reliability,status
+authority,3,3,1,0.8583,RELIABLE
+autonomy,5,10,0,0.8727,RELIABLE
+care,4,3,0,0.9125,RELIABLE
+collective_welfare,4,3,0,0.8984,RELIABLE
+desert,5,10,0,0.889,RELIABLE
+fairness,4,3,0,0.9191,RELIABLE
+harm_avoidance,5,10,0,0.9118,RELIABLE
+honesty,3,3,0,0.8735,RELIABLE
+impartiality,2,1,0,0.7971,RELIABLE
+integrity,5,10,0,0.8655,RELIABLE
+kindness,5,10,0,0.8916,RELIABLE
+loyalty,5,10,0,0.9055,RELIABLE
+mercy,5,10,0,0.9259,RELIABLE
+privacy,4,3,0,0.8482,RELIABLE
+sanctity,5,10,2,0.8139,RELIABLE
+tradition,5,10,0,0.9081,RELIABLE

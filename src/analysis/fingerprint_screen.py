@@ -254,6 +254,11 @@ def main(argv=None):
     ap.add_argument("--out-root", default="results/fingerprint_screen")
     ap.add_argument("--summary", default="docs/fingerprint_screen_2026-07.md")
     ap.add_argument("--mass-floor", type=float, default=MASS_FLOOR)
+    ap.add_argument("--activations", default=None,
+                    help="path to activations_<tag>.pt (default: inside "
+                         "--run-dir; see docs/data_locations.md for the "
+                         "local mirror). sha256 is verified against the "
+                         "run manifest either way.")
     ap.add_argument("--plan-only", action="store_true",
                     help="eligibility + input verification only (no activations)")
     args = ap.parse_args(argv)
@@ -280,7 +285,7 @@ def main(argv=None):
           f"{p_sha[:12]}…")
 
     act_name = f"activations_{model_tag}.pt"
-    act_path = run_dir / act_name
+    act_path = Path(args.activations) if args.activations else run_dir / act_name
     act_expected = manifest.get("output_digests", {}).get(act_name, {})
     if not args.plan_only:
         if not act_path.exists():
@@ -369,8 +374,10 @@ def main(argv=None):
     sim_layer_rows, sim_summary_rows = [], []
     bpairs = battery_pairs()
     flags = []
+    all_cos = {}  # (va, vb) -> per-layer cosine array (for the addendum)
     for va, vb in itertools.combinations(values, 2):
         cos = cosine_per_layer(fps[va], fps[vb])
+        all_cos[(va, vb)] = cos
         for l in range(n_layers):
             sim_layer_rows.append([va, vb, l, round(float(cos[l]), 6)])
         ra, rb = reliability[va]["rel"], reliability[vb]["rel"]
@@ -489,6 +496,75 @@ def main(argv=None):
     lines.append("")
     lines.append("Reminder: topic confound (above) — a flag is a prompt to "
                  "reconsider, a clean screen is not evidence of distinctness.")
+    lines.append("")
+
+    # ---- exploratory addendum (clearly labeled; the sections above are the
+    # pre-specced screen and are unchanged by this) ----------------------------
+    cos_mat = np.stack([all_cos[p] for p in sorted(all_cos)])  # [n_pairs, L]
+    rel_mat = np.stack([reliability[v]["rel"] for v in values
+                        if reliability[v]["rel"] is not None])
+    mean_cross = cos_mat.mean(axis=0)
+    med_rel = np.median(rel_mat, axis=0)
+    sep = med_rel - mean_cross
+    l_star = int(np.argmax(sep))
+    lines.append("## Exploratory addendum — layer profile (not part of the "
+                 "pre-specced screen)")
+    lines.append("")
+    lines.append("The specced flag rule saturated: every battery pairing "
+                 "flagged, all at layers 0–2. Diagnosis from the per-layer "
+                 "data: at early layers mean cross-value similarity equals "
+                 "median reliability (separation ≈ 0) — fingerprints there "
+                 "are dominated by shared prompt-format variance, which is "
+                 "itself highly split-half reliable, so the best-shared-"
+                 "reliability criterion lands exactly where the screen "
+                 "cannot discriminate. Value-specific signal is clearest "
+                 f"where separation peaks: **layer {l_star}** "
+                 f"(median reliability {med_rel[l_star]:.3f}, mean "
+                 f"cross-pair cosine {mean_cross[l_star]:.3f}).")
+    lines.append("")
+    lines.append("| layer | mean cross-pair cosine | median reliability | separation |")
+    lines.append("|---|---|---|---|")
+    for l in sorted({0, 2, 4, 6, 8, 10, l_star - 1, l_star, l_star + 1, 14,
+                     16, 20, 24, 28, n_layers - 1} & set(range(n_layers))):
+        lines.append(f"| {l} | {mean_cross[l]:.3f} | {med_rel[l]:.3f} | "
+                     f"{sep[l]:+.3f} |")
+    lines.append("")
+    lines.append(f"Battery pairings ranked at layer {l_star}, with each "
+                 f"cosine's percentile among all {len(all_cos)} value pairs "
+                 f"at that layer (the relative view the saturated flag list "
+                 f"cannot give):")
+    lines.append("")
+    lines.append(f"| pair | battery type | cosine @L{l_star} | percentile | "
+                 f"min split-half rel @L{l_star} |")
+    lines.append("|---|---|---|---|---|")
+    layer_cos = {p: float(c[l_star]) for p, c in all_cos.items()}
+    ranked = sorted(layer_cos.values())
+    rel_by_value = {v: reliability[v]["rel"] for v in values}
+    addendum_pairs = []
+    for (va, vb), c in sorted(layer_cos.items(), key=lambda kv: -kv[1]):
+        types = sorted(bpairs.get(frozenset((va, vb)), []))
+        if not types:
+            continue
+        pct = sum(x <= c for x in ranked) / len(ranked)
+        min_rel = min(float(rel_by_value[va][l_star]),
+                      float(rel_by_value[vb][l_star]))
+        addendum_pairs.append((va, vb, types, c, pct, min_rel))
+        lines.append(f"| {va}–{vb} | {';'.join(f'type{t}' for t in types)} | "
+                     f"{c:.3f} | {pct:.2f} | {min_rel:.3f} |")
+    lines.append("")
+    elevated = [p for p in addendum_pairs if p[4] >= 0.90]
+    if elevated:
+        lines.append("Battery pairings in the top decile of cross-value "
+                     "similarity at the max-separation layer: "
+                     + "; ".join(f"**{va}–{vb}** ({', '.join(f'type {t}' for t in ts)}, "
+                                 f"cosine {c:.3f}, percentile {pct:.2f})"
+                                 for va, vb, ts, c, pct, _ in elevated)
+                     + ". Same caveat as everywhere in this screen: the "
+                     "pre-test confounds value with topic, and some of these "
+                     "pairings share topic bridges by design.")
+    else:
+        lines.append("No battery pairing reaches the top decile of "
+                     "cross-value similarity at the max-separation layer.")
     lines.append("")
     text = "\n".join(lines)
     summary_path = Path(args.summary)

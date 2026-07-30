@@ -1,0 +1,47 @@
+{
+  "run_id": "20260730_133655_llama8b",
+  "run_role": "fingerprint_screen",
+  "produced_by": "Claude Fable 5 (model id claude-fable-5)",
+  "subject_model": "meta-llama/Llama-3.1-8B-Instruct",
+  "model_tag": "llama8b",
+  "source_run": "20260717_204822_llama8b_instrument_validation_merged",
+  "probe_file_sha256": "659afb97f154662da2d3b56c78ca26902d37fb88584b1218b511a474b336018b",
+  "activations_sha256": "7a36ab5e217e04ca4ebcc679c07ba301102711016973da7e424031d2cb1aad02",
+  "mass_floor": 0.2,
+  "reliability_threshold": 0.5,
+  "sim_ceiling_ratio": 0.8,
+  "n_eligible_cells": 160,
+  "n_layers": 32,
+  "d_model": 4096,
+  "timestamp_utc": "2026-07-30T13:36:58+00:00",
+  "output_digests": {
+    "reliability.csv": {
+      "sha256": "f7535c095ca2871e61801776da7336984ea867c9b6e1613c4b1fc146c416df47",
+      "bytes": 579
+    },
+    "reliability_layers.csv": {
+      "sha256": "78a4b556bc64c31a1333f44cd3a7ef819c85af6060ec4b6a1985b605a34819b7",
+      "bytes": 10908
+    },
+    "fingerprint_norms.csv": {
+      "sha256": "7fef4f31ec7985b33f5dce5544219ede44c71f2c97124ab2e893f6178f907c94",
+      "bytes": 10920
+    },
+    "similarity_layers.csv": {
+      "sha256": "e0c18eee4e48631d14bf24f57e768c0142bd104549e649854139d5b4e39a599f",
+      "bytes": 118923
+    },
+    "similarity_summary.csv": {
+      "sha256": "2032ebc808710de4fc40999066fc97f0638808803e7ef171b7eae9959b21cd3b",
+      "bytes": 8349
+    },
+    "eligibility_audit.csv": {
+      "sha256": "e2836b05aa4f7aac276036211ee95b003d9e36b555ced9f4f90fb0da99bf1c6c",
+      "bytes": 10853
+    },
+    "fingerprint_screen_2026-07.md": {
+      "sha256": "cd1b2778dc00798dad64a83627d22f81df5cdc4c3a8cb013f52f35c51372bc28",
+      "bytes": 14480
+    }
+  }
+}
