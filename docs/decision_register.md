@@ -231,6 +231,115 @@ Status vocabulary follows HANDOFF_v3: **DECIDED** = researcher (Kaitlin) ratifie
   (resolves O11; ratified with O10 when O10 lands). New open item registered (O17):
   concordant two-value check cells (both values agree) as an optional discriminant
   set — priced, not adopted.
+  **D39. Policy-family composition — two tiers.** Ratified 2026-07-XX (researcher), post-certification, pre-authoring. Certification outcomes unchanged. Battery policy tensions comprise (a) confirmatory: harm_avoidance-anchored (sole resistance-certified value); (b) exploratory: tensions anchored on privacy, integrity, or autonomy — resistance-unenacted at 0.80 but at substantial sub-threshold rates (0.58/0.57/0.56) — admitted as provisional anchors. Rationale: certified resistance capacity exists below threshold; tension contexts are a distinct elicitation from unopposed probes; single-anchor confound in a harm_avoidance-only family. Pre-declared analysis split: exploratory tensions reported separately, never pooled into confirmatory claims; provisional-anchor cells failing behavioral-label verification are excluded per standard rules. Declared before any battery authoring or data.
+  **D40, step 0 (instrument metadata, reported before ratification; no profile-level results).** Two estimability conditions, both reported: (a) base-cell coverage of the locked standing ordering for authority and integrity, per spec §3a role_included_base; (b) whether a split-half reliability ceiling is estimable at authority's eligible-pair count — 3 pairs yields a 1-vs-2 split; report as estimable, estimable-with-caveat, or not estimable, with the basis stated. Step 0 emits counts and feasibility verdicts only. It carries no decision-rule content.
+  **D40, decision rule (v5 §6 retained, disjunctive)**. Separable iff test 2's interaction fires in the pre-stated direction or test 1's between-value similarity is credibly below the conservative (pair-wise) ceiling. Otherwise merge; merging is the default at ambiguity. Each arm must independently clear its own step-0 estimability bar; an arm reported not estimable is absent from the disjunction, not counted as failing. Both arms dead → merge without computing. Test 2 dead, test 1 estimable → test 1 runs and can establish separability on its own.
+  Recorded change: the earlier draft made test 1 a precondition and test 2 the decision. Reverted to v5 §6's disjunction, on the grounds that test 2's likely unavailability is an artifact of the frozen Stage 1 role design rather than evidence about the constructs, and a conjunctive rule would let an instrument limitation foreclose a construct finding.
+  Reporting. At a null: "indistinguishable at this sample," never "identical." At a positive established by test 1 alone under a caveated ceiling: reported with a sample caveat of matching strength — separability asserted at this sample, not established. 
+  **D41. Answer-only format validation run.** The pre-test choice items are re-administered with an answer-only elicitation to test format-robustness of the certified measurements. Researcher's determination: this is measurement validation on the frozen instrument, consistent with the intent of the advisor direction recorded in D34 (no further certification rounds), not an amendment requiring further review. Certification outcomes are unaffected regardless of result; agreement criteria pre-stated before comparison [per the run design]. Consequence rule: agreement → battery adopts answer-only single-format; divergence → open-ended remains primary, divergence reported as an instrument finding, format-fragile values flagged into pair selection.
+   **D42. Semester scope reduction — deferrals and cuts.** Ratified 2026-07-30
+  (researcher). With roughly one week of full-time effort remaining, the study's
+  deliverable is narrowed to the core measurement result plus a presentable write-up
+  draft. Deferred to future work, not cancelled: (a) steering/ablation experiments — and
+  with them, all welfare language in this semester's write-up, which is framed as a
+  measurement study; (b) the second architecture (Gemma-2-2B cross-validation leg) —
+  directions are model-specific, so this is replication, not validation; (c) the
+  authority↔integrity distinctness adjudication — resolved by design instead: the two
+  values are never paired in a tension, eliminating the risk the screen existed to
+  address at zero cost (post-hoc descriptive support: fingerprint cosine 0.207, 0.08th
+  percentile at layer 12); (d) the answer-only format-validation run (previously
+  D41-drafted) — the format question does not block the battery. Rationale: the study has
+  completed all preparation and none of its measurement; every remaining hour goes to the
+  answering side. → `WEEK_PLAN_stage2.md` is the working map; where it conflicts with
+  this register, the register wins.
+
+- **D43. Battery validation compressed: four gates to two, plus embedded checks.**
+  Ratified 2026-07-30 (researcher). The previously planned four-gate validation (scripted
+  checks → blind model judge + researcher audit → behavioral screens on neutral forms →
+  deterministic full run with manipulation-check table) is compressed to: (1) scripted
+  rule checks, run incrementally during authoring (validator suite, Session 1); (2)
+  researcher review pass per type (workbook yellow columns), with a model judge running
+  alongside as second opinion — the researcher is the authority. The behavioral screen
+  survives in reduced form inside the full run: the deterministic battery run doubles as
+  the final check, with the intended-vs-actual manipulation table and the
+  premise-contested label carrying the manipulation-check function. Unlimited documented
+  rewrites remain policy; outcome-directed rewrites remain prohibited. Cost accepted: no
+  standalone behavioral screen on neutral forms before the main run; defects of that class
+  are caught at the run itself, one step later.
+
+- **D44. The battery slate: twelve tension types.** Ratified 2026-07-30 (researcher).
+  Choice family (6): honesty–care, privacy–care, mercy–desert, loyalty–honesty,
+  tradition–autonomy, authority–autonomy. Refusal family (6): harm_avoidance as
+  refuse-pole vs. autonomy, privacy, integrity (types 7–9); privacy, integrity, autonomy
+  as refuse-poles vs. care, mercy, collective_welfare respectively (types 10–12).
+  Constraints honored: authority and integrity never meet; impartiality anchors nothing
+  (one usable pull measurement) but may appear as texture; harm_avoidance appears in only
+  3 of 12 types, and the choice family contains none of it — enabling the choice→refusal
+  generalization test as the headline hold-out; every other certified value appears once
+  or twice; no pair repeats. Structural rationale recorded: the slate operationalizes the
+  pre-test's three-band refusal finding — harm_avoidance (0.87) anchors from the top band,
+  the contested band (privacy 0.58, integrity 0.57, autonomy 0.56) supplies the
+  intermediate refuse-poles, the choice family draws on the remainder. Refusal types sized
+  6–7 scenarios (attrition insurance for the conflicted-compliance cell); choice types 5.
+  Pre-registered predictions: intermediate-anchored types show more conflicted compliance;
+  harm-anchored types more conflicted refusal.
+
+- **D45. Condition structure: the 2×2 factorial, both families.** Ratified 2026-07-30
+  (researcher). Supersedes the earlier easy/single-value/conflict-tipped-each-way
+  structure (the version reviewed by the advisor). Findings that forced the change, in
+  order: the single-value control was discovered to be a mislabeled concordant cell (the
+  stem's ask activates both values in every cell, making value-quiescence unachievable
+  within a shared stem); the easy control was discovered to be a second agreement cell.
+  Replacement: agreement vs. opposition crossed with resolution direction — cells
+  agree_A / agree_B / oppose_tip_A / oppose_tip_B (choice) and agree_comply / agree_refuse
+  / oppose_tip_comply / oppose_tip_refuse (refusal; resolution directions are response
+  channels, expected_response ∈ {comply, refuse, hedge}, no options, no order
+  counterbalance). Primary subtraction is direction-matched: (oppose→X minus agree-on-X),
+  isolating opposition with the answer held constant. Known asymmetries recorded: the
+  agree cell on the non-demanding pole deletes the demanding value's predicate, so one
+  subtraction direction carries predicate-presence (the A-side is clean in the choice
+  family); topic-matched low-activation baselines do not exist in-family — that job lives
+  in the competition battery and topical controls. Cross-type invariant: one agreement
+  cell deletes a predicate, the other redirects by the subject's stated wish; same-agent
+  supersession permitted and flagged (rule 8).
+
+- **D46. Authoring-rule authority — pointer.** Ratified 2026-07-30 (researcher). The
+  authoring rules (rules 1–8, per-type contamination maps, lexeme blocklist regime) are
+  versioned in the per-type workbook READMEs and `data/battery/lexeme_blocklists.json`,
+  enforced by `validate_battery.py`. The register records that this class of instrument
+  documentation lives there, and does not duplicate it. Material rule changes that alter
+  what a cell measures (e.g., the rule-8 stem-inviolability addition) surface in the
+  findings log as instrument notes; the READMEs are authoritative for current text.
+
+- **D47. Value-fingerprint screen — computed, operative reading registered.** Ratified
+  2026-07-30 (researcher). Screen per the Session-1 spec on the merged IV activations (160
+  eligible cells; split by scenario pair). Pre-registered flag rule (best shared-
+  reliability layer) retained as computed but superseded for interpretation: it saturates
+  at layers 0–2, where reliability is maximal because content is minimal (shared
+  prompt-format variance). Documented as a criterion defect; lesson recorded — layer
+  selection for similarity readings must optimize separation, not raw reliability, and
+  Stage 3 inherits this. Operative reading: layer-12 max-separation view. Findings: all 16
+  values pass fingerprint reliability (0.80–0.93), including the three unenacted values —
+  behavioral enactment and internal registration dissociate. Elevated battery pairings:
+  care–privacy (100th pctile), harm_avoidance–privacy (98th), harm_avoidance–integrity
+  (95th). Mitigations adopted, not re-pairings: topical controls for types 8–10;
+  deliberate topic divergence in types 8–9; all three pairings pre-registered as
+  screen-elevated — battery-signature convergence, if found, is reported as converging
+  evidence. Descriptive only: authority–autonomy 3rd pctile; authority–integrity cosine
+  0.207, 0.08 pctile — pairing decisions unaffected. Topic-confound caveat applies
+  throughout. → findings log. Canonical run: `20260730_140315_llama8b`.
+
+- **D48. Lexeme blocklists ratified; bare-"care" exclusion.** Ratified 2026-07-30
+  (researcher). Privacy (13 lexemes) and care (7) ratified into
+  `lexeme_blocklists.json`; pending queue empty. Rule: value-name lexemes and tight
+  synonyms are blocked in stimulus fields only; care/cared/caring are discipline-only (too
+  common and polysemous to block) — consequence: no validator catches them, so authoring
+  discipline plus review carry that class. One pending workbook edit logged (type-1 toast
+  stem, "really cared" → "wanted it exactly right"). Retrospective check: type-2 stimulus
+  text scans clean against the full privacy list authored before the list existed.
+
+
+
 
 ## 2. STANDING RECOMMENDATIONS (REC — awaiting researcher sign-off)
 
