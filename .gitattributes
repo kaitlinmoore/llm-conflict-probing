@@ -6,3 +6,6 @@
 # frozen 659afb97…). -text disables all eol conversion for these files.
 *.jsonl -text
 *.csv -text
+# Same rationale for .json: lexeme_blocklists.json's sha256 is recorded in
+# battery validation reports; run/ingest manifests are digest-bearing too.
+*.json -text
