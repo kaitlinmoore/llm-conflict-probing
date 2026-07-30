@@ -225,3 +225,4 @@ results/emotion_vectors.pt
 
 # Cached activation tensors: volume-resident, re-derivable, never committed
 results/**/activations_*.pt
+activations/
