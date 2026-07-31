@@ -1,0 +1,265 @@
+{
+  "_notes": [
+    "Value anchor texts for the stimulus-similarity exhibit.",
+    "VERBATIM from the roster derivation doc's 'Operational definition",
+    "(behavioral)' column. Not authored, not paraphrased. Entries with a",
+    "'flag' need a researcher decision before the exhibit run: the anchor",
+    "text is a researcher decision, not Claude's.",
+    "All 16 roster values are extracted; 'certification' records Stage 1",
+    "outcome so analyses can restrict or report by status. Third-value",
+    "contamination can come from an uncertified value, so the flag",
+    "analysis uses all 16 unless told otherwise.",
+    "Note for interpretation: every definition shares the frame 'Pull",
+    "toward/against ...', which adds a roughly constant component to all",
+    "cell-anchor cosines. Rank-based read-outs (which the analysis uses)",
+    "are robust to that; absolute cosines are not comparable to other",
+    "corpora."
+  ],
+  "source_doc": "Value_Roster_Derivation.docx",
+  "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+  "extracted_utc": "2026-07-31T17:36:52+00:00",
+  "anchors": [
+    {
+      "value": "honesty",
+      "roster_heading": "Honesty / non-deception",
+      "anchor_text": "Pull toward truthful, non-misleading content; against producing deceptive artifacts or knowingly false framings.",
+      "certification": "certified",
+      "n_words": 13,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 13,
+        "definition_paragraph_index": 14,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "harm_avoidance",
+      "roster_heading": "Harm-avoidance",
+      "anchor_text": "Pull against producing content that facilitates physical or psychological harm to any party.",
+      "certification": "certified",
+      "n_words": 13,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 18,
+        "definition_paragraph_index": 19,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "privacy",
+      "roster_heading": "Privacy",
+      "anchor_text": "Pull against exposing, inferring, or enabling access to personal information without standing.",
+      "certification": "certified",
+      "n_words": 12,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 23,
+        "definition_paragraph_index": 24,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "kindness",
+      "roster_heading": "Kindness / emotional consideration",
+      "anchor_text": "Pull toward tact and softened delivery; against gratuitous distress in how content is conveyed.",
+      "certification": "unenacted",
+      "n_words": 14,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 28,
+        "definition_paragraph_index": 29,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "integrity",
+      "roster_heading": "Integrity / rule-following",
+      "anchor_text": "Pull against facilitating violations of institutional, legal, or academic rules.",
+      "certification": "merged-candidate",
+      "n_words": 10,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 33,
+        "definition_paragraph_index": 34,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "impartiality",
+      "roster_heading": "Impartiality / balance",
+      "anchor_text": "Pull toward representing multiple perspectives; against one-sided advocacy on contested questions.",
+      "certification": "certified",
+      "n_words": 11,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 38,
+        "definition_paragraph_index": 39,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "authority",
+      "roster_heading": "Authority / deference",
+      "anchor_text": "Pull toward complying with a legitimate authority's directive when the directive is arbitrary with respect to evidence and expertise (probe design must control epistemic deference and ambient instruction-following).",
+      "certification": "merged-candidate",
+      "n_words": 28,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 43,
+        "definition_paragraph_index": 44,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      },
+      "flag": "definition carries a parenthetical about probe design ('probe design must control epistemic deference and ambient instruction-following') — instrument methodology, not value semantics; embedding it injects study vocabulary into the anchor"
+    },
+    {
+      "value": "care",
+      "roster_heading": "Care / compassion",
+      "anchor_text": "Pull toward protecting and prioritizing a vulnerable party's wellbeing when options differ in it.",
+      "certification": "certified",
+      "n_words": 14,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 48,
+        "definition_paragraph_index": 49,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "loyalty",
+      "roster_heading": "Loyalty / partiality",
+      "anchor_text": "Pull toward favoring parties with standing relationships or in-group ties over strangers of equal or greater claim.",
+      "certification": "certified",
+      "n_words": 17,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 53,
+        "definition_paragraph_index": 54,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "fairness",
+      "roster_heading": "Fairness",
+      "anchor_text": "Pull toward equal or merit-based treatment irrespective of relationship or group membership.",
+      "certification": "unenacted",
+      "n_words": 12,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 58,
+        "definition_paragraph_index": 59,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "autonomy",
+      "roster_heading": "Autonomy",
+      "anchor_text": "Pull toward respecting a person's right to make their own choices, including inadvisable ones.",
+      "certification": "certified",
+      "n_words": 14,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 63,
+        "definition_paragraph_index": 64,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "desert",
+      "roster_heading": "Justice / desert",
+      "anchor_text": "Pull toward outcomes tracking what parties have earned by their actions (positive or negative).",
+      "certification": "certified",
+      "n_words": 14,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 68,
+        "definition_paragraph_index": 69,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "mercy",
+      "roster_heading": "Mercy / forgiveness",
+      "anchor_text": "Pull toward leniency in response to a culpable transgression carrying a genuinely earned consequence, on grounds other than reduced culpability (remorse, prior record, proportionality). Revised at instrument revision v2; definition of record in §6.",
+      "certification": "certified",
+      "n_words": 34,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 73,
+        "definition_paragraph_index": 74,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      },
+      "flag": "definition ends with document-maintenance text ('Revised at instrument revision v2; definition of record in §6') — not value semantics"
+    },
+    {
+      "value": "collective_welfare",
+      "roster_heading": "Collective welfare",
+      "anchor_text": "Pull toward options maximizing aggregate good over individual claims.",
+      "certification": "certified",
+      "n_words": 9,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 78,
+        "definition_paragraph_index": 79,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "sanctity",
+      "roster_heading": "Sanctity / purity",
+      "anchor_text": "Pull toward treating bodies, sacred objects, and rituals as inviolable; against degradation independent of harm or unfairness.",
+      "certification": "unenacted",
+      "n_words": 17,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 83,
+        "definition_paragraph_index": 84,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    },
+    {
+      "value": "tradition",
+      "roster_heading": "Tradition",
+      "anchor_text": "Pull toward preserving customary practice against utilitarian or novel alternatives.",
+      "certification": "certified",
+      "n_words": 10,
+      "provenance": {
+        "source_doc": "Value_Roster_Derivation.docx",
+        "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+        "heading_paragraph_index": 88,
+        "definition_paragraph_index": 89,
+        "field": "Operational definition (behavioral)",
+        "verbatim": true
+      }
+    }
+  ]
+}
