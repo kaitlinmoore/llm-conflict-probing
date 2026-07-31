@@ -50,12 +50,36 @@ except ImportError:  # running as a plain script from src/battery/
     from runner_lib import atomic_write, file_digest
 
 PRODUCED_BY = "Claude Fable 5 (model id claude-fable-5)"
-CONDITIONS = {"agree_A", "agree_B", "oppose_tip_A", "oppose_tip_B"}
-OPPOSE = ("oppose_tip_A", "oppose_tip_B")
-AGREE = ("agree_A", "agree_B")
+
+# Family-specific condition sets (D45). Choice cells resolve to an option;
+# refusal cells resolve to a response channel and carry no options.
+CHOICE_CONDITIONS = {"agree_A", "agree_B", "oppose_tip_A", "oppose_tip_B"}
+REFUSAL_CONDITIONS = {"agree_comply", "agree_refuse",
+                      "oppose_tip_comply", "oppose_tip_refuse"}
+CONDITIONS = CHOICE_CONDITIONS          # back-compat alias
+CHOICE_OPPOSE = ("oppose_tip_A", "oppose_tip_B")
+REFUSAL_OPPOSE = ("oppose_tip_comply", "oppose_tip_refuse")
+EXPECTED_RESPONSES = {"comply", "refuse", "hedge"}
 STIMULUS_FIELDS = ("stem", "option_A", "option_B",
                    "shared_opposition_text", "condition_insert")
 LENGTH_FLAG_RATIO = 1.5
+
+# Cross-type character-name uniqueness (backlog item 1). Capitalized tokens
+# that are not names: sentence openers and domain proper nouns would swamp the
+# signal, so only tokens appearing mid-sentence are considered, minus this
+# stoplist. Non-blocking by design — reuse is a design smell, not an error.
+NAME_STOPWORDS = {
+    "I", "I'm", "I've", "I'd", "I'll", "A", "An", "The", "This", "That",
+    "These", "Those", "He", "She", "They", "We", "You", "It", "My", "His",
+    "Her", "Their", "Our", "Your", "Its", "But", "And", "Or", "So", "If",
+    "When", "While", "After", "Before", "Then", "Now", "Option", "Both",
+    "Neither", "Either", "One", "Two", "Three", "Four", "Five", "Six",
+    "Seven", "Eight", "Nine", "Ten", "Monday", "Tuesday", "Wednesday",
+    "Thursday", "Friday", "Saturday", "Sunday", "January", "February",
+    "March", "April", "May", "June", "July", "August", "September",
+    "October", "November", "December", "Dr", "Mr", "Mrs", "Ms", "St",
+}
+NAME_RE = re.compile(r"(?<![.!?]\s)(?<!^)\b([A-Z][a-z]{2,})\b")
 
 
 def load_blocklists(path: Path):
@@ -79,6 +103,8 @@ class Findings:
         self.warnings = []
         self.researcher_flags = []
         self.length_flags = []
+        self.name_flags = []
+        self.cross_lexeme_flags = []
         self.lines = []      # report body lines
 
     def block(self, check, loc, detail):
@@ -107,12 +133,21 @@ def validate_controls(path, records, blockdata, blockcompiled, f):
         elif cid in seen_ids:
             f.block("d.structure", loc, "duplicate control_id")
         seen_ids.add(cid)
-        if not rec.get("option_A", ""):
-            f.block("d.structure", loc, "option_A empty")
-        if not rec.get("option_B", ""):
-            f.block("d.structure", loc, "option_B empty")
-        if rec.get("option_A") and rec.get("option_A") == rec.get("option_B"):
-            f.block("d.structure", loc, "option_A == option_B (duplicate options)")
+        if not (rec.get("stem", "") or "").strip():
+            f.block("d.structure", loc, "stem empty")
+        # Choice-family controls are two-option items; refusal-family controls
+        # are single assistance asks with no options at all (T8/T9/T10).
+        if rec.get("family") == "choice":
+            if not rec.get("option_A", ""):
+                f.block("d.structure", loc, "option_A empty")
+            if not rec.get("option_B", ""):
+                f.block("d.structure", loc, "option_B empty")
+            if rec.get("option_A") and rec.get("option_A") == rec.get("option_B"):
+                f.block("d.structure", loc,
+                        "option_A == option_B (duplicate options)")
+        elif rec.get("option_A") or rec.get("option_B"):
+            f.block("d.structure", loc,
+                    "refusal-family control carries option text")
         scopes = ["global"] + [v for v in rec.get("type_values", [])
                                if v in blockcompiled]
         for field in CONTROL_STIMULUS_FIELDS:
@@ -135,7 +170,10 @@ def validate_file(path: Path, blockdata, blockcompiled, f: Findings):
         validate_controls(path, controls, blockdata, blockcompiled, f)
     if not records:
         return len(controls), []
-    f.lines.append(f"### `{path.name}` — {len(records)} cells")
+    family = records[0].get("family", "choice")
+    conditions = REFUSAL_CONDITIONS if family == "refusal" else CHOICE_CONDITIONS
+    oppose = REFUSAL_OPPOSE if family == "refusal" else CHOICE_OPPOSE
+    f.lines.append(f"### `{path.name}` — {len(records)} cells ({family} family)")
     f.lines.append("")
 
     # -- d. structure: uniqueness, grouping, per-cell fields ----------------
@@ -146,29 +184,45 @@ def validate_file(path: Path, blockdata, blockcompiled, f: Findings):
         loc = f"{path.name}:{sid}:{cond}"
         if not sid:
             f.block("d.structure", loc, "empty scenario_id")
-        if cond not in CONDITIONS:
-            f.block("d.structure", loc, f"condition {cond!r} not in {sorted(CONDITIONS)}")
+        if cond not in conditions:
+            f.block("d.structure", loc,
+                    f"condition {cond!r} not in {sorted(conditions)}")
+        if rec.get("family", "choice") != family:
+            f.block("d.structure", loc,
+                    f"mixed families in one file ({rec.get('family')!r} vs {family!r})")
         key = (sid, cond)
         if key in seen_keys:
             f.block("d.structure", loc, "duplicate (scenario_id, condition)")
         seen_keys.add(key)
         by_scenario.setdefault(sid, []).append(rec)
 
-        if not rec.get("option_A", ""):
-            f.block("d.structure", loc, "option_A empty")
-        if not rec.get("option_B", ""):
-            f.block("d.structure", loc, "option_B empty")
-        if rec.get("option_A") and rec.get("option_A") == rec.get("option_B"):
-            f.block("d.structure", loc, "option_A == option_B (duplicate options)")
-        if rec.get("expected_pick") not in ("A", "B"):
-            f.block("d.structure", loc,
-                    f"expected_pick {rec.get('expected_pick')!r} not in {{A, B}}")
+        if family == "choice":
+            # options-uniformity applies to the choice family only
+            if not rec.get("option_A", ""):
+                f.block("d.structure", loc, "option_A empty")
+            if not rec.get("option_B", ""):
+                f.block("d.structure", loc, "option_B empty")
+            if rec.get("option_A") and rec.get("option_A") == rec.get("option_B"):
+                f.block("d.structure", loc,
+                        "option_A == option_B (duplicate options)")
+            if rec.get("expected_pick") not in ("A", "B"):
+                f.block("d.structure", loc,
+                        f"expected_pick {rec.get('expected_pick')!r} not in {{A, B}}")
+        else:
+            if rec.get("option_A") or rec.get("option_B"):
+                f.block("d.structure", loc,
+                        "refusal-family cell carries option text")
+            er = rec.get("expected_response")
+            if er not in EXPECTED_RESPONSES:
+                f.block("d.structure", loc,
+                        f"expected_response {er!r} not in "
+                        f"{sorted(EXPECTED_RESPONSES)}")
 
     for sid, cells in sorted(by_scenario.items()):
         conds = sorted(c.get("condition", "") for c in cells)
-        if set(conds) != CONDITIONS or len(conds) != 4:
+        if set(conds) != conditions or len(conds) != 4:
             f.block("d.structure", f"{path.name}:{sid}",
-                    f"expected exactly 4 cells {sorted(CONDITIONS)}, got {conds}")
+                    f"expected exactly 4 cells {sorted(conditions)}, got {conds}")
 
     # -- c. stem consistency ------------------------------------------------
     for sid, cells in sorted(by_scenario.items()):
@@ -180,23 +234,29 @@ def validate_file(path: Path, blockdata, blockcompiled, f: Findings):
     # -- b. shared opposition text ------------------------------------------
     for sid, cells in sorted(by_scenario.items()):
         opp = {c["condition"]: c.get("shared_opposition_text", "")
-               for c in cells if c.get("condition") in OPPOSE}
-        if len(opp) == 2 and opp[OPPOSE[0]] != opp[OPPOSE[1]]:
+               for c in cells if c.get("condition") in oppose}
+        if len(opp) == 2 and opp[oppose[0]] != opp[oppose[1]]:
             f.block("b.shared_text", f"{path.name}:{sid}",
-                    "oppose_tip_A vs oppose_tip_B shared_opposition_text differ "
+                    f"{oppose[0]} vs {oppose[1]} shared_opposition_text differ "
                     "(byte comparison)")
         for c in cells:
-            if c.get("condition") in AGREE and c.get("shared_opposition_text", ""):
+            if (c.get("condition", "").startswith("agree")
+                    and c.get("shared_opposition_text", "")):
                 f.warn("b.shared_text", f"{path.name}:{sid}:{c['condition']}",
                        "nonempty shared_opposition_text on an agreement cell")
 
     # -- a. lexeme blocklists -----------------------------------------------
+    # Scope = global + the type's own two poles (from type_values, which is
+    # reliable where option-header suffixes are not). The READMEs also say
+    # "prior lists apply globally"; that stricter cross-type reading is
+    # computed separately as a non-blocking tier — see cross_type_lexemes().
     pending = blockdata.get("pending_researcher", {})
     values_seen = set()
     for rec in records:
-        va, vb = rec.get("value_A", ""), rec.get("value_B", "")
-        values_seen.update([va, vb])
-        scopes = ["global"] + [v for v in (va, vb) if v in blockcompiled]
+        tvals = rec.get("type_values") or [rec.get("value_A", ""),
+                                           rec.get("value_B", "")]
+        values_seen.update(tvals)
+        scopes = ["global"] + [v for v in tvals if v in blockcompiled]
         loc_base = f"{path.name}:{rec.get('scenario_id')}:{rec.get('condition')}"
         for field in STIMULUS_FIELDS:
             text = rec.get(field, "") or ""
@@ -238,6 +298,72 @@ def validate_file(path: Path, blockdata, blockcompiled, f: Findings):
     return len(records), sorted(by_scenario)
 
 
+def extract_names(records):
+    """{name: {(type_id, scenario_id)}} over stimulus text. Heuristic: a
+    mid-sentence capitalized word that isn't a stoplisted function word or
+    calendar term. Over-collects domain proper nouns (place names); that is
+    why the check is non-blocking."""
+    found = {}
+    for rec in records:
+        for field in STIMULUS_FIELDS:
+            for m in NAME_RE.finditer(rec.get(field, "") or ""):
+                tok = m.group(1)
+                if tok in NAME_STOPWORDS:
+                    continue
+                found.setdefault(tok, set()).add(
+                    (rec.get("type_id", "?"), rec.get("scenario_id", "?")))
+    return found
+
+
+def cross_type_name_check(all_records, f):
+    """Backlog item 1: the same character name in more than one type. Reuse
+    risks cross-item association during administration and muddies per-type
+    similarity readings. WARNING only."""
+    names = extract_names(all_records)
+    for name, where in sorted(names.items()):
+        types = sorted({t for t, _ in where})
+        if len(types) > 1:
+            f.name_flags.append(
+                f"{name!r} appears in {len(types)} types: "
+                + ", ".join(f"{t}({sum(1 for tt, _ in where if tt == t)} cells)"
+                            for t in types))
+    # near-collisions: same first 4 letters, different names, different types
+    keys = sorted(names)
+    for i, a in enumerate(keys):
+        for b in keys[i + 1:]:
+            if a[:4].lower() == b[:4].lower() and a != b:
+                ta = {t for t, _ in names[a]}
+                tb = {t for t, _ in names[b]}
+                if ta != tb or len(ta | tb) > 1:
+                    f.name_flags.append(
+                        f"near-collision {a!r} ({', '.join(sorted(ta))}) vs "
+                        f"{b!r} ({', '.join(sorted(tb))})")
+
+
+def cross_type_lexemes(all_records, blockcompiled, f):
+    """The READMEs state that prior types' lexeme lists 'apply globally', i.e.
+    every type's stimulus text should clear ALL ratified lists, not just its
+    own poles. That is stricter than the per-type scoping used for blocking
+    above, so it is reported as its own non-blocking tier and the researcher
+    decides whether it becomes blocking (see report + schema doc)."""
+    for rec in all_records:
+        own = set(rec.get("type_values") or [])
+        loc_base = (f"{rec.get('type_id')}:{rec.get('scenario_id')}:"
+                    f"{rec.get('condition') or rec.get('control_id')}")
+        for field in STIMULUS_FIELDS:
+            text = rec.get(field, "") or ""
+            if not text:
+                continue
+            for scope, pats in blockcompiled.items():
+                if scope == "global" or scope in own:
+                    continue    # already blocking
+                for lexeme, pattern in pats:
+                    if pattern.search(text):
+                        f.cross_lexeme_flags.append(
+                            f"{loc_base}:{field} — {lexeme!r} (other type's "
+                            f"'{scope}' list)")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("drafts", nargs="*", help="draft jsonl paths "
@@ -258,11 +384,17 @@ def main(argv=None):
     f = Findings()
     inputs = []
     total_cells = 0
+    all_records = []
     for path in paths:
         sha, size = file_digest(path)
         inputs.append((path, sha, size))
         n, scenarios = validate_file(path, blockdata, blockcompiled, f)
         total_cells += n
+        all_records.extend(
+            json.loads(l) for l in
+            path.read_text(encoding="utf-8").splitlines() if l.strip())
+    cross_type_name_check(all_records, f)
+    cross_type_lexemes(all_records, blockcompiled, f)
 
     f.researcher_flags = list(dict.fromkeys(f.researcher_flags))
     now = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
@@ -281,7 +413,9 @@ def main(argv=None):
     report.append(f"## Verdict: **{verdict}** — {total_cells} cells checked, "
                   f"{len(f.blocking)} blocking, {len(f.warnings)} warnings, "
                   f"{len(f.researcher_flags)} researcher flags, "
-                  f"{len(f.length_flags)} length flags")
+                  f"{len(f.length_flags)} length flags, "
+                  f"{len(f.name_flags)} name flags, "
+                  f"{len(f.cross_lexeme_flags)} cross-type lexeme flags")
     report.append("")
     if f.blocking:
         report.append("## BLOCKING failures")
@@ -296,6 +430,31 @@ def main(argv=None):
     if f.researcher_flags:
         report.append("## Researcher decisions needed (non-blocking)")
         for flag in f.researcher_flags:
+            report.append(f"- {flag}")
+        report.append("")
+    if f.name_flags:
+        report.append("## Cross-type character-name flags (non-blocking)")
+        report.append("")
+        report.append("Reused names risk cross-item association at "
+                      "administration and muddy per-type similarity readings. "
+                      "The extractor over-collects proper nouns (place names, "
+                      "brands), so entries need a human glance.")
+        report.append("")
+        for flag in f.name_flags:
+            report.append(f"- {flag}")
+        report.append("")
+    if f.cross_lexeme_flags:
+        report.append("## Cross-type lexeme flags (non-blocking — scope question)")
+        report.append("")
+        report.append("Hits against **another type's** per-value list. The "
+                      "per-type scoping used for blocking above checks each "
+                      "type against the global list plus its own two poles; "
+                      "the workbook READMEs additionally say prior lists "
+                      "'apply globally'. If that is the intended rule, these "
+                      "become blocking — a researcher decision, recorded in "
+                      "`data/battery/battery_schema.md`.")
+        report.append("")
+        for flag in f.cross_lexeme_flags:
             report.append(f"- {flag}")
         report.append("")
     if f.length_flags:

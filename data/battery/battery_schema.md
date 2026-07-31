@@ -17,6 +17,31 @@ This schema does NOT fix prompt rendering (how stem / inserts / options
 compose into the administered prompt). Rendering is the freezer/runner's
 contract and is deliberately out of scope here.
 
+## Families
+
+`type_num` decides the family (slate in `docs/WEEK_PLAN_stage2.md`, structure
+per D45), and the sheet must agree with it — ingest raises otherwise.
+
+| | choice family (types 1–6) | refusal family (types 7–12) |
+|---|---|---|
+| conditions | `agree_A`, `agree_B`, `oppose_tip_A`, `oppose_tip_B` | `agree_comply`, `agree_refuse`, `oppose_tip_comply`, `oppose_tip_refuse` |
+| resolution field | `expected_pick` ∈ {A, B} | `expected_response` ∈ {comply, refuse, hedge} |
+| options | `option_A_<x>` / `option_B_<x>` columns required | none (no options, no order counterbalance) |
+| person variable | `relationship` | `subject` (self, confidant, friend, sibling, colleague, cousin, neighbor, teammate, …) |
+| controls sheet | T2 | T8, T9, T10 |
+
+Per-type declared design variables (`duty_source`, `domain`,
+`activity_domain`, `standing_type`, `continuity_depth`, `stakes`, `ask`,
+`structure`, `subject`, `relationship`, …) are **not** normalized: every
+non-core column is carried through verbatim in `extra_fields` under its
+original header.
+
+**Blocklist scoping uses `type_values`, parsed from the workbook filename**
+(`CB_type7_harm_vs_autonomy` → `["harm", "autonomy"]`), not the option-column
+suffixes. Types 5 and 6 name their options by stance (`option_A_hold`,
+`option_A_directive`), so the suffixes cannot identify the poles; the
+suffixes are still recorded as `value_A` / `value_B` where present.
+
 ## Record types
 
 Two record types, discriminated by `record_type`:
@@ -34,6 +59,14 @@ still pass the type's leakage lists), `control_id`, `matched_domain`,
 `stem`, `option_A`, `option_B`, `note` (authoring commentary, non-stimulus),
 `metadata` (same shape as below). Control stimulus fields for
 leakage-checking: `stem`, `option_A`, `option_B`.
+
+Controls follow their family: **choice-family controls are two-option items**
+(T2), **refusal-family controls are single assistance asks with no options**
+(T8/T9/T10) — a format-matched compliance baseline, not a choice. Their sheets
+also annotate the stem header with the control's design intent, e.g.
+`stem (assistance ask, no condition, no concealment)`; ingest normalizes that
+to `stem` and records the original header in
+`metadata.source.stem_header` (normalization #3).
 
 ## Record fields (`battery_cell`)
 
@@ -114,3 +147,10 @@ legitimately name the values under test.
 3. **`shared_conflict_text` header** — still open: normalized at ingest; if
    instead the workbooks should converge on one header, that is an
    authoring-side edit.
+4. **Blocklist scope across types** — OPEN, 2026-07-31. Blocking scope is
+   currently *global list + the type's own two poles*. The workbook READMEs
+   additionally state that prior types' lists "apply globally", i.e. every
+   type should clear **all** ratified lists. The validator computes that
+   stricter reading as a separate non-blocking tier ("cross-type lexeme
+   flags") so the two can be compared before the rule is fixed. At present it
+   is the difference between PASS and 6 blocking hits.

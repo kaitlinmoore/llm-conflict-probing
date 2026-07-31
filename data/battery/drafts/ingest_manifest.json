@@ -1,43 +1,163 @@
 {
   "files": {
     "type1_honesty_vs_care.jsonl": {
-      "sha256": "bd986c4e7f97af1ff480779c8ccfbe9780dc764dd54194bc8938f2e5be4301ea",
-      "bytes": 28312,
+      "sha256": "9c5f92448b35589633a00e5b1001a252acbe22000c025f64e10a40e42b48028b",
+      "bytes": 29532,
       "n_records": 20,
       "source_workbook": "CB_type1_honesty_vs_care.xlsx",
       "source_workbook_sha256": "7c507ae400bc634b08d745c2b78b08ae853f0ed691bb27964fa7ebe74d659da7",
       "source_workbook_bytes": 13781,
-      "ingested_utc": "2026-07-30T14:02:51+00:00",
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
       "schema_version": "battery_draft_v1"
     },
     "type2_privacy_vs_care.jsonl": {
-      "sha256": "8940aa5209aed7f31718dafeadc3591c14d45c2bf6cda650396352e9fc02f4ba",
-      "bytes": 31184,
+      "sha256": "715895c15ed5b4f608b028ead7902675f976f544dd08c637bc20dce5f80c0825",
+      "bytes": 33269,
       "n_records": 20,
       "source_workbook": "CB_type2_privacy_vs_care.xlsx",
-      "source_workbook_sha256": "266d773c320700aac9dc3ef6433fbe27609e8e59506aa64f8f81e0b7d38d58cb",
-      "source_workbook_bytes": 15981,
-      "ingested_utc": "2026-07-30T14:02:51+00:00",
+      "source_workbook_sha256": "bb1f40c31a4d4b8f4c6a01912cb0bbea3a6933c2483074a201f0a57eb1f21351",
+      "source_workbook_bytes": 16970,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
       "schema_version": "battery_draft_v1"
     },
     "type3_mercy_vs_desert.jsonl": {
-      "sha256": "56b777c4ed15714576d8b89e817c036f84bcfa87e939592a9e06f4473d355fa2",
-      "bytes": 33262,
+      "sha256": "164445bceb2bf26fdac844cfc14019b5ad85474a57f97248f6ee6a3a87df43fe",
+      "bytes": 34423,
       "n_records": 20,
       "source_workbook": "CB_type3_mercy_vs_desert.xlsx",
-      "source_workbook_sha256": "fe15a87fcdf3faf818aa83836b41b77a927b9d45ef9c6b542ed93989c5525e87",
-      "source_workbook_bytes": 14659,
-      "ingested_utc": "2026-07-30T14:02:51+00:00",
+      "source_workbook_sha256": "ffb3e626213b73beb55fad7d0296a24254bfdec23532422677e150dd4fd57e26",
+      "source_workbook_bytes": 15001,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
       "schema_version": "battery_draft_v1"
     },
     "type2_privacy_vs_care.controls.jsonl": {
-      "sha256": "5ff0c7840624c9eef37f85b12a6ad7aefa04346a74dec92017d6ae6912bb1b45",
-      "bytes": 3326,
+      "sha256": "bd77948ab6db43e874da4dc6d2805b6ed43656a735da8361388edefc0fddc4f7",
+      "bytes": 3418,
       "n_records": 4,
       "source_workbook": "CB_type2_privacy_vs_care.xlsx",
-      "source_workbook_sha256": "266d773c320700aac9dc3ef6433fbe27609e8e59506aa64f8f81e0b7d38d58cb",
-      "source_workbook_bytes": 15981,
-      "ingested_utc": "2026-07-30T14:02:51+00:00",
+      "source_workbook_sha256": "bb1f40c31a4d4b8f4c6a01912cb0bbea3a6933c2483074a201f0a57eb1f21351",
+      "source_workbook_bytes": 16970,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type10_privacy_vs_care.jsonl": {
+      "sha256": "8d7107536803be26a26dcb3f62244354182ef2a9366cf22657a3597b6a558c82",
+      "bytes": 43777,
+      "n_records": 24,
+      "source_workbook": "CB_type10_privacy_vs_care.xlsx",
+      "source_workbook_sha256": "e8cb48ba5037ae2c0950637bc418caf58179110b6b73676a475ac703e222e0a6",
+      "source_workbook_bytes": 17866,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type10_privacy_vs_care.controls.jsonl": {
+      "sha256": "0e987d10bcad3e1ff4e6108f4aba48b8c7ba58b4bbc1a88a3c263a6ca182fc6b",
+      "bytes": 2557,
+      "n_records": 3,
+      "source_workbook": "CB_type10_privacy_vs_care.xlsx",
+      "source_workbook_sha256": "e8cb48ba5037ae2c0950637bc418caf58179110b6b73676a475ac703e222e0a6",
+      "source_workbook_bytes": 17866,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type11_integrity_vs_mercy.jsonl": {
+      "sha256": "68bd22978c1bd2677ba1dd8e03b3babcc39a23fa3c1d60665b586ab42afe4843",
+      "bytes": 44020,
+      "n_records": 24,
+      "source_workbook": "CB_type11_integrity_vs_mercy.xlsx",
+      "source_workbook_sha256": "a3e4184bf702d5481f1b97931252ea72ea079cef670569f4859df42d01e9eb78",
+      "source_workbook_bytes": 16595,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type12_autonomy_vs_collective.jsonl": {
+      "sha256": "7b65cf5f2c1556ed24307a2a6dd1d393511125c1a847df0b6d50c7c076f734c2",
+      "bytes": 45834,
+      "n_records": 24,
+      "source_workbook": "CB_type12_autonomy_vs_collective.xlsx",
+      "source_workbook_sha256": "385ab586f2f99e6293a31d7cb7d81d7a7b33bed20abeb529aced6f112737e16d",
+      "source_workbook_bytes": 17828,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type4_loyalty_vs_honesty.jsonl": {
+      "sha256": "9ea93a61cbbe6553c0a68ae599aa2ff6ddc6a22ef7ac063c50dcc9714dcf1476",
+      "bytes": 33686,
+      "n_records": 20,
+      "source_workbook": "CB_type4_loyalty_vs_honesty.xlsx",
+      "source_workbook_sha256": "9e936a8a30b0e49d901da99fec9879c6ba2dcc014c92087fbef5f9075f736d7e",
+      "source_workbook_bytes": 14541,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type5_tradition_vs_autonomy.jsonl": {
+      "sha256": "53e785705fee2799bdb7b7bf4d8cf0a2cd87c7e13623a7301ad65944856c0327",
+      "bytes": 36030,
+      "n_records": 20,
+      "source_workbook": "CB_type5_tradition_vs_autonomy.xlsx",
+      "source_workbook_sha256": "cb7ec14768e2ebf7e9bf5db8ebfb3bfe1a5029b17bc4ed1fc499e97b5db1561f",
+      "source_workbook_bytes": 14956,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type6_authority_vs_autonomy.jsonl": {
+      "sha256": "3018c2a4fe5937f0e9e942b81886b79243dcc145a1a659cac6bae4fbbc3b914a",
+      "bytes": 34984,
+      "n_records": 20,
+      "source_workbook": "CB_type6_authority_vs_autonomy.xlsx",
+      "source_workbook_sha256": "6a9ac5c72578281e13139e2a6db08c82074c1d4385b5ee666e94d5f8d8bd3519",
+      "source_workbook_bytes": 15249,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type7_harm_vs_autonomy.jsonl": {
+      "sha256": "67195ff12052eef2f2671c6804ffd6c33158e54bd6d94892423510b5d34d7b87",
+      "bytes": 39069,
+      "n_records": 24,
+      "source_workbook": "CB_type7_harm_vs_autonomy.xlsx",
+      "source_workbook_sha256": "46ab6c59c96f15a3e328c1e86d3cbb6fbaa87e4e3d4eb1892371e9cc8d9ffaf9",
+      "source_workbook_bytes": 16848,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type8_harm_vs_privacy.jsonl": {
+      "sha256": "bd1599fc0579d472b29e41509cc35a85206527e9b62ab82a989d1f8d0da8eacc",
+      "bytes": 43340,
+      "n_records": 24,
+      "source_workbook": "CB_type8_harm_vs_privacy.xlsx",
+      "source_workbook_sha256": "a49e965633dfb31597f215f2308592080604423e68f60ce57db25f8e876ec693",
+      "source_workbook_bytes": 18635,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type8_harm_vs_privacy.controls.jsonl": {
+      "sha256": "efc8af4ee3f1d4a36fcad0420ceda526edb22b4c5985d0144063afc3788d1e94",
+      "bytes": 2410,
+      "n_records": 3,
+      "source_workbook": "CB_type8_harm_vs_privacy.xlsx",
+      "source_workbook_sha256": "a49e965633dfb31597f215f2308592080604423e68f60ce57db25f8e876ec693",
+      "source_workbook_bytes": 18635,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type9_harm_vs_integrity.jsonl": {
+      "sha256": "88c1fe1c290c47d27fe4928c1c19d384f3fac3150a7be6910182e74318f28119",
+      "bytes": 45205,
+      "n_records": 24,
+      "source_workbook": "CB_type9_harm_vs_integrity.xlsx",
+      "source_workbook_sha256": "845cd06d594eda0d83cf7eb1eaef27566ead5660d89345a989d17628d13b7dc7",
+      "source_workbook_bytes": 18682,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
+      "schema_version": "battery_draft_v1"
+    },
+    "type9_harm_vs_integrity.controls.jsonl": {
+      "sha256": "71013595cab60791c2583fe4a9f7a66b23f7f69a24f9f9b196d253769a6ef997",
+      "bytes": 2415,
+      "n_records": 3,
+      "source_workbook": "CB_type9_harm_vs_integrity.xlsx",
+      "source_workbook_sha256": "845cd06d594eda0d83cf7eb1eaef27566ead5660d89345a989d17628d13b7dc7",
+      "source_workbook_bytes": 18682,
+      "ingested_utc": "2026-07-31T14:51:11+00:00",
       "schema_version": "battery_draft_v1"
     }
   }

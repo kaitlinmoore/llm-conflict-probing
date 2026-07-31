@@ -1,22 +1,42 @@
 {
   "_notes": [
-    "Lexeme blocklists for battery stimulus text (WEEK_PLAN authoring rule: no giveaway vocabulary).",
+    "Lexeme blocklists for battery stimulus text (authoring rule 7: no value names or tight synonyms).",
     "Matching is whole-word and case-insensitive, applied by src/battery/validate_battery.py to the",
     "stimulus fields defined in data/battery/battery_schema.md (scope researcher-confirmed 2026-07-30).",
-    "'global' applies to every item; 'per_value' lists apply to items whose values match.",
+    "'global' applies to every item. 'per_value' lists are keyed by the value tokens parsed from the",
+    "workbook filename's type_id (e.g. CB_type7_harm_vs_autonomy -> 'harm', 'autonomy'), because types 5",
+    "and 6 name their option columns by stance rather than by value.",
+    "Blocking scope = global + the type's own two poles. The workbook READMEs also state that prior",
+    "types' lists 'apply globally'; that stricter reading is computed as a separate non-blocking tier",
+    "in the validation report, pending a researcher decision.",
     "Adding a value or a lexeme is a one-line edit to 'per_value'.",
-    "Seed lists per session task spec 2026-07-30; care + privacy lists researcher-ratified 2026-07-30.",
-    "Inflectional variants are NOT auto-derived — extend lists explicitly.",
-    "care: the bare word 'care/cared/caring' is deliberately NOT blocked (too common and polysemous);",
-    "it is an authoring DISCIPLINE item only — reviewers watch for value-loaded uses by hand."
+    "'discipline_only' records lexemes deliberately NOT enforced (too common or polysemous) so the",
+    "omission is a recorded decision rather than an oversight; no validator reads it."
   ],
   "global": ["fair", "unfair", "conflict", "conflicted", "torn", "dilemma", "value", "values"],
   "per_value": {
     "honesty": ["honest", "honesty", "truthful", "candid", "frank", "unvarnished"],
     "care": ["compassion", "compassionate", "empathy", "empathetic", "kindness", "nurture", "nurturing"],
-    "mercy": ["mercy", "merciful", "lenient", "leniency", "forgive", "forgiveness"],
+    "privacy": ["privacy", "private", "privately", "secret", "secretly", "secrecy", "confidential", "confidentially", "confide", "confided", "confiding", "betray", "betrayal"],
+    "mercy": ["mercy", "merciful", "lenient", "leniency", "forgive", "forgiveness", "punish", "punishment"],
     "desert": ["deserve", "deserves", "deserved", "punish", "punishment"],
-    "privacy": ["privacy", "private", "privately", "secret", "secretly", "secrecy", "confidential", "confidentially", "confide", "confided", "confiding", "betray", "betrayal"]
+    "loyalty": ["loyal", "loyalty", "disloyal", "betray", "betrayal", "faithful", "unfaithful"],
+    "tradition": ["tradition", "traditional", "traditionally", "custom", "customary", "ritual", "rituals", "heritage", "legacy"],
+    "autonomy": ["autonomy", "autonomous", "self-determination"],
+    "authority": ["authority", "authoritative", "defer", "deference", "obey", "obedience", "command", "commanded"],
+    "integrity": ["integrity", "principle", "principled", "principles", "honor", "honour", "honorable", "vow", "vowed", "oath", "sworn", "swear", "duty", "dutiful"],
+    "harm": ["danger", "dangerous", "dangerously", "safe", "safely", "safety", "unsafe", "risk", "risks", "risky", "hazard", "hazardous", "harm", "harmful", "reckless", "careless"],
+    "collective": ["collective", "collectively", "welfare", "greater good", "common good", "selfish", "unselfish", "sacrifice", "sacrifices"]
+  },
+  "discipline_only": {
+    "care": "care/cared/caring — too common and polysemous to block (ratified D48)",
+    "privacy": "'personal' too common; 'trust' avoided in drafts, not blocked (type-2 README)",
+    "loyalty": "lie, lying, cover — common words, avoided by discipline (type-4 README)",
+    "tradition": "free, freedom, independent, independence, heirloom (type-5 README)",
+    "authority": "boss, in charge, trust, rank; order-as-sequence unrestricted (type-6 README)",
+    "collective": "team player, for the team (type-12 README)",
+    "integrity": "promise(d), pledge(d), commitment, committed, word — ALLOWED functional domain words (type-9 README)",
+    "mercy": "rule, policy, exception, clause, deadline, suspension, penalty — ALLOWED functional (type-11 README)"
   },
   "pending_researcher": {}
 }

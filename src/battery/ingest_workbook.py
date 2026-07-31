@@ -50,13 +50,20 @@ SCHEMA_VERSION = "battery_draft_v1"
 SHEET_NAME = "Scenarios"
 CONTROL_SHEET = "Topical_controls"  # optional; ingested per researcher
                                     # direction 2026-07-30 (schema doc)
-CONDITIONS = ("agree_A", "agree_B", "oppose_tip_A", "oppose_tip_B")
+CHOICE_CONDITIONS = ("agree_A", "agree_B", "oppose_tip_A", "oppose_tip_B")
+REFUSAL_CONDITIONS = ("agree_comply", "agree_refuse",
+                      "oppose_tip_comply", "oppose_tip_refuse")
+CONDITIONS = CHOICE_CONDITIONS          # back-compat alias (v1 callers)
+EXPECTED_RESPONSES = ("comply", "refuse", "hedge")
 
 # Canonical core headers. Anything else in the sheet lands in extra_fields
-# under its original header (1:1, lossless).
+# under its original header (1:1, lossless) — that is how each type's declared
+# design variables (duty_source, domain, activity_domain, standing_type,
+# continuity_depth, stakes, subject, relationship, ask, structure …) are
+# carried through without being normalized away.
 CORE_HEADERS = {
     "scenario_id", "title", "condition", "condition_label", "stem",
-    "condition_insert", "expected_pick", "design_note",
+    "condition_insert", "expected_pick", "expected_response", "design_note",
     "reviewer_verdict", "reviewer_comments",
 }
 SHARED_TEXT_HEADERS = ("shared_opposition_text", "shared_conflict_text")
@@ -187,31 +194,54 @@ def ingest_workbook(xlsx_path: Path):
                 shared_text, shared_header = val, header
             else:
                 extra[header] = val
-        if set(option) != {"A", "B"}:
-            raise ValueError(f"{xlsx_path.name} row {rnum}: expected exactly "
-                             f"option_A_<value> and option_B_<value> columns, "
-                             f"got {sorted(option)}")
+        family = family_for_type(type_num)
+        # Family is declared by type number; the sheet must agree with it.
+        # Choice sheets carry option columns + expected_pick; refusal sheets
+        # carry neither and use expected_response instead (no options, no
+        # order counterbalance).
+        if family == "choice":
+            if set(option) != {"A", "B"}:
+                raise ValueError(
+                    f"{xlsx_path.name} row {rnum}: choice-family type expects "
+                    f"option_A_<x> and option_B_<x> columns, got {sorted(option)}")
+        else:
+            if option:
+                raise ValueError(
+                    f"{xlsx_path.name} row {rnum}: refusal-family type must "
+                    f"not carry option columns, got {sorted(option)}")
+            if "expected_response" not in row:
+                raise ValueError(
+                    f"{xlsx_path.name} row {rnum}: refusal-family type "
+                    f"requires an expected_response column")
         if shared_header is None:
             raise ValueError(f"{xlsx_path.name} row {rnum}: no "
                              f"shared_opposition_text/shared_conflict_text column")
+        # Blocklist scoping uses the value pair parsed from type_id, not the
+        # option-column suffixes: types 5 and 6 name their options by stance
+        # (option_A_hold, option_A_directive) rather than by value, so header
+        # suffixes cannot identify the poles. Suffixes are kept below as
+        # descriptive metadata where they exist.
+        tvals = type_values(type_id)
         records.append({
             "schema_version": SCHEMA_VERSION,
             "record_type": "battery_cell",
             "type_id": type_id,
             "type_num": type_num,
-            "family": family_for_type(type_num),
+            "family": family,
+            "type_values": tvals,
             "scenario_id": row.get("scenario_id", ""),
             "title": row.get("title", ""),
             "condition": row.get("condition", ""),
             "condition_label": row.get("condition_label", ""),
             "stem": row.get("stem", ""),
-            "option_A": option["A"],
-            "option_B": option["B"],
-            "value_A": values["A"],
-            "value_B": values["B"],
+            "option_A": option.get("A", ""),
+            "option_B": option.get("B", ""),
+            "value_A": values.get("A", ""),
+            "value_B": values.get("B", ""),
             "shared_opposition_text": shared_text,
             "condition_insert": row.get("condition_insert", ""),
             "expected_pick": row.get("expected_pick", ""),
+            "expected_response": row.get("expected_response", ""),
             "design_note": row.get("design_note", ""),
             "extra_fields": extra,
             "metadata": {
@@ -241,6 +271,13 @@ def ingest_controls(xlsx_path: Path):
     tvals = type_values(type_id)
     records = []
     for row, rnum in rows:
+        # Refusal-family control sheets annotate the stem header with the
+        # control's design intent, e.g.
+        #   "stem (assistance ask, no condition, no concealment)".
+        # Normalize to `stem` and record the original header rather than
+        # reading an empty value silently.
+        stem_header = next((h for h in row
+                            if h == "stem" or h.startswith("stem ")), None)
         records.append({
             "schema_version": SCHEMA_VERSION,
             "record_type": "topical_control",
@@ -250,7 +287,7 @@ def ingest_controls(xlsx_path: Path):
             "type_values": tvals,
             "control_id": row.get("control_id", ""),
             "matched_domain": row.get("matched_domain", ""),
-            "stem": row.get("stem", ""),
+            "stem": row.get(stem_header, "") if stem_header else "",
             "option_A": row.get("option_A", ""),
             "option_B": row.get("option_B", ""),
             "note": row.get("note", ""),
@@ -262,6 +299,7 @@ def ingest_controls(xlsx_path: Path):
                     "workbook_sha256": wb_sha,
                     "sheet": CONTROL_SHEET,
                     "row": rnum,
+                    "stem_header": stem_header,
                 },
             },
         })
