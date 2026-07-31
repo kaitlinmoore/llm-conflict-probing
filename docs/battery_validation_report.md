@@ -1,7 +1,7 @@
 # Battery validation report
 
 Produced by: Claude Fable 5 (model id claude-fable-5)
-Generated: 2026-07-31T14:58:43+00:00 — `src/battery/validate_battery.py`
+Generated: 2026-07-31T17:16:38+00:00 — `src/battery/validate_battery.py`
 Blocklists: `data/battery/lexeme_blocklists.json` sha256 `e37400e9cc45…`
 
 Inputs:
@@ -22,7 +22,17 @@ Inputs:
 - `data\battery\drafts\type9_harm_vs_integrity.controls.jsonl` — sha256 `71013595cab6…`, 2415 bytes
 - `data\battery\drafts\type9_harm_vs_integrity.jsonl` — sha256 `88c1fe1c290c…`, 45205 bytes
 
-## Verdict: **PASS** — 277 cells checked, 0 blocking, 0 warnings, 0 researcher flags, 3 length flags, 7 name flags, 6 cross-type lexeme flags
+## Verdict: **FAIL (blocking)** — 277 cells checked, 6 blocking, 0 warnings, 0 researcher flags, 3 length flags, 7 name flags, 0 exempted hits
+
+Lexeme scope: **global** — every type is checked against the global list and all ratified per-value lists (researcher, 2026-07-31). `discipline_only` entries are not enforced anywhere.
+
+## BLOCKING failures
+- **a.lexeme** `type12_autonomy_vs_collective:CB-acw-S5:agree_comply:stem` — blocked lexeme 'deserves' (list: desert, cross-type)
+- **a.lexeme** `type12_autonomy_vs_collective:CB-acw-S5:agree_refuse:stem` — blocked lexeme 'deserves' (list: desert, cross-type)
+- **a.lexeme** `type12_autonomy_vs_collective:CB-acw-S5:oppose_tip_comply:stem` — blocked lexeme 'deserves' (list: desert, cross-type)
+- **a.lexeme** `type12_autonomy_vs_collective:CB-acw-S5:oppose_tip_refuse:stem` — blocked lexeme 'deserves' (list: desert, cross-type)
+- **a.lexeme** `type2_privacy_vs_care:CB-pc-S1:oppose_tip_A:shared_opposition_text` — blocked lexeme 'safety' (list: harm, cross-type)
+- **a.lexeme** `type2_privacy_vs_care:CB-pc-S1:oppose_tip_B:shared_opposition_text` — blocked lexeme 'safety' (list: harm, cross-type)
 
 ## Cross-type character-name flags (non-blocking)
 
@@ -35,17 +45,6 @@ Reused names risk cross-item association at administration and muddy per-type si
 - near-collision 'Devon' (type3_mercy_vs_desert) vs 'Devora' (type10_privacy_vs_care)
 - near-collision 'Priya' (type4_loyalty_vs_honesty) vs 'Priyanka' (type10_privacy_vs_care)
 - near-collision 'What' (type1_honesty_vs_care) vs 'Whatever' (type4_loyalty_vs_honesty)
-
-## Cross-type lexeme flags (non-blocking — scope question)
-
-Hits against **another type's** per-value list. The per-type scoping used for blocking above checks each type against the global list plus its own two poles; the workbook READMEs additionally say prior lists 'apply globally'. If that is the intended rule, these become blocking — a researcher decision, recorded in `data/battery/battery_schema.md`.
-
-- type12_autonomy_vs_collective:CB-acw-S5:agree_comply:stem — 'deserves' (other type's 'desert' list)
-- type12_autonomy_vs_collective:CB-acw-S5:agree_refuse:stem — 'deserves' (other type's 'desert' list)
-- type12_autonomy_vs_collective:CB-acw-S5:oppose_tip_comply:stem — 'deserves' (other type's 'desert' list)
-- type12_autonomy_vs_collective:CB-acw-S5:oppose_tip_refuse:stem — 'deserves' (other type's 'desert' list)
-- type2_privacy_vs_care:CB-pc-S1:oppose_tip_A:shared_opposition_text — 'safety' (other type's 'harm' list)
-- type2_privacy_vs_care:CB-pc-S1:oppose_tip_B:shared_opposition_text — 'safety' (other type's 'harm' list)
 
 ## Length flags (non-blocking, check e)
 - type1_honesty_vs_care.jsonl:CB-hc-S1:agree_A insert 35 tokens > 1.5x scenario median 22.5

@@ -125,11 +125,16 @@ class RefusalValidationTests(unittest.TestCase):
         rec.update(over)
         return rec
 
-    def run_v(self, recs, name="type7_harm_vs_autonomy.jsonl"):
+    def run_v(self, recs, name="type7_harm_vs_autonomy.jsonl", exemptions=None):
         d = self.dir / name
         d.write_text("".join(json.dumps(r) + "\n" for r in recs), encoding="utf-8")
         rep = self.dir / "rep.md"
-        code = vb.main([str(d), "--blocklists", str(self.bl), "--report", str(rep)])
+        argv = [str(d), "--blocklists", str(self.bl), "--report", str(rep)]
+        ex_path = self.dir / "ex.json"
+        ex_path.write_text(json.dumps({"exemptions": exemptions or []}),
+                           encoding="utf-8")
+        argv += ["--exemptions", str(ex_path)]
+        code = vb.main(argv)
         return code, rep.read_text(encoding="utf-8")
 
     def test_clean_refusal_scenario_passes(self):
@@ -170,14 +175,65 @@ class RefusalValidationTests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("'danger'", rep)
 
-    def test_other_type_lexeme_is_flag_not_block(self):
+    def test_cross_type_lexeme_blocks_under_global_scope(self):
+        """(a) global scope, ratified 2026-07-31: another type's list blocks."""
         cells = [self.cell(c) for c in REFUSAL_CONDS]
         for c in cells:
             c["stem"] = "She deserves the full celebration."
         code, rep = self.run_v(cells)
-        self.assertEqual(code, 0)
-        self.assertIn("Cross-type lexeme flags", rep)
+        self.assertEqual(code, 1)
         self.assertIn("'deserves'", rep)
+        self.assertIn("cross-type", rep)
+
+    def test_exemption_downgrades_exactly_one_hit_and_is_reported(self):
+        """(b) an exemption downgrades its own hit, leaves others blocking,
+        and always appears in the report."""
+        cells = [self.cell(c) for c in REFUSAL_CONDS]
+        cells[0]["condition_insert"] = "She deserves the full celebration."
+        cells[1]["condition_insert"] = "He deserves it too."
+        ex = [{"cell": "type7_harm_vs_autonomy:CB-hva-S1:agree_comply",
+               "field": "condition_insert", "lexeme": "deserves",
+               "rationale": "idiomatic, not a desert claim",
+               "date": "2026-07-31", "granted_by": "researcher"}]
+        code, rep = self.run_v(cells, exemptions=ex)
+        self.assertEqual(code, 1)                      # the other hit stands
+        self.assertIn("Granted exemptions", rep)
+        self.assertIn("idiomatic, not a desert claim", rep)
+        self.assertIn("agree_refuse:condition_insert", rep)   # still blocking
+        blocking = [l for l in rep.splitlines()
+                    if l.startswith("- **a.lexeme**")]
+        self.assertEqual(len(blocking), 1, blocking)
+
+    def test_exemption_wildcard_covers_a_scenario_stem(self):
+        cells = [self.cell(c) for c in REFUSAL_CONDS]
+        for c in cells:
+            c["stem"] = "She deserves the full celebration."
+        ex = [{"cell": "type7_harm_vs_autonomy:CB-hva-S1:*",
+               "lexeme": "deserves", "rationale": "stem-level grant",
+               "date": "2026-07-31", "granted_by": "researcher"}]
+        code, rep = self.run_v(cells, exemptions=ex)
+        self.assertEqual(code, 0)
+        self.assertEqual(rep.count("EXEMPT"), 4)       # one per cell, visible
+
+    def test_stale_exemption_reported(self):
+        ex = [{"cell": "type7_harm_vs_autonomy:CB-hva-S1:agree_comply",
+               "lexeme": "deserves", "rationale": "text since rewritten",
+               "date": "2026-07-31", "granted_by": "researcher"}]
+        code, rep = self.run_v([self.cell(c) for c in REFUSAL_CONDS],
+                               exemptions=ex)
+        self.assertEqual(code, 0)
+        self.assertIn("Stale exemptions", rep)
+
+    def test_discipline_only_lexemes_pass_in_every_type(self):
+        """(c) discipline_only is never enforced, under global scope either."""
+        bl = dict(BLOCKLISTS)
+        bl["discipline_only"] = {"care": "care/cared/caring — not enforced"}
+        self.bl.write_text(json.dumps(bl), encoding="utf-8")
+        cells = [self.cell(c) for c in REFUSAL_CONDS]
+        for c in cells:
+            c["stem"] = "She cared about the outcome and took care of it."
+        code, rep = self.run_v(cells)
+        self.assertEqual(code, 0)
 
     def test_refusal_cell_with_options_blocks(self):
         cells = [self.cell(c) for c in REFUSAL_CONDS]

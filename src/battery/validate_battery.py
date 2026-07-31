@@ -8,10 +8,18 @@ while the author is still in the file, not after.
 Checks (task spec 2026-07-30, session 1):
   a. Lexeme blocklists (data/battery/lexeme_blocklists.json): whole-word,
      case-insensitive, over the stimulus fields (stem, option_A, option_B,
-     shared_opposition_text, condition_insert) of every cell. Global list
-     applies to every item; per-value lists apply where value_A/value_B
-     match. BLOCKING. A rostered value with an empty/pending list is a
-     researcher-decision flag, non-blocking.
+     shared_opposition_text, condition_insert) of every cell. BLOCKING.
+     **Scope is GLOBAL** (researcher, 2026-07-31): every type is checked
+     against the `global` list AND all nine ratified per-value lists, not
+     only its own poles. Rationale on record: third-value lexemes are held
+     to the same standard as third-value pressure (authoring rules 1 and 6);
+     the workbook READMEs already said prior lists "apply globally" — own-
+     pole scoping was this validator's interpretation, never a ratified
+     decision. The `discipline_only` section stays unenforced everywhere.
+     Per-instance exemptions (data/battery/blocklist_exemptions.json)
+     downgrade a single documented hit to informational; they are always
+     printed in the report and never silently suppress. A rostered value
+     with an empty/pending list is a researcher-decision flag, non-blocking.
   b. Shared-text verbatim: within each scenario, the two oppose_tip_* cells'
      shared_opposition_text must be byte-identical. BLOCKING. Nonempty
      shared text on agree_* cells is a WARNING (schema says empty there).
@@ -92,6 +100,65 @@ def load_blocklists(path: Path):
     return data, compiled
 
 
+def load_exemptions(path: Path):
+    """Per-instance blocklist exemptions (researcher-granted).
+
+    Each record: cell (type_id:scenario_id:condition — `*` allowed in the
+    condition slot, since a stem hit appears in all four cells of a
+    scenario), lexeme, rationale, date, granted_by; `field` optional.
+    Returns (records, matched_counter) where the counter is filled during
+    validation so stale exemptions can be reported."""
+    if not path.exists():
+        return [], {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    recs = data.get("exemptions", [])
+    return recs, {i: 0 for i in range(len(recs))}
+
+
+def exemption_for(exemptions, matched, cell_id, field, lexeme):
+    """Index of the exemption covering this hit, or None. Records a match."""
+    for i, ex in enumerate(exemptions):
+        if ex.get("lexeme", "").lower() != lexeme.lower():
+            continue
+        if ex.get("field") and ex["field"] != field:
+            continue
+        want = ex.get("cell", "")
+        if want == cell_id:
+            matched[i] = matched.get(i, 0) + 1
+            return i
+        # wildcard condition slot: type_id:scenario_id:*
+        if want.endswith(":*") and cell_id.startswith(want[:-1]):
+            matched[i] = matched.get(i, 0) + 1
+            return i
+    return None
+
+
+def check_lexemes(rec, fields, blockcompiled, exemptions, matched, f,
+                  cell_id):
+    """Global-scope lexeme check for one record over the given fields."""
+    for field in fields:
+        text = rec.get(field, "") or ""
+        if not text:
+            continue
+        for scope, pats in blockcompiled.items():
+            for lexeme, pattern in pats:
+                if not pattern.search(text):
+                    continue
+                own = scope == "global" or scope in (rec.get("type_values") or [])
+                idx = exemption_for(exemptions, matched, cell_id, field, lexeme)
+                detail = (f"blocked lexeme {lexeme!r} (list: {scope}"
+                          f"{'' if own else ', cross-type'})")
+                if idx is None:
+                    f.block("a.lexeme", f"{cell_id}:{field}", detail)
+                else:
+                    ex = exemptions[idx]
+                    f.exempted.append(
+                        f"{cell_id}:{field} — {detail} — EXEMPT "
+                        f"({ex.get('date', 'no date')}, "
+                        f"{ex.get('granted_by', 'unattributed')}): "
+                        f"{ex.get('rationale', 'no rationale recorded')}")
+
+
 def token_count(text: str) -> int:
     """Whitespace tokens — documented proxy for model tokens (see module doc)."""
     return len(text.split())
@@ -104,7 +171,7 @@ class Findings:
         self.researcher_flags = []
         self.length_flags = []
         self.name_flags = []
-        self.cross_lexeme_flags = []
+        self.exempted = []          # documented per-instance exemptions applied
         self.lines = []      # report body lines
 
     def block(self, check, loc, detail):
@@ -117,7 +184,8 @@ class Findings:
 CONTROL_STIMULUS_FIELDS = ("stem", "option_A", "option_B")
 
 
-def validate_controls(path, records, blockdata, blockcompiled, f):
+def validate_controls(path, records, blockdata, blockcompiled, f,
+                      exemptions, matched):
     """topical_control records: id uniqueness, option sanity, leakage via
     global + the type's value lists (schema doc, researcher 2026-07-30).
     No 4-cell structure / stem / shared-text / length checks — different
@@ -148,18 +216,12 @@ def validate_controls(path, records, blockdata, blockcompiled, f):
         elif rec.get("option_A") or rec.get("option_B"):
             f.block("d.structure", loc,
                     "refusal-family control carries option text")
-        scopes = ["global"] + [v for v in rec.get("type_values", [])
-                               if v in blockcompiled]
-        for field in CONTROL_STIMULUS_FIELDS:
-            text = rec.get(field, "") or ""
-            for scope in scopes:
-                for lexeme, pattern in blockcompiled[scope]:
-                    if pattern.search(text):
-                        f.block("a.lexeme", f"{loc}:{field}",
-                                f"blocked lexeme {lexeme!r} (list: {scope})")
+        check_lexemes(rec, CONTROL_STIMULUS_FIELDS, blockcompiled, exemptions,
+                      matched, f, f"{rec.get('type_id')}:{cid}")
 
 
-def validate_file(path: Path, blockdata, blockcompiled, f: Findings):
+def validate_file(path: Path, blockdata, blockcompiled, f: Findings,
+                  exemptions, matched):
     records = [json.loads(l) for l in
                path.read_text(encoding="utf-8").splitlines() if l.strip()]
     controls = [r for r in records
@@ -167,7 +229,8 @@ def validate_file(path: Path, blockdata, blockcompiled, f: Findings):
     records = [r for r in records
                if r.get("record_type", "battery_cell") == "battery_cell"]
     if controls:
-        validate_controls(path, controls, blockdata, blockcompiled, f)
+        validate_controls(path, controls, blockdata, blockcompiled, f,
+                          exemptions, matched)
     if not records:
         return len(controls), []
     family = records[0].get("family", "choice")
@@ -256,17 +319,10 @@ def validate_file(path: Path, blockdata, blockcompiled, f: Findings):
         tvals = rec.get("type_values") or [rec.get("value_A", ""),
                                            rec.get("value_B", "")]
         values_seen.update(tvals)
-        scopes = ["global"] + [v for v in tvals if v in blockcompiled]
-        loc_base = f"{path.name}:{rec.get('scenario_id')}:{rec.get('condition')}"
-        for field in STIMULUS_FIELDS:
-            text = rec.get(field, "") or ""
-            if not text:
-                continue
-            for scope in scopes:
-                for lexeme, pattern in blockcompiled[scope]:
-                    if pattern.search(text):
-                        f.block("a.lexeme", f"{loc_base}:{field}",
-                                f"blocked lexeme {lexeme!r} (list: {scope})")
+        cell_id = (f"{rec.get('type_id')}:{rec.get('scenario_id')}:"
+                   f"{rec.get('condition')}")
+        check_lexemes(rec, STIMULUS_FIELDS, blockcompiled, exemptions,
+                      matched, f, cell_id)
     for v in sorted(values_seen - {""}):
         if v not in blockcompiled:
             f.researcher_flags.append(
@@ -340,35 +396,15 @@ def cross_type_name_check(all_records, f):
                         f"{b!r} ({', '.join(sorted(tb))})")
 
 
-def cross_type_lexemes(all_records, blockcompiled, f):
-    """The READMEs state that prior types' lexeme lists 'apply globally', i.e.
-    every type's stimulus text should clear ALL ratified lists, not just its
-    own poles. That is stricter than the per-type scoping used for blocking
-    above, so it is reported as its own non-blocking tier and the researcher
-    decides whether it becomes blocking (see report + schema doc)."""
-    for rec in all_records:
-        own = set(rec.get("type_values") or [])
-        loc_base = (f"{rec.get('type_id')}:{rec.get('scenario_id')}:"
-                    f"{rec.get('condition') or rec.get('control_id')}")
-        for field in STIMULUS_FIELDS:
-            text = rec.get(field, "") or ""
-            if not text:
-                continue
-            for scope, pats in blockcompiled.items():
-                if scope == "global" or scope in own:
-                    continue    # already blocking
-                for lexeme, pattern in pats:
-                    if pattern.search(text):
-                        f.cross_lexeme_flags.append(
-                            f"{loc_base}:{field} — {lexeme!r} (other type's "
-                            f"'{scope}' list)")
-
-
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("drafts", nargs="*", help="draft jsonl paths "
                     "(default: data/battery/drafts/*.jsonl)")
     ap.add_argument("--blocklists", default="data/battery/lexeme_blocklists.json")
+    ap.add_argument("--exemptions",
+                    default="data/battery/blocklist_exemptions.json",
+                    help="documented per-instance blocklist exemptions; "
+                         "always reported, never silent")
     ap.add_argument("--report", default="docs/battery_validation_report.md")
     args = ap.parse_args(argv)
 
@@ -380,6 +416,7 @@ def main(argv=None):
 
     blockdata, blockcompiled = load_blocklists(Path(args.blocklists))
     bl_sha, _ = file_digest(Path(args.blocklists))
+    exemptions, matched = load_exemptions(Path(args.exemptions))
 
     f = Findings()
     inputs = []
@@ -388,13 +425,15 @@ def main(argv=None):
     for path in paths:
         sha, size = file_digest(path)
         inputs.append((path, sha, size))
-        n, scenarios = validate_file(path, blockdata, blockcompiled, f)
+        n, scenarios = validate_file(path, blockdata, blockcompiled, f,
+                                     exemptions, matched)
         total_cells += n
         all_records.extend(
             json.loads(l) for l in
             path.read_text(encoding="utf-8").splitlines() if l.strip())
     cross_type_name_check(all_records, f)
-    cross_type_lexemes(all_records, blockcompiled, f)
+    stale_exemptions = [ex for i, ex in enumerate(exemptions)
+                        if not matched.get(i)]
 
     f.researcher_flags = list(dict.fromkeys(f.researcher_flags))
     now = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
@@ -415,7 +454,12 @@ def main(argv=None):
                   f"{len(f.researcher_flags)} researcher flags, "
                   f"{len(f.length_flags)} length flags, "
                   f"{len(f.name_flags)} name flags, "
-                  f"{len(f.cross_lexeme_flags)} cross-type lexeme flags")
+                  f"{len(f.exempted)} exempted hits")
+    report.append("")
+    report.append("Lexeme scope: **global** — every type is checked against "
+                  "the global list and all ratified per-value lists "
+                  "(researcher, 2026-07-31). `discipline_only` entries are "
+                  "not enforced anywhere.")
     report.append("")
     if f.blocking:
         report.append("## BLOCKING failures")
@@ -443,19 +487,27 @@ def main(argv=None):
         for flag in f.name_flags:
             report.append(f"- {flag}")
         report.append("")
-    if f.cross_lexeme_flags:
-        report.append("## Cross-type lexeme flags (non-blocking — scope question)")
+    if f.exempted:
+        report.append("## Granted exemptions (informational — hits downgraded)")
         report.append("")
-        report.append("Hits against **another type's** per-value list. The "
-                      "per-type scoping used for blocking above checks each "
-                      "type against the global list plus its own two poles; "
-                      "the workbook READMEs additionally say prior lists "
-                      "'apply globally'. If that is the intended rule, these "
-                      "become blocking — a researcher decision, recorded in "
-                      "`data/battery/battery_schema.md`.")
+        report.append("Each line is a real blocklist hit that a documented "
+                      "researcher exemption downgraded. Exemptions never "
+                      "suppress silently: if this section is non-empty, the "
+                      "text still contains the lexeme.")
         report.append("")
-        for flag in f.cross_lexeme_flags:
-            report.append(f"- {flag}")
+        for line in f.exempted:
+            report.append(f"- {line}")
+        report.append("")
+    if stale_exemptions:
+        report.append("## Stale exemptions (matched nothing)")
+        report.append("")
+        report.append("Granted but no longer matching any hit — the text was "
+                      "probably rewritten. Remove them so the exemption list "
+                      "stays an accurate record of what is being tolerated.")
+        report.append("")
+        for ex in stale_exemptions:
+            report.append(f"- {ex.get('cell', '?')} / {ex.get('lexeme', '?')!r} "
+                          f"({ex.get('date', 'no date')})")
         report.append("")
     if f.length_flags:
         report.append("## Length flags (non-blocking, check e)")

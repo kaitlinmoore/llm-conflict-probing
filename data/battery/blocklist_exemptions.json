@@ -1,0 +1,28 @@
+{
+  "_notes": [
+    "Per-instance exemptions from the lexeme blocklists. Blocklist scope is GLOBAL",
+    "(researcher, 2026-07-31): every type is validated against the global list and all",
+    "ratified per-value lists. This file is the release valve for an innocent hit, so a",
+    "single item never forces a retreat from global scope.",
+    "",
+    "An exemption downgrades ONE documented hit to informational. It never suppresses:",
+    "every applied exemption is printed in docs/battery_validation_report.md, and an",
+    "exemption that stops matching is reported as stale so the list stays accurate.",
+    "",
+    "Record fields:",
+    "  cell       'type_id:scenario_id:condition'. The condition slot accepts '*' —",
+    "             a stem hit appears in all four cells of a scenario, and one grant",
+    "             covering that scenario is the honest unit rather than four copies.",
+    "  field      optional; restricts the exemption to one stimulus field.",
+    "  lexeme     the matched lexeme (case-insensitive).",
+    "  rationale  why this instance is innocent. Required in practice — it is what a",
+    "             reader needs to re-judge the call later.",
+    "  date       when granted (YYYY-MM-DD).",
+    "  granted_by who ratified it.",
+    "",
+    "NONE ARE GRANTED. The 6 open hits (T12 CB-acw-S5 'deserves'; T2 CB-pc-S1 'safety')",
+    "are queued as text rewrites in the pending-edits batch, not exemptions — a failing",
+    "validation on exactly those cells is the correct state until the rewrites land."
+  ],
+  "exemptions": []
+}

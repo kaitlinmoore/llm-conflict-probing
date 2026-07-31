@@ -147,10 +147,28 @@ legitimately name the values under test.
 3. **`shared_conflict_text` header** — still open: normalized at ingest; if
    instead the workbooks should converge on one header, that is an
    authoring-side edit.
-4. **Blocklist scope across types** — OPEN, 2026-07-31. Blocking scope is
-   currently *global list + the type's own two poles*. The workbook READMEs
-   additionally state that prior types' lists "apply globally", i.e. every
-   type should clear **all** ratified lists. The validator computes that
-   stricter reading as a separate non-blocking tier ("cross-type lexeme
-   flags") so the two can be compared before the rule is fixed. At present it
-   is the difference between PASS and 6 blocking hits.
+4. **Blocklist scope across types** — RESOLVED 2026-07-31 (researcher):
+   **global scope adopted**. Every type's stimulus text is validated against
+   the `global` list and all nine ratified per-value lists, not only its own
+   poles. Rationale on record: third-value lexemes are held to the same
+   standard as third-value pressure (authoring rules 1 and 6); this matches
+   the READMEs' existing "apply globally" language — own-pole scoping was the
+   validator's interpretation, never a ratified decision. `discipline_only`
+   stays unenforced everywhere; global scope extends only the nine ratified
+   lists.
+
+   **Known-pending consequence:** validation currently FAILS on exactly 6
+   hits, and that is the correct state until the queued rewrites land —
+   `deserves` in T12 `CB-acw-S5`'s stem (4 cells, `desert` list) and `safety`
+   in T2 `CB-pc-S1`'s shared opposition text (2 cells, `harm` list). Both are
+   queued as text rewrites in the pending-edits batch after the review pass
+   closes, not as exemptions. Do not edit stimulus text to make the run pass.
+
+   **Exemption mechanism** (`data/battery/blocklist_exemptions.json`): a
+   documented per-instance record — cell, lexeme, rationale, date, grantor —
+   downgrades one hit to informational. Exemptions are always printed in the
+   validation report and never suppress silently; one that stops matching is
+   reported as stale. The condition slot accepts `*` for a scenario-wide
+   grant, since a stem hit appears in all four cells. None are granted; the
+   mechanism exists so a future innocent hit cannot force a retreat from
+   global scope.

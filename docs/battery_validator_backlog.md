@@ -12,6 +12,13 @@ Applied by `src/battery/apply_pending_edits.py` — dry run by default,
 **Status 2026-07-31: queued, NOT yet applied** (workbooks are live under the
 review pass; run it when they are closed).
 
+2. **T12 `CB-acw-S5` stem — `deserves`** (desert list, 4 cells) and
+   **T2 `CB-pc-S1` shared opposition text — `safety`** (harm list, 2 cells).
+   Blocking under global scope (researcher, 2026-07-31). Replacement wording
+   comes from the design chat; **not yet in the script's edit list**, and
+   deliberately not exempted — validation failing on exactly these 6 hits is
+   the correct state until the rewrites land.
+
 1. **type-1 "The toast" stem** contains "really cared about getting it
    right" — swap to "wanted it exactly right" (researcher, 2026-07-30).
    Bare "care/cared/caring" is discipline-only, not blocklisted, so the
