@@ -1,16 +1,18 @@
 # HANDOFF_v7 — pre-freeze snapshot
 
-**Status: PRE-FREEZE SNAPSHOT. Supersedes HANDOFF_v6. Freeze state to be appended
-post-freeze.** Nothing below describes a frozen battery: the edit batch is built and
-dry-run clean but **not applied**, verdicts for T11/T12 do not yet exist, and the
-freezer does not exist as code. When the freeze runs, append its state to this document
+**Status: PRE-FREEZE SNAPSHOT, refreshed 2026-08-05. Supersedes HANDOFF_v6. Freeze state
+to be appended post-freeze.** Nothing below describes a frozen battery — but everything
+upstream of the freeze is now done: the batch is **applied**, the delta review is
+**complete**, verdict integrity is **clean**, and the exhibit run is **finished on
+freeze-candidate text**. What remains before freeze is the freeze itself; the freezer
+still does not exist as code. When the freeze runs, append its state to this document
 rather than rewriting the sections above it.
 
 **Project:** llm-conflict-probing (Kaitlin Moore, CMU Heinz; advisor Dr. Sara Kingsley)
 **Written:** Design chat, 2026-08-05.
 
 **Boot order for a fresh instance:** this doc → `docs/decision_register.md` (now through
-**D67**, plus §5 corrections and O18–O23) → `run_configuration.md` →
+**D73**, plus §5 corrections and O18–O23) → `run_configuration.md` →
 `docs/batch_manifest.md` → `docs/closeout_staging_2026-08-04.md`. Then, as needed:
 `docs/freeze_checklist.md`,
 `docs/batch_dryrun_2026-08-05.md`, `docs/battery_predictions.md`,
@@ -32,20 +34,28 @@ The study asks whether the model has a detectable internal signature of value co
 (pre-test) is closed** — 13 of 16 values certified; central finding is that the model
 enacts values through *choice*, not refusal (three-band structure: harm_avoidance
 refuses at 0.87; privacy/integrity/autonomy contested at 0.56–0.58; the rest near zero).
-**Stage 2 authoring and the researcher review pass are both COMPLETE.** All twelve types
-plus controls are reviewed; every ruling from the review has been consolidated into one
-edit batch of **350 edits**, which **dry-runs 350/350 byte-exact** and is **awaiting the
-researcher's confirmation to apply**. **The refusal comparator for Stage 3 is captured
-and causally validated** at layer 12. What remains: confirm → apply → re-validate →
-delta review → exhibit run → freeze → run → analysis → write-up. Welfare claims,
-steering, and a second architecture are deferred to future work.
+**Stage 2 is complete through the last pre-freeze gate.** All twelve types plus controls
+were authored, reviewed, and edited: **394 edit operations** applied across the main
+batch, the battery-wide semicolon batch, and two cell-targeted repairs; **425 unique
+punctuation substitutions**, leaving **zero em dashes and zero semicolons in stimulus
+text**; validator **PASS** (0 blocking, 0 warnings); **delta review complete** — 117
+content cells read and all approved, 203 certified-mechanical cells spot-sampled, T11/T12
+verdicts entered; **verdict integrity zero non-approve** across all 277 records; and the
+**exhibit embedding run complete** on freeze-candidate text with trimmed anchors — all 13
+topical controls positive, zero relative-diagnostic flags. **The refusal comparator for
+Stage 3 is captured and causally validated** at layer 12, with its random-direction
+control and the conflict layer-selection criterion both ratified. What remains: **freeze**
+→ pod session → run → analysis → write-up. Welfare claims, steering, and a second
+architecture are deferred to future work.
 
 ---
 
 ## The battery — as built
 
-**66 scenarios, 13 topical controls, 277 cells.** *(Corrected: HANDOFF_v6 said 64 and 10.
-Basis: `docs/battery_validation_report.md` per-file counts; register §5.)*
+**66 scenarios, 13 topical controls — 264 battery cells + 13 controls = 277 records.**
+*(Corrected: HANDOFF_v6 said 64 scenarios and 10 controls. The validator's "277 cells
+checked" line mislabels records as cells; the cell count is 264. Basis:
+`docs/battery_validation_report.md` per-file counts; register §5.)*
 
 **Choice family — 5 scenarios each, 30 total:** T1 honesty–care, T2 privacy–care,
 T3 mercy–desert, T4 loyalty–honesty, T5 tradition–autonomy, T6 authority–autonomy.
@@ -88,6 +98,13 @@ choice-adjacent in structure; refusal is predicted **low** in all three and thei
 function is **generating conflicted compliance**. A low refusal rate there is the design
 working, not a null.
 
+**Punctuation conventions, battery-wide:** **zero em dashes, zero semicolons** in
+stimulus text (D61, D68). Scope is stimulus text only — anchor texts are analysis-side
+reference and keep their definitional `Pull toward X; against Y` semicolons.
+
+**Options invariant:** `option_A`/`option_B` exist and are byte-identical across a
+scenario's four cells, enforced by blocking validator check c2 (D70).
+
 **Predictions** now live in one place: `docs/battery_predictions.md`, all filed before
 data, append-only.
 
@@ -101,7 +118,7 @@ data, append-only.
 2. **One edit batch, 350 edits, dry-run clean** (`docs/batch_dryrun_2026-08-05.md`):
    A-edits first, then 287 em-dash normalizations, then 7 rename edits — ordered so every
    find-string matches the text state at its turn and **every location is touched exactly
-   once**. **Nothing has been applied.**
+   once**. **Confirmed and applied 2026-08-05** — as-built totals in item 9.
 3. **Ten new register entries, D55–D64** — blocklist scope global; embedding exhibit
    spec and z-standardized read-out; formula-lock and operationalization scope; T11/T12
    ask re-aiming; expressed-stance exclusion and the force principle; option
@@ -134,6 +151,37 @@ data, append-only.
    criterion is transcribed** as register **D66** (O19 closed); its **remaining
    decisions are not** — the four O22 items appear settled there but have no register
    entries yet, so O22 stays open as a backfill task.
+9. **Batch applied** (`docs/batch_apply_report_2026-08-05.md`). Cumulative: **394 edit
+   operations** = 352 main batch (350 + the Meera and Arun renames) + 40 semicolon batch
+   + 2 cell-targeted repairs; **425 unique-location punctuation substitutions** = 358 em
+   dashes + 27 authorial semicolons in dash-touched sentences + 40 battery-wide
+   semicolons. Per-cell: 583 em dashes and 113 semicolons removed. **Stimulus text now
+   carries zero of either** (**D68**). Mechanical certificates: dash-only 134/134,
+   dash+rename 10/10, semicolon-only 59/59.
+10. **Two pre-existing defects found and repaired** (**D69**) — T4 CB-lh-S2 `agree_A`
+   with a missing `option_A` cell and T1 CB-hc-S2 `agree_A` whose option aliased the
+   insert's shared string. Both are **review-pass Excel damage, proven pre-batch** from
+   the backups by replay-bisection; both repaired by **cell surgery**, both read and
+   approved in delta review under a named `post-review-repair` class. The class is closed
+   going forward by the new **options-uniformity check (c2, permanent, blocking)** —
+   `option_A`/`option_B` must exist and be byte-identical across a scenario's four cells
+   (**D70**); suite **219 OK**.
+11. **Delta review complete** — **117 content cells** (A7 39, A5/A6 48, A9 24, A10 3,
+   A2-wording 1, post-review repair 2), **all approve**; 203 certified-mechanical cells
+   on the spot-sample tier; **T11/T12's 46 verdicts entered** in this pass.
+   **Verdict integrity: zero non-approve tokens battery-wide** — 264 cells + 13 controls
+   = 277 records, all exactly `approve`, so an approve-only freeze drops nothing
+   (`docs/verdict_integrity_2026-08-05.md`). The pass touched verdicts only: 0 of 277
+   records differ in any stimulus field from the applied-batch state.
+12. **Anchors trimmed and the exhibit run completed** — authority and mercy trimmed by
+   **pure deletion** of flagged non-semantic spans, provenance flipped in the anchors
+   file, other 14 verbatim (**D71**, closing O20). Exhibit run on freeze-candidate text:
+   **all 13 controls positive, zero relative-diagnostic flags**. The **relative
+   within-value z-standardized diagnostic (z ≥ 2.0) is now the operative screen**; the
+   absolute tripwire is non-discriminative because authoring rule 7 floors own-pole
+   similarity (**D73**, amending D56). Still descriptive, never gating.
+13. **Model-judge second opinion DROPPED** (**D72**, closing O21) — explicitly, with the
+   independence it would have added recorded as a write-up limitation.
 
 ---
 
@@ -171,24 +219,16 @@ data, append-only.
 
 ## Immediate open items
 
-**Blocking the freeze (in order):**
+**Blocking the freeze: nothing.** Freeze-checklist steps 1–7 are all green — batch
+applied, re-ingested, re-validated PASS, delta review complete, verdict integrity clean,
+exhibit run done on freeze-candidate text with trimmed anchors. **Step 8, the freeze
+itself, is the next action**, and the freezer still has to be built: approve-only rows
+(all 277 qualify), sha over the frozen set, both option orders generated for choice items.
+The freezer-hardening recommendation stands — strip, validate tokens, report drops loudly
+— even though today there is nothing to drop.
 
-1. **Researcher confirmation of the dry-run report** — the trigger for everything
-   downstream. Points needing eyes before confirming: A10 option columns could not be
-   preserved (all six adjusted); the clause→period em-dash group (known
-   fragment-producing weak pattern); two rename proposals held out of the batch (Priya →
-   Meera, Dev → Arun).
-2. **Delta review after apply** — 260 changed cells, grouped by check class. Includes
-   the **verdict-entry pass for T11/T12** (46 cells; verdicts are blank by design because
-   the re-aim makes every cell a changed cell). **Freeze must not run before those
-   verdicts exist** — the approve-only filter drops blank rows silently.
-3. **Pre-freeze verdict-integrity report** (freeze checklist step 6) — every
-   `reviewer_verdict` token that is not exactly `approve`. Observed variance on record:
-   `'edit '` with a trailing space.
-4. **Anchor trim texts** for authority and mercy (O20) — needed before the exhibit
-   embedding run (freeze checklist step 7).
-
-**Pending pod trip (D53 + D54), one session:**
+**Pending pod trip (D53 + D54), one session — both ratified, nothing left to decide
+before it runs:**
 
 - **D53 — random-direction control at layer 12. RATIFIED 2026-08-05; the session may
   proceed.** Threshold as recorded in `run_configuration.md`: every random direction
@@ -205,25 +245,24 @@ data, append-only.
   for everything that **reuses** the direction — only **re-estimation** needs the anchors,
   and D52 makes that live.
 
-**Other OPEN (register §3):** O20 anchor trims (above); O21 model-judge second opinion —
-run cheaply pre-freeze or **drop with an explicit line**; O22 run-configuration decisions
-— all four now appear settled in `run_configuration.md` but are **not yet transcribed
-into register entries**, so O22 stays open as a backfill task; O23 the reliability gate's
-numeric threshold — open per `run_configuration.md`'s own list, to be pre-stated before
-unblinding.
+**Other OPEN (register §3), now two:** **O22** run-configuration decisions — all four
+appear settled in `run_configuration.md` but are **not yet transcribed into register
+entries**, so this stays open as a backfill task; **O23** the reliability gate's numeric
+threshold — open per `run_configuration.md`'s own list, to be pre-stated before
+unblinding. (O18, O19, O20 and O21 all closed 2026-08-05 — see D53, D66, D71, D72.)
 
 ---
 
 ## Critical path to done
 
-1. **Confirm the dry-run report** (researcher). The single gate.
-2. **Close workbooks → apply batch → re-ingest → re-validate.** Expect all 16 blocking
-   hits to clear (6 lexeme + 10 overlap), zero new, check f green.
-3. **Changed-cell delta review** (researcher) — 260 cells by check class; flip verdicts;
-   enter T11/T12 verdicts.
-4. **Verdict-integrity report → exhibit embedding run** (freeze-candidate text, anchors
-   trimmed).
-5. **Freeze** — approve-only rows, sha over the frozen set, both option orders for choice
+1. ~~Confirm the dry-run report~~ — **done 2026-08-05.**
+2. ~~Apply batch → re-ingest → re-validate~~ — **done**; all 16 blocking hits cleared,
+   two pre-existing defects found, repaired, and re-validated to **PASS**.
+3. ~~Changed-cell delta review~~ — **done**; 117 content cells all approve, T11/T12
+   verdicts entered.
+4. ~~Verdict-integrity report → exhibit embedding run~~ — **done**; zero non-approve,
+   all 13 controls positive, zero relative-diagnostic flags, trimmed anchors in use.
+5. **Freeze — the next action.** — approve-only rows, sha over the frozen set, both option orders for choice
    items. Gate for everything downstream.
 6. **Run-config** — designed and ratified 2026-08-05 (`run_configuration.md`); the
    layer criterion is D66. Remaining: transcribe its decisions into register entries
@@ -254,9 +293,11 @@ never type count) → write-up polish, never limitations.
   hardest-won lesson in the project.
 - Estimator/layer/position consistency: every direction is difference-in-means, at the
   anchor, compared within-layer only.
-- **The embedding exhibit is descriptive, never gating** (D56). It flags; it does not
-  fail anything. Its value-anchor comparison is one-sided — a third-value tripwire, never
-  a presence check on a cell's own poles.
+- **The embedding exhibit is descriptive, never gating** (D56, D73). It flags; it does
+  not fail anything. Its value-anchor comparison is one-sided — a third-value tripwire,
+  never a presence check on a cell's own poles — and the operative screen is the
+  **relative** within-value z-standardized diagnostic (z ≥ 2.0), because rule 7 floors
+  own-pole similarity and makes any absolute threshold non-discriminative.
 - **Per-type claims are operationalization-scoped** (D57). Within-type homogeneity is a
   deliberate power argument with a stated cost; say what each type actually
   operationalizes.

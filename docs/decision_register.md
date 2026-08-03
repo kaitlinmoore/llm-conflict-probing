@@ -524,8 +524,15 @@ design sessions of 2026-08-03 → 2026-08-05 and their ruling documents.*
   counted**: where a flag falls on a value adjacent to one of the cell's own poles, it
   is recorded with that annotation and excluded from flag totals, since pole adjacency
   is a property of the value roster rather than a defect in the cell.
-  **Sub-item OPEN (O20):** anchor trims for **authority** and **mercy** are approved in
-  principle — both anchors carry text that recruits neighboring constructs — but the
+  **Amended 2026-08-05 by D73 — what changed, precisely:** the third-value tripwire
+  described here was operationalized in the exhibit as an **absolute** similarity
+  threshold against non-pole anchors. That absolute form is **non-discriminative**, for
+  the same rule-7 reason that sank the rank rule. The operative screen is this entry's
+  **within-value z-standardized diagnostic**, now with its threshold fixed at **z ≥ 2.0**
+  — a relative criterion. Descriptive and non-gating status is unchanged.
+  **Sub-item RESOLVED 2026-08-05 by D71 (was OPEN as O20); the paragraph below is
+  retained as the entry's original text:** anchor trims for
+  **authority** and **mercy** were approved in principle — both anchors carry text that recruits neighboring constructs — but the
   exact trimmed anchor text is not yet written and must exist before the exhibit run.
 
 - **D57. Formula-lock: within-type operationalizations are deliberately homogeneous;
@@ -662,7 +669,15 @@ design sessions of 2026-08-03 → 2026-08-05 and their ruling documents.*
   superseded by A-edit old-strings — accounting closes at 358. Known weak pattern
   flagged for the researcher scan: a right-hand fragment with an embedded relative clause
   can misclassify as clause→period and produce a sentence fragment; the clause→period
-  group is scanned hardest. → `docs/emdash_replacements_2026-08-05.md`; manifest B2.
+  group is scanned hardest.
+  **Amended 2026-08-05 by D68 — this entry's convention and class counts no longer
+  describe the applied text.** D61 permitted "semicolon where the clauses are tightly
+  bound"; D68 removes semicolons entirely, so the 55 clause→semicolon conversions were
+  re-routed to periods. Applied breakdown as executed: clause→period **154**,
+  elaboration→colon 62 (+7 fragment-audit, +5 where a colon was already present),
+  paired→commas 55, conjunction→comma 3 (+1). Totals are unchanged and still reconcile:
+  287 sentences, 342 dashes, 358 inventory.
+  → `docs/emdash_replacements_2026-08-05.md`; manifest B2; D68.
 
 - **D62. Character renames: five approved; two pending name proposals.** Ratified
   2026-08-05 (researcher). Cross-type name reuse risks cross-item association at
@@ -679,7 +694,13 @@ design sessions of 2026-08-03 → 2026-08-05 and their ruling documents.*
   name, and none echoes a blocklist lexeme. **Two pending:** the Priya (T4) / Priyanka
   (T10) and Dev (T2) / Devora (T10) adjacencies are **approved in principle as renames
   but await confirmation of the proposed names** (Meera and Arun respectively, proposed
-  2026-08-05 under the same constraints and deliberately held out of the applied batch).
+  2026-08-05 under the same constraints and, when this entry was written, deliberately
+  held out of the applied batch).
+  **As-built amendment, 2026-08-05:** both were **confirmed and folded into the batch
+  regeneration** before apply — the edit total moved 350 → **352** for exactly these two.
+  Post-apply verification: Priya 10 → 0 with Meera at 10, Dev 5 → 0 with Arun at 5;
+  Priyanka and Devora intact apart from the two A7-ruled shared-text rewrites. All seven
+  renames are **applied, not pending**.
   **"Mom" is kept** as a **relationship-category label** rather than renamed: it appears
   in T4, T8, and T9 as a kinship term, not as a proper name, so the cross-item
   association concern does not apply and renaming it would destroy the relationship
@@ -846,6 +867,124 @@ design sessions of 2026-08-03 → 2026-08-05 and their ruling documents.*
   no separate v1.3 entry is needed.
   → `docs/labeling_rubric.md` §9; `docs/battery_predictions.md` §4; D49; D53; D65.
 
+- **D68. Zero semicolons in stimulus text; scope is stimulus text only.** Ratified
+  2026-08-05 (researcher). The em-dash convention (D61) is amended to a full punctuation
+  convention: **no semicolons anywhere in applied stimulus text**, converted by the same
+  rules — clause-joining → period or new sentence (comma before an existing coordinating
+  conjunction), before-elaboration → colon, paired parenthetical → commas. Applied in two
+  passes: **27 authorial semicolons inside dash-touched sentences**, converted with the
+  main batch, and a **battery-wide follow-up of 40 unique sentences across 59 cells**.
+  Per-cell effect: **113 semicolons removed, 583 em dashes removed; both counts now
+  zero**. Audit finding recorded with the ruling: **every semicolon in this corpus joins
+  independent clauses**, so the convention's clause default applies throughout and all 40
+  convert to period/new sentence — no conjunction starts, no genuine fragments, no
+  judgment calls left to the converter. Rationale: D61 moved dash normalization from style
+  to hygiene because dash density was confounded with condition; leaving authorial
+  semicolons in place would have reintroduced the same class of problem in a second mark,
+  and worse — the dash convention's clause default *removes* semicolons from every
+  sentence it touches, so dash-touched and dash-free sentences would have ended up
+  systematically different in punctuation, which is condition-correlated exactly to the
+  degree dash density was. **Scope, ruled explicitly: stimulus text only.** Anchor texts
+  (`data/battery/value_anchors.json`) are **analysis-side reference text**, not stimuli;
+  the definitional `Pull toward X; against Y` semicolons in the unflagged anchors are
+  structure, not prose, and are **untouched**. The scope note is recorded in the
+  punctuation document's header and in the anchors-file notes so neither can be read
+  without it. → `docs/emdash_replacements_2026-08-05.md` (header scope note + conversion
+  record); `data/battery/value_anchors.json` notes; `docs/batch_apply_report_2026-08-05.md`;
+  D61.
+
+- **D69. Two-cell repair by cell surgery; damage proven pre-batch.** Ratified 2026-08-05
+  (researcher). Two option cells were found broken at re-validation after the batch
+  applied, and both are **review-pass Excel damage, not batch effects** — proven from the
+  pre-apply backups plus **replay-bisection over the backup** showing no edit in the
+  batch touches either string:
+  (a) **T4 CB-lh-S2 `agree_A`** — `option_A` **empty**: the workbook's `Scenarios!J6` did
+  not exist in the pre-apply backup (an empty styled cell), while sibling rows J7–J9
+  referenced shared string [80] "Tell Mom what I saw."; the 2026-07-31 pre-review drafts
+  still had it, so the cell was deleted during the review-pass Excel session.
+  (b) **T1 CB-hc-S2 `agree_A`** — `option_A` **aliased the insert**: row J7 referenced
+  shared string [85], the *insert's* text, while J6/J8/J9 referenced [81], the real
+  option — a copy-paste slip during review that Excel's re-save then deduplicated onto the
+  insert's string. Check f caught this one only because the echo happened to be visible to
+  it.
+  **Repair method ratified as cell surgery, not string replacement**, because string
+  replacement cannot address either defect: one cell is absent (nothing to match), and the
+  other aliases a shared string that other cells legitimately use (a replacement would
+  corrupt them). J6 was rewritten in place to reference existing entry [80] with the `sst
+  count` bumped; J7 was repointed from [85] to [81] "Tell him what didn't work.",
+  byte-identical to the ratified A9 wording. Both are **stimulus-cell writes**, which is
+  why they were queued for a researcher ruling rather than applied as cleanup. Both were
+  verified through re-ingest and **entered the delta review under a named
+  `post-review-repair` class**, where they were read and **approved** — the repairs are
+  not certified-mechanical and were not spot-sampled. → `docs/batch_apply_report_2026-08-05.md`
+  (follow-up cycle); D70 (the check that closes this class).
+
+- **D70. Options-uniformity check (c2): permanent and blocking.** Ratified 2026-08-05
+  (researcher). `validate_battery.py` gains a permanent blocking check: for every
+  choice-family scenario, `option_A` and `option_B` must **exist** and be **byte-identical
+  across all four of the scenario's cells**. Rationale: the options are shared text by
+  design — a scenario's four cells differ in stem insert, never in options — so any
+  divergence is damage by definition and needs no interpretation to flag. Both D69 defects
+  fall in this class, and **either would have been caught at the 2026-08-04 close-out had
+  the check existed**; T1's surfaced only by luck (check f noticed the echo) and T4's
+  survived until the batch's mechanical certificate independently caught a word that no
+  edit had removed. The check ran battery-wide clean on the repaired state; suite **219
+  OK** (3 new tests). Class closed: existence plus cross-cell identity is the full
+  invariant, so this defect class cannot recur silently. → `docs/batch_apply_report_2026-08-05.md`;
+  D69.
+
+- **D71. Anchor trims for authority and mercy: pure deletion.** Ratified 2026-08-05
+  (researcher). Resolves **O20**. The two flagged anchors are trimmed by **deletion only**
+  — a probe-design parenthetical in one, a document-maintenance sentence in the other —
+  with **no rewriting, no substitution, no re-ordering**. Rationale for the
+  deletion-only method: the flagged spans described the *probe design* and the
+  *document's upkeep*, not the value, so removing them takes out text that was never
+  semantic content of the anchor; and because nothing is rewritten, the trim **cannot
+  introduce new content** that would change what the anchor measures — which is the only
+  risk a trim carries for a comparison instrument. The **exact trimmed texts** and the
+  **provenance flip** (these two anchors move from `verbatim` to `trimmed`) are recorded
+  in the anchors file, so any later reading can tell trimmed anchors from untouched ones
+  without consulting this register. **The other 14 anchors remain verbatim.** The trimmed
+  anchors were the ones used in the freeze-candidate exhibit run.
+  → `data/battery/value_anchors.json`; D56; O20 (resolved).
+
+- **D72. Model-judge second opinion: DROPPED.** Ratified 2026-08-05 (researcher).
+  Resolves **O21** by taking the second of its two permitted resolutions — dropped with an
+  explicit line on the record, not left silently unexercised. The judge was designed under
+  D43 as an **independent pre-freeze check on scenario text**, running alongside the
+  researcher's review pass. It is dropped because **its function was superseded by review
+  layers that were completed instead**: the full researcher **delta review** (117 content
+  cells read, all approved, plus a spot sample over 203 certified-mechanical cells), the
+  **validator suite at PASS** (0 blocking, 0 warnings, including the new options-uniformity
+  check), **verdict integrity at zero non-approve** across all 277 records, and a **clean
+  descriptive embedding screen** on the freeze-candidate text. Recorded honestly rather
+  than as an equivalence: a model judge is an *independent* reader and these layers are
+  not, so what is being claimed is that the marginal value of a second model reading is
+  low against four completed checks and a hard schedule — **not** that the checks are
+  substitutes for independence. The limitation belongs in the write-up's limitations
+  section as stated here. → D43; O21 (resolved); `docs/verdict_integrity_2026-08-05.md`;
+  `docs/batch_apply_report_2026-08-05.md`.
+
+- **D73. Relative third-value diagnostic (z ≥ 2.0) is the operative exhibit screen.**
+  Ratified 2026-08-05 (researcher); amends **D56**. The **relative, within-value
+  z-standardized** third-value diagnostic at **z ≥ 2.0** is the exhibit's operative
+  screen — D56's ratified read-out, with its threshold now fixed. The **absolute form of
+  D56's third-value tripwire** — a fixed similarity threshold against a non-pole anchor —
+  **is non-discriminative**, for the structural reason already on record: **authoring rule 7 strips own-pole vocabulary from
+  stimulus text**, which floors own-pole similarity and compresses the whole
+  cell×anchor similarity distribution toward the middle — so an absolute threshold sits
+  either above everything or below everything and separates nothing. This is the same
+  mechanism that made the earlier rank-based rule fire on 94 of 168 comparisons; the
+  absolute variant fails for the same cause, and both are **reported as instrument
+  findings** about the interaction between rule 7 and similarity read-outs rather than
+  quietly dropped. **Status unchanged in the way that matters: still descriptive, never
+  gating** (D56). The screen flags cells for researcher attention and characterizes the
+  battery's surface geometry for the write-up; **no cell, scenario, control, or type
+  passes or fails on it.** On the freeze-candidate exhibit run the relative diagnostic
+  produced **zero flags**, with all 13 topical controls positive. → D56; the
+  freeze-candidate exhibit run results directory (`results/stimulus_similarity/`), from
+  which both figures are reported; session rulings of 2026-08-05.
+
 ## 2. STANDING RECOMMENDATIONS (REC — awaiting researcher sign-off)
 
 - **R1. Carryover trigger criterion.** Permutation p < .01 AND effect ≥ half the
@@ -943,21 +1082,18 @@ design sessions of 2026-08-03 → 2026-08-05 and their ruling documents.*
   satisfied: the criterion is held-out separation, not reliability, and reliability may
   only disqualify a layer as unstable. → D52; D66; `run_configuration.md`.
 
-- **O20. Anchor trim texts for authority and mercy.** The trims are approved in
-  principle under D56 — both anchors carry text that recruits neighboring constructs —
-  but the **exact trimmed anchor text is not written**. Needed before the exhibit
-  embedding run (freeze checklist step 7), since the anchors are an input to it.
-  → D56.
+- **O20. Anchor trim texts for authority and mercy. RESOLVED 2026-08-05** (researcher) —
+  trims executed by pure deletion of the flagged non-semantic spans, exact texts and the
+  provenance flip recorded in the anchors file, other 14 anchors verbatim; the trimmed
+  anchors were used in the freeze-candidate exhibit run. Recorded as **D71**.
+  → D56; D71.
 
-- **O21. Model-judge second opinion — run cheaply pre-freeze, or drop with a line.**
-  D43 compressed battery validation to scripted checks plus the researcher review pass,
-  "with a model judge running alongside as second opinion." The review pass is complete
-  and the judge has not run. Two acceptable resolutions, and only these two: run it
-  cheaply before freeze on the freeze-candidate text, or **drop it explicitly with a
-  recorded line** in the limitations. What is not acceptable is leaving D43's stated
-  second gate silently unexercised — a validation step described in the register and
-  never run is a documentation defect regardless of whether the judge would have found
-  anything. → D43.
+- **O21. Model-judge second opinion. RESOLVED 2026-08-05** (researcher) — **DROPPED**,
+  which is the second of this item's two permitted resolutions, taken explicitly rather
+  than by silence. Function superseded by the review layers actually completed (delta
+  review 117 cells all approved, validator PASS, verdict integrity zero non-approve,
+  clean descriptive embedding screen); the independence the judge would have added is
+  recorded as a limitation. Recorded as **D72**. → D43; D72.
 
 - **O22. Run-configuration decisions (fresh design session).** Four decisions are
   unmade and are all inputs to the run, not to the freeze: (a) **labeling-hours
@@ -1017,7 +1153,10 @@ practice. Each correction states the wrong figure, the right one, and its basis.
   "64 scenarios + 10 controls" — **stale**). As built and machine-verified: choice
   family T1–T6 at 5 scenarios each = 30; refusal family T7–T12 at 6 each = 36; total
   **66**. Topical controls: T2 ×4, T8 ×3, T9 ×3, T10 ×3 = **13**. Basis:
-  `docs/battery_validation_report.md` per-file cell counts (277 cells checked). The
+  `docs/battery_validation_report.md` per-file counts. **Records vs cells:** 277 =
+  264 battery cells (6 choice types × 20 + 6 refusal types × 24) + 13 controls; the
+  validator's "277 cells checked" verdict line mislabels records as cells and is tracked
+  as cosmetic in the backlog. The
   corrected figures are used in HANDOFF_v7 and should be used in any review-scope or
   labeling-budget estimate; the v6 figures under-count the review pass by two scenarios
   and three controls.
@@ -1033,7 +1172,15 @@ practice. Each correction states the wrong figure, the right one, and its basis.
   statements inside v6 itself. The backfill above makes the claim true retroactively —
   recorded here so that the gap, not just its repair, is on the record, since a boot
   order that overstates the register is the failure mode this correction exists to catch.
-  HANDOFF_v7's boot order states **D67** and is accurate as of 2026-08-05.
+  HANDOFF_v7's boot order states **D73** and is accurate as of 2026-08-05.
+
+- **As-built flip for the staged-edit entries (D58, D60, D63).** Those entries were
+  written while the batch was staged and say so ("staged, not yet applied"; check f hits
+  "expected to clear"). **The batch applied 2026-08-05**: all 6 lexeme hits and all 10
+  overlap hits cleared, check f is green on every batch-touched cell, and the ruled
+  wordings are in the workbooks. The original text is retained per the register's
+  append-and-amend practice; this line is the flip.
+  → `docs/batch_apply_report_2026-08-05.md`.
 
 - **D44 refusal-type sizing: 6–7 as decided, 6 as built — as-built recorded.** D44
   ratified refusal types at "6–7 scenarios (attrition insurance for the
