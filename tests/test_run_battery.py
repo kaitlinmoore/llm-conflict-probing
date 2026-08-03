@@ -121,6 +121,29 @@ class WorkList(unittest.TestCase):
         units = rb.administered_rows(frozen, [], smoke=True)
         self.assertLess(len(units), 20)
 
+    def test_smoke_covers_every_family_and_the_labeler_path(self):
+        # regression: the first smoke run (2026-08-05) selected only choice
+        # scenarios — zero refusal rows, so the labeler pass never ran
+        frozen = []
+        for i in range(6):
+            frozen.append(frozen_row(
+                "AB", scenario_id=f"C{i}", row_id=f"tc:C{i}:agree_A:AB"))
+        for i in range(6):
+            frozen.append(frozen_row(
+                family="refusal", order="NA", scenario_id=f"R{i}",
+                row_id=f"tr:R{i}:agree_comply:NA"))
+        comp = [comp_row(i, c) for i in range(4) for c in ("torn", "easy")]
+        units = rb.administered_rows(frozen, comp, smoke=True)
+        fams = {r["family"] for r, _ in units}
+        self.assertEqual(fams, {"choice", "refusal", "competition"})
+        n_refusal_open = sum(1 for r, a in units
+                             if r["family"] == "refusal"
+                             and a == "open_ended")
+        self.assertGreaterEqual(n_refusal_open, 2)
+        self.assertLessEqual(
+            len({(r["family"], r.get("type_id"), r.get("scenario_id"))
+                 for r, _ in units if r["family"] == "choice"}), 2)
+
 
 class VerifyRunBatteryMode(unittest.TestCase):
     """verify_run.py must PASS on a battery-session run dir (it predates

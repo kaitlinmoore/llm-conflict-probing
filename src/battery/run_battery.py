@@ -145,12 +145,22 @@ def administered_rows(frozen_rows, competition_rows, smoke=False,
         units.append((row, "open_ended"))
         units.append((row, "answer_only"))
     if smoke:
-        scen_seen, keep = set(), []
+        # Family-balanced slice: the smoke must exercise every family, both
+        # arms, AND the labeler pass (refusal rows) — a family-blind first-N
+        # filter selected only choice scenarios (found 2026-08-05, first
+        # smoke run: 0 labels). Quotas: 2 choice + 2 refusal scenarios,
+        # 4 competition items -> 48 administered prompts.
+        quota = {"choice": 2, "refusal": 2, "competition": 4}
+        picked, per_family, keep = set(), {}, []
         for r, arm in units:
-            k = (r.get("family"), r.get("type_id"), r.get("scenario_id"))
-            if len(scen_seen) < 4 or k in scen_seen:
-                scen_seen.add(k)
-                keep.append((r, arm))
+            fam = r.get("family")
+            k = (fam, r.get("type_id"), r.get("scenario_id"))
+            if k not in picked:
+                if per_family.get(fam, 0) >= quota.get(fam, 0):
+                    continue
+                picked.add(k)
+                per_family[fam] = per_family.get(fam, 0) + 1
+            keep.append((r, arm))
         units = keep
     rng = random.Random(seed)
     rng.shuffle(units)
