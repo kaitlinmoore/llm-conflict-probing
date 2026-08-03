@@ -32,6 +32,11 @@ from pathlib import Path
 
 REQUIRED_KEYS = ["run_id", "run_role", "model", "model_tag",
                  "probe_file_sha256", "expected_rows", "schema_version"]
+# Battery-session manifests (run_battery.py, 2026-08-05) carry the frozen
+# battery's sha instead of a probe-file sha, and name their own row-count
+# and activations files via manifest keys.
+REQUIRED_KEYS_BATTERY = ["run_id", "run_role", "model", "model_tag",
+                         "frozen_sha256", "expected_rows", "schema_version"]
 
 
 def file_digest(path):
@@ -65,9 +70,12 @@ def main(argv=None):
         check("manifest.json parses", False, repr(e))
         print(f"VERIFY FAIL {run_dir.name}")
         return 1
-    missing = [k for k in REQUIRED_KEYS if k not in manifest]
+    required = (REQUIRED_KEYS_BATTERY
+                if manifest.get("run_role") == "battery_session"
+                else REQUIRED_KEYS)
+    missing = [k for k in required if k not in manifest]
     check("manifest required keys", not missing,
-          f"missing: {missing}" if missing else ", ".join(REQUIRED_KEYS))
+          f"missing: {missing}" if missing else ", ".join(required))
 
     # ---- CSV row count vs expected_rows ----
     # Row-count artifact: manifest-declared when present (comparator captures
@@ -88,7 +96,8 @@ def main(argv=None):
     if screen_mode:
         print(f"SKIP  activations (screen run '{screen_mode}': logits-only, none expected)")
     else:
-        act_path = run_dir / f"activations_{manifest.get('model_tag')}.pt"
+        act_path = run_dir / (manifest.get("activations_file")
+                              or f"activations_{manifest.get('model_tag')}.pt")
         try:
             import torch
             blob = torch.load(act_path, map_location="cpu", weights_only=False)

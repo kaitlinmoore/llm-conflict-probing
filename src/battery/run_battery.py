@@ -172,6 +172,15 @@ def needs_regeneration(generation: str, label_info, cap=MAX_NEW_TOKENS,
     return bool(hit_cap and label_info and label_info.get("uncertain"))
 
 
+def stability_targets(merged_labels, rows_by_id, stab_done):
+    """Disputed refusal rows still owed stability samples: merged labels
+    (persisted + this session), minus rows already in the shard."""
+    return [(rows_by_id[rid], f"{rid}:open_ended")
+            for rid, li in sorted(merged_labels.items())
+            if rid in rows_by_id and rid not in stab_done
+            and needs_stability(rows_by_id[rid], li)]
+
+
 def needs_stability(row, label_info):
     """Refusal rows where the auto label disagrees with the designed
     resolution or is uncertain (run_configuration sampling audit)."""
@@ -243,6 +252,8 @@ def main(argv=None):
     labels_path = run_dir / "labels_auto.csv"
     done = set()
     activations = {}
+    persisted_labels = {}      # row_id -> label_info from a prior session
+    stab_done = set()          # row_ids already in the stability shard
     if csv_path.exists():   # resume
         done = {r["prompt_key"] for r in csv.DictReader(
             csv_path.open(encoding="utf-8", newline=""))}
@@ -250,7 +261,19 @@ def main(argv=None):
             blob = torch.load(act_path, map_location="cpu",
                               weights_only=False)
             activations = blob["activations"]
-        print(f"RESUME: {len(done)} prompts already captured")
+        if labels_path.exists():
+            for r in csv.DictReader(labels_path.open(encoding="utf-8",
+                                                     newline="")):
+                persisted_labels[r["row_id"]] = {
+                    "label": r["label"],
+                    "uncertain": bool(int(r["uncertain"] or 0)),
+                    "disclaimer_reluctance": r["disclaimer_reluctance"]}
+        stab_path_prev = run_dir / "stability_shard.csv"
+        if stab_path_prev.exists():
+            stab_done = {r["row_id"] for r in csv.DictReader(
+                stab_path_prev.open(encoding="utf-8", newline=""))}
+        print(f"RESUME: {len(done)} prompts, {len(persisted_labels)} labels, "
+              f"{len(stab_done)} stability rows already on disk")
     mode = "a" if done else "w"
     csv_f = open(csv_path, mode, newline="", encoding="utf-8")
     writer = csv.DictWriter(csv_f, fieldnames=CAPTURE_FIELDS)
@@ -380,15 +403,24 @@ def main(argv=None):
                 checkpoint(partial=True)
                 print(f"  [{i}/{len(units)}] captured (checkpoint)")
 
-        # stability shard: disputed refusal labels, 5 samples, temp 0.7
+        # stability shard: disputed refusal labels, 5 samples, temp 0.7.
+        # Targets merge THIS session's labels with labels persisted by a
+        # prior session (resume must not lose earlier disputed rows), and
+        # rows already sampled into the shard are not re-sampled.
+        merged = dict(persisted_labels)
+        for r, k, li in label_rows:
+            merged[r["row_id"]] = li
+        rows_by_id = {r["row_id"]: r for r in frozen_rows
+                      if r.get("family") == "refusal"}
         stab_path = run_dir / "stability_shard.csv"
-        with open(stab_path, "w", newline="", encoding="utf-8") as sf:
+        stab_mode = "a" if stab_done else "w"
+        with open(stab_path, stab_mode, newline="", encoding="utf-8") as sf:
             sw = csv.DictWriter(sf, fieldnames=["row_id", "seed",
                                                 "generation", "label",
                                                 "uncertain"])
-            sw.writeheader()
-            targets = [(r, k) for r, k, li in label_rows
-                       if needs_stability(r, li)]
+            if not stab_done:
+                sw.writeheader()
+            targets = stability_targets(merged, rows_by_id, stab_done)
             print(f"stability shard: {len(targets)} disputed refusal rows")
             for row, key in targets:
                 user_msg = render_prompt(row, "open_ended")
@@ -425,8 +457,16 @@ def main(argv=None):
             digests[p.name] = {"sha256": sha, "bytes": size}
             print(f"DIGEST {sha} {size} {p.name}")
     manifest = {
+        "schema_version": "battery_capture_v1",
+        "run_id": run_dir.name,
         "run_role": "battery_session", "produced_by": PRODUCED_BY,
-        "model": args.model, "seed": args.seed,
+        "model": args.model, "model_tag": spec["tag"],
+        # verify_run.py contract: row count + activations naming declared
+        # here, expected_rows == the full work list (resume completes to it)
+        "expected_rows": len(units),
+        "row_count_file": "capture_rows.csv",
+        "activations_file": "activations.pt",
+        "seed": args.seed,
         "greedy": True, "max_new_tokens": args.max_new_tokens,
         "regen_tokens": REGEN_TOKENS,
         "smoke": args.smoke, "shard": args.shard,

@@ -49,8 +49,13 @@ ask. Never silently change it.
 - Execution is on **RunPod A100 pods** (torch 2.8+cu128 there). The local
   machine is for code, stdlib tests, and analysis of committed artifacts —
   no GPU work happens locally.
-- Every pod session: `export HF_HOME=/workspace/hf_cache` (persistent volume;
-  avoids re-downloading weights). Every long run goes inside **tmux**.
+- Every pod session: `source scripts/env.sh` first (it exports HF_HOME to
+  the persistent volume and defines `runpy`). Every long run goes through
+  **nohup** — and nohup cannot run the `runpy` shell function, so use the
+  interpreter path directly: `nohup /root/venv/bin/python <cmd> > run.log
+  2>&1 &`, save the PID, `tail -f` to watch, one log per run. tmux does
+  not work on these pods (2026-08-05). All runners are resumable, so
+  kill-and-rerun is always safe.
 - Models are **gated** on Hugging Face: `HF_TOKEN` with licenses accepted
   (meta-llama/Llama-3.1-8B[-Instruct], google/gemma-2-2b-it / 9b-it).
 - Anthropic API key (`ANTHROPIC_API_KEY`) is used only by

@@ -122,6 +122,54 @@ class WorkList(unittest.TestCase):
         self.assertLess(len(units), 20)
 
 
+class VerifyRunBatteryMode(unittest.TestCase):
+    """verify_run.py must PASS on a battery-session run dir (it predates
+    the runner and required pretest manifest keys until 2026-08-05)."""
+
+    def test_battery_run_dir_verifies(self):
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("torch not installed")
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "verify_run",
+            Path(__file__).resolve().parents[1] / "scripts" / "verify_run.py")
+        vr = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(vr)
+
+        with tempfile.TemporaryDirectory() as d:
+            run = Path(d)
+            rows = "prompt_key,row_id\nk1,r1\nk2,r2\n"
+            (run / "capture_rows.csv").write_text(rows, encoding="utf-8")
+            torch.save({"activations": {"k1": torch.zeros(2, 4),
+                                        "k2": torch.zeros(2, 4)},
+                        "partial": False}, run / "activations.pt")
+            digests = {}
+            for name in ("capture_rows.csv", "activations.pt"):
+                sha, size = vr.file_digest(run / name)
+                digests[name] = {"sha256": sha, "bytes": size}
+            manifest = {"schema_version": "battery_capture_v1",
+                        "run_id": run.name, "run_role": "battery_session",
+                        "model": "m", "model_tag": "t",
+                        "frozen_sha256": "f" * 64, "expected_rows": 2,
+                        "row_count_file": "capture_rows.csv",
+                        "activations_file": "activations.pt",
+                        "output_digests": digests}
+            (run / "manifest.json").write_text(json.dumps(manifest),
+                                               encoding="utf-8")
+            self.assertEqual(vr.main([str(run)]), 0)
+            # and a partial capture must fail verification
+            torch.save({"activations": {"k1": torch.zeros(2, 4)},
+                        "partial": True}, run / "activations.pt")
+            sha, size = vr.file_digest(run / "activations.pt")
+            manifest["output_digests"]["activations.pt"] = {
+                "sha256": sha, "bytes": size}
+            (run / "manifest.json").write_text(json.dumps(manifest),
+                                               encoding="utf-8")
+            self.assertEqual(vr.main([str(run)]), 1)
+
+
 class RegenAndStability(unittest.TestCase):
     def test_regeneration_only_on_capped_uncertain(self):
         li_unc = {"uncertain": True}
@@ -132,6 +180,22 @@ class RegenAndStability(unittest.TestCase):
                                                n_tokens=128))
         self.assertFalse(rb.needs_regeneration("x", li_unc, cap=128,
                                                n_tokens=50))
+
+    def test_stability_targets_survive_resume(self):
+        # a disputed row labeled BEFORE the resume must still be sampled;
+        # one already in the shard must not be re-sampled
+        r1 = frozen_row(family="refusal", order="NA",
+                        row_id="t10:S1:agree_comply:NA")
+        r2 = frozen_row(family="refusal", order="NA",
+                        row_id="t10:S2:agree_comply:NA")
+        rows_by_id = {r["row_id"]: r for r in (r1, r2)}
+        merged = {r1["row_id"]: {"label": "hedge", "uncertain": False},
+                  r2["row_id"]: {"label": "refuse", "uncertain": False}}
+        targets = rb.stability_targets(merged, rows_by_id, stab_done=set())
+        self.assertEqual(len(targets), 2)
+        targets = rb.stability_targets(merged, rows_by_id,
+                                       stab_done={r1["row_id"]})
+        self.assertEqual([r["row_id"] for r, _ in targets], [r2["row_id"]])
 
     def test_stability_selection(self):
         refusal = frozen_row(family="refusal", order="NA")  # expected comply
