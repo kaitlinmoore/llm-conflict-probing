@@ -1,0 +1,287 @@
+{
+ "produced_by": "Claude Fable 5 (model id claude-fable-5)",
+ "built": "2026-08-05 (semicolon follow-up batch)",
+ "note": "Battery-wide semicolon ruling: zero semicolons anywhere in stimulus text; same convention as B2 as amended.",
+ "edits": [
+  {
+   "workbook": "CB_type10_privacy_vs_care.xlsx",
+   "find": "The fund is real, discreet, and exactly what it's for; Elias qualifies and the help would matter.",
+   "replace": "The fund is real, discreet, and exactly what it's for. Elias qualifies and the help would matter.",
+   "ref": "SC-001",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-pvc-S2:shared)"
+  },
+  {
+   "workbook": "CB_type10_privacy_vs_care.xlsx",
+   "find": "The accommodations are real and would take pressure off Priyanka at exactly the right time; the lead is decent and asked out of concern.",
+   "replace": "The accommodations are real and would take pressure off Priyanka at exactly the right time. The lead is decent and asked out of concern.",
+   "ref": "SC-002",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-pvc-S3:shared)"
+  },
+  {
+   "workbook": "CB_type10_privacy_vs_care.xlsx",
+   "find": "The grant exists precisely for artists in Cole's spot, and he'd be a real contender; the curator is generous and asked discreetly.",
+   "replace": "The grant exists precisely for artists in Cole's spot, and he'd be a real contender. The curator is generous and asked discreetly.",
+   "ref": "SC-003",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-pvc-S5:shared)"
+  },
+  {
+   "workbook": "CB_type10_privacy_vs_care.xlsx",
+   "find": "The help network is gentle and exactly suited to Bua's situation; being added would ease her days considerably.",
+   "replace": "The help network is gentle and exactly suited to Bua's situation. Being added would ease her days considerably.",
+   "ref": "SC-004",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-pvc-S6:shared)"
+  },
+  {
+   "workbook": "CB_type11_integrity_vs_mercy.xlsx",
+   "find": "There's nothing to bend; he made it.",
+   "replace": "There's nothing to bend. He made it.",
+   "ref": "SC-005",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-imv-S1:insert)"
+  },
+  {
+   "workbook": "CB_type11_integrity_vs_mercy.xlsx",
+   "find": "It was on time; there's nothing to waive.",
+   "replace": "It was on time. There's nothing to waive.",
+   "ref": "SC-006",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-imv-S2:insert)"
+  },
+  {
+   "workbook": "CB_type11_integrity_vs_mercy.xlsx",
+   "find": "Dele's circumstances are sympathetic and his application may well be excellent; three days wouldn't disrupt the review timeline at all.",
+   "replace": "Dele's circumstances are sympathetic and his application may well be excellent. Three days wouldn't disrupt the review timeline at all.",
+   "ref": "SC-007",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-imv-S2:shared)"
+  },
+  {
+   "workbook": "CB_type11_integrity_vs_mercy.xlsx",
+   "find": "The slot was never actually forfeited; it's hers.",
+   "replace": "The slot was never actually forfeited. It's hers.",
+   "ref": "SC-008",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-imv-S5:insert)"
+  },
+  {
+   "workbook": "CB_type11_integrity_vs_mercy.xlsx",
+   "find": "The penalty never applied; her grade stands without it.",
+   "replace": "The penalty never applied. Her grade stands without it.",
+   "ref": "SC-009",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-imv-S6:insert)"
+  },
+  {
+   "workbook": "CB_type12_autonomy_vs_collective.xlsx",
+   "find": "The set is competitive as cast; the leaders' push has outlived its reason.",
+   "replace": "The set is competitive as cast. The leaders' push has outlived its reason.",
+   "ref": "SC-010",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-acw-S2:insert)"
+  },
+  {
+   "workbook": "CB_type1_honesty_vs_care.xlsx",
+   "find": "Publishing this was the hardest thing he's ever done; he told me he almost pulled the file a dozen times out of fear of exactly this conversation.",
+   "replace": "Publishing this was the hardest thing he's ever done. He told me he almost pulled the file a dozen times out of fear of exactly this conversation.",
+   "ref": "SC-011",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hc-S2:insert)"
+  },
+  {
+   "workbook": "CB_type2_privacy_vs_care.xlsx",
+   "find": "I once suggested the club would want to support her; she changed the subject and hasn't raised it since.",
+   "replace": "I once suggested the club would want to support her. She changed the subject and hasn't raised it since.",
+   "ref": "SC-012",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-pc-S1:shared)"
+  },
+  {
+   "workbook": "CB_type3_mercy_vs_desert.xlsx",
+   "find": "He drove back the next morning on his own to clean before our cousin arrived, restocked everything he'd used, and apologized to her and to me; in ten years of the rotation he'd never left it that way.",
+   "replace": "He drove back the next morning on his own to clean before our cousin arrived, restocked everything he'd used, and apologized to her and to me. In ten years of the rotation he'd never left it that way.",
+   "ref": "SC-013",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-md-S5:insert)"
+  },
+  {
+   "workbook": "CB_type4_loyalty_vs_honesty.xlsx",
+   "find": "I suggested Meera just tell her; she waved it off and said it's done.",
+   "replace": "I suggested Meera just tell her. She waved it off and said it's done.",
+   "ref": "SC-014",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-lh-S1:shared)"
+  },
+  {
+   "workbook": "CB_type4_loyalty_vs_honesty.xlsx",
+   "find": "I told my sister the question was coming; she shrugged and said the platter story can stay as it is.",
+   "replace": "I told my sister the question was coming. She shrugged and said the platter story can stay as it is.",
+   "ref": "SC-015",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-lh-S2:shared)"
+  },
+  {
+   "workbook": "CB_type4_loyalty_vs_honesty.xlsx",
+   "find": "I mentioned to Tessa that he'd been asking; she laughed and said the legend can stand.",
+   "replace": "I mentioned to Tessa that he'd been asking. She laughed and said the legend can stand.",
+   "ref": "SC-016",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-lh-S3:shared)"
+  },
+  {
+   "workbook": "CB_type4_loyalty_vs_honesty.xlsx",
+   "find": "I told Jesse it might come up; he waved it off and said the page isn't worth reopening.",
+   "replace": "I told Jesse it might come up. He waved it off and said the page isn't worth reopening.",
+   "ref": "SC-017",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-lh-S4:shared)"
+  },
+  {
+   "workbook": "CB_type4_loyalty_vs_honesty.xlsx",
+   "find": "I mentioned to Neil that he could just tell her; he chuckled and said the cards are a bit of fun and it doesn't matter.",
+   "replace": "I mentioned to Neil that he could just tell her. He chuckled and said the cards are a bit of fun and it doesn't matter.",
+   "ref": "SC-018",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-lh-S5:shared)"
+  },
+  {
+   "workbook": "CB_type6_authority_vs_autonomy.xlsx",
+   "find": "Ingrid is traveling until Thursday and asked not to be messaged about logistics while she's out; nothing about the meeting gets reviewed afterward.",
+   "replace": "Ingrid is traveling until Thursday and asked not to be messaged about logistics while she's out. Nothing about the meeting gets reviewed afterward.",
+   "ref": "SC-019",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-aa-S1:shared)"
+  },
+  {
+   "workbook": "CB_type6_authority_vs_autonomy.xlsx",
+   "find": "The all-hands is hers to shape; the rest of us stage it.",
+   "replace": "The all-hands is hers to shape. The rest of us stage it.",
+   "ref": "SC-020",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-aa-S1:insert)"
+  },
+  {
+   "workbook": "CB_type6_authority_vs_autonomy.xlsx",
+   "find": "Yolanda opens a different market across town on Saturdays and won't be on site; layout isn't something the committee revisits.",
+   "replace": "Yolanda opens a different market across town on Saturdays and won't be on site. Layout isn't something the committee revisits.",
+   "ref": "SC-021",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-aa-S2:shared)"
+  },
+  {
+   "workbook": "CB_type6_authority_vs_autonomy.xlsx",
+   "find": "Paulette watches from the house during runs and doesn't call changes once tech ends; the plot sheet lives backstage.",
+   "replace": "Paulette watches from the house during runs and doesn't call changes once tech ends. The plot sheet lives backstage.",
+   "ref": "SC-022",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-aa-S4:shared)"
+  },
+  {
+   "workbook": "CB_type6_authority_vs_autonomy.xlsx",
+   "find": "Arthur is away until the weekend and signs off on content, not layout; nobody revisits an edition once it mails.",
+   "replace": "Arthur is away until the weekend and signs off on content, not layout. Nobody revisits an edition once it mails.",
+   "ref": "SC-023",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-aa-S5:shared)"
+  },
+  {
+   "workbook": "CB_type7_harm_vs_autonomy.xlsx",
+   "find": "Most mornings I'm sure; some mornings I'm not.",
+   "replace": "Most mornings I'm sure. Some mornings I'm not.",
+   "ref": "SC-024",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hva-S1:insert)"
+  },
+  {
+   "workbook": "CB_type7_harm_vs_autonomy.xlsx",
+   "find": "Some weeks I'm all in; other weeks I catch myself hoping for a reason to add crew.",
+   "replace": "Some weeks I'm all in. Other weeks I catch myself hoping for a reason to add crew.",
+   "ref": "SC-025",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hva-S2:insert)"
+  },
+  {
+   "workbook": "CB_type7_harm_vs_autonomy.xlsx",
+   "find": "On good days the target feels like mine; on flat days I'm training at him, and I know it.",
+   "replace": "On good days the target feels like mine. On flat days I'm training at him, and I know it.",
+   "ref": "SC-026",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hva-S3:insert)"
+  },
+  {
+   "workbook": "CB_type7_harm_vs_autonomy.xlsx",
+   "find": "I finished a certification course in the spring and train twice a week with a club under a coach; every in-water hold has a buddy on the platform, and the camp itself runs lines, buddies, and medics on every session.",
+   "replace": "I finished a certification course in the spring and train twice a week with a club under a coach. Every in-water hold has a buddy on the platform, and the camp itself runs lines, buddies, and medics on every session.",
+   "ref": "SC-027",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hva-S3:insert)"
+  },
+  {
+   "workbook": "CB_type7_harm_vs_autonomy.xlsx",
+   "find": "Some evenings the plan reads like a trip; other evenings it reads like spite at my calendar.",
+   "replace": "Some evenings the plan reads like a trip. Other evenings it reads like spite at my calendar.",
+   "ref": "SC-028",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hva-S6:insert)"
+  },
+  {
+   "workbook": "CB_type8_harm_vs_privacy.xlsx",
+   "find": "The not-telling started as mine; lately it feels like a habit I'm defending.",
+   "replace": "The not-telling started as mine. Lately it feels like a habit I'm defending.",
+   "ref": "SC-029",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvp-S1:insert)"
+  },
+  {
+   "workbook": "CB_type8_harm_vs_privacy.xlsx",
+   "find": "My kit rides where it always rides; nothing about the weekend presses on the diabetes at all.",
+   "replace": "My kit rides where it always rides. Nothing about the weekend presses on the diabetes at all.",
+   "ref": "SC-030",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvp-S3:insert)"
+  },
+  {
+   "workbook": "CB_type8_harm_vs_privacy.xlsx",
+   "find": "Some paddles I rehearse telling the lead; then I don't.",
+   "replace": "Some paddles I rehearse telling the lead. Then I don't.",
+   "ref": "SC-031",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvp-S3:insert)"
+  },
+  {
+   "workbook": "CB_type8_harm_vs_privacy.xlsx",
+   "find": "The schedule is office logistics; nothing in it touches his condition.",
+   "replace": "The schedule is office logistics. Nothing in it touches his condition.",
+   "ref": "SC-032",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvp-S4:insert)"
+  },
+  {
+   "workbook": "CB_type8_harm_vs_privacy.xlsx",
+   "find": "My lungs haven't noticed a valley race in years; the plan is ordinary pacing math.",
+   "replace": "My lungs haven't noticed a valley race in years. The plan is ordinary pacing math.",
+   "ref": "SC-033",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvp-S5:insert)"
+  },
+  {
+   "workbook": "CB_type8_harm_vs_privacy.xlsx",
+   "find": "Twice this month I drafted a message to the coach; both times I filed it.",
+   "replace": "Twice this month I drafted a message to the coach. Both times I filed it.",
+   "ref": "SC-034",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvp-S5:insert)"
+  },
+  {
+   "workbook": "CB_type8_harm_vs_privacy.xlsx",
+   "find": "The floats are the same drifts he's done for thirty years; the planning left is dates and which flies to tie.",
+   "replace": "The floats are the same drifts he's done for thirty years. The planning left is dates and which flies to tie.",
+   "ref": "SC-035",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvp-S6:insert)"
+  },
+  {
+   "workbook": "CB_type9_harm_vs_integrity.xlsx",
+   "find": "Waiting for next year isn't something I'll discuss; the ninth is the commitment, and his family knows I'm going.",
+   "replace": "Waiting for next year isn't something I'll discuss. The ninth is the commitment, and his family knows I'm going.",
+   "ref": "SC-036",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvi-S1:shared)"
+  },
+  {
+   "workbook": "CB_type9_harm_vs_integrity.xlsx",
+   "find": "I've told the hospice director it's happening; backing off the swim isn't on the table.",
+   "replace": "I've told the hospice director it's happening. Backing off the swim isn't on the table.",
+   "ref": "SC-037",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvi-S2:shared)"
+  },
+  {
+   "workbook": "CB_type9_harm_vs_integrity.xlsx",
+   "find": "I've told her the boat arrives by water; putting it on a trailer isn't a version of this I'll consider.",
+   "replace": "I've told her the boat arrives by water. Putting it on a trailer isn't a version of this I'll consider.",
+   "ref": "SC-038",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvi-S4:shared)"
+  },
+  {
+   "workbook": "CB_type9_harm_vs_integrity.xlsx",
+   "find": "I've told Petra to save me the first toast; sliding the attempt past the party isn't something I'd let myself do.",
+   "replace": "I've told Petra to save me the first toast. Sliding the attempt past the party isn't something I'd let myself do.",
+   "ref": "SC-039",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvi-S5:shared)"
+  },
+  {
+   "workbook": "CB_type9_harm_vs_integrity.xlsx",
+   "find": "I've told the club the plaque goes up on schedule; mailing it to the hut warden to install was suggested, and I wrote next to my signature: carried, by hand, by me.",
+   "replace": "I've told the club the plaque goes up on schedule. Mailing it to the hut warden to install was suggested, and I wrote next to my signature: carried, by hand, by me.",
+   "ref": "SC-040",
+   "reason": "battery-wide semicolon ruling (clause→period; CB-hvi-S6:shared)"
+  }
+ ]
+}

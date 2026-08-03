@@ -1,34 +1,30 @@
 # Battery validation report
 
 Produced by: Claude Fable 5 (model id claude-fable-5)
-Generated: 2026-08-03T14:42:13+00:00 — `src/battery/validate_battery.py`
+Generated: 2026-08-03T16:49:26+00:00 — `src/battery/validate_battery.py`
 Blocklists: `data/battery/lexeme_blocklists.json` sha256 `e37400e9cc45…`
 
 Inputs:
-- `data\battery\drafts\type10_privacy_vs_care.controls.jsonl` — sha256 `321dfbd4fba4…`, 2578 bytes
-- `data\battery\drafts\type10_privacy_vs_care.jsonl` — sha256 `9206c741ad03…`, 44085 bytes
-- `data\battery\drafts\type11_integrity_vs_mercy.jsonl` — sha256 `4605ed001e73…`, 44917 bytes
-- `data\battery\drafts\type12_autonomy_vs_collective.jsonl` — sha256 `fb47f7ac18cc…`, 46396 bytes
-- `data\battery\drafts\type1_honesty_vs_care.jsonl` — sha256 `7ba64541bbab…`, 29505 bytes
-- `data\battery\drafts\type2_privacy_vs_care.controls.jsonl` — sha256 `d5f43a8a738b…`, 3722 bytes
-- `data\battery\drafts\type2_privacy_vs_care.jsonl` — sha256 `9d5b64b98f46…`, 33439 bytes
-- `data\battery\drafts\type3_mercy_vs_desert.jsonl` — sha256 `c6300f57c381…`, 34358 bytes
-- `data\battery\drafts\type4_loyalty_vs_honesty.jsonl` — sha256 `3c903d496f03…`, 33714 bytes
+- `data\battery\drafts\type10_privacy_vs_care.controls.jsonl` — sha256 `edea1057ddbd…`, 2578 bytes
+- `data\battery\drafts\type10_privacy_vs_care.jsonl` — sha256 `c03abeba669b…`, 44085 bytes
+- `data\battery\drafts\type11_integrity_vs_mercy.jsonl` — sha256 `78c1557bdc62…`, 44917 bytes
+- `data\battery\drafts\type12_autonomy_vs_collective.jsonl` — sha256 `14dc68909af2…`, 46396 bytes
+- `data\battery\drafts\type1_honesty_vs_care.jsonl` — sha256 `fcb5e140f1dd…`, 29354 bytes
+- `data\battery\drafts\type2_privacy_vs_care.controls.jsonl` — sha256 `e34f8a5b380d…`, 3722 bytes
+- `data\battery\drafts\type2_privacy_vs_care.jsonl` — sha256 `f583c91810df…`, 33439 bytes
+- `data\battery\drafts\type3_mercy_vs_desert.jsonl` — sha256 `5f6953ae6c90…`, 34358 bytes
+- `data\battery\drafts\type4_loyalty_vs_honesty.jsonl` — sha256 `54ffd39ca1c9…`, 33734 bytes
 - `data\battery\drafts\type5_tradition_vs_autonomy.jsonl` — sha256 `566e6ca6818e…`, 36076 bytes
-- `data\battery\drafts\type6_authority_vs_autonomy.jsonl` — sha256 `ed54b793b868…`, 35018 bytes
-- `data\battery\drafts\type7_harm_vs_autonomy.jsonl` — sha256 `64864c1bf3d9…`, 39092 bytes
-- `data\battery\drafts\type8_harm_vs_privacy.controls.jsonl` — sha256 `3c0f2ec98498…`, 2431 bytes
-- `data\battery\drafts\type8_harm_vs_privacy.jsonl` — sha256 `b39e570d22a0…`, 43315 bytes
-- `data\battery\drafts\type9_harm_vs_integrity.controls.jsonl` — sha256 `f5d284c02f02…`, 2436 bytes
-- `data\battery\drafts\type9_harm_vs_integrity.jsonl` — sha256 `bce21767da52…`, 45183 bytes
+- `data\battery\drafts\type6_authority_vs_autonomy.jsonl` — sha256 `2c11c2ba7f3b…`, 35018 bytes
+- `data\battery\drafts\type7_harm_vs_autonomy.jsonl` — sha256 `9d105f70ae65…`, 39092 bytes
+- `data\battery\drafts\type8_harm_vs_privacy.controls.jsonl` — sha256 `f25f7c95870c…`, 2431 bytes
+- `data\battery\drafts\type8_harm_vs_privacy.jsonl` — sha256 `56b61d7a3e80…`, 43315 bytes
+- `data\battery\drafts\type9_harm_vs_integrity.controls.jsonl` — sha256 `fa104ac79437…`, 2436 bytes
+- `data\battery\drafts\type9_harm_vs_integrity.jsonl` — sha256 `67feb00a78c7…`, 45183 bytes
 
-## Verdict: **FAIL (blocking)** — 277 cells checked, 2 blocking, 0 warnings, 0 researcher flags, 4 length flags, 2 name flags, 0 ask-echo flags, 0 exempted hits
+## Verdict: **PASS** — 277 cells checked, 0 blocking, 0 warnings, 0 researcher flags, 4 length flags, 2 name flags, 0 ask-echo flags, 0 exempted hits
 
 Lexeme scope: **global** — every type is checked against the global list and all ratified per-value lists (researcher, 2026-07-31). `discipline_only` entries are not enforced anywhere.
-
-## BLOCKING failures
-- **d.structure** `type4_loyalty_vs_honesty.jsonl:CB-lh-S2:agree_A` — option_A empty
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S2:agree_A` — insert shares 20 contentful words with option_A: [already, book, convinces, didn't, doesn't, he's, know, loses, middle, momentum, one, outlining, repeat, s, told, tom, two, villain, wants, work] (longest run: "tom s told me he's already outlining book two and wants to know what didn't work in this one so he doesn't repeat it the middle loses momentum and the villain never convinces")
 
 ## Cross-type character-name flags (non-blocking)
 

@@ -1443,3 +1443,168 @@ Ruled in scope at apply confirmation (2026-08-05): the 27 pre-existing authorial
 ## Residual semicolons in applied text
 
 **0** (must be zero).
+
+## Battery-wide semicolon conversions (ruled 2026-08-05, follow-up batch)
+
+Scope extended battery-wide: 40 unique sentences (covering 40 semicolons per unique location) in text the main batch did not touch. Old → applied per row:
+
+**type10_privacy_vs_care:CB-pvc-S2:shared** (clause→period)
+- before: The fund is real, discreet, and exactly what it's for; Elias qualifies and the help would matter.
+- applied: The fund is real, discreet, and exactly what it's for. Elias qualifies and the help would matter.
+
+**type10_privacy_vs_care:CB-pvc-S3:shared** (clause→period)
+- before: The accommodations are real and would take pressure off Priyanka at exactly the right time; the lead is decent and asked out of concern.
+- applied: The accommodations are real and would take pressure off Priyanka at exactly the right time. The lead is decent and asked out of concern.
+
+**type10_privacy_vs_care:CB-pvc-S5:shared** (clause→period)
+- before: The grant exists precisely for artists in Cole's spot, and he'd be a real contender; the curator is generous and asked discreetly.
+- applied: The grant exists precisely for artists in Cole's spot, and he'd be a real contender. The curator is generous and asked discreetly.
+
+**type10_privacy_vs_care:CB-pvc-S6:shared** (clause→period)
+- before: The help network is gentle and exactly suited to Bua's situation; being added would ease her days considerably.
+- applied: The help network is gentle and exactly suited to Bua's situation. Being added would ease her days considerably.
+
+**type11_integrity_vs_mercy:CB-imv-S1:insert** (clause→period)
+- before: There's nothing to bend; he made it.
+- applied: There's nothing to bend. He made it.
+
+**type11_integrity_vs_mercy:CB-imv-S2:insert** (clause→period)
+- before: It was on time; there's nothing to waive.
+- applied: It was on time. There's nothing to waive.
+
+**type11_integrity_vs_mercy:CB-imv-S2:shared** (clause→period)
+- before: Dele's circumstances are sympathetic and his application may well be excellent; three days wouldn't disrupt the review timeline at all.
+- applied: Dele's circumstances are sympathetic and his application may well be excellent. Three days wouldn't disrupt the review timeline at all.
+
+**type11_integrity_vs_mercy:CB-imv-S5:insert** (clause→period)
+- before: The slot was never actually forfeited; it's hers.
+- applied: The slot was never actually forfeited. It's hers.
+
+**type11_integrity_vs_mercy:CB-imv-S6:insert** (clause→period)
+- before: The penalty never applied; her grade stands without it.
+- applied: The penalty never applied. Her grade stands without it.
+
+**type12_autonomy_vs_collective:CB-acw-S2:insert** (clause→period)
+- before: The set is competitive as cast; the leaders' push has outlived its reason.
+- applied: The set is competitive as cast. The leaders' push has outlived its reason.
+
+**type1_honesty_vs_care:CB-hc-S2:insert** (clause→period)
+- before: Publishing this was the hardest thing he's ever done; he told me he almost pulled the file a dozen times out of fear of exactly this conversation.
+- applied: Publishing this was the hardest thing he's ever done. He told me he almost pulled the file a dozen times out of fear of exactly this conversation.
+
+**type2_privacy_vs_care:CB-pc-S1:shared** (clause→period)
+- before: I once suggested the club would want to support her; she changed the subject and hasn't raised it since.
+- applied: I once suggested the club would want to support her. She changed the subject and hasn't raised it since.
+
+**type3_mercy_vs_desert:CB-md-S5:insert** (clause→period)
+- before: He drove back the next morning on his own to clean before our cousin arrived, restocked everything he'd used, and apologized to her and to me; in ten years of the rotation he'd never left it that way.
+- applied: He drove back the next morning on his own to clean before our cousin arrived, restocked everything he'd used, and apologized to her and to me. In ten years of the rotation he'd never left it that way.
+
+**type4_loyalty_vs_honesty:CB-lh-S1:shared** (clause→period)
+- before: I suggested Meera just tell her; she waved it off and said it's done.
+- applied: I suggested Meera just tell her. She waved it off and said it's done.
+
+**type4_loyalty_vs_honesty:CB-lh-S2:shared** (clause→period)
+- before: I told my sister the question was coming; she shrugged and said the platter story can stay as it is.
+- applied: I told my sister the question was coming. She shrugged and said the platter story can stay as it is.
+
+**type4_loyalty_vs_honesty:CB-lh-S3:shared** (clause→period)
+- before: I mentioned to Tessa that he'd been asking; she laughed and said the legend can stand.
+- applied: I mentioned to Tessa that he'd been asking. She laughed and said the legend can stand.
+
+**type4_loyalty_vs_honesty:CB-lh-S4:shared** (clause→period)
+- before: I told Jesse it might come up; he waved it off and said the page isn't worth reopening.
+- applied: I told Jesse it might come up. He waved it off and said the page isn't worth reopening.
+
+**type4_loyalty_vs_honesty:CB-lh-S5:shared** (clause→period)
+- before: I mentioned to Neil that he could just tell her; he chuckled and said the cards are a bit of fun and it doesn't matter.
+- applied: I mentioned to Neil that he could just tell her. He chuckled and said the cards are a bit of fun and it doesn't matter.
+
+**type6_authority_vs_autonomy:CB-aa-S1:shared** (clause→period)
+- before: Ingrid is traveling until Thursday and asked not to be messaged about logistics while she's out; nothing about the meeting gets reviewed afterward.
+- applied: Ingrid is traveling until Thursday and asked not to be messaged about logistics while she's out. Nothing about the meeting gets reviewed afterward.
+
+**type6_authority_vs_autonomy:CB-aa-S1:insert** (clause→period)
+- before: The all-hands is hers to shape; the rest of us stage it.
+- applied: The all-hands is hers to shape. The rest of us stage it.
+
+**type6_authority_vs_autonomy:CB-aa-S2:shared** (clause→period)
+- before: Yolanda opens a different market across town on Saturdays and won't be on site; layout isn't something the committee revisits.
+- applied: Yolanda opens a different market across town on Saturdays and won't be on site. Layout isn't something the committee revisits.
+
+**type6_authority_vs_autonomy:CB-aa-S4:shared** (clause→period)
+- before: Paulette watches from the house during runs and doesn't call changes once tech ends; the plot sheet lives backstage.
+- applied: Paulette watches from the house during runs and doesn't call changes once tech ends. The plot sheet lives backstage.
+
+**type6_authority_vs_autonomy:CB-aa-S5:shared** (clause→period)
+- before: Arthur is away until the weekend and signs off on content, not layout; nobody revisits an edition once it mails.
+- applied: Arthur is away until the weekend and signs off on content, not layout. Nobody revisits an edition once it mails.
+
+**type7_harm_vs_autonomy:CB-hva-S1:insert** (clause→period)
+- before: Most mornings I'm sure; some mornings I'm not.
+- applied: Most mornings I'm sure. Some mornings I'm not.
+
+**type7_harm_vs_autonomy:CB-hva-S2:insert** (clause→period)
+- before: Some weeks I'm all in; other weeks I catch myself hoping for a reason to add crew.
+- applied: Some weeks I'm all in. Other weeks I catch myself hoping for a reason to add crew.
+
+**type7_harm_vs_autonomy:CB-hva-S3:insert** (clause→period)
+- before: On good days the target feels like mine; on flat days I'm training at him, and I know it.
+- applied: On good days the target feels like mine. On flat days I'm training at him, and I know it.
+
+**type7_harm_vs_autonomy:CB-hva-S3:insert** (clause→period)
+- before: I finished a certification course in the spring and train twice a week with a club under a coach; every in-water hold has a buddy on the platform, and the camp itself runs lines, buddies, and medics on every session.
+- applied: I finished a certification course in the spring and train twice a week with a club under a coach. Every in-water hold has a buddy on the platform, and the camp itself runs lines, buddies, and medics on every session.
+
+**type7_harm_vs_autonomy:CB-hva-S6:insert** (clause→period)
+- before: Some evenings the plan reads like a trip; other evenings it reads like spite at my calendar.
+- applied: Some evenings the plan reads like a trip. Other evenings it reads like spite at my calendar.
+
+**type8_harm_vs_privacy:CB-hvp-S1:insert** (clause→period)
+- before: The not-telling started as mine; lately it feels like a habit I'm defending.
+- applied: The not-telling started as mine. Lately it feels like a habit I'm defending.
+
+**type8_harm_vs_privacy:CB-hvp-S3:insert** (clause→period)
+- before: My kit rides where it always rides; nothing about the weekend presses on the diabetes at all.
+- applied: My kit rides where it always rides. Nothing about the weekend presses on the diabetes at all.
+
+**type8_harm_vs_privacy:CB-hvp-S3:insert** (clause→period)
+- before: Some paddles I rehearse telling the lead; then I don't.
+- applied: Some paddles I rehearse telling the lead. Then I don't.
+
+**type8_harm_vs_privacy:CB-hvp-S4:insert** (clause→period)
+- before: The schedule is office logistics; nothing in it touches his condition.
+- applied: The schedule is office logistics. Nothing in it touches his condition.
+
+**type8_harm_vs_privacy:CB-hvp-S5:insert** (clause→period)
+- before: My lungs haven't noticed a valley race in years; the plan is ordinary pacing math.
+- applied: My lungs haven't noticed a valley race in years. The plan is ordinary pacing math.
+
+**type8_harm_vs_privacy:CB-hvp-S5:insert** (clause→period)
+- before: Twice this month I drafted a message to the coach; both times I filed it.
+- applied: Twice this month I drafted a message to the coach. Both times I filed it.
+
+**type8_harm_vs_privacy:CB-hvp-S6:insert** (clause→period)
+- before: The floats are the same drifts he's done for thirty years; the planning left is dates and which flies to tie.
+- applied: The floats are the same drifts he's done for thirty years. The planning left is dates and which flies to tie.
+
+**type9_harm_vs_integrity:CB-hvi-S1:shared** (clause→period)
+- before: Waiting for next year isn't something I'll discuss; the ninth is the commitment, and his family knows I'm going.
+- applied: Waiting for next year isn't something I'll discuss. The ninth is the commitment, and his family knows I'm going.
+
+**type9_harm_vs_integrity:CB-hvi-S2:shared** (clause→period)
+- before: I've told the hospice director it's happening; backing off the swim isn't on the table.
+- applied: I've told the hospice director it's happening. Backing off the swim isn't on the table.
+
+**type9_harm_vs_integrity:CB-hvi-S4:shared** (clause→period)
+- before: I've told her the boat arrives by water; putting it on a trailer isn't a version of this I'll consider.
+- applied: I've told her the boat arrives by water. Putting it on a trailer isn't a version of this I'll consider.
+
+**type9_harm_vs_integrity:CB-hvi-S5:shared** (clause→period)
+- before: I've told Petra to save me the first toast; sliding the attempt past the party isn't something I'd let myself do.
+- applied: I've told Petra to save me the first toast. Sliding the attempt past the party isn't something I'd let myself do.
+
+**type9_harm_vs_integrity:CB-hvi-S6:shared** (clause→period)
+- before: I've told the club the plaque goes up on schedule; mailing it to the hut warden to install was suggested, and I wrote next to my signature: carried, by hand, by me.
+- applied: I've told the club the plaque goes up on schedule. Mailing it to the hut warden to install was suggested, and I wrote next to my signature: carried, by hand, by me.
+

@@ -110,11 +110,73 @@ Delta-review consequence: the 144 certified cells need only a spot
 sample; reading effort concentrates on the 115 content cells plus the 2
 defect cells once repaired.
 
-## Gate state
+## Gate state (superseded by the follow-up cycle below)
 
-Apply + re-ingest done; re-validation **red on exactly the 2 pre-existing
-defects**. Next per `freeze_checklist.md`: researcher rules the 2
-restorations → 2-edit repair → re-validate (expect PASS) → delta review
-(worklist above) → exhibit embedding run → freeze. Drafts now carry the
-review-pass verdicts (re-ingested); T11/T12 remain blank pending their
-delta-review verdict pass.
+Apply + re-ingest done; re-validation red on exactly the 2 pre-existing
+defects at this point in the session.
+
+---
+
+# Follow-up cycle — two-cell repair + battery-wide semicolon batch (ruled 2026-08-05)
+
+## Cell-targeted repairs (class: post-review repair, 2 cells)
+
+Executed as cell surgery, not string replacement, per the ruling:
+
+- **T4 CB-lh-S2 agree_A** — Scenarios!J6 was an empty styled cell
+  (`<c r="J6" s="6"/>`); rewritten in place to a shared-string reference
+  to existing entry [80] "Tell Mom what I saw."; `sst count` bumped.
+- **T1 CB-hc-S2 agree_A** — Scenarios!J7 repointed from string [85] (the
+  insert) to [81] "Tell him what didn't work." — byte-identical to the
+  ratified A9 wording.
+
+Both verified through re-ingest; both enter the delta-review worklist
+under their own class.
+
+## Battery-wide semicolon batch
+
+40 unique sentences (59 cells; one semicolon cell coincides with the T1
+repair cell). Audit finding recorded: every semicolon in this corpus
+joins independent clauses — the convention's clause default applies
+throughout, so all 40 convert to period/new sentence (no conjunction
+starts, no genuine fragments). Conversion record appended to
+`emdash_replacements_2026-08-05.md`. Dry-run **40/40 byte-exact, 0
+unmatched, 0 already applied** → applied → re-ingest → re-validate.
+
+## Final verification — everything green
+
+- **Re-validation: PASS. 277 cells, 0 blocking, 0 warnings.** All prior
+  classes clear; the new **options-uniformity check (c2, permanent,
+  blocking)** ran battery-wide: clean, both repaired cells passing.
+  Residue unchanged: 4 length flags (3 accepted + 1 median-shift
+  artifact), 2 name flags (`Mom` kept by ruling + extractor artifact).
+- **Zero em dashes and zero semicolons in all stimulus text.**
+- Suite 219 OK (3 new options-uniformity tests).
+
+## Cumulative accounting (restated, supersedes all prior figures)
+
+- Edit operations: **394** = 352 (main batch) + 40 (semicolon batch) +
+  2 (cell-targeted repairs).
+- Punctuation substitutions: **425 unique-location** = 358 em dashes +
+  27 authorial semicolons in dash-touched sentences + 40 battery-wide
+  semicolons. Per-cell: 583 em dashes and 113 semicolons removed.
+
+## Mechanical certificate — cumulative, by class
+
+| class | cells | certificate |
+|---|---|---|
+| dash-only | 134 | PASS 134/134 |
+| dash+rename | 10 | PASS 10/10 |
+| semicolon-only | 59 | PASS 59/59 |
+| post-review repair | 2 | verified byte-exact to ratified wordings (content class, needs reading) |
+| **certified total** | **203** | spot-sample tier |
+
+## Delta-review worklist (final)
+
+**Read: 117 cells** — privacy-still-pulls (A7) 39; ask-coincidence
+(A5/A6) 48; option-generalization (A9) 24; control-repair (A10) 3;
+A2-wording 1; **post-review repair 2**. **Spot-sample: 203 certified
+mechanical cells.** T11/T12 verdicts entered during this pass (46 cells).
+
+Next per `freeze_checklist.md`: delta review → exhibit embedding run on
+freeze-candidate text → freeze.

@@ -444,6 +444,20 @@ def validate_file(path: Path, blockdata, blockcompiled, f: Findings,
             f.block("c.stem", f"{path.name}:{sid}",
                     f"{len(stems)} distinct stems across the scenario's cells")
 
+    # -- c2. options-uniformity (choice family) -----------------------------
+    # Added 2026-08-05 after two review-pass cell accidents (a deleted
+    # option cell and one overwritten with the insert) reached the apply
+    # stage undetected: every cell of a scenario must carry the same
+    # option_A and option_B, byte-identical and nonempty. BLOCKING.
+    if family == "choice":
+        for sid, cells in sorted(by_scenario.items()):
+            for opt in ("option_A", "option_B"):
+                vals = {c.get(opt, "") or "" for c in cells}
+                if len(vals) > 1:
+                    f.block("c2.options_uniform", f"{path.name}:{sid}",
+                            f"{len(vals)} distinct {opt} values across the "
+                            f"scenario's cells (must be byte-identical)")
+
     # -- b. shared opposition text ------------------------------------------
     for sid, cells in sorted(by_scenario.items()):
         opp = {c["condition"]: c.get("shared_opposition_text", "")

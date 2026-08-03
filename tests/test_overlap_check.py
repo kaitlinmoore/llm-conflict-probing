@@ -94,6 +94,49 @@ class OverlapCheck(unittest.TestCase):
         self.assertEqual(len(f.ask_echo_flags), 1)
 
 
+class OptionsUniformity(unittest.TestCase):
+    def run_validate(self, records):
+        import json as _json
+        import tempfile
+        f = vb.Findings()
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d) / "type1_honesty_vs_care.jsonl"
+            p.write_text("\n".join(_json.dumps(r) for r in records),
+                         encoding="utf-8")
+            vb.validate_file(p, {}, {}, f, [], {})
+        return f
+
+    def scenario(self, mutate=None):
+        recs = []
+        for c in ("agree_A", "agree_B", "oppose_tip_A", "oppose_tip_B"):
+            r = cell(cond=c)
+            r.update({"scenario_id": "CB-hc-S9", "expected_pick": "A",
+                      "type_values": ["honesty", "care"]})
+            recs.append(r)
+        if mutate:
+            mutate(recs)
+        return recs
+
+    def test_uniform_options_pass(self):
+        f = self.run_validate(self.scenario())
+        self.assertFalse([b for b in f.blocking
+                          if b[0] == "c2.options_uniform"])
+
+    def test_divergent_option_blocks(self):
+        def mut(recs):
+            recs[0]["option_A"] = "A different option entirely."
+        f = self.run_validate(self.scenario(mut))
+        hits = [b for b in f.blocking if b[0] == "c2.options_uniform"]
+        self.assertEqual(len(hits), 1)
+
+    def test_emptied_option_blocks(self):
+        def mut(recs):
+            recs[0]["option_A"] = ""
+        f = self.run_validate(self.scenario(mut))
+        self.assertTrue([b for b in f.blocking
+                         if b[0] == "c2.options_uniform"])
+
+
 class XmlForms(unittest.TestCase):
     def test_ascii_single_form(self):
         self.assertEqual(ape.xml_forms("plain text"), ["plain text"])

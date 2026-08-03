@@ -57,21 +57,17 @@ review pass; run it when they are closed).
 
 ## Open
 
-- **Two-cell repair awaiting researcher ruling** (2026-08-05, post-apply):
-  pre-existing review-pass damage, evidence in
-  `docs/batch_apply_report_2026-08-05.md` — T4 CB-lh-S2 agree_A option_A
-  deleted (restore "Tell Mom what I saw."), T1 CB-hc-S2 agree_A option_A
-  overwritten with the insert (restore "Tell him what didn't work.").
-  Needs cell-targeted repair (absent cell / aliased shared string), not
-  string replacement. Validation stays red on exactly these 2 until ruled.
-- **Options-uniformity validator check** (gap exposed 2026-08-05): no
-  check that option_A/option_B are byte-identical across a scenario's 4
-  cells; either defect above would have been caught at ingest-validate.
-  Implement with tests alongside the repair.
-- **60 pre-existing semicolons in untouched stimulus text** — outside the
-  B2 applied-text scope; researcher decides whether battery-wide
-  normalization is wanted (would be a follow-up mechanical batch with the
-  same certificate).
+- **Delta review** (researcher): 117 content cells + 203 certified
+  spot-sample cells; T11/T12 verdict entry (46 cells). Worklist in
+  `docs/batch_apply_report_2026-08-05.md`. Then exhibit embedding run →
+  freeze per `docs/freeze_checklist.md`.
+
+_Resolved 2026-08-05 (follow-up cycle): two-cell repair executed as ruled
+(cell surgery, verified byte-exact); options-uniformity check c2 built,
+tested, permanent — battery-wide PASS; 40-sentence battery-wide semicolon
+batch applied (audit: all clause-joining → period). Validation fully
+GREEN: 277 cells, 0 blocking. Zero em dashes and zero semicolons in all
+stimulus text. Certificate: 203/203 mechanical cells PASS._
 
 _Resolved 2026-08-05 (apply session): batch APPLIED (352/352; 385
 punctuation substitutions), re-ingested, re-validated — 6 lexeme + 10
