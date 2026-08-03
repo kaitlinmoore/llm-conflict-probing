@@ -1,0 +1,107 @@
+{
+  "run_id": "20260803_202123_llama8b_refusal_recapture",
+  "run_role": "refusal_comparator_capture",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "model_tag": "llama8b",
+  "dtype": "bfloat16",
+  "schema_version": "refusal_capture_v1",
+  "probe_file": "data/comparators/refusal_prompts.jsonl",
+  "probe_file_sha256": "1cf1fd8ef69eac84e3392d0d5f458d4e97922e39c269cbd05bcd2fb7b571f3b8",
+  "n_prompts": 320,
+  "expected_rows": 320,
+  "row_count_file": "prompts.csv",
+  "anchor_spec": "assistant<|end_header_id|>\n\n",
+  "anchor_verification_samples": [
+    {
+      "tail_decoded": " media<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": " users<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": " people<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    }
+  ],
+  "n_layers": 32,
+  "d_model": 4096,
+  "torch_version": "2.11.0+cu128",
+  "timestamp": "2026-08-03T20:27:15.202813",
+  "notes": "Prompt-only anchor capture; no generation. Direction estimation and the ablation check are separate scripts.",
+  "output_digests": {
+    "prompts.csv": {
+      "sha256": "56e6629d388e83dfd04b445d421a62925398df914a71bdd684368d50f1935c2a",
+      "bytes": 12136
+    },
+    "activations_llama8b.pt": {
+      "sha256": "704735d800eac68735227133238731df20343b43b4470742cd67b3a7efb27a5d",
+      "bytes": 167867711
+    },
+    "refusal_direction_llama8b.npz": {
+      "sha256": "cfb51ad8fccf925d7bd3a64fad1b64236f90e4aacdd539803ce375b2750a928e",
+      "bytes": 527046
+    },
+    "refusal_reliability_llama8b.csv": {
+      "sha256": "d825566a5dcd65a2e8f2a08f9fc3bd6a79d68777c14dc3dd62a616617b5eee6b",
+      "bytes": 706
+    },
+    "ablation_check_llama8b_L12.csv": {
+      "sha256": "1aa66ab6fcc308ad5d1ece1f090a45fd481d342e76502c9e124407a9ec2e7761",
+      "bytes": 40685
+    },
+    "ablation_summary_llama8b_L12.json": {
+      "sha256": "ec5604af54d563b149af261a7ed44a3a22f16bfa46835c1536c859abc285b394",
+      "bytes": 538
+    },
+    "ablation_check_llama8b_L12_r0.csv": {
+      "sha256": "1c19dcf3ddee7bfd99ec33d516a1a1f13873e5090caeeaefcb5b92b947de77e2",
+      "bytes": 33350
+    },
+    "ablation_summary_llama8b_L12_r0.json": {
+      "sha256": "43cdbdc5eb76866d4f751f838de90f73bd6d8ebe6cbbc79eb01737d7d86e7171",
+      "bytes": 630
+    },
+    "ablation_check_llama8b_L12_r1.csv": {
+      "sha256": "4dd0ab5a6e37a32a7aa2653bc480f825c6db6e76f626f1eee7bee9a2ae22c963",
+      "bytes": 33204
+    },
+    "ablation_summary_llama8b_L12_r1.json": {
+      "sha256": "8523d0333753847a1d71fd72209fa020566c249c7a81d707d2ca550af36dbcfc",
+      "bytes": 630
+    },
+    "ablation_check_llama8b_L12_r2.csv": {
+      "sha256": "ca452920058381bfc212e1d48da0f1529427b9e45e89943326ab662bf1f2f066",
+      "bytes": 33021
+    },
+    "ablation_summary_llama8b_L12_r2.json": {
+      "sha256": "8a8fc112aff6dc06287e0f1c92c19fb151ea7077a25af681fb9026703675c68d",
+      "bytes": 631
+    },
+    "ablation_check_llama8b_L12_r3.csv": {
+      "sha256": "d1b75365fe3d5cac7d6ab6705e89895ba58e36eece18e02515390e6061d96c33",
+      "bytes": 33296
+    },
+    "ablation_summary_llama8b_L12_r3.json": {
+      "sha256": "cf3fb558bcac5be79205e8f0fde333a3e05a9a75871a53dab9b91514528b190d",
+      "bytes": 631
+    },
+    "ablation_check_llama8b_L12_r4.csv": {
+      "sha256": "249ffde86577a50ab089974d95a8f1a561e9dcbace3aea6914e8a70f05c327f9",
+      "bytes": 32893
+    },
+    "ablation_summary_llama8b_L12_r4.json": {
+      "sha256": "b847d489eafd8fa0fd7c830432a2aedbc7d2ba92237f4ebc7801075d078d2030",
+      "bytes": 632
+    }
+  },
+  "direction_estimation": {
+    "n_pairs": 128,
+    "n_splits": 200,
+    "seed": 23,
+    "split_unit": "length_matched_pair",
+    "peak_layer": 21,
+    "peak_reliability": 0.987136
+  }
+}
