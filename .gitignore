@@ -229,3 +229,6 @@ activations/
 
 # apply_pending_edits.py / cell-repair backups (timestamped, one per write)
 *.xlsx.bak-*
+
+# battery-run capture tensors (runner writes activations.pt, no model-tag suffix)
+results/battery_run/**/activations.pt

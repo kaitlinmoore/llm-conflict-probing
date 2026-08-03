@@ -36,15 +36,14 @@ on the pod.
 
 | copy | path | notes |
 |---|---|---|
-| MooseFS volume (pod) | `/workspace/llm-conflict-probing/results/comparators/20260730_180143_llama8b_refusal/` | **status uncertain** — pod torn down 2026-07-30; survives only if the volume was retained |
-| local mirror | **none** | not downloaded before teardown |
+| MooseFS volume (pod) | `/workspace/llm-conflict-probing/results/comparators/20260730_180143_llama8b_refusal/` | lost with the 2026-07-30 teardown |
+| **D54 recapture** | `/workspace/llm-conflict-probing/results/comparators/20260803_202123_llama8b_refusal_recapture/` (pod) | **bitwise-identical to the original** — same sha256, same 167,867,711 bytes, fresh capture on a fresh pod (findings log 2026-08-05). VERIFY PASS 21/21. |
+| local mirror | `activations/20260803_202123_llama8b_refusal_recapture/` (repo-root-relative, gitignored) | mirror at teardown per the runbook A6 step — confirm present before stopping Pod A |
 
-The committed `.npz` is canonical for analysis and is sufficient for every
-planned use (comparators are re-derived per layer from it). The `.pt` is only
-needed to *re-estimate* from raw anchors — different split construction,
-per-item projections, a probe-based readout. If it is gone, that costs a
-fresh capture (~30–40 min pod time including venv rebuild), not a lost
-result.
+D54 is CLOSED: the recapture reproduces the original tensor exactly, so
+every original-run artifact and the recapture rest on the same anchors.
+The recapture run dir also carries the D53 random-direction control
+results (`ablation_*_L12_r0..r4`, PASS — findings log 2026-08-05).
 
 ## Pre-merge intermediates (volume)
 
