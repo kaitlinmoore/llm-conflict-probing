@@ -1,0 +1,14 @@
+control,type_id,sim_to_own_type,sim_to_rest,margin
+type10_privacy_vs_care:TC-pvc-1,type10_privacy_vs_care,0.404850,0.155396,0.249455
+type10_privacy_vs_care:TC-pvc-2,type10_privacy_vs_care,0.341773,0.181491,0.160282
+type10_privacy_vs_care:TC-pvc-3,type10_privacy_vs_care,0.344155,0.154999,0.189156
+type2_privacy_vs_care:TC-pc-1,type2_privacy_vs_care,0.228077,0.148064,0.080012
+type2_privacy_vs_care:TC-pc-2,type2_privacy_vs_care,0.269127,0.182955,0.086172
+type2_privacy_vs_care:TC-pc-3,type2_privacy_vs_care,0.303590,0.185010,0.118580
+type2_privacy_vs_care:TC-pc-4,type2_privacy_vs_care,0.203380,0.181179,0.022201
+type8_harm_vs_privacy:TC-hvp-1,type8_harm_vs_privacy,0.330817,0.151604,0.179213
+type8_harm_vs_privacy:TC-hvp-2,type8_harm_vs_privacy,0.238760,0.152609,0.086152
+type8_harm_vs_privacy:TC-hvp-3,type8_harm_vs_privacy,0.327799,0.153998,0.173802
+type9_harm_vs_integrity:TC-hvi-1,type9_harm_vs_integrity,0.393283,0.136842,0.256441
+type9_harm_vs_integrity:TC-hvi-2,type9_harm_vs_integrity,0.332514,0.119908,0.212606
+type9_harm_vs_integrity:TC-hvi-3,type9_harm_vs_integrity,0.390372,0.147826,0.242547

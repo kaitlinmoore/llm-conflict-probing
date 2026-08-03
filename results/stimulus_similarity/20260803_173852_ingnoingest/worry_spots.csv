@@ -1,0 +1,6 @@
+pair,rationale,cosine,rank,of_pairs,percentile
+type2_privacy_vs_care ↔ type10_privacy_vs_care,"same value pair, deliberate topic divergence",0.328058,3,66,0.970
+type8_harm_vs_privacy ↔ type2_privacy_vs_care,"shared privacy pole, screen-elevated harm_avoidance-privacy",0.187652,37,66,0.455
+type9_harm_vs_integrity ↔ type8_harm_vs_privacy,shared harm pole,0.279240,7,66,0.909
+type9_harm_vs_integrity ↔ type7_harm_vs_autonomy,shared harm pole,0.395247,1,66,1.000
+type9_harm_vs_integrity ↔ type11_integrity_vs_mercy,shared integrity pole,0.137884,55,66,0.182

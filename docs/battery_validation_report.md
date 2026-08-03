@@ -1,26 +1,26 @@
 # Battery validation report
 
 Produced by: Claude Fable 5 (model id claude-fable-5)
-Generated: 2026-08-03T16:49:26+00:00 — `src/battery/validate_battery.py`
+Generated: 2026-08-03T17:38:37+00:00 — `src/battery/validate_battery.py`
 Blocklists: `data/battery/lexeme_blocklists.json` sha256 `e37400e9cc45…`
 
 Inputs:
-- `data\battery\drafts\type10_privacy_vs_care.controls.jsonl` — sha256 `edea1057ddbd…`, 2578 bytes
-- `data\battery\drafts\type10_privacy_vs_care.jsonl` — sha256 `c03abeba669b…`, 44085 bytes
-- `data\battery\drafts\type11_integrity_vs_mercy.jsonl` — sha256 `78c1557bdc62…`, 44917 bytes
-- `data\battery\drafts\type12_autonomy_vs_collective.jsonl` — sha256 `14dc68909af2…`, 46396 bytes
-- `data\battery\drafts\type1_honesty_vs_care.jsonl` — sha256 `fcb5e140f1dd…`, 29354 bytes
-- `data\battery\drafts\type2_privacy_vs_care.controls.jsonl` — sha256 `e34f8a5b380d…`, 3722 bytes
-- `data\battery\drafts\type2_privacy_vs_care.jsonl` — sha256 `f583c91810df…`, 33439 bytes
-- `data\battery\drafts\type3_mercy_vs_desert.jsonl` — sha256 `5f6953ae6c90…`, 34358 bytes
-- `data\battery\drafts\type4_loyalty_vs_honesty.jsonl` — sha256 `54ffd39ca1c9…`, 33734 bytes
-- `data\battery\drafts\type5_tradition_vs_autonomy.jsonl` — sha256 `566e6ca6818e…`, 36076 bytes
-- `data\battery\drafts\type6_authority_vs_autonomy.jsonl` — sha256 `2c11c2ba7f3b…`, 35018 bytes
-- `data\battery\drafts\type7_harm_vs_autonomy.jsonl` — sha256 `9d105f70ae65…`, 39092 bytes
-- `data\battery\drafts\type8_harm_vs_privacy.controls.jsonl` — sha256 `f25f7c95870c…`, 2431 bytes
-- `data\battery\drafts\type8_harm_vs_privacy.jsonl` — sha256 `56b61d7a3e80…`, 43315 bytes
-- `data\battery\drafts\type9_harm_vs_integrity.controls.jsonl` — sha256 `fa104ac79437…`, 2436 bytes
-- `data\battery\drafts\type9_harm_vs_integrity.jsonl` — sha256 `67feb00a78c7…`, 45183 bytes
+- `data\battery\drafts\type10_privacy_vs_care.controls.jsonl` — sha256 `9529cb898a14…`, 2578 bytes
+- `data\battery\drafts\type10_privacy_vs_care.jsonl` — sha256 `f925e108d452…`, 44157 bytes
+- `data\battery\drafts\type11_integrity_vs_mercy.jsonl` — sha256 `575724fb542d…`, 45078 bytes
+- `data\battery\drafts\type12_autonomy_vs_collective.jsonl` — sha256 `4ed9317dfd6b…`, 46557 bytes
+- `data\battery\drafts\type1_honesty_vs_care.jsonl` — sha256 `d73988a5af5d…`, 29389 bytes
+- `data\battery\drafts\type2_privacy_vs_care.controls.jsonl` — sha256 `084ec91b2101…`, 3722 bytes
+- `data\battery\drafts\type2_privacy_vs_care.jsonl` — sha256 `73347ecc5619…`, 33487 bytes
+- `data\battery\drafts\type3_mercy_vs_desert.jsonl` — sha256 `ca07340178a7…`, 34358 bytes
+- `data\battery\drafts\type4_loyalty_vs_honesty.jsonl` — sha256 `a629e7d084f7…`, 33734 bytes
+- `data\battery\drafts\type5_tradition_vs_autonomy.jsonl` — sha256 `c90c9038cb14…`, 36076 bytes
+- `data\battery\drafts\type6_authority_vs_autonomy.jsonl` — sha256 `0611b18eace1…`, 35018 bytes
+- `data\battery\drafts\type7_harm_vs_autonomy.jsonl` — sha256 `0065d11c983b…`, 39092 bytes
+- `data\battery\drafts\type8_harm_vs_privacy.controls.jsonl` — sha256 `621d657b8881…`, 2431 bytes
+- `data\battery\drafts\type8_harm_vs_privacy.jsonl` — sha256 `b92b88d4f289…`, 43315 bytes
+- `data\battery\drafts\type9_harm_vs_integrity.controls.jsonl` — sha256 `fb155fb55ba4…`, 2436 bytes
+- `data\battery\drafts\type9_harm_vs_integrity.jsonl` — sha256 `094d52b52899…`, 45183 bytes
 
 ## Verdict: **PASS** — 277 cells checked, 0 blocking, 0 warnings, 0 researcher flags, 4 length flags, 2 name flags, 0 ask-echo flags, 0 exempted hits
 

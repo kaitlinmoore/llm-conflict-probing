@@ -1,0 +1,493 @@
+{
+  "run_id": "20260803_173852_ingnoingest",
+  "run_role": "stimulus_similarity_exhibit",
+  "provisional": false,
+  "produced_by": "Claude Fable 5 (model id claude-fable-5)",
+  "cell_text_mode": "full",
+  "encoders": {
+    "primary": {
+      "name": "sentence-transformers/all-mpnet-base-v2",
+      "family": "MPNet (Microsoft) bi-encoder",
+      "revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+      "pooling": "mean over attention-masked tokens, then L2 normalize"
+    },
+    "robustness": {
+      "name": "sentence-transformers/all-MiniLM-L6-v2",
+      "family": "MiniLM (BERT-distilled) bi-encoder",
+      "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "pooling": "mean over attention-masked tokens, then L2 normalize"
+    }
+  },
+  "anchors_file": "data/battery/value_anchors.json",
+  "anchors_sha256": "b2656d2c552fdd89f0eb2d3a6adc39336afff5497057e740ea6b886dfe6f60cf",
+  "anchor_source_doc": "Value_Roster_Derivation.docx",
+  "anchor_source_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
+  "flagged_anchors": [],
+  "input_digests": {
+    "type10_privacy_vs_care.controls.jsonl": {
+      "sha256": "9529cb898a14391088fd474f5d26bbdbf6c0269ec7f8ffab5d5a04a59cd90334",
+      "bytes": 2578
+    },
+    "type10_privacy_vs_care.jsonl": {
+      "sha256": "f925e108d45247a4efa36640c0d125492f1e07d3c13a6828f56c040b6cc8649d",
+      "bytes": 44157
+    },
+    "type11_integrity_vs_mercy.jsonl": {
+      "sha256": "575724fb542dce9b6e752e813aeba2409000f93eddadcec58d05a51b9631d2d9",
+      "bytes": 45078
+    },
+    "type12_autonomy_vs_collective.jsonl": {
+      "sha256": "4ed9317dfd6ba320e1d33f1289cae585d9389c3c4b381915cca9d7f3003114a3",
+      "bytes": 46557
+    },
+    "type1_honesty_vs_care.jsonl": {
+      "sha256": "d73988a5af5de81573189b3d6b713a1b67e752a0417276eaac2a137ea6866584",
+      "bytes": 29389
+    },
+    "type2_privacy_vs_care.controls.jsonl": {
+      "sha256": "084ec91b2101844e568ccf7095acaff47eb86b32193eb0a6171fe38b7c78123d",
+      "bytes": 3722
+    },
+    "type2_privacy_vs_care.jsonl": {
+      "sha256": "73347ecc5619195b0f073a822f24172908673a52a8765a13675dd3ff3173c76f",
+      "bytes": 33487
+    },
+    "type3_mercy_vs_desert.jsonl": {
+      "sha256": "ca07340178a75ceaf0a8d1d97b34bb00973bedfa74d9d2c4f542a89d15405119",
+      "bytes": 34358
+    },
+    "type4_loyalty_vs_honesty.jsonl": {
+      "sha256": "a629e7d084f740e0352808327799dd45a1b4d966c9308c3c14745662eb6a3c20",
+      "bytes": 33734
+    },
+    "type5_tradition_vs_autonomy.jsonl": {
+      "sha256": "c90c9038cb14e592403391e210def582f8a4652889178cba539e7bbe3b021e1d",
+      "bytes": 36076
+    },
+    "type6_authority_vs_autonomy.jsonl": {
+      "sha256": "0611b18eace17e56fc277b44f46d74986b818d7d281d2c30bcd6b4a92259ad33",
+      "bytes": 35018
+    },
+    "type7_harm_vs_autonomy.jsonl": {
+      "sha256": "0065d11c983b1ac4c1cd9f97cd1bd8c710c9670ec60aed6d5ae8087a919efc66",
+      "bytes": 39092
+    },
+    "type8_harm_vs_privacy.controls.jsonl": {
+      "sha256": "621d657b8881c948fec33b0a80f2eb93e70b96c7d32388edcebe2e00f4276246",
+      "bytes": 2431
+    },
+    "type8_harm_vs_privacy.jsonl": {
+      "sha256": "b92b88d4f2893822e150be5c8c7c1828502f9c49cc31cec29a0616d2740be4f7",
+      "bytes": 43315
+    },
+    "type9_harm_vs_integrity.controls.jsonl": {
+      "sha256": "fb155fb55ba42dcea913d99ee999535cc936fc5dfbe47e41f123497eb735d317",
+      "bytes": 2436
+    },
+    "type9_harm_vs_integrity.jsonl": {
+      "sha256": "094d52b528999a7b73cb495ebba423fe94a6005e398f12a4f439363a58b8ed90",
+      "bytes": 45183
+    },
+    "competition_battery_draft.jsonl": {
+      "sha256": "35d95ffb44190163d94a240e374255d911cf3f22a99913327770e4091a83e00e",
+      "bytes": 38704
+    }
+  },
+  "output_digests": {
+    "primary_type_matrix.csv": {
+      "sha256": "140b3d1d7f1d94c4ac11c0d76d7cc1990fc1aab408a03e6c7b8117db04d59fc6",
+      "bytes": 1887
+    },
+    "primary_type_matrix_opposition_only.csv": {
+      "sha256": "b425ec70e8ba05c199f0f68234432a5cb555512e221953ac12ffed51d1ae0d16",
+      "bytes": 1887
+    },
+    "primary_cell_by_value.csv": {
+      "sha256": "8a902f7fc020868428244b652c8664e704d9aab8825b919678beba6fea3bf007",
+      "bytes": 51486
+    },
+    "primary_type_by_value_means.csv": {
+      "sha256": "8a6647070e6d6725a72bf15ff84de525e72808cde658ab2ae64664baebb86f00",
+      "bytes": 2218
+    },
+    "primary_third_value_flags.csv": {
+      "sha256": "5407df276aaf0c4565e14de8c679922642e4ed029f5865c2ed422cd71c02d9c8",
+      "bytes": 20638
+    },
+    "primary_relative_value_affinity.csv": {
+      "sha256": "5133074d3984c85052e2676b7725c15d476fc9bc732f98cfdcb2b2b9cc5c7a0e",
+      "bytes": 11929
+    },
+    "primary_minimal_pair_tightness.csv": {
+      "sha256": "576aeab2611951b1ca14145f3781abfb26bb38b3c8c3e4ceeee6915e0837661f",
+      "bytes": 4955
+    },
+    "primary_tip_symmetry.csv": {
+      "sha256": "87b8da7179e153129031ac6dad33d26014ed9e8b31abab35a34ff1adf6c3f731",
+      "bytes": 6152
+    },
+    "primary_control_placement.csv": {
+      "sha256": "b6f984ec4eeab3bad4c473bda238260c36182b10f8bb2596b71842aef047ea8e",
+      "bytes": 1105
+    },
+    "primary_type_matrix.png": {
+      "sha256": "a10628c0f435676429563109114d7a662ad7fc29e87a591393d235cb021dfe2e",
+      "bytes": 100168
+    },
+    "primary_type_by_value.png": {
+      "sha256": "97bd7a886a8820fc56f454baf496980dba3d79b3d21b840a12c71dc79fd3b573",
+      "bytes": 85202
+    },
+    "robustness_type_matrix.csv": {
+      "sha256": "219aa3747ee1b22298ce7ee3f87b5152e8eb256cb2a411fbfc676162e6770e9e",
+      "bytes": 1887
+    },
+    "robustness_type_matrix_opposition_only.csv": {
+      "sha256": "db4b799108a6ef73ec6ca5f2a92b3488097880f0082cfdd229cade8e49191af3",
+      "bytes": 1887
+    },
+    "robustness_cell_by_value.csv": {
+      "sha256": "356c87a76726155d280f2049e736e9179721a6d9b1428bb1a0559a2bf97ac39f",
+      "bytes": 51136
+    },
+    "robustness_type_by_value_means.csv": {
+      "sha256": "3557e3f2af5fe491c5b9ea9d5e074f4446144e005cf2a7d1c96d41fa3c5073f6",
+      "bytes": 2190
+    },
+    "robustness_third_value_flags.csv": {
+      "sha256": "b3ce90331dad2ddf884137bc41ef4ccce55c992ac7565340090ddf220a6e748d",
+      "bytes": 17303
+    },
+    "robustness_relative_value_affinity.csv": {
+      "sha256": "5b65a0d9f370ac76d2336cd4cc701654e77104387f8a4d00d2a4371f0f9d8ffa",
+      "bytes": 11909
+    },
+    "robustness_minimal_pair_tightness.csv": {
+      "sha256": "3c9890285088fe0d3e6e9b127d9837db29a2e33834d22ed43ac0d6dcdb2d92d1",
+      "bytes": 4955
+    },
+    "robustness_tip_symmetry.csv": {
+      "sha256": "167186abe7e44bc923a8bfb698f9fa75f178e2a11a0824d4e40e8ebe489d153f",
+      "bytes": 6152
+    },
+    "robustness_control_placement.csv": {
+      "sha256": "a75fb054dd23f67570defc76216a35829c81f361ea5a5cc166e48720cf46c26f",
+      "bytes": 1105
+    },
+    "robustness_type_matrix.png": {
+      "sha256": "5dbcff0e73a25b7363429de79571088c3377b002744ba4957a10eb71fb6bc8b6",
+      "bytes": 104803
+    },
+    "robustness_type_by_value.png": {
+      "sha256": "9193ce590a1b36678c79e90df143d6e3f198f981b0859d6227beac3b57d7c047",
+      "bytes": 83524
+    },
+    "worry_spots.csv": {
+      "sha256": "a6bc4367e7c29d8d47b53a1e41d26491fc79d537eba8b1db60de03b163e8516d",
+      "bytes": 566
+    },
+    "summary.md": {
+      "sha256": "6b6193fff871b8404ba965bb2015dd3cd40a5e32548d5eba90b1cad8b32c3fea",
+      "bytes": 16004
+    }
+  },
+  "n_units": 357,
+  "n_cells": 264,
+  "encoder_agreement": {
+    "pearson": 0.9250358625279248,
+    "spearman": 0.9255610061580212,
+    "n_type_pairs": 66,
+    "flags_primary": 89,
+    "flags_robustness": 78,
+    "flags_shared": 48,
+    "flags_primary_only": [
+      [
+        "type11_integrity_vs_mercy",
+        "authority"
+      ],
+      [
+        "type11_integrity_vs_mercy",
+        "kindness"
+      ],
+      [
+        "type12_autonomy_vs_collective",
+        "authority"
+      ],
+      [
+        "type12_autonomy_vs_collective",
+        "desert"
+      ],
+      [
+        "type12_autonomy_vs_collective",
+        "impartiality"
+      ],
+      [
+        "type12_autonomy_vs_collective",
+        "integrity"
+      ],
+      [
+        "type12_autonomy_vs_collective",
+        "kindness"
+      ],
+      [
+        "type12_autonomy_vs_collective",
+        "mercy"
+      ],
+      [
+        "type12_autonomy_vs_collective",
+        "tradition"
+      ],
+      [
+        "type4_loyalty_vs_honesty",
+        "authority"
+      ],
+      [
+        "type4_loyalty_vs_honesty",
+        "care"
+      ],
+      [
+        "type4_loyalty_vs_honesty",
+        "collective_welfare"
+      ],
+      [
+        "type4_loyalty_vs_honesty",
+        "desert"
+      ],
+      [
+        "type4_loyalty_vs_honesty",
+        "harm_avoidance"
+      ],
+      [
+        "type4_loyalty_vs_honesty",
+        "impartiality"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "authority"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "care"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "collective_welfare"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "desert"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "fairness"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "honesty"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "impartiality"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "integrity"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "kindness"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "loyalty"
+      ],
+      [
+        "type5_tradition_vs_autonomy",
+        "privacy"
+      ],
+      [
+        "type6_authority_vs_autonomy",
+        "fairness"
+      ],
+      [
+        "type6_authority_vs_autonomy",
+        "honesty"
+      ],
+      [
+        "type6_authority_vs_autonomy",
+        "impartiality"
+      ],
+      [
+        "type6_authority_vs_autonomy",
+        "integrity"
+      ],
+      [
+        "type6_authority_vs_autonomy",
+        "loyalty"
+      ],
+      [
+        "type6_authority_vs_autonomy",
+        "privacy"
+      ],
+      [
+        "type7_harm_vs_autonomy",
+        "fairness"
+      ],
+      [
+        "type7_harm_vs_autonomy",
+        "mercy"
+      ],
+      [
+        "type8_harm_vs_privacy",
+        "authority"
+      ],
+      [
+        "type8_harm_vs_privacy",
+        "autonomy"
+      ],
+      [
+        "type8_harm_vs_privacy",
+        "desert"
+      ],
+      [
+        "type8_harm_vs_privacy",
+        "fairness"
+      ],
+      [
+        "type8_harm_vs_privacy",
+        "integrity"
+      ],
+      [
+        "type8_harm_vs_privacy",
+        "kindness"
+      ],
+      [
+        "type9_harm_vs_integrity",
+        "fairness"
+      ]
+    ],
+    "flags_robustness_only": [
+      [
+        "type10_privacy_vs_care",
+        "authority"
+      ],
+      [
+        "type10_privacy_vs_care",
+        "desert"
+      ],
+      [
+        "type10_privacy_vs_care",
+        "integrity"
+      ],
+      [
+        "type10_privacy_vs_care",
+        "loyalty"
+      ],
+      [
+        "type10_privacy_vs_care",
+        "mercy"
+      ],
+      [
+        "type10_privacy_vs_care",
+        "tradition"
+      ],
+      [
+        "type1_honesty_vs_care",
+        "autonomy"
+      ],
+      [
+        "type1_honesty_vs_care",
+        "harm_avoidance"
+      ],
+      [
+        "type1_honesty_vs_care",
+        "loyalty"
+      ],
+      [
+        "type1_honesty_vs_care",
+        "mercy"
+      ],
+      [
+        "type2_privacy_vs_care",
+        "authority"
+      ],
+      [
+        "type2_privacy_vs_care",
+        "autonomy"
+      ],
+      [
+        "type2_privacy_vs_care",
+        "desert"
+      ],
+      [
+        "type2_privacy_vs_care",
+        "fairness"
+      ],
+      [
+        "type2_privacy_vs_care",
+        "harm_avoidance"
+      ],
+      [
+        "type2_privacy_vs_care",
+        "honesty"
+      ],
+      [
+        "type2_privacy_vs_care",
+        "loyalty"
+      ],
+      [
+        "type2_privacy_vs_care",
+        "mercy"
+      ],
+      [
+        "type2_privacy_vs_care",
+        "tradition"
+      ],
+      [
+        "type3_mercy_vs_desert",
+        "collective_welfare"
+      ],
+      [
+        "type3_mercy_vs_desert",
+        "fairness"
+      ],
+      [
+        "type3_mercy_vs_desert",
+        "harm_avoidance"
+      ],
+      [
+        "type3_mercy_vs_desert",
+        "impartiality"
+      ],
+      [
+        "type3_mercy_vs_desert",
+        "kindness"
+      ],
+      [
+        "type3_mercy_vs_desert",
+        "privacy"
+      ],
+      [
+        "type3_mercy_vs_desert",
+        "tradition"
+      ],
+      [
+        "type4_loyalty_vs_honesty",
+        "mercy"
+      ],
+      [
+        "type4_loyalty_vs_honesty",
+        "tradition"
+      ],
+      [
+        "type7_harm_vs_autonomy",
+        "sanctity"
+      ],
+      [
+        "type9_harm_vs_integrity",
+        "sanctity"
+      ]
+    ]
+  },
+  "timestamp_utc": "2026-08-03T17:39:19+00:00"
+}

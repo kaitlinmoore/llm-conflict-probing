@@ -689,11 +689,16 @@ def main(argv=None):
     lines.append("## 2. Third-value flags")
     lines.append("")
     n_poss = len(A["per_type_means"]) * (len(A["keys"]) - 2)
-    lines.append(f"**Ratified rule as specified** (a non-pole value ranks "
-                 f"above one of the type's own poles, or sits in the top "
-                 f"decile of the cell-by-value distribution): "
-                 f"**{len(A['flags'])} flags of ~{n_poss} possible "
-                 f"type-value combinations.**")
+    # Label correction per D73 (ratified 2026-08-05, amends D56): the
+    # RELATIVE z-standardized diagnostic is the operative ratified screen;
+    # the absolute rank-above-own-pole rule is retained descriptively only
+    # (non-discriminative on this corpus). Earlier summaries labeled these
+    # the other way around.
+    lines.append(f"**Absolute rule (descriptive only, superseded by D73)** "
+                 f"(a non-pole value ranks above one of the type's own "
+                 f"poles, or sits in the top decile of the cell-by-value "
+                 f"distribution): **{len(A['flags'])} flags of ~{n_poss} "
+                 f"possible type-value combinations.**")
     lines.append("")
     if len(A["flags"]) > 0.25 * n_poss:
         lines.append("> ⚠️ **The rule is not discriminative on this corpus, "
@@ -711,7 +716,8 @@ def main(argv=None):
                      "operative signal.")
         lines.append("")
     rel_flagged = [r for r in A["rel"] if r["flagged"]]
-    lines.append(f"**Relative diagnostic (addition, unratified):** value "
+    lines.append(f"**Relative diagnostic (RATIFIED operative screen — D73, "
+                 f"2026-08-05):** value "
                  f"affinity standardized *within value across types* — asking "
                  f"whether a type is unusually close to a value relative to "
                  f"every other type, which also cancels the constant offset "

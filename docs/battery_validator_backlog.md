@@ -57,10 +57,58 @@ review pass; run it when they are closed).
 
 ## Open
 
-- **Delta review** (researcher): 117 content cells + 203 certified
-  spot-sample cells; T11/T12 verdict entry (46 cells). Worklist in
-  `docs/batch_apply_report_2026-08-05.md`. Then exhibit embedding run →
-  freeze per `docs/freeze_checklist.md`.
+- ~~Reliability-gate numeric threshold OPEN~~ — **RATIFIED 2026-08-05 as
+  the pipeline default**: exceeds the matched permutation null,
+  disqualify-only. OPEN flag removed from report headers. Disclosure rule:
+  any later stricter criterion (`--gate-threshold`) re-runs selection and
+  both results are reported.
+- **Verified-tier analyses** are implemented up to the lock gate (refusal
+  + digest verification); the verified-subset repeats and the
+  conflicted-compliance analysis proper are built post-lock per the audit
+  protocol, against the locked label file.
+- **Pod build gap 1 (blocks D53, Pod A step A5):** `ablation_check.py`
+  needs `--random-directions N --random-seed S` — matched-norm random
+  directions, same protocol, per-direction outputs. Spec in
+  `docs/POD_RUNBOOK.md`.
+- **Pod build gap 2 (blocks all of Pod B):** `src/battery/run_battery.py`
+  does not exist — must produce exactly the capture contract in
+  `battery_pipeline.py`'s header (both arms, competition, greedy ≤128,
+  anchor discipline, incremental atomic, labeler pass, regeneration +
+  stability shards, `--smoke` mode). Spec in `docs/POD_RUNBOOK.md`.
+
+_Resolved 2026-08-05 (run day): capture-schema rulings — (a) competition
+battery captured in-session CONFIRMED; (b) Phase-0 emotion artifact
+CHECKED: per-layer directions exist (12 emotions × layers 2–31,
+Llama-3.1-8B-Instruct) — used directly, no recapture; (c) answer-only
+option-token probabilities per row CONFIRMED; frozen row_id in every
+capture row. Stage 3 pipeline BUILT and smoke-tested
+(`battery_pipeline.py`, `label_lock.py`, `make_smoke_shard.py`; capture
+contract documented in the module header; blindness by construction —
+selection type-rejects refusal data; single-estimator rule enforced and
+tested; 8 pipeline tests incl. smoke end-to-end recovering the planted
+layer; suite 242 OK). MUST BE COMMITTED BEFORE ANY REAL RUN OUTPUT IS
+READ._
+- **Cosmetic: validator verdict line says "N cells checked" but counts
+  records** (cells + controls; battery is 264 cells + 13 controls = 277
+  records). Relabel to "records (cells + controls)" next time the
+  validator is touched. Noted 2026-08-05 in the verdict-integrity report.
+
+_Resolved 2026-08-05 (freeze session): battery FROZEN
+(`data/battery/frozen/battery_frozen_v1.jsonl`, 401 rows, sha adce95fd…,
+zero drops; freezer `freeze_battery.py` + tests); freeze state appended to
+HANDOFF_v7; four-way labeler built per rubric v1.3 §9
+(`src/battery/labeler.py` + tests; suite 234 OK); D73 label confirmation:
+exhibit code implemented the ABSOLUTE rule under the "ratified" label and
+the z-diagnostic under "unratified" — inverted relative to D73; summary
+labels corrected in `stimulus_similarity.py` for future runs, committed
+exhibit artifacts unchanged (numbers align with D73 either way)._
+
+_Resolved 2026-08-05 (post-delta): delta review complete (researcher);
+verdict integrity ZERO non-approve across all 277 records
+(`docs/verdict_integrity_2026-08-05.md`); stimulus text untouched by the
+pass; validator PASS; exhibit embedding run executed on freeze-candidate
+text (`results/stimulus_similarity/20260803_173852_ingnoingest/`).
+Freeze HELD pending the researcher's remaining open item._
 
 _Resolved 2026-08-05 (follow-up cycle): two-cell repair executed as ruled
 (cell surgery, verified byte-exact); options-uniformity check c2 built,
