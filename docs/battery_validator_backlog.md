@@ -57,13 +57,28 @@ review pass; run it when they are closed).
 
 ## Open
 
-- **Batch apply awaiting researcher confirmation of the dry-run report**
-  (`docs/batch_dryrun_2026-08-05.md`; 350/350 byte-exact). Confirmation is
-  the trigger; then close-workbooks → `--apply` → re-ingest → re-validate
-  (expect all 16 blocking to clear, zero new).
-- **Two rename proposals held for confirmation** (2026-08-05, NOT in the
-  batch): Priya (T4) → Meera; Dev (T2) → Arun. Constraints verified in the
-  dry-run report.
+- **Two-cell repair awaiting researcher ruling** (2026-08-05, post-apply):
+  pre-existing review-pass damage, evidence in
+  `docs/batch_apply_report_2026-08-05.md` — T4 CB-lh-S2 agree_A option_A
+  deleted (restore "Tell Mom what I saw."), T1 CB-hc-S2 agree_A option_A
+  overwritten with the insert (restore "Tell him what didn't work.").
+  Needs cell-targeted repair (absent cell / aliased shared string), not
+  string replacement. Validation stays red on exactly these 2 until ruled.
+- **Options-uniformity validator check** (gap exposed 2026-08-05): no
+  check that option_A/option_B are byte-identical across a scenario's 4
+  cells; either defect above would have been caught at ingest-validate.
+  Implement with tests alongside the repair.
+- **60 pre-existing semicolons in untouched stimulus text** — outside the
+  B2 applied-text scope; researcher decides whether battery-wide
+  normalization is wanted (would be a follow-up mechanical batch with the
+  same certificate).
+
+_Resolved 2026-08-05 (apply session): batch APPLIED (352/352; 385
+punctuation substitutions), re-ingested, re-validated — 6 lexeme + 10
+overlap hits cleared, check f green on batch-touched cells; em dashes in
+stimulus text 583 → 0; renames verified (Priyanka/Devora intact modulo
+ruled A7 #21/#22); mechanical certificate 144/145 (1 FAIL = the T4 defect
+above); Meera/Arun applied._
 - **Freezer hardening** (B4, researcher-confirmed rec stands): exact-match
   `approve` filter vs observed whitespace variance (`'edit '` in T1
   CB-hc-S2 agree_A) — when the battery freezer is built, strip + validate

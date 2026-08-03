@@ -1,65 +1,47 @@
 # Battery validation report
 
 Produced by: Claude Fable 5 (model id claude-fable-5)
-Generated: 2026-08-03T11:18:06+00:00 — `src/battery/validate_battery.py`
+Generated: 2026-08-03T14:42:13+00:00 — `src/battery/validate_battery.py`
 Blocklists: `data/battery/lexeme_blocklists.json` sha256 `e37400e9cc45…`
 
 Inputs:
-- `data\battery\drafts\type10_privacy_vs_care.controls.jsonl` — sha256 `0e987d10bcad…`, 2557 bytes
-- `data\battery\drafts\type10_privacy_vs_care.jsonl` — sha256 `8d7107536803…`, 43777 bytes
-- `data\battery\drafts\type11_integrity_vs_mercy.jsonl` — sha256 `68bd22978c1b…`, 44020 bytes
-- `data\battery\drafts\type12_autonomy_vs_collective.jsonl` — sha256 `7b65cf5f2c15…`, 45834 bytes
-- `data\battery\drafts\type1_honesty_vs_care.jsonl` — sha256 `9c5f92448b35…`, 29532 bytes
-- `data\battery\drafts\type2_privacy_vs_care.controls.jsonl` — sha256 `bd77948ab6db…`, 3418 bytes
-- `data\battery\drafts\type2_privacy_vs_care.jsonl` — sha256 `715895c15ed5…`, 33269 bytes
-- `data\battery\drafts\type3_mercy_vs_desert.jsonl` — sha256 `164445bceb2b…`, 34423 bytes
-- `data\battery\drafts\type4_loyalty_vs_honesty.jsonl` — sha256 `9ea93a61cbbe…`, 33686 bytes
-- `data\battery\drafts\type5_tradition_vs_autonomy.jsonl` — sha256 `53e785705fee…`, 36030 bytes
-- `data\battery\drafts\type6_authority_vs_autonomy.jsonl` — sha256 `3018c2a4fe59…`, 34984 bytes
-- `data\battery\drafts\type7_harm_vs_autonomy.jsonl` — sha256 `67195ff12052…`, 39069 bytes
-- `data\battery\drafts\type8_harm_vs_privacy.controls.jsonl` — sha256 `efc8af4ee3f1…`, 2410 bytes
-- `data\battery\drafts\type8_harm_vs_privacy.jsonl` — sha256 `bd1599fc0579…`, 43340 bytes
-- `data\battery\drafts\type9_harm_vs_integrity.controls.jsonl` — sha256 `71013595cab6…`, 2415 bytes
-- `data\battery\drafts\type9_harm_vs_integrity.jsonl` — sha256 `88c1fe1c290c…`, 45205 bytes
+- `data\battery\drafts\type10_privacy_vs_care.controls.jsonl` — sha256 `321dfbd4fba4…`, 2578 bytes
+- `data\battery\drafts\type10_privacy_vs_care.jsonl` — sha256 `9206c741ad03…`, 44085 bytes
+- `data\battery\drafts\type11_integrity_vs_mercy.jsonl` — sha256 `4605ed001e73…`, 44917 bytes
+- `data\battery\drafts\type12_autonomy_vs_collective.jsonl` — sha256 `fb47f7ac18cc…`, 46396 bytes
+- `data\battery\drafts\type1_honesty_vs_care.jsonl` — sha256 `7ba64541bbab…`, 29505 bytes
+- `data\battery\drafts\type2_privacy_vs_care.controls.jsonl` — sha256 `d5f43a8a738b…`, 3722 bytes
+- `data\battery\drafts\type2_privacy_vs_care.jsonl` — sha256 `9d5b64b98f46…`, 33439 bytes
+- `data\battery\drafts\type3_mercy_vs_desert.jsonl` — sha256 `c6300f57c381…`, 34358 bytes
+- `data\battery\drafts\type4_loyalty_vs_honesty.jsonl` — sha256 `3c903d496f03…`, 33714 bytes
+- `data\battery\drafts\type5_tradition_vs_autonomy.jsonl` — sha256 `566e6ca6818e…`, 36076 bytes
+- `data\battery\drafts\type6_authority_vs_autonomy.jsonl` — sha256 `ed54b793b868…`, 35018 bytes
+- `data\battery\drafts\type7_harm_vs_autonomy.jsonl` — sha256 `64864c1bf3d9…`, 39092 bytes
+- `data\battery\drafts\type8_harm_vs_privacy.controls.jsonl` — sha256 `3c0f2ec98498…`, 2431 bytes
+- `data\battery\drafts\type8_harm_vs_privacy.jsonl` — sha256 `b39e570d22a0…`, 43315 bytes
+- `data\battery\drafts\type9_harm_vs_integrity.controls.jsonl` — sha256 `f5d284c02f02…`, 2436 bytes
+- `data\battery\drafts\type9_harm_vs_integrity.jsonl` — sha256 `bce21767da52…`, 45183 bytes
 
-## Verdict: **FAIL (blocking)** — 277 cells checked, 16 blocking, 0 warnings, 0 researcher flags, 3 length flags, 7 name flags, 0 ask-echo flags, 0 exempted hits
+## Verdict: **FAIL (blocking)** — 277 cells checked, 2 blocking, 0 warnings, 0 researcher flags, 4 length flags, 2 name flags, 0 ask-echo flags, 0 exempted hits
 
 Lexeme scope: **global** — every type is checked against the global list and all ratified per-value lists (researcher, 2026-07-31). `discipline_only` entries are not enforced anywhere.
 
 ## BLOCKING failures
-- **a.lexeme** `type12_autonomy_vs_collective:CB-acw-S5:agree_comply:stem` — blocked lexeme 'deserves' (list: desert, cross-type)
-- **a.lexeme** `type12_autonomy_vs_collective:CB-acw-S5:agree_refuse:stem` — blocked lexeme 'deserves' (list: desert, cross-type)
-- **a.lexeme** `type12_autonomy_vs_collective:CB-acw-S5:oppose_tip_comply:stem` — blocked lexeme 'deserves' (list: desert, cross-type)
-- **a.lexeme** `type12_autonomy_vs_collective:CB-acw-S5:oppose_tip_refuse:stem` — blocked lexeme 'deserves' (list: desert, cross-type)
-- **a.lexeme** `type2_privacy_vs_care:CB-pc-S1:oppose_tip_A:shared_opposition_text` — blocked lexeme 'safety' (list: harm, cross-type)
-- **a.lexeme** `type2_privacy_vs_care:CB-pc-S1:oppose_tip_B:shared_opposition_text` — blocked lexeme 'safety' (list: harm, cross-type)
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S1:agree_A` — insert shares 4 contentful words with option_A: [anecdote, ending, fell, flat] (longest run: "and the ending fell flat")
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S1:*` — shared shares 5 contentful words with option_A: [anecdote, dragged, ending, fell, flat] (longest run: "anecdote dragged and the ending fell flat")
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S2:agree_A` — insert shares 5 contentful words with option_A: [convinces, loses, middle, momentum, villain] (longest run: "loses momentum and the villain never")
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S2:*` — shared shares 6 contentful words with option_A: [convinces, loses, middle, momentum, quite, villain] (longest run: "loses momentum and the villain never quite convinces")
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S3:*` — shared shares 6 contentful words with option_A: [demo, ending, felt, lost, room, rushed] (longest run: "lost the room and the ending felt rushed")
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S4:agree_A` — insert shares 5 contentful words with option_A: [awkwardly, date, format, heading, reads] (longest run: "heading reads awkwardly and")
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S4:*` — shared shares 5 contentful words with option_A: [awkwardly, date, format, heading, reads] (longest run: "heading reads awkwardly and")
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S5:agree_A` — insert shares 4 contentful words with option_A: [don't, right, shoulders, sit] (longest run: "the shoulders don't sit")
-- **f.overlap** `type1_honesty_vs_care:CB-hc-S5:*` — shared shares 5 contentful words with option_A: [don't, quite, right, shoulders, sit] (longest run: "the shoulders don't sit quite right")
-- **f.overlap** `type3_mercy_vs_desert:CB-md-S1:*` — stem shares 5 contentful words with option_A: [driving, extra, take, two, weeks] (longest run: "two extra weeks of driving")
+- **d.structure** `type4_loyalty_vs_honesty.jsonl:CB-lh-S2:agree_A` — option_A empty
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S2:agree_A` — insert shares 20 contentful words with option_A: [already, book, convinces, didn't, doesn't, he's, know, loses, middle, momentum, one, outlining, repeat, s, told, tom, two, villain, wants, work] (longest run: "tom s told me he's already outlining book two and wants to know what didn't work in this one so he doesn't repeat it the middle loses momentum and the villain never convinces")
 
 ## Cross-type character-name flags (non-blocking)
 
 Reused names risk cross-item association at administration and muddy per-type similarity readings. The extractor over-collects proper nouns (place names, brands), so entries need a human glance.
 
-- 'Dana' appears in 2 types: type1_honesty_vs_care(1 cells), type4_loyalty_vs_honesty(1 cells)
-- 'Marcus' appears in 2 types: type1_honesty_vs_care(1 cells), type5_tradition_vs_autonomy(1 cells)
 - 'Mom' appears in 3 types: type4_loyalty_vs_honesty(1 cells), type8_harm_vs_privacy(1 cells), type9_harm_vs_integrity(1 cells)
-- 'Sam' appears in 3 types: type1_honesty_vs_care(1 cells), type3_mercy_vs_desert(1 cells), type4_loyalty_vs_honesty(1 cells)
-- near-collision 'Devon' (type3_mercy_vs_desert) vs 'Devora' (type10_privacy_vs_care)
-- near-collision 'Priya' (type4_loyalty_vs_honesty) vs 'Priyanka' (type10_privacy_vs_care)
 - near-collision 'What' (type1_honesty_vs_care) vs 'Whatever' (type4_loyalty_vs_honesty)
 
 ## Length flags (non-blocking, check e)
-- type1_honesty_vs_care.jsonl:CB-hc-S1:agree_A insert 35 tokens > 1.5x scenario median 22.5
-- type1_honesty_vs_care.jsonl:CB-hc-S3:agree_A insert 33 tokens > 1.5x scenario median 16
+- type1_honesty_vs_care.jsonl:CB-hc-S1:agree_A insert 34 tokens > 1.5x scenario median 22
+- type1_honesty_vs_care.jsonl:CB-hc-S3:agree_A insert 33 tokens > 1.5x scenario median 15.5
 - type1_honesty_vs_care.jsonl:CB-hc-S4:agree_A insert 41 tokens > 1.5x scenario median 21
+- type4_loyalty_vs_honesty.jsonl:CB-lh-S5:oppose_tip_B insert 41 tokens > 1.5x scenario median 27
 
 ## Per-file detail
 
@@ -69,113 +51,113 @@ Reused names risk cross-item association at administration and muddy per-type si
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-pvc-S1 | agree_comply | 39 | 39.5 |  |
-| CB-pvc-S1 | agree_refuse | 40 | 39.5 |  |
-| CB-pvc-S1 | oppose_tip_comply | 39 | 39.5 |  |
-| CB-pvc-S1 | oppose_tip_refuse | 44 | 39.5 |  |
-| CB-pvc-S2 | agree_comply | 41 | 37.5 |  |
-| CB-pvc-S2 | agree_refuse | 36 | 37.5 |  |
-| CB-pvc-S2 | oppose_tip_comply | 37 | 37.5 |  |
-| CB-pvc-S2 | oppose_tip_refuse | 38 | 37.5 |  |
-| CB-pvc-S3 | agree_comply | 43 | 40.5 |  |
-| CB-pvc-S3 | agree_refuse | 30 | 40.5 |  |
-| CB-pvc-S3 | oppose_tip_comply | 41 | 40.5 |  |
-| CB-pvc-S3 | oppose_tip_refuse | 40 | 40.5 |  |
-| CB-pvc-S4 | agree_comply | 44 | 43.5 |  |
-| CB-pvc-S4 | agree_refuse | 43 | 43.5 |  |
-| CB-pvc-S4 | oppose_tip_comply | 45 | 43.5 |  |
-| CB-pvc-S4 | oppose_tip_refuse | 37 | 43.5 |  |
-| CB-pvc-S5 | agree_comply | 42 | 39.5 |  |
-| CB-pvc-S5 | agree_refuse | 41 | 39.5 |  |
-| CB-pvc-S5 | oppose_tip_comply | 34 | 39.5 |  |
-| CB-pvc-S5 | oppose_tip_refuse | 38 | 39.5 |  |
-| CB-pvc-S6 | agree_comply | 39 | 40 |  |
-| CB-pvc-S6 | agree_refuse | 33 | 40 |  |
-| CB-pvc-S6 | oppose_tip_comply | 45 | 40 |  |
-| CB-pvc-S6 | oppose_tip_refuse | 41 | 40 |  |
+| CB-pvc-S1 | agree_comply | 38 | 38.5 |  |
+| CB-pvc-S1 | agree_refuse | 39 | 38.5 |  |
+| CB-pvc-S1 | oppose_tip_comply | 37 | 38.5 |  |
+| CB-pvc-S1 | oppose_tip_refuse | 42 | 38.5 |  |
+| CB-pvc-S2 | agree_comply | 40 | 35.5 |  |
+| CB-pvc-S2 | agree_refuse | 35 | 35.5 |  |
+| CB-pvc-S2 | oppose_tip_comply | 35 | 35.5 |  |
+| CB-pvc-S2 | oppose_tip_refuse | 36 | 35.5 |  |
+| CB-pvc-S3 | agree_comply | 42 | 38.5 |  |
+| CB-pvc-S3 | agree_refuse | 29 | 38.5 |  |
+| CB-pvc-S3 | oppose_tip_comply | 39 | 38.5 |  |
+| CB-pvc-S3 | oppose_tip_refuse | 38 | 38.5 |  |
+| CB-pvc-S4 | agree_comply | 42 | 42 |  |
+| CB-pvc-S4 | agree_refuse | 42 | 42 |  |
+| CB-pvc-S4 | oppose_tip_comply | 43 | 42 |  |
+| CB-pvc-S4 | oppose_tip_refuse | 35 | 42 |  |
+| CB-pvc-S5 | agree_comply | 41 | 38 |  |
+| CB-pvc-S5 | agree_refuse | 40 | 38 |  |
+| CB-pvc-S5 | oppose_tip_comply | 32 | 38 |  |
+| CB-pvc-S5 | oppose_tip_refuse | 36 | 38 |  |
+| CB-pvc-S6 | agree_comply | 38 | 38.5 |  |
+| CB-pvc-S6 | agree_refuse | 32 | 38.5 |  |
+| CB-pvc-S6 | oppose_tip_comply | 43 | 38.5 |  |
+| CB-pvc-S6 | oppose_tip_refuse | 39 | 38.5 |  |
 
 ### `type11_integrity_vs_mercy.jsonl` — 24 cells (refusal family)
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-imv-S1 | agree_comply | 29 | 35 |  |
-| CB-imv-S1 | agree_refuse | 40 | 35 |  |
-| CB-imv-S1 | oppose_tip_comply | 30 | 35 |  |
-| CB-imv-S1 | oppose_tip_refuse | 42 | 35 |  |
-| CB-imv-S2 | agree_comply | 35 | 39.5 |  |
-| CB-imv-S2 | agree_refuse | 43 | 39.5 |  |
-| CB-imv-S2 | oppose_tip_comply | 38 | 39.5 |  |
-| CB-imv-S2 | oppose_tip_refuse | 41 | 39.5 |  |
-| CB-imv-S3 | agree_comply | 32 | 43 |  |
-| CB-imv-S3 | agree_refuse | 44 | 43 |  |
-| CB-imv-S3 | oppose_tip_comply | 44 | 43 |  |
-| CB-imv-S3 | oppose_tip_refuse | 42 | 43 |  |
-| CB-imv-S4 | agree_comply | 34 | 38 |  |
-| CB-imv-S4 | agree_refuse | 39 | 38 |  |
-| CB-imv-S4 | oppose_tip_comply | 38 | 38 |  |
-| CB-imv-S4 | oppose_tip_refuse | 38 | 38 |  |
-| CB-imv-S5 | agree_comply | 32 | 38 |  |
-| CB-imv-S5 | agree_refuse | 43 | 38 |  |
-| CB-imv-S5 | oppose_tip_comply | 35 | 38 |  |
-| CB-imv-S5 | oppose_tip_refuse | 41 | 38 |  |
-| CB-imv-S6 | agree_comply | 30 | 38.5 |  |
-| CB-imv-S6 | agree_refuse | 45 | 38.5 |  |
-| CB-imv-S6 | oppose_tip_comply | 38 | 38.5 |  |
-| CB-imv-S6 | oppose_tip_refuse | 39 | 38.5 |  |
+| CB-imv-S1 | agree_comply | 28 | 34.5 |  |
+| CB-imv-S1 | agree_refuse | 39 | 34.5 |  |
+| CB-imv-S1 | oppose_tip_comply | 30 | 34.5 |  |
+| CB-imv-S1 | oppose_tip_refuse | 40 | 34.5 |  |
+| CB-imv-S2 | agree_comply | 34 | 38.5 |  |
+| CB-imv-S2 | agree_refuse | 42 | 38.5 |  |
+| CB-imv-S2 | oppose_tip_comply | 38 | 38.5 |  |
+| CB-imv-S2 | oppose_tip_refuse | 39 | 38.5 |  |
+| CB-imv-S3 | agree_comply | 31 | 41 |  |
+| CB-imv-S3 | agree_refuse | 43 | 41 |  |
+| CB-imv-S3 | oppose_tip_comply | 42 | 41 |  |
+| CB-imv-S3 | oppose_tip_refuse | 40 | 41 |  |
+| CB-imv-S4 | agree_comply | 33 | 37 |  |
+| CB-imv-S4 | agree_refuse | 38 | 37 |  |
+| CB-imv-S4 | oppose_tip_comply | 38 | 37 |  |
+| CB-imv-S4 | oppose_tip_refuse | 36 | 37 |  |
+| CB-imv-S5 | agree_comply | 31 | 37 |  |
+| CB-imv-S5 | agree_refuse | 42 | 37 |  |
+| CB-imv-S5 | oppose_tip_comply | 35 | 37 |  |
+| CB-imv-S5 | oppose_tip_refuse | 39 | 37 |  |
+| CB-imv-S6 | agree_comply | 28 | 37.5 |  |
+| CB-imv-S6 | agree_refuse | 44 | 37.5 |  |
+| CB-imv-S6 | oppose_tip_comply | 38 | 37.5 |  |
+| CB-imv-S6 | oppose_tip_refuse | 37 | 37.5 |  |
 
 ### `type12_autonomy_vs_collective.jsonl` — 24 cells (refusal family)
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-acw-S1 | agree_comply | 47 | 41.5 |  |
-| CB-acw-S1 | agree_refuse | 40 | 41.5 |  |
-| CB-acw-S1 | oppose_tip_comply | 41 | 41.5 |  |
-| CB-acw-S1 | oppose_tip_refuse | 42 | 41.5 |  |
-| CB-acw-S2 | agree_comply | 43 | 42.5 |  |
-| CB-acw-S2 | agree_refuse | 37 | 42.5 |  |
-| CB-acw-S2 | oppose_tip_comply | 42 | 42.5 |  |
-| CB-acw-S2 | oppose_tip_refuse | 43 | 42.5 |  |
-| CB-acw-S3 | agree_comply | 51 | 48 |  |
-| CB-acw-S3 | agree_refuse | 36 | 48 |  |
-| CB-acw-S3 | oppose_tip_comply | 46 | 48 |  |
-| CB-acw-S3 | oppose_tip_refuse | 50 | 48 |  |
-| CB-acw-S4 | agree_comply | 50 | 41 |  |
-| CB-acw-S4 | agree_refuse | 37 | 41 |  |
-| CB-acw-S4 | oppose_tip_comply | 40 | 41 |  |
-| CB-acw-S4 | oppose_tip_refuse | 42 | 41 |  |
-| CB-acw-S5 | agree_comply | 46 | 44 |  |
-| CB-acw-S5 | agree_refuse | 35 | 44 |  |
-| CB-acw-S5 | oppose_tip_comply | 49 | 44 |  |
-| CB-acw-S5 | oppose_tip_refuse | 42 | 44 |  |
-| CB-acw-S6 | agree_comply | 56 | 39 |  |
-| CB-acw-S6 | agree_refuse | 37 | 39 |  |
-| CB-acw-S6 | oppose_tip_comply | 37 | 39 |  |
-| CB-acw-S6 | oppose_tip_refuse | 41 | 39 |  |
+| CB-acw-S1 | agree_comply | 46 | 41 |  |
+| CB-acw-S1 | agree_refuse | 39 | 41 |  |
+| CB-acw-S1 | oppose_tip_comply | 41 | 41 |  |
+| CB-acw-S1 | oppose_tip_refuse | 41 | 41 |  |
+| CB-acw-S2 | agree_comply | 42 | 41.5 |  |
+| CB-acw-S2 | agree_refuse | 36 | 41.5 |  |
+| CB-acw-S2 | oppose_tip_comply | 42 | 41.5 |  |
+| CB-acw-S2 | oppose_tip_refuse | 41 | 41.5 |  |
+| CB-acw-S3 | agree_comply | 50 | 46 |  |
+| CB-acw-S3 | agree_refuse | 35 | 46 |  |
+| CB-acw-S3 | oppose_tip_comply | 44 | 46 |  |
+| CB-acw-S3 | oppose_tip_refuse | 48 | 46 |  |
+| CB-acw-S4 | agree_comply | 49 | 40.5 |  |
+| CB-acw-S4 | agree_refuse | 36 | 40.5 |  |
+| CB-acw-S4 | oppose_tip_comply | 40 | 40.5 |  |
+| CB-acw-S4 | oppose_tip_refuse | 41 | 40.5 |  |
+| CB-acw-S5 | agree_comply | 45 | 42.5 |  |
+| CB-acw-S5 | agree_refuse | 34 | 42.5 |  |
+| CB-acw-S5 | oppose_tip_comply | 47 | 42.5 |  |
+| CB-acw-S5 | oppose_tip_refuse | 40 | 42.5 |  |
+| CB-acw-S6 | agree_comply | 55 | 38 |  |
+| CB-acw-S6 | agree_refuse | 36 | 38 |  |
+| CB-acw-S6 | oppose_tip_comply | 37 | 38 |  |
+| CB-acw-S6 | oppose_tip_refuse | 39 | 38 |  |
 
 ### `type1_honesty_vs_care.jsonl` — 20 cells (choice family)
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-hc-S1 | agree_A | 35 | 22.5 | FLAG |
-| CB-hc-S1 | agree_B | 16 | 22.5 |  |
-| CB-hc-S1 | oppose_tip_A | 15 | 22.5 |  |
-| CB-hc-S1 | oppose_tip_B | 29 | 22.5 |  |
-| CB-hc-S2 | agree_A | 32 | 23 |  |
-| CB-hc-S2 | agree_B | 19 | 23 |  |
-| CB-hc-S2 | oppose_tip_A | 14 | 23 |  |
-| CB-hc-S2 | oppose_tip_B | 27 | 23 |  |
-| CB-hc-S3 | agree_A | 33 | 16 | FLAG |
-| CB-hc-S3 | agree_B | 19 | 16 |  |
-| CB-hc-S3 | oppose_tip_A | 13 | 16 |  |
-| CB-hc-S3 | oppose_tip_B | 12 | 16 |  |
+| CB-hc-S1 | agree_A | 34 | 22 | FLAG |
+| CB-hc-S1 | agree_B | 15 | 22 |  |
+| CB-hc-S1 | oppose_tip_A | 15 | 22 |  |
+| CB-hc-S1 | oppose_tip_B | 29 | 22 |  |
+| CB-hc-S2 | agree_A | 32 | 22.5 |  |
+| CB-hc-S2 | agree_B | 18 | 22.5 |  |
+| CB-hc-S2 | oppose_tip_A | 13 | 22.5 |  |
+| CB-hc-S2 | oppose_tip_B | 27 | 22.5 |  |
+| CB-hc-S3 | agree_A | 33 | 15.5 | FLAG |
+| CB-hc-S3 | agree_B | 18 | 15.5 |  |
+| CB-hc-S3 | oppose_tip_A | 13 | 15.5 |  |
+| CB-hc-S3 | oppose_tip_B | 12 | 15.5 |  |
 | CB-hc-S4 | agree_A | 41 | 21 | FLAG |
-| CB-hc-S4 | agree_B | 13 | 21 |  |
+| CB-hc-S4 | agree_B | 12 | 21 |  |
 | CB-hc-S4 | oppose_tip_A | 17 | 21 |  |
 | CB-hc-S4 | oppose_tip_B | 25 | 21 |  |
-| CB-hc-S5 | agree_A | 23 | 19 |  |
-| CB-hc-S5 | agree_B | 15 | 19 |  |
-| CB-hc-S5 | oppose_tip_A | 13 | 19 |  |
-| CB-hc-S5 | oppose_tip_B | 24 | 19 |  |
+| CB-hc-S5 | agree_A | 23 | 18.5 |  |
+| CB-hc-S5 | agree_B | 14 | 18.5 |  |
+| CB-hc-S5 | oppose_tip_A | 13 | 18.5 |  |
+| CB-hc-S5 | oppose_tip_B | 23 | 18.5 |  |
 
 ### `type2_privacy_vs_care.controls.jsonl` — 4 topical controls
 
@@ -183,155 +165,155 @@ Reused names risk cross-item association at administration and muddy per-type si
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-pc-S1 | agree_A | 32 | 29.5 |  |
-| CB-pc-S1 | agree_B | 32 | 29.5 |  |
-| CB-pc-S1 | oppose_tip_A | 27 | 29.5 |  |
-| CB-pc-S1 | oppose_tip_B | 23 | 29.5 |  |
-| CB-pc-S2 | agree_A | 26 | 30 |  |
-| CB-pc-S2 | agree_B | 30 | 30 |  |
-| CB-pc-S2 | oppose_tip_A | 39 | 30 |  |
-| CB-pc-S2 | oppose_tip_B | 30 | 30 |  |
-| CB-pc-S3 | agree_A | 26 | 31 |  |
-| CB-pc-S3 | agree_B | 31 | 31 |  |
-| CB-pc-S3 | oppose_tip_A | 36 | 31 |  |
-| CB-pc-S3 | oppose_tip_B | 31 | 31 |  |
-| CB-pc-S4 | agree_A | 29 | 28.5 |  |
-| CB-pc-S4 | agree_B | 28 | 28.5 |  |
-| CB-pc-S4 | oppose_tip_A | 29 | 28.5 |  |
-| CB-pc-S4 | oppose_tip_B | 26 | 28.5 |  |
-| CB-pc-S5 | agree_A | 25 | 29 |  |
-| CB-pc-S5 | agree_B | 33 | 29 |  |
-| CB-pc-S5 | oppose_tip_A | 34 | 29 |  |
-| CB-pc-S5 | oppose_tip_B | 25 | 29 |  |
+| CB-pc-S1 | agree_A | 31 | 28.5 |  |
+| CB-pc-S1 | agree_B | 32 | 28.5 |  |
+| CB-pc-S1 | oppose_tip_A | 26 | 28.5 |  |
+| CB-pc-S1 | oppose_tip_B | 23 | 28.5 |  |
+| CB-pc-S2 | agree_A | 25 | 27 |  |
+| CB-pc-S2 | agree_B | 29 | 27 |  |
+| CB-pc-S2 | oppose_tip_A | 15 | 27 |  |
+| CB-pc-S2 | oppose_tip_B | 30 | 27 |  |
+| CB-pc-S3 | agree_A | 25 | 29 |  |
+| CB-pc-S3 | agree_B | 30 | 29 |  |
+| CB-pc-S3 | oppose_tip_A | 28 | 29 |  |
+| CB-pc-S3 | oppose_tip_B | 31 | 29 |  |
+| CB-pc-S4 | agree_A | 28 | 26.5 |  |
+| CB-pc-S4 | agree_B | 27 | 26.5 |  |
+| CB-pc-S4 | oppose_tip_A | 22 | 26.5 |  |
+| CB-pc-S4 | oppose_tip_B | 26 | 26.5 |  |
+| CB-pc-S5 | agree_A | 24 | 26.5 |  |
+| CB-pc-S5 | agree_B | 32 | 26.5 |  |
+| CB-pc-S5 | oppose_tip_A | 28 | 26.5 |  |
+| CB-pc-S5 | oppose_tip_B | 25 | 26.5 |  |
 
 ### `type3_mercy_vs_desert.jsonl` — 20 cells (choice family)
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-md-S1 | agree_A | 32 | 29.5 |  |
-| CB-md-S1 | agree_B | 21 | 29.5 |  |
-| CB-md-S1 | oppose_tip_A | 28 | 29.5 |  |
-| CB-md-S1 | oppose_tip_B | 31 | 29.5 |  |
-| CB-md-S2 | agree_A | 33 | 30 |  |
-| CB-md-S2 | agree_B | 27 | 30 |  |
-| CB-md-S2 | oppose_tip_A | 27 | 30 |  |
-| CB-md-S2 | oppose_tip_B | 37 | 30 |  |
-| CB-md-S3 | agree_A | 24 | 26.5 |  |
-| CB-md-S3 | agree_B | 27 | 26.5 |  |
-| CB-md-S3 | oppose_tip_A | 26 | 26.5 |  |
-| CB-md-S3 | oppose_tip_B | 30 | 26.5 |  |
-| CB-md-S4 | agree_A | 18 | 26 |  |
-| CB-md-S4 | agree_B | 23 | 26 |  |
-| CB-md-S4 | oppose_tip_A | 30 | 26 |  |
-| CB-md-S4 | oppose_tip_B | 29 | 26 |  |
-| CB-md-S5 | agree_A | 29 | 32 |  |
-| CB-md-S5 | agree_B | 35 | 32 |  |
-| CB-md-S5 | oppose_tip_A | 26 | 32 |  |
-| CB-md-S5 | oppose_tip_B | 38 | 32 |  |
+| CB-md-S1 | agree_A | 32 | 29 |  |
+| CB-md-S1 | agree_B | 20 | 29 |  |
+| CB-md-S1 | oppose_tip_A | 27 | 29 |  |
+| CB-md-S1 | oppose_tip_B | 31 | 29 |  |
+| CB-md-S2 | agree_A | 32 | 29 |  |
+| CB-md-S2 | agree_B | 26 | 29 |  |
+| CB-md-S2 | oppose_tip_A | 26 | 29 |  |
+| CB-md-S2 | oppose_tip_B | 37 | 29 |  |
+| CB-md-S3 | agree_A | 24 | 25.5 |  |
+| CB-md-S3 | agree_B | 26 | 25.5 |  |
+| CB-md-S3 | oppose_tip_A | 25 | 25.5 |  |
+| CB-md-S3 | oppose_tip_B | 30 | 25.5 |  |
+| CB-md-S4 | agree_A | 18 | 25.5 |  |
+| CB-md-S4 | agree_B | 22 | 25.5 |  |
+| CB-md-S4 | oppose_tip_A | 29 | 25.5 |  |
+| CB-md-S4 | oppose_tip_B | 29 | 25.5 |  |
+| CB-md-S5 | agree_A | 28 | 31 |  |
+| CB-md-S5 | agree_B | 34 | 31 |  |
+| CB-md-S5 | oppose_tip_A | 25 | 31 |  |
+| CB-md-S5 | oppose_tip_B | 38 | 31 |  |
 
 ### `type4_loyalty_vs_honesty.jsonl` — 20 cells (choice family)
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-lh-S1 | agree_A | 28 | 30 |  |
-| CB-lh-S1 | agree_B | 30 | 30 |  |
-| CB-lh-S1 | oppose_tip_A | 30 | 30 |  |
-| CB-lh-S1 | oppose_tip_B | 35 | 30 |  |
-| CB-lh-S2 | agree_A | 25 | 32 |  |
-| CB-lh-S2 | agree_B | 34 | 32 |  |
-| CB-lh-S2 | oppose_tip_A | 30 | 32 |  |
-| CB-lh-S2 | oppose_tip_B | 35 | 32 |  |
-| CB-lh-S3 | agree_A | 27 | 29 |  |
-| CB-lh-S3 | agree_B | 30 | 29 |  |
-| CB-lh-S3 | oppose_tip_A | 28 | 29 |  |
-| CB-lh-S3 | oppose_tip_B | 36 | 29 |  |
-| CB-lh-S4 | agree_A | 23 | 30.5 |  |
-| CB-lh-S4 | agree_B | 31 | 30.5 |  |
-| CB-lh-S4 | oppose_tip_A | 30 | 30.5 |  |
-| CB-lh-S4 | oppose_tip_B | 36 | 30.5 |  |
-| CB-lh-S5 | agree_A | 20 | 28 |  |
-| CB-lh-S5 | agree_B | 28 | 28 |  |
-| CB-lh-S5 | oppose_tip_A | 28 | 28 |  |
-| CB-lh-S5 | oppose_tip_B | 41 | 28 |  |
+| CB-lh-S1 | agree_A | 27 | 29 |  |
+| CB-lh-S1 | agree_B | 29 | 29 |  |
+| CB-lh-S1 | oppose_tip_A | 29 | 29 |  |
+| CB-lh-S1 | oppose_tip_B | 34 | 29 |  |
+| CB-lh-S2 | agree_A | 24 | 31 |  |
+| CB-lh-S2 | agree_B | 33 | 31 |  |
+| CB-lh-S2 | oppose_tip_A | 29 | 31 |  |
+| CB-lh-S2 | oppose_tip_B | 35 | 31 |  |
+| CB-lh-S3 | agree_A | 26 | 28 |  |
+| CB-lh-S3 | agree_B | 29 | 28 |  |
+| CB-lh-S3 | oppose_tip_A | 27 | 28 |  |
+| CB-lh-S3 | oppose_tip_B | 36 | 28 |  |
+| CB-lh-S4 | agree_A | 22 | 29.5 |  |
+| CB-lh-S4 | agree_B | 30 | 29.5 |  |
+| CB-lh-S4 | oppose_tip_A | 29 | 29.5 |  |
+| CB-lh-S4 | oppose_tip_B | 36 | 29.5 |  |
+| CB-lh-S5 | agree_A | 19 | 27 |  |
+| CB-lh-S5 | agree_B | 27 | 27 |  |
+| CB-lh-S5 | oppose_tip_A | 27 | 27 |  |
+| CB-lh-S5 | oppose_tip_B | 41 | 27 | FLAG |
 
 ### `type5_tradition_vs_autonomy.jsonl` — 20 cells (choice family)
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-ta-S1 | agree_A | 29 | 35.5 |  |
-| CB-ta-S1 | agree_B | 36 | 35.5 |  |
-| CB-ta-S1 | oppose_tip_A | 35 | 35.5 |  |
-| CB-ta-S1 | oppose_tip_B | 36 | 35.5 |  |
-| CB-ta-S2 | agree_A | 34 | 33 |  |
-| CB-ta-S2 | agree_B | 32 | 33 |  |
-| CB-ta-S2 | oppose_tip_A | 30 | 33 |  |
-| CB-ta-S2 | oppose_tip_B | 35 | 33 |  |
-| CB-ta-S3 | agree_A | 32 | 31.5 |  |
-| CB-ta-S3 | agree_B | 31 | 31.5 |  |
-| CB-ta-S3 | oppose_tip_A | 26 | 31.5 |  |
-| CB-ta-S3 | oppose_tip_B | 35 | 31.5 |  |
-| CB-ta-S4 | agree_A | 33 | 29.5 |  |
-| CB-ta-S4 | agree_B | 29 | 29.5 |  |
-| CB-ta-S4 | oppose_tip_A | 28 | 29.5 |  |
-| CB-ta-S4 | oppose_tip_B | 30 | 29.5 |  |
-| CB-ta-S5 | agree_A | 32 | 29 |  |
-| CB-ta-S5 | agree_B | 26 | 29 |  |
-| CB-ta-S5 | oppose_tip_A | 27 | 29 |  |
-| CB-ta-S5 | oppose_tip_B | 31 | 29 |  |
+| CB-ta-S1 | agree_A | 29 | 34.5 |  |
+| CB-ta-S1 | agree_B | 35 | 34.5 |  |
+| CB-ta-S1 | oppose_tip_A | 34 | 34.5 |  |
+| CB-ta-S1 | oppose_tip_B | 36 | 34.5 |  |
+| CB-ta-S2 | agree_A | 34 | 32.5 |  |
+| CB-ta-S2 | agree_B | 31 | 32.5 |  |
+| CB-ta-S2 | oppose_tip_A | 29 | 32.5 |  |
+| CB-ta-S2 | oppose_tip_B | 35 | 32.5 |  |
+| CB-ta-S3 | agree_A | 32 | 31 |  |
+| CB-ta-S3 | agree_B | 30 | 31 |  |
+| CB-ta-S3 | oppose_tip_A | 25 | 31 |  |
+| CB-ta-S3 | oppose_tip_B | 35 | 31 |  |
+| CB-ta-S4 | agree_A | 32 | 29 |  |
+| CB-ta-S4 | agree_B | 28 | 29 |  |
+| CB-ta-S4 | oppose_tip_A | 27 | 29 |  |
+| CB-ta-S4 | oppose_tip_B | 30 | 29 |  |
+| CB-ta-S5 | agree_A | 30 | 28 |  |
+| CB-ta-S5 | agree_B | 25 | 28 |  |
+| CB-ta-S5 | oppose_tip_A | 26 | 28 |  |
+| CB-ta-S5 | oppose_tip_B | 31 | 28 |  |
 
 ### `type6_authority_vs_autonomy.jsonl` — 20 cells (choice family)
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-aa-S1 | agree_A | 27 | 28.5 |  |
-| CB-aa-S1 | agree_B | 24 | 28.5 |  |
-| CB-aa-S1 | oppose_tip_A | 33 | 28.5 |  |
-| CB-aa-S1 | oppose_tip_B | 30 | 28.5 |  |
-| CB-aa-S2 | agree_A | 29 | 31.5 |  |
-| CB-aa-S2 | agree_B | 28 | 31.5 |  |
-| CB-aa-S2 | oppose_tip_A | 34 | 31.5 |  |
-| CB-aa-S2 | oppose_tip_B | 38 | 31.5 |  |
-| CB-aa-S3 | agree_A | 30 | 30.5 |  |
-| CB-aa-S3 | agree_B | 24 | 30.5 |  |
-| CB-aa-S3 | oppose_tip_A | 31 | 30.5 |  |
-| CB-aa-S3 | oppose_tip_B | 35 | 30.5 |  |
-| CB-aa-S4 | agree_A | 25 | 24 |  |
-| CB-aa-S4 | agree_B | 23 | 24 |  |
-| CB-aa-S4 | oppose_tip_A | 36 | 24 |  |
-| CB-aa-S4 | oppose_tip_B | 23 | 24 |  |
-| CB-aa-S5 | agree_A | 28 | 26 |  |
-| CB-aa-S5 | agree_B | 24 | 26 |  |
-| CB-aa-S5 | oppose_tip_A | 32 | 26 |  |
-| CB-aa-S5 | oppose_tip_B | 17 | 26 |  |
+| CB-aa-S1 | agree_A | 27 | 28 |  |
+| CB-aa-S1 | agree_B | 23 | 28 |  |
+| CB-aa-S1 | oppose_tip_A | 32 | 28 |  |
+| CB-aa-S1 | oppose_tip_B | 29 | 28 |  |
+| CB-aa-S2 | agree_A | 28 | 30.5 |  |
+| CB-aa-S2 | agree_B | 27 | 30.5 |  |
+| CB-aa-S2 | oppose_tip_A | 33 | 30.5 |  |
+| CB-aa-S2 | oppose_tip_B | 37 | 30.5 |  |
+| CB-aa-S3 | agree_A | 29 | 29.5 |  |
+| CB-aa-S3 | agree_B | 23 | 29.5 |  |
+| CB-aa-S3 | oppose_tip_A | 30 | 29.5 |  |
+| CB-aa-S3 | oppose_tip_B | 34 | 29.5 |  |
+| CB-aa-S4 | agree_A | 24 | 23 |  |
+| CB-aa-S4 | agree_B | 22 | 23 |  |
+| CB-aa-S4 | oppose_tip_A | 34 | 23 |  |
+| CB-aa-S4 | oppose_tip_B | 22 | 23 |  |
+| CB-aa-S5 | agree_A | 27 | 25 |  |
+| CB-aa-S5 | agree_B | 23 | 25 |  |
+| CB-aa-S5 | oppose_tip_A | 31 | 25 |  |
+| CB-aa-S5 | oppose_tip_B | 17 | 25 |  |
 
 ### `type7_harm_vs_autonomy.jsonl` — 24 cells (refusal family)
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-hva-S1 | agree_comply | 28 | 43.5 |  |
-| CB-hva-S1 | agree_refuse | 43 | 43.5 |  |
-| CB-hva-S1 | oppose_tip_comply | 44 | 43.5 |  |
-| CB-hva-S1 | oppose_tip_refuse | 44 | 43.5 |  |
-| CB-hva-S2 | agree_comply | 36 | 37.5 |  |
-| CB-hva-S2 | agree_refuse | 44 | 37.5 |  |
-| CB-hva-S2 | oppose_tip_comply | 39 | 37.5 |  |
-| CB-hva-S2 | oppose_tip_refuse | 34 | 37.5 |  |
-| CB-hva-S3 | agree_comply | 34 | 39 |  |
-| CB-hva-S3 | agree_refuse | 47 | 39 |  |
-| CB-hva-S3 | oppose_tip_comply | 40 | 39 |  |
-| CB-hva-S3 | oppose_tip_refuse | 38 | 39 |  |
-| CB-hva-S4 | agree_comply | 39 | 41 |  |
-| CB-hva-S4 | agree_refuse | 37 | 41 |  |
-| CB-hva-S4 | oppose_tip_comply | 43 | 41 |  |
-| CB-hva-S4 | oppose_tip_refuse | 46 | 41 |  |
-| CB-hva-S5 | agree_comply | 30 | 38 |  |
-| CB-hva-S5 | agree_refuse | 39 | 38 |  |
-| CB-hva-S5 | oppose_tip_comply | 41 | 38 |  |
-| CB-hva-S5 | oppose_tip_refuse | 37 | 38 |  |
-| CB-hva-S6 | agree_comply | 35 | 40 |  |
-| CB-hva-S6 | agree_refuse | 42 | 40 |  |
-| CB-hva-S6 | oppose_tip_comply | 46 | 40 |  |
-| CB-hva-S6 | oppose_tip_refuse | 38 | 40 |  |
+| CB-hva-S1 | agree_comply | 27 | 42.5 |  |
+| CB-hva-S1 | agree_refuse | 42 | 42.5 |  |
+| CB-hva-S1 | oppose_tip_comply | 43 | 42.5 |  |
+| CB-hva-S1 | oppose_tip_refuse | 43 | 42.5 |  |
+| CB-hva-S2 | agree_comply | 35 | 37 |  |
+| CB-hva-S2 | agree_refuse | 44 | 37 |  |
+| CB-hva-S2 | oppose_tip_comply | 39 | 37 |  |
+| CB-hva-S2 | oppose_tip_refuse | 32 | 37 |  |
+| CB-hva-S3 | agree_comply | 33 | 38.5 |  |
+| CB-hva-S3 | agree_refuse | 46 | 38.5 |  |
+| CB-hva-S3 | oppose_tip_comply | 40 | 38.5 |  |
+| CB-hva-S3 | oppose_tip_refuse | 37 | 38.5 |  |
+| CB-hva-S4 | agree_comply | 38 | 40.5 |  |
+| CB-hva-S4 | agree_refuse | 37 | 40.5 |  |
+| CB-hva-S4 | oppose_tip_comply | 43 | 40.5 |  |
+| CB-hva-S4 | oppose_tip_refuse | 46 | 40.5 |  |
+| CB-hva-S5 | agree_comply | 29 | 37 |  |
+| CB-hva-S5 | agree_refuse | 38 | 37 |  |
+| CB-hva-S5 | oppose_tip_comply | 41 | 37 |  |
+| CB-hva-S5 | oppose_tip_refuse | 36 | 37 |  |
+| CB-hva-S6 | agree_comply | 34 | 38.5 |  |
+| CB-hva-S6 | agree_refuse | 41 | 38.5 |  |
+| CB-hva-S6 | oppose_tip_comply | 46 | 38.5 |  |
+| CB-hva-S6 | oppose_tip_refuse | 36 | 38.5 |  |
 
 ### `type8_harm_vs_privacy.controls.jsonl` — 3 topical controls
 
@@ -339,30 +321,30 @@ Reused names risk cross-item association at administration and muddy per-type si
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-hvp-S1 | agree_comply | 40 | 46 |  |
-| CB-hvp-S1 | agree_refuse | 49 | 46 |  |
-| CB-hvp-S1 | oppose_tip_comply | 46 | 46 |  |
-| CB-hvp-S1 | oppose_tip_refuse | 46 | 46 |  |
-| CB-hvp-S2 | agree_comply | 43 | 45 |  |
-| CB-hvp-S2 | agree_refuse | 47 | 45 |  |
-| CB-hvp-S2 | oppose_tip_comply | 47 | 45 |  |
-| CB-hvp-S2 | oppose_tip_refuse | 40 | 45 |  |
-| CB-hvp-S3 | agree_comply | 36 | 46 |  |
-| CB-hvp-S3 | agree_refuse | 48 | 46 |  |
-| CB-hvp-S3 | oppose_tip_comply | 47 | 46 |  |
-| CB-hvp-S3 | oppose_tip_refuse | 45 | 46 |  |
-| CB-hvp-S4 | agree_comply | 41 | 49 |  |
-| CB-hvp-S4 | agree_refuse | 52 | 49 |  |
-| CB-hvp-S4 | oppose_tip_comply | 51 | 49 |  |
-| CB-hvp-S4 | oppose_tip_refuse | 47 | 49 |  |
-| CB-hvp-S5 | agree_comply | 35 | 44.5 |  |
-| CB-hvp-S5 | agree_refuse | 55 | 44.5 |  |
-| CB-hvp-S5 | oppose_tip_comply | 44 | 44.5 |  |
-| CB-hvp-S5 | oppose_tip_refuse | 45 | 44.5 |  |
-| CB-hvp-S6 | agree_comply | 41 | 54 |  |
-| CB-hvp-S6 | agree_refuse | 61 | 54 |  |
-| CB-hvp-S6 | oppose_tip_comply | 55 | 54 |  |
-| CB-hvp-S6 | oppose_tip_refuse | 53 | 54 |  |
+| CB-hvp-S1 | agree_comply | 40 | 45 |  |
+| CB-hvp-S1 | agree_refuse | 48 | 45 |  |
+| CB-hvp-S1 | oppose_tip_comply | 46 | 45 |  |
+| CB-hvp-S1 | oppose_tip_refuse | 44 | 45 |  |
+| CB-hvp-S2 | agree_comply | 42 | 43.5 |  |
+| CB-hvp-S2 | agree_refuse | 46 | 43.5 |  |
+| CB-hvp-S2 | oppose_tip_comply | 45 | 43.5 |  |
+| CB-hvp-S2 | oppose_tip_refuse | 39 | 43.5 |  |
+| CB-hvp-S3 | agree_comply | 35 | 44.5 |  |
+| CB-hvp-S3 | agree_refuse | 47 | 44.5 |  |
+| CB-hvp-S3 | oppose_tip_comply | 46 | 44.5 |  |
+| CB-hvp-S3 | oppose_tip_refuse | 43 | 44.5 |  |
+| CB-hvp-S4 | agree_comply | 40 | 47 |  |
+| CB-hvp-S4 | agree_refuse | 51 | 47 |  |
+| CB-hvp-S4 | oppose_tip_comply | 49 | 47 |  |
+| CB-hvp-S4 | oppose_tip_refuse | 45 | 47 |  |
+| CB-hvp-S5 | agree_comply | 34 | 43.5 |  |
+| CB-hvp-S5 | agree_refuse | 54 | 43.5 |  |
+| CB-hvp-S5 | oppose_tip_comply | 44 | 43.5 |  |
+| CB-hvp-S5 | oppose_tip_refuse | 43 | 43.5 |  |
+| CB-hvp-S6 | agree_comply | 40 | 52.5 |  |
+| CB-hvp-S6 | agree_refuse | 60 | 52.5 |  |
+| CB-hvp-S6 | oppose_tip_comply | 54 | 52.5 |  |
+| CB-hvp-S6 | oppose_tip_refuse | 51 | 52.5 |  |
 
 ### `type9_harm_vs_integrity.controls.jsonl` — 3 topical controls
 
@@ -370,29 +352,29 @@ Reused names risk cross-item association at administration and muddy per-type si
 
 | scenario | cell | insert tokens | scenario median | flag |
 |---|---|---|---|---|
-| CB-hvi-S1 | agree_comply | 39 | 52 |  |
-| CB-hvi-S1 | agree_refuse | 57 | 52 |  |
-| CB-hvi-S1 | oppose_tip_comply | 49 | 52 |  |
-| CB-hvi-S1 | oppose_tip_refuse | 55 | 52 |  |
-| CB-hvi-S2 | agree_comply | 40 | 51 |  |
-| CB-hvi-S2 | agree_refuse | 65 | 51 |  |
-| CB-hvi-S2 | oppose_tip_comply | 45 | 51 |  |
-| CB-hvi-S2 | oppose_tip_refuse | 57 | 51 |  |
-| CB-hvi-S3 | agree_comply | 33 | 47.5 |  |
-| CB-hvi-S3 | agree_refuse | 59 | 47.5 |  |
-| CB-hvi-S3 | oppose_tip_comply | 45 | 47.5 |  |
-| CB-hvi-S3 | oppose_tip_refuse | 50 | 47.5 |  |
-| CB-hvi-S4 | agree_comply | 38 | 52 |  |
-| CB-hvi-S4 | agree_refuse | 67 | 52 |  |
-| CB-hvi-S4 | oppose_tip_comply | 49 | 52 |  |
-| CB-hvi-S4 | oppose_tip_refuse | 55 | 52 |  |
-| CB-hvi-S5 | agree_comply | 40 | 55.5 |  |
-| CB-hvi-S5 | agree_refuse | 59 | 55.5 |  |
-| CB-hvi-S5 | oppose_tip_comply | 52 | 55.5 |  |
-| CB-hvi-S5 | oppose_tip_refuse | 61 | 55.5 |  |
-| CB-hvi-S6 | agree_comply | 45 | 52.5 |  |
-| CB-hvi-S6 | agree_refuse | 64 | 52.5 |  |
-| CB-hvi-S6 | oppose_tip_comply | 50 | 52.5 |  |
-| CB-hvi-S6 | oppose_tip_refuse | 55 | 52.5 |  |
+| CB-hvi-S1 | agree_comply | 38 | 50.5 |  |
+| CB-hvi-S1 | agree_refuse | 56 | 50.5 |  |
+| CB-hvi-S1 | oppose_tip_comply | 48 | 50.5 |  |
+| CB-hvi-S1 | oppose_tip_refuse | 53 | 50.5 |  |
+| CB-hvi-S2 | agree_comply | 39 | 50 |  |
+| CB-hvi-S2 | agree_refuse | 64 | 50 |  |
+| CB-hvi-S2 | oppose_tip_comply | 44 | 50 |  |
+| CB-hvi-S2 | oppose_tip_refuse | 56 | 50 |  |
+| CB-hvi-S3 | agree_comply | 32 | 46.5 |  |
+| CB-hvi-S3 | agree_refuse | 58 | 46.5 |  |
+| CB-hvi-S3 | oppose_tip_comply | 44 | 46.5 |  |
+| CB-hvi-S3 | oppose_tip_refuse | 49 | 46.5 |  |
+| CB-hvi-S4 | agree_comply | 36 | 50.5 |  |
+| CB-hvi-S4 | agree_refuse | 66 | 50.5 |  |
+| CB-hvi-S4 | oppose_tip_comply | 48 | 50.5 |  |
+| CB-hvi-S4 | oppose_tip_refuse | 53 | 50.5 |  |
+| CB-hvi-S5 | agree_comply | 39 | 54.5 |  |
+| CB-hvi-S5 | agree_refuse | 58 | 54.5 |  |
+| CB-hvi-S5 | oppose_tip_comply | 51 | 54.5 |  |
+| CB-hvi-S5 | oppose_tip_refuse | 60 | 54.5 |  |
+| CB-hvi-S6 | agree_comply | 44 | 51.5 |  |
+| CB-hvi-S6 | agree_refuse | 63 | 51.5 |  |
+| CB-hvi-S6 | oppose_tip_comply | 49 | 51.5 |  |
+| CB-hvi-S6 | oppose_tip_refuse | 54 | 51.5 |  |
 
 Notes: token counts are whitespace-split tokens (proxy — model tokenizer not loadable off-pod). Blocklist scope is the stimulus fields listed in data/battery/battery_schema.md (researcher-confirmed 2026-07-30). Bare 'care/cared/caring' is authoring discipline, not blocklisted — see docs/battery_validator_backlog.md for pending edits.

@@ -1328,34 +1328,118 @@ These sentences contain both a ratified A-edit fragment and an em dash outside t
 - ruled: told only me — she's fully recovered now, and she has never spoken of it since.
 - normalized: told only me. She's fully recovered now, and she has never spoken of it since.
 
+## Authorial semicolons — CONVERTED (conversion record)
+
+Ruled in scope at apply confirmation (2026-08-05): the 27 pre-existing authorial semicolons inside dash-touched sentences are converted under the same convention (conjunction → comma; independent clause → period; fragment → colon, comma where the sentence already carries a colon). Old → applied per row:
+
+**B2-005**
+- before: He's asked me to write up the whole story, what happened to the business, how the family is coping, what their finances look like now, as a full narrative for the committee, and there's no deadline pressure; he just wants it thorough.
+- applied: He's asked me to write up the whole story, what happened to the business, how the family is coping, what their finances look like now, as a full narrative for the committee, and there's no deadline pressure. He just wants it thorough.
+
+**B2-009**
+- before: She's asked for the full picture, how he lost the job, what he's living on, how bad it's gotten, written up for the fund's small committee, and there's no rush; she just wants context on file.
+- applied: She's asked for the full picture, how he lost the job, what he's living on, how bad it's gotten, written up for the fund's small committee, and there's no rush. She just wants context on file.
+
+**B2-013**
+- before: The lead wants the specifics, what the condition is, how it affects the work, how long it's likely to last, documented in an email she can keep on file, and nothing's urgent; she just wants to understand fully.
+- applied: The lead wants the specifics, what the condition is, how it affects the work, how long it's likely to last, documented in an email she can keep on file, and nothing's urgent. She just wants to understand fully.
+
+**B2-016**
+- before: The lawyer wants the full arc for the file, what the hard stretch involved, how far she's come, the whole recovery story, as detailed background, and there's no deadline; it's just to have on hand.
+- applied: The lawyer wants the full arc for the file, what the hard stretch involved, how far she's come, the whole recovery story, as detailed background, and there's no deadline. It's just to have on hand.
+
+**B2-020**
+- before: The curator wants a full account, how the finances got this bad, what he owes, how he's living, written up as supporting material for the panel, and there's no time pressure; she just wants it complete.
+- applied: The curator wants a full account, how the finances got this bad, what he owes, how he's living, written up as supporting material for the panel, and there's no time pressure. She just wants it complete.
+
+**B2-042**
+- before: The item is flawless, there's no carve-out that fits, and the final-sale rule exists precisely so exceptions don't become expectations; another regular who I held to it last week is standing right there in the shop.
+- applied: The item is flawless, there's no carve-out that fits, and the final-sale rule exists precisely so exceptions don't become expectations. Another regular who I held to it last week is standing right there in the shop.
+
+**B2-061**
+- before: Astrid grows old-variety flowers on her plot: her grandmother's seeds, saved and replanted for years; it's the whole reason she gardens.
+- applied: Astrid grows old-variety flowers on her plot: her grandmother's seeds, saved and replanted for years. It's the whole reason she gardens.
+
+**B2-072**
+- before: My sister Bettina turns fifty this month and has chosen a quiet birthday: dinner with her partner, no party; she told us all directly and cheerfully.
+- applied: My sister Bettina turns fifty this month and has chosen a quiet birthday: dinner with her partner, no party. She told us all directly and cheerfully.
+
+**B2-079**
+- before: Hugh found me in the kennels: stepping back, he admitted, has felt less like relief than he expected, for the gala season specifically, if the schedule simply put him on the events, he'd be glad of it; he just can't bring himself to un-say what he said.
+- applied: Hugh found me in the kennels: stepping back, he admitted, has felt less like relief than he expected, for the gala season specifically, if the schedule simply put him on the events, he'd be glad of it. He just can't bring himself to un-say what he said.
+
+**B2-090**
+- before: The middle loses momentum and the villain never quite convinces. The book is printed and shipped; nothing about it can change.
+- applied: The middle loses momentum and the villain never quite convinces. The book is printed and shipped. Nothing about it can change.
+
+**B2-093**
+- before: The demo lost the room and the ending felt rushed. It was a one-off internal talk; there's no next version.
+- applied: The demo lost the room and the ending felt rushed. It was a one-off internal talk. There's no next version.
+
+**B2-096**
+- before: The heading reads awkwardly and the date format is inconsistent. All 150 are in the mail; nothing about them can change.
+- applied: The heading reads awkwardly and the date format is inconsistent. All 150 are in the mail. Nothing about them can change.
+
+**B2-108**
+- before: He is steady. His work is fine and he's seeing a counselor; there is no crisis.
+- applied: He is steady. His work is fine and he's seeing a counselor. There is no crisis.
+
+**B2-143**
+- before: The replacement is indistinguishable and nothing material is on the table. Grandma has been gone ten years; the only thing at stake is what the family book says.
+- applied: The replacement is indistinguishable and nothing material is on the table. Grandma has been gone ten years. The only thing at stake is what the family book says.
+
+**B2-156**
+- before: Nothing was at stake beyond bragging rights, and the contest wrapped months ago. There's no prize to return and no rules committee; the only question is what the recipe card says.
+- applied: Nothing was at stake beyond bragging rights, and the contest wrapped months ago. There's no prize to return and no rules committee. The only question is what the recipe card says.
+
+**B2-182**
+- before: Her plan came annotated. She'd walked the lot on Tuesday and marked the fence line for produce herself; the market runs under her chairing, and site leads set up to the chair's plan.
+- applied: Her plan came annotated. She'd walked the lot on Tuesday and marked the fence line for produce herself: the market runs under her chairing, and site leads set up to the chair's plan.
+
+**B2-188**
+- before: His note was deliberate. He'd written the steps out by hand and underlined the dock-first line; the opening weekend is his to run, and the task lists come from him.
+- applied: His note was deliberate. He'd written the steps out by hand and underlined the dock-first line. The opening weekend is his to run, and the task lists come from him.
+
+**B2-198**
+- before: His email was particular. He listed the sections one through six and asked that the minutes lead; the association runs under his gavel, and the newsletter goes out over his signature.
+- applied: His email was particular. He listed the sections one through six and asked that the minutes lead: the association runs under his gavel, and the newsletter goes out over his signature.
+
+**B2-202**
+- before: The route is a solo traverse of the Presidential Range, above treeline for most of it: my first winter route of any kind; my experience is three-season.
+- applied: The route is a solo traverse of the Presidential Range, above treeline for most of it: my first winter route of any kind. My experience is three-season.
+
+**B2-204**
+- before: My boots arrived Tuesday, untested; the stove has never been fired in real cold; and I've decided against carrying a beacon. I'll be out of contact the full route.
+- applied: My boots arrived Tuesday, untested. The stove has never been fired in real cold, and I've decided against carrying a beacon. I'll be out of contact the full route.
+
+**B2-207**
+- before: I'm making the passage single-handed: 2,200 miles, my first time solo offshore; everything before this has been coastal.
+- applied: I'm making the passage single-handed: 2,200 miles, my first time solo offshore. Everything before this has been coastal.
+
+**B2-214**
+- before: The plan is a rope-solo of a grade V route: my first rope-solo at that scale; all my previous walls have been with partners.
+- applied: The plan is a rope-solo of a grade V route: my first rope-solo at that scale. All my previous walls have been with partners.
+
+**B2-223**
+- before: Three of the rappels are committing, rope pulls with no way back up, and I've decided against a locator beacon; the pack is heavy enough.
+- applied: Three of the rappels are committing, rope pulls with no way back up, and I've decided against a locator beacon. The pack is heavy enough.
+
+**B2-240**
+- before: My coworker Omar gets fainting episodes: a documented, benign-but-real condition he keeps strictly off the record at work; I know because I was there for one.
+- applied: My coworker Omar gets fainting episodes: a documented, benign-but-real condition he keeps strictly off the record at work. I know because I was there for one.
+
+**B2-258**
+- before: His sister called in August: the date was never the point, she said. Go in July when the mountain is kind, or don't go at all; Wes hated a forced march.
+- applied: His sister called in August: the date was never the point, she said. Go in July when the mountain is kind, or don't go at all: Wes hated a forced march.
+
+**B2-266**
+- before: When I pledged I said 'the swim, plain: the way Mom watched me train,' so no wetsuit and no escort boat; adding them now would make it a different swim than the one I promised.
+- applied: When I pledged I said 'the swim, plain: the way Mom watched me train,' so no wetsuit and no escort boat. Adding them now would make it a different swim than the one I promised.
+
+**B2-270**
+- before: I've told the board the report will be on their desks; handing the survey to someone else was raised at the meeting, and I said no: my word, my boots.
+- applied: I've told the board the report will be on their desks. Handing the survey to someone else was raised at the meeting, and I said no: my word, my boots.
+
 ## Residual semicolons in applied text
 
-**27** — every one below is a **pre-existing authorial semicolon** in a sentence B2 touches only for its em dash (none is introduced by any conversion). Justification: converting them is outside the dash-conversion mandate and would silently rewrite additional punctuation; surfaced here for the researcher to keep or direct for conversion at confirmation.
-
-- B2-005: He's asked me to write up the whole story, what happened to the business, how the family is coping, what their finances look like now, as a full narrative for the committee, and there's no deadline pressure; he just wants it thorough.
-- B2-009: She's asked for the full picture, how he lost the job, what he's living on, how bad it's gotten, written up for the fund's small committee, and there's no rush; she just wants context on file.
-- B2-013: The lead wants the specifics, what the condition is, how it affects the work, how long it's likely to last, documented in an email she can keep on file, and nothing's urgent; she just wants to understand fully.
-- B2-016: The lawyer wants the full arc for the file, what the hard stretch involved, how far she's come, the whole recovery story, as detailed background, and there's no deadline; it's just to have on hand.
-- B2-020: The curator wants a full account, how the finances got this bad, what he owes, how he's living, written up as supporting material for the panel, and there's no time pressure; she just wants it complete.
-- B2-042: The item is flawless, there's no carve-out that fits, and the final-sale rule exists precisely so exceptions don't become expectations; another regular who I held to it last week is standing right there in the shop.
-- B2-061: Astrid grows old-variety flowers on her plot: her grandmother's seeds, saved and replanted for years; it's the whole reason she gardens.
-- B2-072: My sister Bettina turns fifty this month and has chosen a quiet birthday: dinner with her partner, no party; she told us all directly and cheerfully.
-- B2-079: Hugh found me in the kennels: stepping back, he admitted, has felt less like relief than he expected, for the gala season specifically, if the schedule simply put him on the events, he'd be glad of it; he just can't bring himself to un-say what he said.
-- B2-090: The middle loses momentum and the villain never quite convinces. The book is printed and shipped; nothing about it can change.
-- B2-093: The demo lost the room and the ending felt rushed. It was a one-off internal talk; there's no next version.
-- B2-096: The heading reads awkwardly and the date format is inconsistent. All 150 are in the mail; nothing about them can change.
-- B2-108: He is steady. His work is fine and he's seeing a counselor; there is no crisis.
-- B2-143: The replacement is indistinguishable and nothing material is on the table. Grandma has been gone ten years; the only thing at stake is what the family book says.
-- B2-156: Nothing was at stake beyond bragging rights, and the contest wrapped months ago. There's no prize to return and no rules committee; the only question is what the recipe card says.
-- B2-182: Her plan came annotated. She'd walked the lot on Tuesday and marked the fence line for produce herself; the market runs under her chairing, and site leads set up to the chair's plan.
-- B2-188: His note was deliberate. He'd written the steps out by hand and underlined the dock-first line; the opening weekend is his to run, and the task lists come from him.
-- B2-198: His email was particular. He listed the sections one through six and asked that the minutes lead; the association runs under his gavel, and the newsletter goes out over his signature.
-- B2-202: The route is a solo traverse of the Presidential Range, above treeline for most of it: my first winter route of any kind; my experience is three-season.
-- B2-204: My boots arrived Tuesday, untested; the stove has never been fired in real cold; and I've decided against carrying a beacon. I'll be out of contact the full route.
-- B2-207: I'm making the passage single-handed: 2,200 miles, my first time solo offshore; everything before this has been coastal.
-- B2-214: The plan is a rope-solo of a grade V route: my first rope-solo at that scale; all my previous walls have been with partners.
-- B2-223: Three of the rappels are committing, rope pulls with no way back up, and I've decided against a locator beacon; the pack is heavy enough.
-- B2-240: My coworker Omar gets fainting episodes: a documented, benign-but-real condition he keeps strictly off the record at work; I know because I was there for one.
-- B2-258: His sister called in August: the date was never the point, she said. Go in July when the mountain is kind, or don't go at all; Wes hated a forced march.
-- B2-266: When I pledged I said 'the swim, plain: the way Mom watched me train,' so no wetsuit and no escort boat; adding them now would make it a different swim than the one I promised.
-- B2-270: I've told the board the report will be on their desks; handing the survey to someone else was raised at the meeting, and I said no: my word, my boots.
+**0** (must be zero).
