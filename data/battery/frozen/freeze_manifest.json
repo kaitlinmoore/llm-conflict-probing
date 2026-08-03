@@ -1,0 +1,87 @@
+{
+  "schema_version": "battery_frozen_v1",
+  "produced_by": "Claude Fable 5 (model id claude-fable-5)",
+  "frozen_utc": "2026-08-03T18:08:58+00:00",
+  "input_digests": {
+    "type10_privacy_vs_care.controls.jsonl": {
+      "sha256": "9529cb898a14391088fd474f5d26bbdbf6c0269ec7f8ffab5d5a04a59cd90334",
+      "bytes": 2578
+    },
+    "type10_privacy_vs_care.jsonl": {
+      "sha256": "f925e108d45247a4efa36640c0d125492f1e07d3c13a6828f56c040b6cc8649d",
+      "bytes": 44157
+    },
+    "type11_integrity_vs_mercy.jsonl": {
+      "sha256": "575724fb542dce9b6e752e813aeba2409000f93eddadcec58d05a51b9631d2d9",
+      "bytes": 45078
+    },
+    "type12_autonomy_vs_collective.jsonl": {
+      "sha256": "4ed9317dfd6ba320e1d33f1289cae585d9389c3c4b381915cca9d7f3003114a3",
+      "bytes": 46557
+    },
+    "type1_honesty_vs_care.jsonl": {
+      "sha256": "d73988a5af5de81573189b3d6b713a1b67e752a0417276eaac2a137ea6866584",
+      "bytes": 29389
+    },
+    "type2_privacy_vs_care.controls.jsonl": {
+      "sha256": "084ec91b2101844e568ccf7095acaff47eb86b32193eb0a6171fe38b7c78123d",
+      "bytes": 3722
+    },
+    "type2_privacy_vs_care.jsonl": {
+      "sha256": "73347ecc5619195b0f073a822f24172908673a52a8765a13675dd3ff3173c76f",
+      "bytes": 33487
+    },
+    "type3_mercy_vs_desert.jsonl": {
+      "sha256": "ca07340178a75ceaf0a8d1d97b34bb00973bedfa74d9d2c4f542a89d15405119",
+      "bytes": 34358
+    },
+    "type4_loyalty_vs_honesty.jsonl": {
+      "sha256": "a629e7d084f740e0352808327799dd45a1b4d966c9308c3c14745662eb6a3c20",
+      "bytes": 33734
+    },
+    "type5_tradition_vs_autonomy.jsonl": {
+      "sha256": "c90c9038cb14e592403391e210def582f8a4652889178cba539e7bbe3b021e1d",
+      "bytes": 36076
+    },
+    "type6_authority_vs_autonomy.jsonl": {
+      "sha256": "0611b18eace17e56fc277b44f46d74986b818d7d281d2c30bcd6b4a92259ad33",
+      "bytes": 35018
+    },
+    "type7_harm_vs_autonomy.jsonl": {
+      "sha256": "0065d11c983b1ac4c1cd9f97cd1bd8c710c9670ec60aed6d5ae8087a919efc66",
+      "bytes": 39092
+    },
+    "type8_harm_vs_privacy.controls.jsonl": {
+      "sha256": "621d657b8881c948fec33b0a80f2eb93e70b96c7d32388edcebe2e00f4276246",
+      "bytes": 2431
+    },
+    "type8_harm_vs_privacy.jsonl": {
+      "sha256": "b92b88d4f2893822e150be5c8c7c1828502f9c49cc31cec29a0616d2740be4f7",
+      "bytes": 43315
+    },
+    "type9_harm_vs_integrity.controls.jsonl": {
+      "sha256": "fb155fb55ba42dcea913d99ee999535cc936fc5dfbe47e41f123497eb735d317",
+      "bytes": 2436
+    },
+    "type9_harm_vs_integrity.jsonl": {
+      "sha256": "094d52b528999a7b73cb495ebba423fe94a6005e398f12a4f439363a58b8ed90",
+      "bytes": 45183
+    }
+  },
+  "verdict_integrity": {
+    "approve": 277,
+    "non_approve": 0
+  },
+  "n_draft_records": 277,
+  "n_frozen_rows": 401,
+  "rows_by_kind_order": {
+    "battery_cell:AB": 120,
+    "battery_cell:BA": 120,
+    "battery_cell:NA": 144,
+    "topical_control:AB": 4,
+    "topical_control:BA": 4,
+    "topical_control:NA": 9
+  },
+  "frozen_sha256": "adce95fd1df5fc383b1f420744fd27b3003f8112bff46c0801a6071f9bcbf49a",
+  "frozen_bytes": 713675
+}

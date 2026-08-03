@@ -313,3 +313,23 @@ never type count) → write-up polish, never limitations.
 
 *Append the freeze state below this line when the freeze runs: frozen row count, sha,
 order-generation record, and the verdict-integrity report's final counts.*
+
+## FREEZE STATE — appended 2026-08-05 (Claude Code, freeze run)
+
+- **Frozen set:** `data/battery/frozen/battery_frozen_v1.jsonl` — **401 rows**
+  from **277 approved records** (zero dropped; approve-only filter, exact match).
+- **sha256:** `adce95fd1df5fc383b1f420744fd27b3003f8112bff46c0801a6071f9bcbf49a`
+  (713,675 bytes; deterministic — no timestamps in rows; manifest:
+  `data/battery/frozen/freeze_manifest.json`).
+- **Order generation (D36):** every options-bearing row frozen in both orders
+  with option/value swap and expected_pick flip — choice cells 120 AB + 120 BA;
+  choice-family controls (T2) 4 AB + 4 BA; refusal cells 144 NA; refusal-family
+  controls 9 NA. Total 401.
+- **Verdict integrity (final, pre-freeze report `docs/verdict_integrity_2026-08-05.md`):**
+  264 battery cells + 13 topical controls = 277 records, all exactly lowercase
+  `approve`; 0 blanks, 0 whitespace variants, 0 other tokens. The freezer
+  re-checked at freeze time and refuses on any non-approve token — nothing was
+  or can be silently dropped.
+- Freezer: `src/battery/freeze_battery.py` (new, tested; suite green).
+  Input drafts state: the delta-review-complete ingest (all input digests in
+  the freeze manifest).
