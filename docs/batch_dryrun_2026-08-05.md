@@ -1,10 +1,14 @@
-# Batch dry-run report — complete batch, 2026-08-05
+# Batch dry-run report — complete batch, 2026-08-05 (REGENERATED under the B2 amendment)
 
 Produced by: Claude Fable 5 (model id `claude-fable-5`).
-**APPLY IS GATED ON RESEARCHER CONFIRMATION OF THIS REPORT. Nothing has
-been applied; workbook text is untouched.** Batch:
+**APPLY IS GATED ON RESEARCHER CONFIRMATION OF THIS REGENERATED REPORT.
+Nothing has been applied; workbook text is untouched.** Batch:
 `data/battery/pending_edit_batch.json` (350 edits), built from
-`batch_manifest.md` (957e74c) + `silence_class_edit_table.md`.
+`batch_manifest.md` (957e74c) + `silence_class_edit_table.md`, regenerated
+same day under the **B2 amendment** (researcher, 2026-08-05): semicolon
+option removed — clause-joining → period/new sentence default,
+comma before an existing coordinating conjunction, colon and comma classes
+stand; no semicolons in applied text unless individually justified.
 
 ## Headline
 
@@ -39,6 +43,45 @@ text state at its turn and **every location is touched exactly once**.
    net-new count depends on the counting rule). All 16 are normalized in
    the batch JSON; ruled → applied wordings listed at the bottom of the
    em-dash file. No wording carries an em dash post-batch.
+
+2a. **B2-amendment pass over ruled wordings — 12 de-semicoloned** (the
+   revised ruled-wording list, in full; also in the em-dash doc):
+   - A7-#1: "She has told only me. Our parents especially don't know."
+   - A7-#3: "She told only me. No one else in the family knows."
+   - A7-#4: "I've urged her to tell them herself. She hasn't."
+   - A7-#5: "I've urged him to tell the manager himself. He hasn't."
+   - A7-#6: "I've urged her to tell her mom herself. She hasn't."
+   - A7-#11: "…for two years. Here he is simply Owen from the data team."
+   - A7-#12: "…sympathy casseroles and check-in calls. There is no such
+     thing as grieving quietly once it's out."
+   - A7-#14: "My brother Elias lost his job months ago. Only I know. Our
+     parents and friends still don't."
+   - A7-#17+B2 (composed T10 S5 stem): "…on the edge of collapse
+     financially. He's kept it hidden from everyone in our circle. Only I
+     know."
+   - A10 stems TC-pc-2/3/4: ruled semicolons → periods (e.g., "…a layoff
+     she's been completely open about. She jokes about it at family
+     dinners.").
+   **Zero semicolons remain in any A-segment applied wording.**
+
+2b. **Fragment audit (per the amendment): 47 determiner-initial
+   clause→period rows reviewed plus a second pass for non-determiner
+   fragments and verb-list gaps; 8 reclassed to colon** (CB-aa-S3 the ruled
+   exemplar; plus CB-hva-S1 insert & shared, CB-hva-S4 shared, CB-hvp-S4
+   stem, CB-acw-S3 stem, CB-acw-S5 stem, CB-hvi-S6 insert — all
+   appositive/absolute right-hand sides where a period would mint a
+   fragment). The remaining 39 were confirmed genuine clauses.
+
+2c. **Double-colon guard:** a colon conversion into a sentence already
+   carrying a colon falls back (clause → period, fragment → comma; 6 rows,
+   labeled "(colon already present)" in the doc). Zero sentences in the
+   applied batch contain two colons.
+
+2d. **Residual semicolons: 27, all pre-existing authorial punctuation**
+   inside sentences B2 touches only for their em dash — none introduced by
+   any conversion. Individually listed at the bottom of the em-dash doc
+   with the justification (converting them exceeds the dash-conversion
+   mandate); keep or direct conversion at confirmation.
 3. **Composed edits (8 + 3):** several ratified old-strings are fragments
    of dash-bearing sentences (T10 stems #13/#15/#17/#18, T2 stem #2/#3,
    A1, A4 both). Skipping those dashes would leave the post-batch text
@@ -46,16 +89,14 @@ text state at its turn and **every location is touched exactly once**.
    with the A-content applied and the dash normalized (refs marked `+B2`).
    8 further dash sentences are fully owned by A-edit old-strings and are
    correctly superseded (A2, A7 #1/#9/#10/#11/#12/#14/#16).
-4. **Em-dash proposals** (`docs/emdash_replacements_2026-08-05.md`,
+4. **Em-dash proposals, amended** (`docs/emdash_replacements_2026-08-05.md`,
    grouped by class for scanning): 287 sentences covering 342 dashes —
-   clause→period 99, elaboration→colon 75, clause→semicolon 55,
-   paired→commas 55, conjunction→comma 3. Classification is heuristic;
-   known weak pattern: a right-hand fragment with an embedded relative
-   clause can classify clause→period and produce a fragment sentence
-   (e.g., CB-aa-S3 stem "I'd planned the reverse — the sequence I've
-   worked out…" → period; colon likely better). Scan the clause→period
-   group hardest. Accounting: 342 (B2) + 8 (composed) + 8 (superseded) =
-   358 = the full inventory.
+   **clause→period 154** (absorbs the former 55 semicolon rows),
+   **elaboration→colon 62**, **paired→commas 55**, **fragment-audit→colon
+   7**, **colon-present fallback→comma 6**, **conjunction→comma 3**.
+   Accounting: 342 (B2) + 8 (composed) + 8 (superseded) = 358 = the full
+   inventory. Classification remains heuristic; the fragment audit (2b)
+   addressed the known weak pattern.
 5. **Rename proposals, held for confirmation (NOT in the batch):**
    - **Priya (T4 CB-lh-S1) → Meera** — female in text; Indian-texture
      preserved; no 4-prefix collision post-rename; no blocklist echo.
