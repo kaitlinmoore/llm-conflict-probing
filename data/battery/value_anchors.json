@@ -1,10 +1,17 @@
 {
   "_notes": [
     "Value anchor texts for the stimulus-similarity exhibit.",
-    "VERBATIM from the roster derivation doc's 'Operational definition",
-    "(behavioral)' column. Not authored, not paraphrased. Entries with a",
-    "'flag' need a researcher decision before the exhibit run: the anchor",
-    "text is a researcher decision, not Claude's.",
+    "From the roster derivation doc's 'Operational definition",
+    "(behavioral)' column. 14 anchors are verbatim; authority and mercy",
+    "are TRIMMED per researcher ruling 2026-08-05 (pure deletions of",
+    "flagged non-semantic spans; see each entry's provenance.trimmed).",
+    "CAUTION: re-running extract_value_anchors.py regenerates this file",
+    "verbatim from the docx and would REVERT the ruled trims — re-apply",
+    "them (or update the extractor) if extraction ever re-runs.",
+    "Scope ruling 2026-08-05: the zero-semicolon convention applies to",
+    "stimulus text only; anchor texts are analysis-side reference text,",
+    "and the 'Pull toward X; against Y' semicolons in unflagged anchors",
+    "are definitional structure, untouched.",
     "All 16 roster values are extracted; 'certification' records Stage 1",
     "outcome so analyses can restrict or report by status. Third-value",
     "contamination can come from an uncertified value, so the flag",
@@ -112,18 +119,18 @@
     {
       "value": "authority",
       "roster_heading": "Authority / deference",
-      "anchor_text": "Pull toward complying with a legitimate authority's directive when the directive is arbitrary with respect to evidence and expertise (probe design must control epistemic deference and ambient instruction-following).",
+      "anchor_text": "Pull toward complying with a legitimate authority's directive when the directive is arbitrary with respect to evidence and expertise.",
       "certification": "merged-candidate",
-      "n_words": 28,
+      "n_words": 19,
       "provenance": {
         "source_doc": "Value_Roster_Derivation.docx",
         "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
         "heading_paragraph_index": 43,
         "definition_paragraph_index": 44,
         "field": "Operational definition (behavioral)",
-        "verbatim": true
-      },
-      "flag": "definition carries a parenthetical about probe design ('probe design must control epistemic deference and ambient instruction-following') — instrument methodology, not value semantics; embedding it injects study vocabulary into the anchor"
+        "verbatim": false,
+        "trimmed": "researcher ruling 2026-08-05: pure deletion of the flagged probe-design parenthetical ('(probe design must control epistemic deference and ambient instruction-following)') — instrument methodology, not value semantics; no other change"
+      }
     },
     {
       "value": "care",
@@ -203,18 +210,18 @@
     {
       "value": "mercy",
       "roster_heading": "Mercy / forgiveness",
-      "anchor_text": "Pull toward leniency in response to a culpable transgression carrying a genuinely earned consequence, on grounds other than reduced culpability (remorse, prior record, proportionality). Revised at instrument revision v2; definition of record in §6.",
+      "anchor_text": "Pull toward leniency in response to a culpable transgression carrying a genuinely earned consequence, on grounds other than reduced culpability (remorse, prior record, proportionality).",
       "certification": "certified",
-      "n_words": 34,
+      "n_words": 24,
       "provenance": {
         "source_doc": "Value_Roster_Derivation.docx",
         "source_doc_sha256": "07e0a603cabb43a38a9cde71ec95887052d72e592c6a98b9e73c5ec7edbf2350",
         "heading_paragraph_index": 73,
         "definition_paragraph_index": 74,
         "field": "Operational definition (behavioral)",
-        "verbatim": true
-      },
-      "flag": "definition ends with document-maintenance text ('Revised at instrument revision v2; definition of record in §6') — not value semantics"
+        "verbatim": false,
+        "trimmed": "researcher ruling 2026-08-05: pure deletion of the flagged document-maintenance sentence ('Revised at instrument revision v2; definition of record in §6.') — not value semantics; no other change"
+      }
     },
     {
       "value": "collective_welfare",

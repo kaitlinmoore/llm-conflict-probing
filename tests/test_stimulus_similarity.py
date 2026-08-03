@@ -184,24 +184,35 @@ class AnchorExtractionTests(unittest.TestCase):
         keys = {a["value"] for a in blob["anchors"]}
         self.assertEqual(keys, set(eva.VALUE_KEYS.values()))
 
-    def test_anchor_text_is_verbatim_definition_not_bare_word(self):
+    def test_anchor_text_is_full_definition_not_bare_word(self):
         if not self.ANCHORS.exists():
             self.skipTest("anchors not extracted")
         blob = json.loads(self.ANCHORS.read_text(encoding="utf-8"))
         for a in blob["anchors"]:
             self.assertGreater(len(a["anchor_text"].split()), 5, a["value"])
-            self.assertTrue(a["provenance"]["verbatim"])
+            # 14 verbatim; authority and mercy trimmed per researcher
+            # ruling 2026-08-05 (pure deletions, recorded in provenance)
+            if a["value"] in ("authority", "mercy"):
+                self.assertFalse(a["provenance"]["verbatim"], a["value"])
+                self.assertIn("2026-08-05", a["provenance"]["trimmed"])
+            else:
+                self.assertTrue(a["provenance"]["verbatim"], a["value"])
 
-    def test_problem_anchors_flagged_not_rewritten(self):
+    def test_problem_anchors_trimmed_per_ruling(self):
         if not self.ANCHORS.exists():
             self.skipTest("anchors not extracted")
         blob = json.loads(self.ANCHORS.read_text(encoding="utf-8"))
         by = {a["value"]: a for a in blob["anchors"]}
-        self.assertIn("flag", by["authority"])
-        self.assertIn("flag", by["mercy"])
-        # flagged text is still the untouched original
-        self.assertIn("probe design", by["authority"]["anchor_text"])
-        self.assertIn("§6", by["mercy"]["anchor_text"])
+        # ruled 2026-08-05: flagged non-semantic spans deleted, flags
+        # resolved; the semantic definition text is intact
+        self.assertNotIn("flag", by["authority"])
+        self.assertNotIn("flag", by["mercy"])
+        self.assertNotIn("probe design", by["authority"]["anchor_text"])
+        self.assertNotIn("§6", by["mercy"]["anchor_text"])
+        self.assertTrue(by["authority"]["anchor_text"].endswith(
+            "evidence and expertise."))
+        self.assertTrue(by["mercy"]["anchor_text"].endswith(
+            "(remorse, prior record, proportionality)."))
 
     def test_certification_recorded(self):
         if not self.ANCHORS.exists():

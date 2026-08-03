@@ -1,5 +1,12 @@
 # Em-dash replacement proposals — B2 convention as amended (2026-08-05)
 
+> **Scope (ruled 2026-08-05):** the zero-semicolon convention applies to
+> **stimulus text only**. Anchor texts (`data/battery/value_anchors.json`)
+> are analysis-side reference text; the "Pull toward X; against Y"
+> semicolons in the unflagged anchors are definitional structure and are
+> untouched. (The authority/mercy anchors were separately trimmed by pure
+> deletion of flagged non-semantic spans, same ruling date.)
+
 Produced by: Claude Fable 5 (model id `claude-fable-5`). **Proposals for researcher scan — nothing applied.** Convention (amendment 2026-08-05): paired parenthetical → commas; clause-joining → period/new sentence (semicolon REMOVED; comma before an existing coordinating conjunction); before-elaboration → colon; fragment-pattern rows reclassed to colon per the CB-aa-S3 ruling. No semicolons in applied text anywhere (residual count reported below; expect 0). Each row is old sentence → proposed sentence.
 
 Total dash-bearing sentences edited: 287 (covering 342 dashes); superseded by batch old-strings and excluded: 8.
