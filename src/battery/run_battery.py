@@ -33,13 +33,14 @@ competition) — its p_A/p_B come from the anchor's next-token distribution
 manifest). Refusal rows have no options and no answer-only arm; the
 answer-only fallback in run_configuration is defined for choice items.
 
-⚠ PROMPT TEMPLATE NEEDS RESEARCHER SIGN-OFF BEFORE THE REAL RUN: no
-rendering spec exists in the repo (battery_schema.md deliberately left
-rendering to the runner). The template below is minimal — stimulus text
-verbatim in authored order (stem, shared opposition text, condition
-insert), options as "A: … / B: …" lines, and the only added instruction
-is the answer-only arm's one line. It is recorded VERBATIM in the run
-manifest; approve or amend it before B3 (smoke runs don't gate).
+PROMPT TEMPLATE: CONFIRMED by the researcher 2026-08-05, from the smoke
+shard's rendered_prompts.txt (no rendering spec existed in the repo;
+battery_schema.md deliberately left rendering to the runner). Template:
+stimulus text verbatim in authored order (stem, shared opposition text,
+condition insert), options as "A: … / B: …" lines, and the only added
+instruction is the answer-only arm's one line. Recorded VERBATIM in the
+run manifest. The answer-only arm's options-bearing-rows-only scope was
+confirmed in the same ruling.
 
 Usage (pod):
   python src/battery/run_battery.py --model meta-llama/Llama-3.1-8B-Instruct \
@@ -492,7 +493,9 @@ def main(argv=None):
                               "condition_insert (verbatim, \\n\\n-joined)",
             "options_block": "A: {option_A}\\nB: {option_B}",
             "answer_only_instruction": ANSWER_ONLY_INSTRUCTION,
-            "sign_off": "REQUIRED before the real run (module header)"},
+            "sign_off": "CONFIRMED by the researcher 2026-08-05 (smoke "
+                        "rendered_prompts review; answer-only scope "
+                        "confirmed choice-only in the same ruling)"},
         "p_ab_method": {"A_token_ids": a_ids, "B_token_ids": b_ids,
                         "rule": "sum of single-token encodings of 'A'/' A' "
                                 "(resp. B) in the anchor's next-token "

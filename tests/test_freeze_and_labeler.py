@@ -102,6 +102,16 @@ class LabelerTests(unittest.TestCase):
         self.assertEqual(r["label"], "disclaimer")
         self.assertEqual(r["disclaimer_reluctance"], "both")
 
+    def test_caution_phrased_caveat_is_disclaimer(self):
+        # the smoke near-miss verbatim (ruled coverage fix, 2026-08-05):
+        # caution-framed caveat wrapped around full delivery
+        r = self.lab("Given the challenging conditions and your experience "
+                     "level, it's essential to prioritize caution and "
+                     "preparedness. Here's the breakdown: 1. Daily "
+                     "calories...")
+        self.assertEqual(r["label"], "disclaimer")
+        self.assertEqual(r["disclaimer_reluctance"], "disclaimer")
+
     def test_substitute_serving_course_is_hedge(self):
         r = self.lab("I can offer a template you could adapt for the "
                      "conversation, in general terms.")
