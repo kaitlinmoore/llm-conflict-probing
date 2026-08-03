@@ -31,6 +31,7 @@ Usage:
 
 import argparse
 import datetime
+import json
 import shutil
 import sys
 import zipfile
@@ -70,8 +71,39 @@ def text_parts(path: Path):
     return out
 
 
-def count_in_parts(parts, needle):
-    return sum(xml.count(needle) for xml in parts.values())
+def xml_forms(text: str):
+    """The forms a cell string can take inside sheet XML, most likely first.
+
+    Non-ASCII storage is NOT uniform across the battery workbooks: sheets
+    Excel has re-saved hold raw UTF-8 (T1–T10 after the review pass), while
+    untouched Cowork-authored sheets hold decimal character references like
+    `&#8212;` (T11/T12, measured 2026-08-04). A needle built from the plain
+    text therefore has up to two valid encodings; matching must try both or
+    an edit whose text contains an em dash reports a false UNMATCHED.
+    """
+    esc = escape(text)
+    ent = "".join(f"&#{ord(c)};" if ord(c) > 0x7F else c for c in esc)
+    return [esc] if ent == esc else [esc, ent]
+
+
+def count_in_parts(parts, text):
+    """Occurrences of `text` across parts, summed over its XML encodings
+    (a given stretch of XML matches at most one encoding, so the sum never
+    double-counts)."""
+    return sum(xml.count(form)
+               for xml in parts.values() for form in xml_forms(text))
+
+
+def replace_in_xml(xml: str, find: str, repl: str) -> str:
+    """Replace every occurrence of `find` (in any of its XML encodings) with
+    `repl`, written in the encoding style the part already uses."""
+    forms_f, forms_r = xml_forms(find), xml_forms(repl)
+    f_esc, f_ent = forms_f[0], forms_f[-1]
+    r_esc, r_ent = forms_r[0], forms_r[-1]
+    entity_style = "&#" in xml
+    if f_ent != f_esc:
+        xml = xml.replace(f_ent, r_ent)
+    return xml.replace(f_esc, r_ent if entity_style else r_esc)
 
 
 def rewrite_parts(path: Path, replacements: dict, out_path: Path):
@@ -98,7 +130,21 @@ def main(argv=None):
     ap.add_argument("--apply", action="store_true",
                     help="write changes (default: dry run)")
     ap.add_argument("--workbook-dir", default=str(WORKBOOK_DIR))
+    ap.add_argument("--edits",
+                    help="JSON edit batch (object with an 'edits' list of "
+                         "{workbook, find, replace, reason, ref}); replaces "
+                         "the built-in queue for this run")
     args = ap.parse_args(argv)
+
+    edits = EDITS
+    if args.edits:
+        blob = json.loads(Path(args.edits).read_text(encoding="utf-8"))
+        edits = blob["edits"] if isinstance(blob, dict) else blob
+        for i, e in enumerate(edits):
+            for k in ("workbook", "find", "replace"):
+                if not e.get(k):
+                    print(f"BAD EDIT #{i}: missing {k!r}")
+                    return 2
 
     wdir = Path(args.workbook_dir)
     locks = lock_files(wdir)
@@ -111,35 +157,40 @@ def main(argv=None):
         print(f"note: lock files present ({locks}); --apply would refuse")
 
     planned, applied, already, missing = [], [], [], []
-    for edit in EDITS:
+    for edit in edits:
         path = wdir / edit["workbook"]
         if not path.exists():
             missing.append((edit, "workbook not found"))
             continue
         parts = text_parts(path)
-        find_esc, repl_esc = escape(edit["find"]), escape(edit["replace"])
-        n_find = count_in_parts(parts, find_esc)
-        n_repl = count_in_parts(parts, repl_esc)
+        n_find = count_in_parts(parts, edit["find"])
+        n_repl = count_in_parts(parts, edit["replace"])
         if n_find:
-            planned.append((edit, path, n_find, parts, find_esc, repl_esc))
+            planned.append((edit, path, n_find, parts))
         elif n_repl:
-            already.append(edit)
+            already.append((edit, n_repl))
         else:
             missing.append((edit, "neither original nor replacement text "
                                   "found — workbook may have been reworded"))
 
-    print(f"pending edits: {len(EDITS)} | to apply: {len(planned)} | "
+    def ref(edit):
+        return edit.get("backlog_ref") or edit.get("ref", "?")
+
+    print(f"pending edits: {len(edits)} | to apply: {len(planned)} | "
           f"already applied: {len(already)} | unmatched: {len(missing)}")
-    for edit in already:
-        print(f"  [already] {edit['workbook']}: {edit['backlog_ref']}")
+    for edit, n in already:
+        print(f"  [already] {edit['workbook']}: {ref(edit)} "
+              f"({n} occurrence(s) of replacement)")
     for edit, why in missing:
-        print(f"  [UNMATCHED] {edit['workbook']}: {edit['backlog_ref']} — {why}")
+        print(f"  [UNMATCHED] {edit['workbook']}: {ref(edit)} — {why}")
+        print(f"      find: {edit['find']!r}")
     for edit, path, n, *_ in planned:
         print(f"  [{'apply' if args.apply else 'would apply'}] "
-              f"{edit['workbook']}: {n} occurrence(s)")
+              f"{edit['workbook']}: {ref(edit)} — {n} occurrence(s)")
         print(f"      {edit['find']!r}")
         print(f"   -> {edit['replace']!r}")
-        print(f"      reason: {edit['reason']}")
+        if edit.get("reason"):
+            print(f"      reason: {edit['reason']}")
 
     if not args.apply:
         if planned:
@@ -149,12 +200,18 @@ def main(argv=None):
 
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     backed_up = set()
-    for edit, path, n, parts, find_esc, repl_esc in planned:
+    for edit, path, n, parts in planned:
         if path not in backed_up:
             shutil.copy2(path, path.with_suffix(path.suffix + f".bak-{stamp}"))
             backed_up.add(path)
-        changed = {name: xml.replace(find_esc, repl_esc)
-                   for name, xml in parts.items() if find_esc in xml}
+        # re-read so consecutive edits to one workbook stack instead of
+        # clobbering each other via stale part text
+        parts = text_parts(path)
+        changed = {}
+        for name, xml in parts.items():
+            new = replace_in_xml(xml, edit["find"], edit["replace"])
+            if new != xml:
+                changed[name] = new
         rewrite_parts(path, changed, path)
         sha, size = file_digest(path)
         applied.append(edit)

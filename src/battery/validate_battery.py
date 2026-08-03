@@ -32,6 +32,21 @@ Checks (task spec 2026-07-30, session 1):
      Token counts are whitespace-split tokens (documented proxy — the model
      tokenizer is not loadable off-pod; the 1.5x ratio criterion is
      insensitive to the proxy choice at these lengths).
+  f. Insert↔option overlap (choice family; Code brief 2026-08-03): >= 4
+     shared contentful word types between a cell's stimulus text (stem /
+     shared opposition text / condition_insert, each matched separately)
+     and either option — character names and function words are masked
+     (do not count toward the 4). Set-based rather than contiguous,
+     calibrated so the researcher's seed echo cells (T1 S2/S4/S5,
+     paraphrases with broken contiguity) fire. BLOCKING. Verbatim-echo cells telegraph the pick at the
+     anchor. Per-instance exemptions live in
+     data/battery/overlap_exemptions.json (same always-printed,
+     never-silent contract as blocklist exemptions). Stem and shared-text
+     matches are evaluated once per scenario (they ride 4 / 2 cells).
+     Refusal-family analogue (informational, NON-BLOCKING): condition
+     inserts and shared text checked the same way against the stem's
+     final ask sentence — an insert that echoes the ask telegraphs the
+     expected response.
 
 Exit nonzero on any blocking failure. Full report to stdout AND
 docs/battery_validation_report.md (atomic write; DIGEST line printed).
@@ -45,6 +60,7 @@ Usage:
 
 import argparse
 import datetime
+import difflib
 import json
 import re
 import statistics
@@ -88,6 +104,139 @@ NAME_STOPWORDS = {
     "October", "November", "December", "Dr", "Mr", "Mrs", "Ms", "St",
 }
 NAME_RE = re.compile(r"(?<![.!?]\s)(?<!^)\b([A-Z][a-z]{2,})\b")
+
+# --- check f: insert↔option overlap -----------------------------------------
+OVERLAP_MIN_CONTENT = 4
+WORD_RE = re.compile(r"[A-Za-z][A-Za-z']*")
+# Function words masked in the contentful-word count. Deliberately small and
+# closed-class: masking real content words would blunt the tripwire.
+OVERLAP_STOPWORDS = {
+    "a", "an", "the", "and", "or", "but", "so", "nor", "yet", "if", "then",
+    "than", "that", "this", "these", "those", "there", "here", "when",
+    "while", "where", "which", "who", "whom", "whose", "what", "how", "why",
+    "i", "i'm", "i've", "i'd", "i'll", "me", "my", "mine", "we", "our",
+    "ours", "us", "you", "your", "yours", "he", "him", "his", "she", "her",
+    "hers", "it", "its", "they", "them", "their", "theirs",
+    "am", "is", "are", "was", "were", "be", "been", "being", "do", "does",
+    "did", "have", "has", "had", "having", "will", "would", "shall",
+    "should", "can", "could", "may", "might", "must", "not", "no", "n't",
+    "to", "of", "in", "on", "at", "by", "for", "with", "from", "as", "into",
+    "onto", "about", "over", "under", "up", "down", "out", "off", "again",
+    "once", "just", "only", "own", "same", "such", "both", "each", "few",
+    "more", "most", "some", "any", "all", "very", "too", "also", "still",
+    "ever", "never", "now", "let", "lets", "let's",
+}
+
+
+def overlap_tokens(text: str):
+    return [w.lower() for w in WORD_RE.findall(text or "")]
+
+
+def overlap_matches(text_tokens, option_tokens, masked):
+    """Shared contentful word TYPES (set intersection after masking) >=
+    OVERLAP_MIN_CONTENT. Set-based, not contiguous: the known echo cells are
+    paraphrases whose contiguity is broken by small insertions ("the middle
+    [section] loses momentum", "sit [quite] right"), so a contiguous-run
+    criterion misses exactly the cells the check exists for (calibrated on
+    the researcher's seed hits T1 S2/S4/S5, 2026-08-04). The longest common
+    contiguous run is attached for readability.
+    -> [(matched_words_string, n_shared, longest_run_string)]"""
+    def content(tokens):
+        return {t for t in tokens
+                if t not in OVERLAP_STOPWORDS and t not in masked}
+    shared = content(text_tokens) & content(option_tokens)
+    if len(shared) < OVERLAP_MIN_CONTENT:
+        return []
+    sm = difflib.SequenceMatcher(None, text_tokens, option_tokens,
+                                 autojunk=False)
+    blk = max(sm.get_matching_blocks(), key=lambda b: b.size)
+    run = " ".join(text_tokens[blk.a:blk.a + blk.size])
+    return [(", ".join(sorted(shared)), len(shared), run)]
+
+
+def load_overlap_exemptions(path: Path):
+    """Same contract as blocklist exemptions: documented per-instance records
+    (cell — `*` allowed in the condition slot —, option, optional role,
+    rationale, date, granted_by); always printed, never silent; stale ones
+    reported."""
+    if not path.exists():
+        return [], {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    recs = data.get("exemptions", [])
+    return recs, {i: 0 for i in range(len(recs))}
+
+
+def overlap_exemption_for(exemptions, matched, cell_id, role, option):
+    for i, ex in enumerate(exemptions):
+        if ex.get("option") and ex["option"] != option:
+            continue
+        if ex.get("role") and ex["role"] != role:
+            continue
+        want = ex.get("cell", "")
+        hit = (want == cell_id or
+               (want.endswith(":*") and cell_id.startswith(want[:-1])))
+        if hit:
+            matched[i] = matched.get(i, 0) + 1
+            return i
+    return None
+
+
+def check_insert_option_overlap(all_records, f, exemptions, matched):
+    """Check f. Choice family: stem/shared/insert vs each option (stem and
+    shared evaluated once per scenario). Refusal family: insert/shared vs the
+    stem's final ask sentence, informational only."""
+    cells = [r for r in all_records
+             if r.get("record_type", "battery_cell") == "battery_cell"]
+    masked = {n.lower() for n in extract_names(cells)}
+    seen_scenario_role = set()
+    for rec in cells:
+        tid, sid = rec.get("type_id", "?"), rec.get("scenario_id", "?")
+        cond = rec.get("condition", "?")
+        cell_id = f"{tid}:{sid}:{cond}"
+        roles = [("insert", rec.get("condition_insert", "") or "", cell_id)]
+        shared = rec.get("shared_opposition_text", "") or ""
+        if shared and (tid, sid, "shared") not in seen_scenario_role:
+            seen_scenario_role.add((tid, sid, "shared"))
+            roles.append(("shared", shared, f"{tid}:{sid}:*"))
+        if (tid, sid, "stem") not in seen_scenario_role:
+            seen_scenario_role.add((tid, sid, "stem"))
+            roles.append(("stem", rec.get("stem", "") or "",
+                          f"{tid}:{sid}:*"))
+        if rec.get("family", "choice") == "choice":
+            targets = [("option_A", overlap_tokens(rec.get("option_A", ""))),
+                       ("option_B", overlap_tokens(rec.get("option_B", "")))]
+            for role, text, loc in roles:
+                toks = overlap_tokens(text)
+                for opt, opt_toks in targets:
+                    for match, n, run in overlap_matches(toks, opt_toks,
+                                                         masked):
+                        idx = overlap_exemption_for(exemptions, matched,
+                                                    loc, role, opt)
+                        detail = (f"{role} shares {n} contentful words with "
+                                  f"{opt}: [{match}]"
+                                  + (f" (longest run: \"{run}\")" if run
+                                     else ""))
+                        if idx is None:
+                            f.block("f.overlap", loc, detail)
+                        else:
+                            ex = exemptions[idx]
+                            f.exempted.append(
+                                f"{loc} — {detail} — EXEMPT "
+                                f"({ex.get('date', 'no date')}, "
+                                f"{ex.get('granted_by', 'unattributed')}): "
+                                f"{ex.get('rationale', 'no rationale')}")
+        else:
+            stem = (rec.get("stem", "") or "").strip()
+            sentences = re.split(r"(?<=[.!?])\s+", stem)
+            ask_toks = overlap_tokens(sentences[-1] if sentences else "")
+            for role, text, loc in roles:
+                if role == "stem":
+                    continue
+                for match, n, _run in overlap_matches(overlap_tokens(text),
+                                                      ask_toks, masked):
+                    f.ask_echo_flags.append(
+                        f"{loc} — {role} shares {n} contentful words with "
+                        f"the stem's ask sentence: [{match}]")
 
 
 def load_blocklists(path: Path):
@@ -171,6 +320,7 @@ class Findings:
         self.researcher_flags = []
         self.length_flags = []
         self.name_flags = []
+        self.ask_echo_flags = []    # refusal-family overlap analogue (info)
         self.exempted = []          # documented per-instance exemptions applied
         self.lines = []      # report body lines
 
@@ -405,6 +555,10 @@ def main(argv=None):
                     default="data/battery/blocklist_exemptions.json",
                     help="documented per-instance blocklist exemptions; "
                          "always reported, never silent")
+    ap.add_argument("--overlap-exemptions",
+                    default="data/battery/overlap_exemptions.json",
+                    help="documented per-instance insert↔option overlap "
+                         "exemptions (check f); same contract")
     ap.add_argument("--report", default="docs/battery_validation_report.md")
     args = ap.parse_args(argv)
 
@@ -432,8 +586,13 @@ def main(argv=None):
             json.loads(l) for l in
             path.read_text(encoding="utf-8").splitlines() if l.strip())
     cross_type_name_check(all_records, f)
+    ov_exemptions, ov_matched = load_overlap_exemptions(
+        Path(args.overlap_exemptions))
+    check_insert_option_overlap(all_records, f, ov_exemptions, ov_matched)
     stale_exemptions = [ex for i, ex in enumerate(exemptions)
                         if not matched.get(i)]
+    stale_ov_exemptions = [ex for i, ex in enumerate(ov_exemptions)
+                           if not ov_matched.get(i)]
 
     f.researcher_flags = list(dict.fromkeys(f.researcher_flags))
     now = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
@@ -454,6 +613,7 @@ def main(argv=None):
                   f"{len(f.researcher_flags)} researcher flags, "
                   f"{len(f.length_flags)} length flags, "
                   f"{len(f.name_flags)} name flags, "
+                  f"{len(f.ask_echo_flags)} ask-echo flags, "
                   f"{len(f.exempted)} exempted hits")
     report.append("")
     report.append("Lexeme scope: **global** — every type is checked against "
@@ -487,6 +647,20 @@ def main(argv=None):
         for flag in f.name_flags:
             report.append(f"- {flag}")
         report.append("")
+    if f.ask_echo_flags:
+        report.append("## Refusal-family ask-echo (informational, check f "
+                      "analogue — non-blocking)")
+        report.append("")
+        report.append("Inserts/shared text sharing >= "
+                      f"{OVERLAP_MIN_CONTENT} contentful words with the "
+                      "stem's final ask sentence. An echo of the ask "
+                      "telegraphs the expected response the way an option "
+                      "echo telegraphs the pick; informational pending a "
+                      "researcher ruling.")
+        report.append("")
+        for flag in f.ask_echo_flags:
+            report.append(f"- {flag}")
+        report.append("")
     if f.exempted:
         report.append("## Granted exemptions (informational — hits downgraded)")
         report.append("")
@@ -507,6 +681,14 @@ def main(argv=None):
         report.append("")
         for ex in stale_exemptions:
             report.append(f"- {ex.get('cell', '?')} / {ex.get('lexeme', '?')!r} "
+                          f"({ex.get('date', 'no date')})")
+        report.append("")
+    if stale_ov_exemptions:
+        report.append("## Stale overlap exemptions (matched nothing)")
+        report.append("")
+        for ex in stale_ov_exemptions:
+            report.append(f"- {ex.get('cell', '?')} / "
+                          f"{ex.get('option', 'any option')} "
                           f"({ex.get('date', 'no date')})")
         report.append("")
     if f.length_flags:

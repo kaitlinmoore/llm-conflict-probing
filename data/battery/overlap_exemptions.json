@@ -1,0 +1,4 @@
+{
+  "_doc": "Per-instance exemptions for validate_battery.py check f (insert↔option overlap, ≥4 contentful shared words). Same contract as blocklist_exemptions.json: each record documents cell (type_id:scenario_id:condition, `*` allowed in the condition slot for stem/shared hits), option (option_A/option_B, optional), role (stem/shared/insert, optional), rationale, date, granted_by. Exemptions downgrade a hit to informational, are always printed in the validation report, and are reported as stale when they stop matching. None granted as of 2026-08-04.",
+  "exemptions": []
+}

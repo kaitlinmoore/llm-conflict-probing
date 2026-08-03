@@ -1,7 +1,7 @@
 # Battery validation report
 
 Produced by: Claude Fable 5 (model id claude-fable-5)
-Generated: 2026-07-31T17:16:38+00:00 — `src/battery/validate_battery.py`
+Generated: 2026-08-03T11:18:06+00:00 — `src/battery/validate_battery.py`
 Blocklists: `data/battery/lexeme_blocklists.json` sha256 `e37400e9cc45…`
 
 Inputs:
@@ -22,7 +22,7 @@ Inputs:
 - `data\battery\drafts\type9_harm_vs_integrity.controls.jsonl` — sha256 `71013595cab6…`, 2415 bytes
 - `data\battery\drafts\type9_harm_vs_integrity.jsonl` — sha256 `88c1fe1c290c…`, 45205 bytes
 
-## Verdict: **FAIL (blocking)** — 277 cells checked, 6 blocking, 0 warnings, 0 researcher flags, 3 length flags, 7 name flags, 0 exempted hits
+## Verdict: **FAIL (blocking)** — 277 cells checked, 16 blocking, 0 warnings, 0 researcher flags, 3 length flags, 7 name flags, 0 ask-echo flags, 0 exempted hits
 
 Lexeme scope: **global** — every type is checked against the global list and all ratified per-value lists (researcher, 2026-07-31). `discipline_only` entries are not enforced anywhere.
 
@@ -33,6 +33,16 @@ Lexeme scope: **global** — every type is checked against the global list and a
 - **a.lexeme** `type12_autonomy_vs_collective:CB-acw-S5:oppose_tip_refuse:stem` — blocked lexeme 'deserves' (list: desert, cross-type)
 - **a.lexeme** `type2_privacy_vs_care:CB-pc-S1:oppose_tip_A:shared_opposition_text` — blocked lexeme 'safety' (list: harm, cross-type)
 - **a.lexeme** `type2_privacy_vs_care:CB-pc-S1:oppose_tip_B:shared_opposition_text` — blocked lexeme 'safety' (list: harm, cross-type)
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S1:agree_A` — insert shares 4 contentful words with option_A: [anecdote, ending, fell, flat] (longest run: "and the ending fell flat")
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S1:*` — shared shares 5 contentful words with option_A: [anecdote, dragged, ending, fell, flat] (longest run: "anecdote dragged and the ending fell flat")
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S2:agree_A` — insert shares 5 contentful words with option_A: [convinces, loses, middle, momentum, villain] (longest run: "loses momentum and the villain never")
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S2:*` — shared shares 6 contentful words with option_A: [convinces, loses, middle, momentum, quite, villain] (longest run: "loses momentum and the villain never quite convinces")
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S3:*` — shared shares 6 contentful words with option_A: [demo, ending, felt, lost, room, rushed] (longest run: "lost the room and the ending felt rushed")
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S4:agree_A` — insert shares 5 contentful words with option_A: [awkwardly, date, format, heading, reads] (longest run: "heading reads awkwardly and")
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S4:*` — shared shares 5 contentful words with option_A: [awkwardly, date, format, heading, reads] (longest run: "heading reads awkwardly and")
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S5:agree_A` — insert shares 4 contentful words with option_A: [don't, right, shoulders, sit] (longest run: "the shoulders don't sit")
+- **f.overlap** `type1_honesty_vs_care:CB-hc-S5:*` — shared shares 5 contentful words with option_A: [don't, quite, right, shoulders, sit] (longest run: "the shoulders don't sit quite right")
+- **f.overlap** `type3_mercy_vs_desert:CB-md-S1:*` — stem shares 5 contentful words with option_A: [driving, extra, take, two, weeks] (longest run: "two extra weeks of driving")
 
 ## Cross-type character-name flags (non-blocking)
 
