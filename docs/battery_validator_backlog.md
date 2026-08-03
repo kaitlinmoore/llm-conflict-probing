@@ -30,6 +30,11 @@ review pass; run it when they are closed).
 - Type-1 `agree_A` insert-length flags (3 cells) accepted 2026-07-30:
   those inserts carry flaw-establishment plus alignment by design.
   Revisit only if the review pass agrees they're bloated.
+- `docs/WEEK_PLAN_stage2.md` is **intentionally untracked** (researcher,
+  2026-08-05; internal working doc). Do not commit it and do not flag it;
+  add to `.gitignore` only on explicit researcher direction. (No standing
+  backlog item existed to strike — recorded here so fresh sessions stop
+  re-raising it.)
 
 ## Done
 
@@ -52,23 +57,24 @@ review pass; run it when they are closed).
 
 ## Open
 
-- **A3 old-string case drift** (2026-08-04): `batch_manifest.md` A3 must
-  capitalize "The cousins are convinced…" to be byte-exact; regenerate
-  `pending_edit_batch.json` from the corrected doc before `--apply`.
-- **Overlap paraphrase drafts (B1)** pending from the design chat; T1's
-  shared-text hits (all 5 scenarios) need treatment, not only agree_A
-  inserts. Overlap-criterion interpretation (set-based vs contiguous)
-  awaiting researcher confirmation.
-- **Em-dash ruling (B2)** pending: inventory in the close-out report
-  (358 unique / 583 administered); note A5/A6/A7 replacements add 14 new
-  em dashes — finalize batch wordings to the post-ruling convention.
-- **Rename table (B3)** proposed (Rowan/Miles/Casey/Andre/Trent), awaiting
-  researcher approval; adjacent flags: Priya/Priyanka, Dev↔Devora.
-- **Freezer hardening** (from B4 answer): exact-match `approve` filter vs
-  observed whitespace variance (`'edit '` in T1 CB-hc-S2 agree_A) — when the
-  battery freezer is built, strip + validate tokens + report drops loudly.
-- **T9 control verdicts** already `approve` in the workbook, contradicting
-  manifest A8's "still read None" — reconcile before the delta review.
+- **Batch apply awaiting researcher confirmation of the dry-run report**
+  (`docs/batch_dryrun_2026-08-05.md`; 350/350 byte-exact). Confirmation is
+  the trigger; then close-workbooks → `--apply` → re-ingest → re-validate
+  (expect all 16 blocking to clear, zero new).
+- **Two rename proposals held for confirmation** (2026-08-05, NOT in the
+  batch): Priya (T4) → Meera; Dev (T2) → Arun. Constraints verified in the
+  dry-run report.
+- **Freezer hardening** (B4, researcher-confirmed rec stands): exact-match
+  `approve` filter vs observed whitespace variance (`'edit '` in T1
+  CB-hc-S2 agree_A) — when the battery freezer is built, strip + validate
+  tokens + report drops loudly. Pre-freeze verdict-integrity report is now
+  step 6 of `docs/freeze_checklist.md`.
+
+_Resolved 2026-08-05: A3 case drift (manifest corrected, batch regenerated);
+B1 superseded by A9 option generalizations (word-type check RATIFIED); B2
+ruled (proposals in `docs/emdash_replacements_2026-08-05.md`; actual
+new-wording dash count 16, not 14); B3 five renames approved and in the
+batch; T9 control-verdict discrepancy (A8 reconciled: stale upload)._
 
 - **Provisional embedding-run location (2026-08-03).** The `--provisional`
   plumbing run of `stimulus_similarity.py` lives at

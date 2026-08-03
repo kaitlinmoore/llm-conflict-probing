@@ -126,6 +126,10 @@ def lock_files(directory: Path):
 
 
 def main(argv=None):
+    # Windows consoles default to cp1252; edit text is UTF-8 (em dashes,
+    # arrows). Degrade unprintable characters instead of crashing mid-report.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true",
                     help="write changes (default: dry run)")
