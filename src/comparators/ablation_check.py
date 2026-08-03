@@ -90,6 +90,16 @@ def main(argv=None):
                          "and the manifest digests point only at the last one.")
     ap.add_argument("--limit", type=int, default=None,
                     help="cap prompts per class (dry-run only)")
+    ap.add_argument("--random-directions", type=int, default=0,
+                    help="D53 control: ablate N seeded random directions "
+                         "instead of the fitted one — identical protocol, "
+                         "same output shapes, per-direction result files "
+                         "(suffix _r<k>). Matched norm: ablation projects a "
+                         "unit vector, so randoms are unit-normalized "
+                         "exactly like the fitted direction's applied form "
+                         "(projection removal is scale-invariant).")
+    ap.add_argument("--random-seed", type=int, default=23,
+                    help="seed for the random directions (recorded)")
     args = ap.parse_args(argv)
 
     if args.model not in MODEL_REGISTRY:
@@ -129,86 +139,118 @@ def main(argv=None):
 
     # Mean direction over the chosen band, re-normalized: one vector removed
     # everywhere (standard directional ablation).
-    vec = direction[layers].mean(axis=0)
-    vec = vec / np.linalg.norm(vec)
-    vec_t = torch.tensor(vec, dtype=dtype, device=args.device)
+    fitted = direction[layers].mean(axis=0)
+    fitted = fitted / np.linalg.norm(fitted)
 
-    def ablate_hook(resid, hook):
-        # resid: [batch, pos, d_model] — project out along the last dim
-        proj = (resid.to(vec_t.dtype) @ vec_t).unsqueeze(-1) * vec_t
-        return resid - proj.to(resid.dtype)
+    def sweep(vec, out_suffix, direction_meta):
+        """One full protocol pass with `vec` ablated everywhere. Identical
+        for the fitted direction and each D53 random direction — same
+        prompts, conditions, labeler, output shapes."""
+        vec_t = torch.tensor(vec, dtype=dtype, device=args.device)
 
-    hooks = [(f"blocks.{l}.hook_resid_post", ablate_hook)
-             for l in range(model.cfg.n_layers)]
+        def ablate_hook(resid, hook):
+            # resid: [batch, pos, d_model] — project out along the last dim
+            proj = (resid.to(vec_t.dtype) @ vec_t).unsqueeze(-1) * vec_t
+            return resid - proj.to(resid.dtype)
 
-    csv_path = run_dir / f"ablation_check_{model_tag}{args.out_suffix}.csv"
-    f = open(csv_path, "w", newline="", encoding="utf-8")
-    writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
-    writer.writeheader()
-    f.flush()
+        hooks = [(f"blocks.{l}.hook_resid_post", ablate_hook)
+                 for l in range(model.cfg.n_layers)]
 
-    rows = []
-    with torch.no_grad():
-        for i, rec in enumerate(holdout, 1):
-            prompt_str = templated(tokenizer, rec["text"])
-            ids = verify_anchor(tokenizer, prompt_str,
-                                spec["anchor_expect_decoded_suffix"],
-                                anchor_samples)
-            batch = ids.unsqueeze(0).to(args.device)
-            for condition in ("baseline", "ablated"):
-                if condition == "baseline":
-                    out = model.generate(batch,
-                                         max_new_tokens=args.max_new_tokens,
-                                         do_sample=False, verbose=False)
-                else:
-                    with model.hooks(fwd_hooks=hooks):
-                        out = model.generate(batch,
-                                             max_new_tokens=args.max_new_tokens,
-                                             do_sample=False, verbose=False)
-                response = tokenizer.decode(out[0, ids.shape[0]:],
-                                            skip_special_tokens=True)
-                row = {"prompt_key": rec["prompt_key"],
-                       "prompt_class": rec["prompt_class"],
-                       "condition": condition,
-                       "ablate_layers": ";".join(str(l) for l in layers),
-                       "response": response,
-                       "prelabel_heuristic":
-                           heuristic_resistance_prelabel(response),
-                       "refused": refused_flag(response)}
-                writer.writerow(row)
-                f.flush()
-                rows.append(row)
-            if i % 8 == 0:
-                print(f"  [{i}/{len(holdout)}] prompts done")
-    f.close()
+        csv_path = run_dir / f"ablation_check_{model_tag}{out_suffix}.csv"
+        f = open(csv_path, "w", newline="", encoding="utf-8")
+        writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
+        writer.writeheader()
+        f.flush()
 
-    summary = {"run_id": manifest["run_id"], "model": args.model,
-               "ablate_layers": layers,
-               "max_new_tokens": args.max_new_tokens,
-               "labeler": "pretest heuristic_resistance_prelabel (REFUSAL_MARKERS)",
-               "n_prompts": len(holdout), "rates": {}}
-    for cls in ("harmful", "harmless"):
-        summary["rates"][cls] = {}
-        for cond in ("baseline", "ablated"):
-            sel = [r for r in rows
-                   if r["prompt_class"] == cls and r["condition"] == cond]
-            rate = (sum(r["refused"] for r in sel) / len(sel)) if sel else None
-            summary["rates"][cls][cond] = rate
-        b = summary["rates"][cls]["baseline"]
-        a = summary["rates"][cls]["ablated"]
-        summary["rates"][cls]["delta"] = (
-            None if b is None or a is None else round(a - b, 4))
-    print(json.dumps(summary["rates"], indent=2))
+        rows = []
+        with torch.no_grad():
+            for i, rec in enumerate(holdout, 1):
+                prompt_str = templated(tokenizer, rec["text"])
+                ids = verify_anchor(tokenizer, prompt_str,
+                                    spec["anchor_expect_decoded_suffix"],
+                                    anchor_samples)
+                batch = ids.unsqueeze(0).to(args.device)
+                for condition in ("baseline", "ablated"):
+                    if condition == "baseline":
+                        out = model.generate(
+                            batch, max_new_tokens=args.max_new_tokens,
+                            do_sample=False, verbose=False)
+                    else:
+                        with model.hooks(fwd_hooks=hooks):
+                            out = model.generate(
+                                batch, max_new_tokens=args.max_new_tokens,
+                                do_sample=False, verbose=False)
+                    response = tokenizer.decode(out[0, ids.shape[0]:],
+                                                skip_special_tokens=True)
+                    row = {"prompt_key": rec["prompt_key"],
+                           "prompt_class": rec["prompt_class"],
+                           "condition": condition,
+                           "ablate_layers": ";".join(str(l) for l in layers),
+                           "response": response,
+                           "prelabel_heuristic":
+                               heuristic_resistance_prelabel(response),
+                           "refused": refused_flag(response)}
+                    writer.writerow(row)
+                    f.flush()
+                    rows.append(row)
+                if i % 8 == 0:
+                    print(f"  [{i}/{len(holdout)}] prompts done")
+        f.close()
 
-    json_path = run_dir / f"ablation_summary_{model_tag}{args.out_suffix}.json"
-    rl.atomic_write(json_path,
-                    lambda fh: fh.write(json.dumps(summary, indent=2) + "\n"),
-                    mode="w", encoding="utf-8", newline="\n")
-    for p in (csv_path, json_path):
-        sha, size = rl.file_digest(p)
-        manifest.setdefault("output_digests", {})[p.name] = {
-            "sha256": sha, "bytes": size}
-        print(f"DIGEST {sha} {size} {p.name}")
+        summary = {"run_id": manifest["run_id"], "model": args.model,
+                   "ablate_layers": layers,
+                   "max_new_tokens": args.max_new_tokens,
+                   "labeler": "pretest heuristic_resistance_prelabel "
+                              "(REFUSAL_MARKERS)",
+                   "direction": direction_meta,
+                   "n_prompts": len(holdout), "rates": {}}
+        for cls in ("harmful", "harmless"):
+            summary["rates"][cls] = {}
+            for cond in ("baseline", "ablated"):
+                sel = [r for r in rows
+                       if r["prompt_class"] == cls and r["condition"] == cond]
+                rate = (sum(r["refused"] for r in sel) / len(sel)) if sel \
+                    else None
+                summary["rates"][cls][cond] = rate
+            b = summary["rates"][cls]["baseline"]
+            a = summary["rates"][cls]["ablated"]
+            summary["rates"][cls]["delta"] = (
+                None if b is None or a is None else round(a - b, 4))
+        print(f"--- {direction_meta['kind']}"
+              + (f" #{direction_meta['index']}"
+                 if "index" in direction_meta else ""))
+        print(json.dumps(summary["rates"], indent=2))
+
+        json_path = run_dir / (f"ablation_summary_{model_tag}"
+                               f"{out_suffix}.json")
+        rl.atomic_write(json_path,
+                        lambda fh: fh.write(json.dumps(summary, indent=2)
+                                            + "\n"),
+                        mode="w", encoding="utf-8", newline="\n")
+        for p in (csv_path, json_path):
+            sha, size = rl.file_digest(p)
+            manifest.setdefault("output_digests", {})[p.name] = {
+                "sha256": sha, "bytes": size}
+            print(f"DIGEST {sha} {size} {p.name}")
+
+    if args.random_directions > 0:
+        # D53 control: N seeded random directions, matched norm (unit — the
+        # applied form of the fitted direction; projection ablation is
+        # scale-invariant), identical protocol, per-direction files.
+        rng = np.random.default_rng(args.random_seed)
+        for k in range(args.random_directions):
+            rvec = rng.standard_normal(fitted.shape[0])
+            rvec = rvec / np.linalg.norm(rvec)
+            sweep(rvec.astype(np.float32),
+                  f"{args.out_suffix}_r{k}",
+                  {"kind": "random", "index": k,
+                   "seed": args.random_seed,
+                   "cosine_to_fitted": float(rvec @ fitted),
+                   "norm": "unit (matched to fitted's applied form)"})
+    else:
+        sweep(fitted, args.out_suffix, {"kind": "fitted",
+                                        "band_layers": layers})
+
     rl.atomic_write(manifest_path,
                     lambda fh: fh.write(json.dumps(manifest, indent=2) + "\n"),
                     mode="w", encoding="utf-8", newline="\n")
