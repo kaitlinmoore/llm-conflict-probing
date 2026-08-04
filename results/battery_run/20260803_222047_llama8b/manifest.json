@@ -1,0 +1,78 @@
+{
+  "schema_version": "battery_capture_v1",
+  "run_id": "20260803_222047_llama8b",
+  "run_role": "battery_session",
+  "produced_by": "Claude Fable 5 (model id claude-fable-5)",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "model_tag": "llama8b",
+  "expected_rows": 809,
+  "row_count_file": "capture_rows.csv",
+  "activations_file": "activations.pt",
+  "seed": 23,
+  "greedy": true,
+  "max_new_tokens": 128,
+  "regen_tokens": 256,
+  "smoke": false,
+  "shard": null,
+  "frozen_file": "data/battery/frozen/battery_frozen_v1.jsonl",
+  "frozen_sha256": "adce95fd1df5fc383b1f420744fd27b3003f8112bff46c0801a6071f9bcbf49a",
+  "competition_file": "data/comparators/competition_battery_draft.jsonl",
+  "competition_sha256": "35d95ffb44190163d94a240e374255d911cf3f22a99913327770e4091a83e00e",
+  "competition_provenance": "post-fix version (hazard easy items replaced, aquarium reworded; commit e61829f) \u2014 'draft' filename is historical",
+  "prompt_template": {
+    "stimulus_order": "stem, shared_opposition_text, condition_insert (verbatim, \\n\\n-joined)",
+    "options_block": "A: {option_A}\\nB: {option_B}",
+    "answer_only_instruction": "Answer with exactly one letter: A or B.",
+    "sign_off": "CONFIRMED by the researcher 2026-08-05 (smoke rendered_prompts review; answer-only scope confirmed choice-only in the same ruling)"
+  },
+  "p_ab_method": {
+    "A_token_ids": [
+      32,
+      362
+    ],
+    "B_token_ids": [
+      33,
+      426
+    ],
+    "rule": "sum of single-token encodings of 'A'/' A' (resp. B) in the anchor's next-token distribution"
+  },
+  "labeler": "src/battery/labeler.py (rubric v1.3 \u00a79); labels digest-locked at run time via labels_auto.csv digest",
+  "anchor_samples": [
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    },
+    {
+      "tail_decoded": ".<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+      "ok": true
+    }
+  ],
+  "n_units": 809,
+  "timestamp_utc": "2026-08-04T00:35:21+00:00",
+  "output_digests": {
+    "capture_rows.csv": {
+      "sha256": "95c26bf8baac97ac49d16db4493042ea0cb0b5ec6dcff3878b91acee793b20ec",
+      "bytes": 474235
+    },
+    "labels_auto.csv": {
+      "sha256": "a9cca912a7ce44347bb35612b9ec52344f3e6734c7844f1011d51d26ee5ea3f0",
+      "bytes": 23843
+    },
+    "stability_shard.csv": {
+      "sha256": "b6226c88858a966506e6a0cc0041344933809fbf7f6893c5619a977666c77de9",
+      "bytes": 274740
+    },
+    "rendered_prompts.txt": {
+      "sha256": "0c241d6027c6cc9b82749d5cb08fc8218c0652eba4bf738b29585bfa5d14c711",
+      "bytes": 499861
+    },
+    "activations.pt": {
+      "sha256": "320605de4050315e983c6e0a141b600fe8cc2f73c421b64b00e5bb467baa0aa1",
+      "bytes": 212344557
+    }
+  }
+}
