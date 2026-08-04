@@ -226,3 +226,218 @@ directions does nothing (30/32 × 5). The strongest remaining objection
 to the refusal comparator (HANDOFF_v6 §Immediate open items) is retired;
 Stage 3's separability claim may lean on the causally-validated
 comparator per D52.
+
+---
+
+## 2026-08-06 — Robustness annex (post-hoc, researcher-directed): placebo clean; length flag FIRED
+
+Motivation: researcher-directed too-good-to-be-true audit of the same-day
+as-designed results (executive-chat brief, 2026-08-06). Both checks
+exploratory, run after seeing results, filed in
+`analysis/robustness_annex/` alongside — never mixed into — `as_designed/`.
+Pre-stated interpretations recorded in the brief and in every artifact
+header; results reported as landed, no iteration.
+
+**Check 2 — placebo order-contrast through the identical pipeline: the
+machinery is honest.** A direction fitted from the AB-vs-BA order contrast
+(known real signal: the +0.383 position bias; zero conflict content),
+pushed through the exact pipeline path. Placebo split-half 0.428 (vs null
+p95 0.333 — real, as pre-stated tolerable), selected layer 14. On the real
+opposition-vs-agreement contrast: **−0.35 SD at L8, +0.37 at its own
+layer** — noise-scale against the conflict direction's 3.35. Transfer to
+the refusal family: −0.57/−0.49 (L8), 0.15/0.11 (own layer) — null-scale.
+cosine(placebo, conflict) at L8 = −0.05. The conflict direction's AB-vs-BA
+projection difference = **−0.013 pooled-SD units** — order-averaging
+cancelled position bias as designed. The pipeline does not flatter noise.
+
+**Check 1 — surface-feature regression: FLAG, reported immediately per the
+pre-stated rule.** Per-row L8 conflict projections (choice, open-ended,
+n=480) regressed on prompt length (whitespace-token proxy) + anchor
+entropy: **R² = 0.79, partial r(length) = 0.89**, entropy negligible
+(partial 0.07). Opposition prompts are +40 tokens on average (≈129 vs 90 —
+the shared opposition text, by design). **Separation 3.354 raw →
+1.109 after residualization** — neither "substantially intact" nor
+"collapsed to null": the bulk of the headline separation is carried by
+variance a length regressor can absorb. Recorded caveats, both directions:
+(i) residualization is conservative here — length is confounded with the
+manipulation by design (the shared text that makes prompts long IS the
+opposition content), so removing length removes real condition variance
+too; (ii) conversely, a genuine length detector would reproduce existence,
+transfer (refusal opposition is also longer), refusal-distinctness, and
+emotion-irreducibility simultaneously, so none of the five as-designed
+results adjudicates this on its own. The residual 1.11 SD exceeds
+placebo-on-real scale (±0.35) — some non-length signal exists — but the
+construct-vs-length question is now the study's live validity issue.
+Disentangling requires design, not analysis iteration (length-matched
+contrasts / length-controlled nulls); researcher's call on the follow-up.
+
+---
+
+## 2026-08-06 — Robustness annex part 2 (post-hoc): the length confound is deep; transfer is substantially contaminated
+
+Motivation: decompose part 1's flag (researcher-directed; executive-chat
+brief part 2). Both checks post-hoc exploratory, pre-stated
+interpretations verbatim in artifact headers
+(`analysis/robustness_annex/ANNEX_check3/4_*.json`); results as landed,
+no iteration.
+
+**Check 3 — within-condition length tracking.** Per-row L8 conflict
+projections vs token length WHERE CONFLICT IS CONSTANT:
+
+| family | cells | n | r | slope |
+|---|---|---|---|---|
+| choice | agreement pooled | 120 | **0.67** | 0.0053 |
+| choice | opposition pooled | 120 | **0.79** | 0.0055 |
+| choice | between-condition (restated) | 248 | 0.89 | 0.0091 |
+| refusal | agreement pooled | 72 | **0.81** | 0.0063 |
+| refusal | opposition pooled | 72 | **0.75** | 0.0046 |
+| refusal | between-condition | 153 | 0.96 | 0.0073 |
+
+Per-condition r's 0.46–0.84. Under the pre-stated rule this is the deep
+arm, not the benign arm: the direction tracks length wherever length
+varies, including agreement cells where conflict is absent by design.
+Refusal-family lengths: opposition +52 tokens over agreement.
+
+**Check 4 — pure length direction as comparator.** Fit on agreement cells
+only (conflict absent throughout), unpaired long-vs-short median split
+(92.5 tokens; pairing infeasible for a global split — stated departure),
+same estimator/fold machinery. The length direction is strong in its own
+right: selects L4, held-out separation 3.31, split-half 0.70 vs null 0.13.
+(a) cosine(length, conflict): 0.19 at L8, 0.41 at L4 — moderate, per the
+pre-stated note not itself damning. (b) reducibility: adding the length
+direction lifts reconstruction of the conflict direction from 3.3% to
+7.5% — as a vector the conflict direction is not mostly the length
+direction. **(c) the sharp test: the length direction TRANSFERS** —
+refusal opposition-vs-agreement at 1.92 SD (harm tier, L8; null p95 0.46)
+and **2.58 SD at its own layer** (null 0.53); intermediate tier 0.53/1.24.
+Conflict direction's transfer: 3.50/4.24. The pre-stated favorable arm
+(noise-scale) is unavailable; harm-tier magnitudes reach 55–74% of the
+conflict direction's. The transfer headline is substantially
+contaminated and cannot ship without the length-matched follow-up.
+
+**Validity status, plain terms:** the as-designed positive results cannot
+currently be attributed to value conflict rather than prompt length — the
+fitted direction substantially reads length where conflict is constant,
+and length alone reproduces the majority scale of the transfer effect;
+the affirmative claims are on hold pending a length-matched follow-up
+design, while the measurement machinery itself stands validated (placebo
+clean, D53 PASS, D54 bitwise, pipeline reproduction exact) and the
+~1.1 SD residualized within-family separation remains the conservative
+floor for any surviving construct signal.
+
+---
+
+## 2026-08-06 — Robustness annex part 3: length-matched subsample GATED OUT (infeasible at required power)
+
+Motivation: the in-capture length-matched read of the part-2 flag
+(researcher-directed; feasibility gates analysis, gate reported before any
+separation). Artifact:
+`analysis/robustness_annex/ANNEX_check5_length_matched.json`
+(pre-stated interpretations, caution, and effect-scale note verbatim in
+the header). No separation was computed — the gate stopped Stage B.
+
+**Stage A feasibility, as landed** (MDES = 2.802·√(2/n), α=.05, power .80;
+gate: MDES ≤ 1.0 SD, the part-1 residualized floor being the effect scale
+of interest):
+
+| family | overlap (tokens) | pair-matched n (same-scen) | MDES | stratified n | MDES | gate |
+|---|---|---|---|---|---|---|
+| choice | 70–120 | 14 (3) | 1.06 | 12 (4 strata) | 1.14 | **FAIL** |
+| refusal T7–9 | 115–138 | 7 (0) | 1.50 | 5 (2) | 1.77 | **FAIL** |
+| refusal T10–12 | 139–144 | 2 (0) | 2.80 | 0 | — | **FAIL** |
+
+The choice family misses the gate narrowly (1.06 vs 1.00 at 14 pairs, 11
+of them cross-scenario); the refusal tiers are far from feasible — their
+opposition/agreement length distributions barely overlap (the +52-token
+design gap). Per the pre-stated rule an underpowered null would be worse
+than no check; Stage B is GATED OUT for all families. No
+tolerance-widening or design adjustment was attempted (that would be the
+forbidden iteration).
+
+**Validity status, appended to part 2's sentence (not replacing it):**
+…and the in-capture length-matched check is infeasible at the required
+power, so the length-matched follow-up battery is the sole remaining path
+to adjudicating construct vs length. Design note for that follow-up, from
+Stage A's own numbers: the overlap windows (choice 70–120; refusal
+115–138 / 139–144) quantify exactly how much agreement cells must
+lengthen — or opposition slim — for a powered in-battery match.
+
+---
+
+## 2026-08-06 — Robustness annex part 4 (optional, interpretive): SAE read — weak color, one hard limitation; nothing rehabilitated
+
+Coverage (gate): base-trained Llama-Scope L8R-8x (JumpReLU, 32,768
+features) at exactly our anchor hook; instruct-trained SAE exists only at
+L19 (Goodfire) — 11 layers off-band, base-at-L8 preferred per brief.
+Labels: Neuronpedia `8-llamascope-res-32k`. Standing caveat in every
+header: base-model SAE on instruct activations is an approximation; SAE
+feature names are auto-generated, suggestive never dispositive. Operative
+conditional per parts 1–3: LANDED BADLY — this annex cannot rehabilitate
+the direction, and does not.
+
+**Decoder-side read (brief check 5).** Top-20 features by cosine:
+conflict direction — specification/calculation-flavored (technical
+terminology, mathematical proofs/legal frameworks, calculations,
+uncertainty-or-negation), NOT deliberation-flavored; reconstruction
+R²(top-20) = 0.20, which the pre-stated rule classifies as weak evidence,
+so stated. Length direction: assorted, R² = 0.16. Refusal reference:
+R² = 0.32 with a coherent known story (moral dilemmas and violent
+actions, criminal behavior, content appropriateness, discomfort) — the
+method shows a story where one exists. Overlaps: **conflict ∩ length =
+5/20 features** (incl. "uncertainty or negation", technical-spec,
+proofs/legal) — the direct confound read; conflict ∩ refusal = 0/20,
+consistent with the geometric orthogonality.
+
+**Encode-side read (brief check 6 + screening validation): UNINFORMATIVE
+— the caveat materialized as a hard limitation.** All top-10 conflict
+features and all label-screened candidates activate at ~0 on our anchors
+(one marginal exception, 16259, opposition-only at 0.016). Likely cause:
+the anchor is an instruct-template token position the base model never
+sees; the base SAE does not fire there. Reported as a method limitation,
+not worked around. Label-space screening itself succeeded — on-theme
+candidates exist (11990 "dilemmas or conflicting choices", 3584
+"moral and ethical dilemmas", 488 "tension") — but could not be
+validated or falsified on our capture: an autointerp-caution outcome,
+neither arm of the validated-hypothesis test reachable.
+
+**Plain sentence for the presentation audience:** a base-model SAE read
+at layer 8 offers only weak color — the conflict direction's nearest
+features look like specification/calculation register rather than
+deliberation, a quarter of its top features are shared with the pure
+length direction, and the SAE cannot be driven by our instruct-template
+anchors at all — so the feature-level question, like the length question,
+awaits instruct-native tools; nothing in this annex changes the part-2/3
+validity status.
+
+---
+
+## 2026-08-06 — Robustness annex part 5: residual depth profile — a modest length-independent component, living late
+
+Post-hoc diagnostic, explicitly NOT layer re-selection (header so states).
+Artifact: `ANNEX_part5_depth_profile.json` + figure. All 32 layers; four
+curves (residualized choice separation; within-condition length r;
+cos(conflict, length) natively per layer; residualized transfer, tiers
+separate).
+
+**The shape:** within-condition length tracking collapses with depth —
+r ≈ 0.91–0.96 at L0–L6, 0.73 at L8, 0.43 by L12, and 0.12–0.30 from L19
+on. The residualized choice separation peaks in the confounded band
+(1.23 at L5; 1.11 at L8) and then settles onto a **flat ~0.70–0.76 SD
+plateau from L12 through L31** — stable across twenty layers while length
+tracking falls five-fold and cos(conflict, length) sits ≈ 0.2. This is
+neither pre-stated arm exactly: the residual does not hold its peak, but
+it does not track the length curve either — it decouples from it.
+
+**Transfer's residual, by contrast, lives only in the confounded band:**
+harm tier 1.11 at L4, ~0.9 at L6–L8, decaying to 0.1–0.2 late;
+intermediate tier ~1.0 at L5–L6 drifting negative (−0.3) late. The
+length-independent transfer component is modest everywhere and absent
+exactly where the within-family component is cleanest.
+
+**Hypothesis filed for the follow-up battery (never a revised result):**
+a ~0.7 SD length-independent within-family opposition/agreement component
+exists across mid-to-late depth (cleanest L19–L31, where within-condition
+length tracking ≤ 0.3), not accompanied by cross-family transfer. The
+follow-up battery should pre-state a late measurement layer alongside its
+length-matched design and test exactly this. Validity status otherwise
+unchanged from parts 2–3.

@@ -1,0 +1,278 @@
+{
+  "_header": {
+    "ROBUSTNESS_ANNEX": true,
+    "post_hoc": true,
+    "date": "2026-08-06",
+    "motivation": "researcher-directed too-good-to-be-true audit (executive chat, 2026-08-06); exploratory, run after seeing the as-designed results",
+    "produced_by": "Claude Fable 5 (model id claude-fable-5)",
+    "pipeline_commit": "0f0366f6cf7fdc5ec07a2171647c4bb6bf949152",
+    "freeze_sha256": "adce95fd1df5fc383b1f420744fd27b3003f8112bff46c0801a6071f9bcbf49a",
+    "run_dir": "results\\battery_run\\20260803_222047_llama8b",
+    "generated_utc": "2026-08-04T03:28:14+00:00",
+    "separation_definition": "(mean opp proj - mean agr proj) / pooled SD, order-averaged cells, in-sample over all choice scenarios",
+    "length_proxy": "whitespace tokens of the administered user message (rendered_prompts.txt); model tokenizer not loadable off-pod",
+    "check": "depth \u2014 residual profile across all layers",
+    "part": 5,
+    "NOT_layer_reselection": "post-hoc diagnostic; no shipped claim moves layers on this basis",
+    "prestated_interpretation": "a depth band where residualized separation holds up while within-condition length tracking drops is the candidate home of a genuine conflict signal \u2014 reported as a hypothesis for the follow-up battery to test at its pre-stated layer, never as a revised result. Flat residual everywhere, or residual tracking the length curve \u2014 the pessimistic arm \u2014 says the signal has no length-independent home at any depth in this capture, and the follow-up carries the whole burden.",
+    "within_condition_r_definition": "mean of r(proj, length) within agreement-pooled and within opposition-pooled (check 3 statistic)"
+  },
+  "per_layer": [
+    {
+      "layer": 0,
+      "residualized_separation_choice": 0.5666,
+      "within_condition_length_r": 0.9148,
+      "cosine_conflict_length": 0.4716,
+      "residualized_transfer_harm": -0.0359,
+      "residualized_transfer_intermediate": 0.1267
+    },
+    {
+      "layer": 1,
+      "residualized_separation_choice": 0.4653,
+      "within_condition_length_r": 0.9588,
+      "cosine_conflict_length": 0.545,
+      "residualized_transfer_harm": 0.4393,
+      "residualized_transfer_intermediate": 0.4375
+    },
+    {
+      "layer": 2,
+      "residualized_separation_choice": 0.1917,
+      "within_condition_length_r": 0.9503,
+      "cosine_conflict_length": 0.5772,
+      "residualized_transfer_harm": 0.1857,
+      "residualized_transfer_intermediate": -0.2419
+    },
+    {
+      "layer": 3,
+      "residualized_separation_choice": 0.447,
+      "within_condition_length_r": 0.9123,
+      "cosine_conflict_length": 0.4637,
+      "residualized_transfer_harm": 0.2737,
+      "residualized_transfer_intermediate": -0.034
+    },
+    {
+      "layer": 4,
+      "residualized_separation_choice": 0.7158,
+      "within_condition_length_r": 0.9098,
+      "cosine_conflict_length": 0.405,
+      "residualized_transfer_harm": 1.1062,
+      "residualized_transfer_intermediate": 0.7793
+    },
+    {
+      "layer": 5,
+      "residualized_separation_choice": 1.2304,
+      "within_condition_length_r": 0.9342,
+      "cosine_conflict_length": 0.3287,
+      "residualized_transfer_harm": 0.6896,
+      "residualized_transfer_intermediate": 0.8542
+    },
+    {
+      "layer": 6,
+      "residualized_separation_choice": 1.1133,
+      "within_condition_length_r": 0.9273,
+      "cosine_conflict_length": 0.3515,
+      "residualized_transfer_harm": 0.9677,
+      "residualized_transfer_intermediate": 1.0077
+    },
+    {
+      "layer": 7,
+      "residualized_separation_choice": 0.9402,
+      "within_condition_length_r": 0.8568,
+      "cosine_conflict_length": 0.3115,
+      "residualized_transfer_harm": 0.6192,
+      "residualized_transfer_intermediate": 0.5044
+    },
+    {
+      "layer": 8,
+      "residualized_separation_choice": 1.1088,
+      "within_condition_length_r": 0.7309,
+      "cosine_conflict_length": 0.1921,
+      "residualized_transfer_harm": 0.8939,
+      "residualized_transfer_intermediate": 0.4681
+    },
+    {
+      "layer": 9,
+      "residualized_separation_choice": 0.8463,
+      "within_condition_length_r": 0.6525,
+      "cosine_conflict_length": 0.1788,
+      "residualized_transfer_harm": 0.736,
+      "residualized_transfer_intermediate": 0.3559
+    },
+    {
+      "layer": 10,
+      "residualized_separation_choice": 0.8683,
+      "within_condition_length_r": 0.6322,
+      "cosine_conflict_length": 0.1717,
+      "residualized_transfer_harm": 0.6913,
+      "residualized_transfer_intermediate": 0.2428
+    },
+    {
+      "layer": 11,
+      "residualized_separation_choice": 0.9291,
+      "within_condition_length_r": 0.6155,
+      "cosine_conflict_length": 0.1679,
+      "residualized_transfer_harm": 0.5049,
+      "residualized_transfer_intermediate": 0.2333
+    },
+    {
+      "layer": 12,
+      "residualized_separation_choice": 0.7614,
+      "within_condition_length_r": 0.4267,
+      "cosine_conflict_length": 0.1182,
+      "residualized_transfer_harm": 0.6447,
+      "residualized_transfer_intermediate": 0.2032
+    },
+    {
+      "layer": 13,
+      "residualized_separation_choice": 0.8178,
+      "within_condition_length_r": 0.4552,
+      "cosine_conflict_length": 0.1448,
+      "residualized_transfer_harm": 0.4327,
+      "residualized_transfer_intermediate": 0.182
+    },
+    {
+      "layer": 14,
+      "residualized_separation_choice": 0.7197,
+      "within_condition_length_r": 0.5184,
+      "cosine_conflict_length": 0.236,
+      "residualized_transfer_harm": 0.3916,
+      "residualized_transfer_intermediate": -0.0093
+    },
+    {
+      "layer": 15,
+      "residualized_separation_choice": 0.7413,
+      "within_condition_length_r": 0.4658,
+      "cosine_conflict_length": 0.2169,
+      "residualized_transfer_harm": 0.2206,
+      "residualized_transfer_intermediate": -0.1045
+    },
+    {
+      "layer": 16,
+      "residualized_separation_choice": 0.7369,
+      "within_condition_length_r": 0.431,
+      "cosine_conflict_length": 0.2166,
+      "residualized_transfer_harm": 0.2043,
+      "residualized_transfer_intermediate": -0.1221
+    },
+    {
+      "layer": 17,
+      "residualized_separation_choice": 0.737,
+      "within_condition_length_r": 0.4138,
+      "cosine_conflict_length": 0.213,
+      "residualized_transfer_harm": 0.2422,
+      "residualized_transfer_intermediate": -0.1247
+    },
+    {
+      "layer": 18,
+      "residualized_separation_choice": 0.7324,
+      "within_condition_length_r": 0.3767,
+      "cosine_conflict_length": 0.2077,
+      "residualized_transfer_harm": 0.2898,
+      "residualized_transfer_intermediate": -0.0502
+    },
+    {
+      "layer": 19,
+      "residualized_separation_choice": 0.7593,
+      "within_condition_length_r": 0.3005,
+      "cosine_conflict_length": 0.2186,
+      "residualized_transfer_harm": 0.2205,
+      "residualized_transfer_intermediate": -0.1912
+    },
+    {
+      "layer": 20,
+      "residualized_separation_choice": 0.7185,
+      "within_condition_length_r": 0.2692,
+      "cosine_conflict_length": 0.2562,
+      "residualized_transfer_harm": 0.1155,
+      "residualized_transfer_intermediate": -0.2986
+    },
+    {
+      "layer": 21,
+      "residualized_separation_choice": 0.7439,
+      "within_condition_length_r": 0.2392,
+      "cosine_conflict_length": 0.2406,
+      "residualized_transfer_harm": 0.197,
+      "residualized_transfer_intermediate": -0.2997
+    },
+    {
+      "layer": 22,
+      "residualized_separation_choice": 0.7055,
+      "within_condition_length_r": 0.2106,
+      "cosine_conflict_length": 0.2557,
+      "residualized_transfer_harm": 0.2243,
+      "residualized_transfer_intermediate": -0.3029
+    },
+    {
+      "layer": 23,
+      "residualized_separation_choice": 0.7257,
+      "within_condition_length_r": 0.1863,
+      "cosine_conflict_length": 0.2553,
+      "residualized_transfer_harm": 0.2128,
+      "residualized_transfer_intermediate": -0.2801
+    },
+    {
+      "layer": 24,
+      "residualized_separation_choice": 0.7043,
+      "within_condition_length_r": 0.1841,
+      "cosine_conflict_length": 0.2722,
+      "residualized_transfer_harm": 0.0472,
+      "residualized_transfer_intermediate": -0.3211
+    },
+    {
+      "layer": 25,
+      "residualized_separation_choice": 0.6998,
+      "within_condition_length_r": 0.1779,
+      "cosine_conflict_length": 0.2356,
+      "residualized_transfer_harm": 0.0727,
+      "residualized_transfer_intermediate": -0.313
+    },
+    {
+      "layer": 26,
+      "residualized_separation_choice": 0.7123,
+      "within_condition_length_r": 0.1641,
+      "cosine_conflict_length": 0.2215,
+      "residualized_transfer_harm": 0.1725,
+      "residualized_transfer_intermediate": -0.271
+    },
+    {
+      "layer": 27,
+      "residualized_separation_choice": 0.7147,
+      "within_condition_length_r": 0.1551,
+      "cosine_conflict_length": 0.2232,
+      "residualized_transfer_harm": 0.1649,
+      "residualized_transfer_intermediate": -0.2614
+    },
+    {
+      "layer": 28,
+      "residualized_separation_choice": 0.7167,
+      "within_condition_length_r": 0.1372,
+      "cosine_conflict_length": 0.1889,
+      "residualized_transfer_harm": 0.1662,
+      "residualized_transfer_intermediate": -0.2855
+    },
+    {
+      "layer": 29,
+      "residualized_separation_choice": 0.7261,
+      "within_condition_length_r": 0.1208,
+      "cosine_conflict_length": 0.1782,
+      "residualized_transfer_harm": 0.1086,
+      "residualized_transfer_intermediate": -0.3148
+    },
+    {
+      "layer": 30,
+      "residualized_separation_choice": 0.719,
+      "within_condition_length_r": 0.1313,
+      "cosine_conflict_length": 0.1735,
+      "residualized_transfer_harm": 0.1876,
+      "residualized_transfer_intermediate": -0.2596
+    },
+    {
+      "layer": 31,
+      "residualized_separation_choice": 0.7222,
+      "within_condition_length_r": 0.1331,
+      "cosine_conflict_length": 0.1639,
+      "residualized_transfer_harm": 0.1817,
+      "residualized_transfer_intermediate": -0.1606
+    }
+  ]
+}

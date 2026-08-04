@@ -1,0 +1,279 @@
+{
+  "_header": {
+    "produced_by": "Claude Fable 5 (model id claude-fable-5)",
+    "generated_utc": "2026-08-04T04:10:34+00:00",
+    "pipeline_commit": "54b12d117c27fd385b98baab16b0558e315a3e10",
+    "freeze_sha256": "adce95fd1df5fc383b1f420744fd27b3003f8112bff46c0801a6071f9bcbf49a",
+    "run_dir": "results\\battery_run\\20260803_222047_llama8b",
+    "statistic_definitions": {
+      "separation": "(mean opp proj - mean agr proj) / pooled SD, unit direction, order-averaged rows",
+      "split_half": "mean cosine over 20 scenario re-splits",
+      "stability": "mean cosine with adjacent-layer directions (tie-break only)"
+    },
+    "selection": {
+      "k": 5,
+      "seed": 23,
+      "gate": "exceeds matched permutation null, disqualify-only (ratified 2026-08-05; D50: never selects)"
+    },
+    "seed": 23
+  },
+  "selected_layer": 8,
+  "per_layer": [
+    {
+      "layer": 0,
+      "heldout_separation": 2.349481725692749,
+      "split_half": 0.9651809006929397,
+      "perm_null_split_half": 0.037946770712733266,
+      "stability": 0.6201955676078796,
+      "gate_pass": true
+    },
+    {
+      "layer": 1,
+      "heldout_separation": 2.257295036315918,
+      "split_half": 0.9651638507843018,
+      "perm_null_split_half": 0.21537922974675894,
+      "stability": 0.6033104658126831,
+      "gate_pass": true
+    },
+    {
+      "layer": 2,
+      "heldout_separation": 2.0995456695556642,
+      "split_half": 0.9643440276384354,
+      "perm_null_split_half": 0.13287408500909806,
+      "stability": 0.6152167618274689,
+      "gate_pass": true
+    },
+    {
+      "layer": 3,
+      "heldout_separation": 2.24576051235199,
+      "split_half": 0.9484144121408462,
+      "perm_null_split_half": 0.03132371529936791,
+      "stability": 0.5941142737865448,
+      "gate_pass": true
+    },
+    {
+      "layer": 4,
+      "heldout_separation": 2.3880333423614504,
+      "split_half": 0.946322375535965,
+      "perm_null_split_half": -0.3095143397338688,
+      "stability": 0.5733726918697357,
+      "gate_pass": true
+    },
+    {
+      "layer": 5,
+      "heldout_separation": 2.947980046272278,
+      "split_half": 0.9421528160572052,
+      "perm_null_split_half": 0.10995623841881752,
+      "stability": 0.6083048284053802,
+      "gate_pass": true
+    },
+    {
+      "layer": 6,
+      "heldout_separation": 2.8567257165908813,
+      "split_half": 0.9352592766284943,
+      "perm_null_split_half": -0.3233862714841962,
+      "stability": 0.6069765686988831,
+      "gate_pass": true
+    },
+    {
+      "layer": 7,
+      "heldout_separation": 2.946395421028137,
+      "split_half": 0.9415350079536438,
+      "perm_null_split_half": -0.05461321175098419,
+      "stability": 0.6033212542533875,
+      "gate_pass": true
+    },
+    {
+      "layer": 8,
+      "heldout_separation": 3.3488724708557127,
+      "split_half": 0.9252760082483291,
+      "perm_null_split_half": 0.0060389857739210125,
+      "stability": 0.6252405345439911,
+      "gate_pass": true
+    },
+    {
+      "layer": 9,
+      "heldout_separation": 2.66207275390625,
+      "split_half": 0.9197225213050843,
+      "perm_null_split_half": 0.09140656087547541,
+      "stability": 0.6575337052345276,
+      "gate_pass": true
+    },
+    {
+      "layer": 10,
+      "heldout_separation": 2.6531049966812135,
+      "split_half": 0.9114758014678955,
+      "perm_null_split_half": -0.15869857110083102,
+      "stability": 0.6738031804561615,
+      "gate_pass": true
+    },
+    {
+      "layer": 11,
+      "heldout_separation": 2.7587639331817626,
+      "split_half": 0.9118732303380966,
+      "perm_null_split_half": -0.008827440813183785,
+      "stability": 0.6449117958545685,
+      "gate_pass": true
+    },
+    {
+      "layer": 12,
+      "heldout_separation": 2.266110825538635,
+      "split_half": 0.8993893563747406,
+      "perm_null_split_half": -0.0067876333370804785,
+      "stability": 0.6123944520950317,
+      "gate_pass": true
+    },
+    {
+      "layer": 13,
+      "heldout_separation": 2.2852988481521606,
+      "split_half": 0.8707479387521744,
+      "perm_null_split_half": -0.09149792343378067,
+      "stability": 0.6376067996025085,
+      "gate_pass": true
+    },
+    {
+      "layer": 14,
+      "heldout_separation": 2.0029866695404053,
+      "split_half": 0.8636175394058228,
+      "perm_null_split_half": -0.05579399913549423,
+      "stability": 0.6957383155822754,
+      "gate_pass": true
+    },
+    {
+      "layer": 15,
+      "heldout_separation": 1.9269014120101928,
+      "split_half": 0.8718272596597672,
+      "perm_null_split_half": 0.039676621183753015,
+      "stability": 0.74713134765625,
+      "gate_pass": true
+    },
+    {
+      "layer": 16,
+      "heldout_separation": 1.8348401069641114,
+      "split_half": 0.8752402901649475,
+      "perm_null_split_half": 0.02904995745047927,
+      "stability": 0.7822878360748291,
+      "gate_pass": true
+    },
+    {
+      "layer": 17,
+      "heldout_separation": 1.8618305921554565,
+      "split_half": 0.8826470762491226,
+      "perm_null_split_half": -0.11376129975542426,
+      "stability": 0.8258076310157776,
+      "gate_pass": true
+    },
+    {
+      "layer": 18,
+      "heldout_separation": 1.8255563497543335,
+      "split_half": 0.8882237672805786,
+      "perm_null_split_half": -0.07748855501413346,
+      "stability": 0.8518523573875427,
+      "gate_pass": true
+    },
+    {
+      "layer": 19,
+      "heldout_separation": 1.8200459003448486,
+      "split_half": 0.9013861507177353,
+      "perm_null_split_half": 0.04250228404998779,
+      "stability": 0.8596306443214417,
+      "gate_pass": true
+    },
+    {
+      "layer": 20,
+      "heldout_separation": 1.691143774986267,
+      "split_half": 0.8943913549184799,
+      "perm_null_split_half": -0.1618616245687008,
+      "stability": 0.8876999020576477,
+      "gate_pass": true
+    },
+    {
+      "layer": 21,
+      "heldout_separation": 1.705784559249878,
+      "split_half": 0.9058128327131272,
+      "perm_null_split_half": -0.13206532422918826,
+      "stability": 0.8936047852039337,
+      "gate_pass": true
+    },
+    {
+      "layer": 22,
+      "heldout_separation": 1.6287665605545043,
+      "split_half": 0.9079582929611206,
+      "perm_null_split_half": -0.10773292034864426,
+      "stability": 0.9044530689716339,
+      "gate_pass": true
+    },
+    {
+      "layer": 23,
+      "heldout_separation": 1.6070861101150513,
+      "split_half": 0.8994953870773316,
+      "perm_null_split_half": 0.020820724591612817,
+      "stability": 0.9225571751594543,
+      "gate_pass": true
+    },
+    {
+      "layer": 24,
+      "heldout_separation": 1.5625759840011597,
+      "split_half": 0.908776730298996,
+      "perm_null_split_half": -0.04628985431045294,
+      "stability": 0.927950918674469,
+      "gate_pass": true
+    },
+    {
+      "layer": 25,
+      "heldout_separation": 1.571349287033081,
+      "split_half": 0.9035156846046448,
+      "perm_null_split_half": -0.25761082824319603,
+      "stability": 0.9375066161155701,
+      "gate_pass": true
+    },
+    {
+      "layer": 26,
+      "heldout_separation": 1.5869747400283813,
+      "split_half": 0.9057326763868332,
+      "perm_null_split_half": 0.04701288789510727,
+      "stability": 0.9393323063850403,
+      "gate_pass": true
+    },
+    {
+      "layer": 27,
+      "heldout_separation": 1.5789132595062256,
+      "split_half": 0.9039818525314331,
+      "perm_null_split_half": 0.07011349201202392,
+      "stability": 0.931140810251236,
+      "gate_pass": true
+    },
+    {
+      "layer": 28,
+      "heldout_separation": 1.522447896003723,
+      "split_half": 0.9069828957319259,
+      "perm_null_split_half": 0.040345605462789536,
+      "stability": 0.9253889620304108,
+      "gate_pass": true
+    },
+    {
+      "layer": 29,
+      "heldout_separation": 1.495632028579712,
+      "split_half": 0.8911457419395447,
+      "perm_null_split_half": 0.16905025858432055,
+      "stability": 0.9166126251220703,
+      "gate_pass": true
+    },
+    {
+      "layer": 30,
+      "heldout_separation": 1.481364631652832,
+      "split_half": 0.8804351359605789,
+      "perm_null_split_half": 0.04184695780277252,
+      "stability": 0.8389430642127991,
+      "gate_pass": true
+    },
+    {
+      "layer": 31,
+      "heldout_separation": 1.4421822547912597,
+      "split_half": 0.8840895295143127,
+      "perm_null_split_half": 0.22548576444387436,
+      "stability": 0.7753078937530518,
+      "gate_pass": true
+    }
+  ]
+}

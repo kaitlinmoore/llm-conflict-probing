@@ -1,0 +1,404 @@
+{
+  "_header": {
+    "ROBUSTNESS_ANNEX": true,
+    "post_hoc": true,
+    "part": 4,
+    "date": "2026-08-06",
+    "status": "INTERPRETIVE \u2014 converging evidence only, adjudicates nothing; the length checks (parts 1\u20133) are the decisive tests",
+    "operative_conditional": "parts 1\u20133 LANDED BADLY (deep length confound; transfer contaminated; matched check gated out) \u2014 this annex CANNOT rehabilitate the direction",
+    "label_caveat": "SAE feature names are auto-generated interpretations, suggestive never dispositive",
+    "sae_caveat": "base-model SAE (Llama-Scope L8R-8x) on instruct-model activations is an approximation; instruct-trained SAE exists only at L19 (Goodfire), 11 layers off-band",
+    "encode_note": "encode = jumprelu(a_scaled @ W_enc + b_enc), a_scaled = a * (6.3125 / mean ||a|| over our L8 anchors) \u2014 matches the SAE's dataset-average input norm; approximation stated",
+    "attribution_note": "attribution = cosine(direction, decoder row); reconstruction quality = R^2 of the direction onto its top-20 decoder atoms (the full 32k basis is overcomplete and reconstructs anything trivially)",
+    "check": "brief check 5 \u2014 whose features does each direction speak?"
+  },
+  "conflict_L8": {
+    "direction": "conflict_L8",
+    "top_features": [
+      {
+        "feature": 13524,
+        "cosine": 0.2777,
+        "label": "elements related to technical terminology and specification details",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/13524"
+      },
+      {
+        "feature": 18954,
+        "cosine": 0.2336,
+        "label": "concepts related to mathematical proofs and legal frameworks",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/18954"
+      },
+      {
+        "feature": 26045,
+        "cosine": 0.1992,
+        "label": "phrases related to calculations, statistical concepts, or references in academic writing",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/26045"
+      },
+      {
+        "feature": 8834,
+        "cosine": 0.1734,
+        "label": "terms related to technical specifications or configurations",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/8834"
+      },
+      {
+        "feature": 25149,
+        "cosine": 0.171,
+        "label": "phrases indicating uncertainty or negation",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/25149"
+      },
+      {
+        "feature": 20867,
+        "cosine": 0.1689,
+        "label": "terms related to product specifications and measurements",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/20867"
+      },
+      {
+        "feature": 22253,
+        "cosine": 0.1644,
+        "label": "actionable items or instructions in a task-oriented context",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/22253"
+      },
+      {
+        "feature": 5653,
+        "cosine": 0.1484,
+        "label": "terms related to diseases and their effects on trees",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/5653"
+      },
+      {
+        "feature": 16259,
+        "cosine": 0.1467,
+        "label": "phrases and terms related to time management and scheduling",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/16259"
+      },
+      {
+        "feature": 10740,
+        "cosine": 0.1425,
+        "label": "tags or formatting in code and document structure",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/10740"
+      },
+      {
+        "feature": 16593,
+        "cosine": -0.1412,
+        "label": "terms related to governmental actions and policies involving technology and social issues",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/16593"
+      },
+      {
+        "feature": 19519,
+        "cosine": 0.141,
+        "label": "instances of code execution or function calls in programming contexts",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/19519"
+      },
+      {
+        "feature": 18637,
+        "cosine": 0.1407,
+        "label": "functional programming elements and structures",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/18637"
+      },
+      {
+        "feature": 22066,
+        "cosine": 0.1388,
+        "label": "terms related to medical conditions and their management",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/22066"
+      },
+      {
+        "feature": 423,
+        "cosine": 0.136,
+        "label": "transitional words and phrases that indicate shifts in ideas or sequences",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/423"
+      },
+      {
+        "feature": 23489,
+        "cosine": 0.1345,
+        "label": "various forms of punctuation and their associations with sentence structure",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/23489"
+      },
+      {
+        "feature": 955,
+        "cosine": -0.1337,
+        "label": "financial or business-related terms and phrases",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/955"
+      },
+      {
+        "feature": 4185,
+        "cosine": 0.1229,
+        "label": "legal terms and phrases related to ownership and property distribution",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/4185"
+      },
+      {
+        "feature": 483,
+        "cosine": 0.1194,
+        "label": "references to media or visual content",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/483"
+      },
+      {
+        "feature": 9171,
+        "cosine": 0.119,
+        "label": "keywords and phrases related to statistics and numbers",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/9171"
+      }
+    ],
+    "reconstruction_R2_top20": 0.1987
+  },
+  "length_L8": {
+    "direction": "length_L8",
+    "top_features": [
+      {
+        "feature": 29981,
+        "cosine": 0.1525,
+        "label": "words and phrases related to assessing skills and decision-making",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/29981"
+      },
+      {
+        "feature": 5125,
+        "cosine": -0.1454,
+        "label": "phrases indicating emotional reactions or reflections on experiences",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/5125"
+      },
+      {
+        "feature": 25149,
+        "cosine": 0.1348,
+        "label": "phrases indicating uncertainty or negation",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/25149"
+      },
+      {
+        "feature": 7847,
+        "cosine": -0.1268,
+        "label": "instances related to online communication and community engagement",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/7847"
+      },
+      {
+        "feature": 23109,
+        "cosine": -0.1157,
+        "label": "references to educational institutions and their associated academic programs",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/23109"
+      },
+      {
+        "feature": 13524,
+        "cosine": 0.1133,
+        "label": "elements related to technical terminology and specification details",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/13524"
+      },
+      {
+        "feature": 7443,
+        "cosine": 0.1031,
+        "label": "punctuation marks, particularly periods, question marks, and exclamation points",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/7443"
+      },
+      {
+        "feature": 29723,
+        "cosine": -0.0966,
+        "label": "keywords that pertain to product and service offerings related to analysis and data management",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/29723"
+      },
+      {
+        "feature": 18954,
+        "cosine": 0.096,
+        "label": "concepts related to mathematical proofs and legal frameworks",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/18954"
+      },
+      {
+        "feature": 5709,
+        "cosine": -0.0956,
+        "label": "concepts related to psychology and behavioral analysis",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/5709"
+      },
+      {
+        "feature": 18637,
+        "cosine": 0.0952,
+        "label": "functional programming elements and structures",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/18637"
+      },
+      {
+        "feature": 12663,
+        "cosine": -0.0946,
+        "label": "terms related to global supply chain issues",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/12663"
+      },
+      {
+        "feature": 31235,
+        "cosine": -0.0939,
+        "label": "statements about the presence or absence of specific amenities or features",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/31235"
+      },
+      {
+        "feature": 8834,
+        "cosine": 0.0916,
+        "label": "terms related to technical specifications or configurations",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/8834"
+      },
+      {
+        "feature": 8362,
+        "cosine": -0.0898,
+        "label": "phrases that indicate grammatical errors or mistakes",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/8362"
+      },
+      {
+        "feature": 476,
+        "cosine": -0.0895,
+        "label": "aspects related to making decisions and selections",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/476"
+      },
+      {
+        "feature": 22278,
+        "cosine": -0.0874,
+        "label": "references to questions and arguments about legality and discretion in professional settings",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/22278"
+      },
+      {
+        "feature": 16859,
+        "cosine": -0.0871,
+        "label": "references to personal experiences and emotions in social interactions",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/16859"
+      },
+      {
+        "feature": 30480,
+        "cosine": 0.0856,
+        "label": "key terms related to project management and development",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/30480"
+      },
+      {
+        "feature": 3429,
+        "cosine": -0.0853,
+        "label": "references to specific individuals and publication details",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/3429"
+      }
+    ],
+    "reconstruction_R2_top20": 0.1561
+  },
+  "refusal_L8_reference": {
+    "direction": "refusal_L8",
+    "top_features": [
+      {
+        "feature": 7298,
+        "cosine": 0.2333,
+        "label": "keywords related to spot-fixing in sports",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/7298"
+      },
+      {
+        "feature": 31442,
+        "cosine": 0.1995,
+        "label": "discussions around moral dilemmas and violent actions",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/31442"
+      },
+      {
+        "feature": 3847,
+        "cosine": 0.1945,
+        "label": "negative expressions and descriptions of discomfort or adversity",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/3847"
+      },
+      {
+        "feature": 28059,
+        "cosine": 0.1904,
+        "label": "advice related to starting a business or entrepreneurial ventures",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/28059"
+      },
+      {
+        "feature": 17004,
+        "cosine": 0.1837,
+        "label": "references to criminal behavior and legal proceedings",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/17004"
+      },
+      {
+        "feature": 16146,
+        "cosine": -0.1725,
+        "label": "references to examples and quotations",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/16146"
+      },
+      {
+        "feature": 5143,
+        "cosine": 0.1701,
+        "label": "phrases related to social commentary and critique",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/5143"
+      },
+      {
+        "feature": 23909,
+        "cosine": 0.1664,
+        "label": "themes related to content appropriateness and moral standards",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/23909"
+      },
+      {
+        "feature": 2083,
+        "cosine": 0.1564,
+        "label": "key concepts related to product development and innovation",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/2083"
+      },
+      {
+        "feature": 22681,
+        "cosine": 0.1542,
+        "label": "mentions of conspiracy theories and their implications",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/22681"
+      },
+      {
+        "feature": 26635,
+        "cosine": 0.1514,
+        "label": "terms related to ash trees and their ecological condition",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/26635"
+      },
+      {
+        "feature": 17555,
+        "cosine": 0.1482,
+        "label": "references to exhibitions or artistic projects",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/17555"
+      },
+      {
+        "feature": 14663,
+        "cosine": 0.1475,
+        "label": "references to negative aspects of human behavior and societal issues",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/14663"
+      },
+      {
+        "feature": 13011,
+        "cosine": 0.1436,
+        "label": "instances of cybersecurity vulnerabilities and breaches",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/13011"
+      },
+      {
+        "feature": 21111,
+        "cosine": 0.1421,
+        "label": "references to authority figures and legal terms",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/21111"
+      },
+      {
+        "feature": 23547,
+        "cosine": 0.1413,
+        "label": "classes and their hierarchy in programming code",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/23547"
+      },
+      {
+        "feature": 8595,
+        "cosine": 0.1381,
+        "label": "phrases related to providing advice or tips",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/8595"
+      },
+      {
+        "feature": 29242,
+        "cosine": 0.1375,
+        "label": "phrases related to regulatory failures and illegal activities",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/29242"
+      },
+      {
+        "feature": 21248,
+        "cosine": -0.1366,
+        "label": "mentions of new developments or updates in various contexts",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/21248"
+      },
+      {
+        "feature": 29457,
+        "cosine": 0.1354,
+        "label": "themes related to societal violence and extremism",
+        "neuronpedia": "https://www.neuronpedia.org/llama3.1-8b/8-llamascope-res-32k/29457"
+      }
+    ],
+    "reconstruction_R2_top20": 0.3235
+  },
+  "overlap": {
+    "conflict_vs_length_topk_overlap": 5,
+    "conflict_vs_length_shared_features": [
+      8834,
+      13524,
+      18637,
+      18954,
+      25149
+    ],
+    "conflict_vs_refusal_topk_overlap": 0
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "_header": {
+    "ROBUSTNESS_ANNEX": true,
+    "post_hoc": true,
+    "date": "2026-08-06",
+    "motivation": "researcher-directed too-good-to-be-true audit (executive chat, 2026-08-06); exploratory, run after seeing the as-designed results",
+    "produced_by": "Claude Fable 5 (model id claude-fable-5)",
+    "pipeline_commit": "0f0366f6cf7fdc5ec07a2171647c4bb6bf949152",
+    "freeze_sha256": "adce95fd1df5fc383b1f420744fd27b3003f8112bff46c0801a6071f9bcbf49a",
+    "run_dir": "results\\battery_run\\20260803_222047_llama8b",
+    "generated_utc": "2026-08-04T02:28:50+00:00",
+    "separation_definition": "(mean opp proj - mean agr proj) / pooled SD, order-averaged cells, in-sample over all choice scenarios",
+    "length_proxy": "whitespace tokens of the administered user message (rendered_prompts.txt); model tokenizer not loadable off-pod",
+    "check": "3 \u2014 within-condition length tracking",
+    "part": 2,
+    "prestated_interpretation": "a genuine length detector tracks length wherever length varies \u2014 strong positive within-condition slopes (comparable to the between-condition association) mean the direction reads length itself, and the confound is deep. Near-zero within-condition slopes with the strong between-condition association mean the length association rides the condition contrast \u2014 consistent with a conflict direction whose training contrast happens to be length-confounded, and the construct reading strengthens materially. Intermediate is intermediate; report without adjudicating."
+  },
+  "choice_within_condition": {
+    "agreement_pooled": {
+      "n": 120,
+      "r": 0.671,
+      "slope": 0.005274
+    },
+    "agree_A": {
+      "n": 60,
+      "r": 0.4575,
+      "slope": 0.003503
+    },
+    "agree_B": {
+      "n": 60,
+      "r": 0.8408,
+      "slope": 0.006778
+    },
+    "opposition_pooled": {
+      "n": 120,
+      "r": 0.7908,
+      "slope": 0.005536
+    },
+    "oppose_tip_A": {
+      "n": 60,
+      "r": 0.8159,
+      "slope": 0.00602
+    },
+    "oppose_tip_B": {
+      "n": 60,
+      "r": 0.7644,
+      "slope": 0.005077
+    },
+    "between_condition_all_rows_restated": {
+      "n": 248,
+      "r": 0.8888,
+      "slope": 0.009105
+    }
+  },
+  "refusal_within_condition": {
+    "agreement_pooled": {
+      "n": 72,
+      "r": 0.8107,
+      "slope": 0.006314
+    },
+    "opposition_pooled": {
+      "n": 72,
+      "r": 0.7468,
+      "slope": 0.004561
+    },
+    "between_condition_all_rows": {
+      "n": 153,
+      "r": 0.9555,
+      "slope": 0.00728
+    }
+  },
+  "length_distributions": {
+    "choice:": {
+      "n": 8,
+      "mean": 53.8,
+      "sd": 8.4
+    },
+    "choice:agree_A": {
+      "n": 60,
+      "mean": 91.3,
+      "sd": 15.2
+    },
+    "choice:agree_B": {
+      "n": 60,
+      "mean": 89.0,
+      "sd": 16.7
+    },
+    "choice:oppose_tip_A": {
+      "n": 60,
+      "mean": 128.2,
+      "sd": 24.8
+    },
+    "choice:oppose_tip_B": {
+      "n": 60,
+      "mean": 132.9,
+      "sd": 24.3
+    },
+    "refusal:": {
+      "n": 9,
+      "mean": 25.0,
+      "sd": 3.6
+    },
+    "refusal:agree_comply": {
+      "n": 36,
+      "mean": 104.8,
+      "sd": 19.4
+    },
+    "refusal:agree_refuse": {
+      "n": 36,
+      "mean": 111.2,
+      "sd": 16.9
+    },
+    "refusal:oppose_tip_comply": {
+      "n": 36,
+      "mean": 159.9,
+      "sd": 17.5
+    },
+    "refusal:oppose_tip_refuse": {
+      "n": 36,
+      "mean": 160.1,
+      "sd": 19.5
+    }
+  },
+  "refusal_opposition_minus_agreement_mean_length": 52.0
+}

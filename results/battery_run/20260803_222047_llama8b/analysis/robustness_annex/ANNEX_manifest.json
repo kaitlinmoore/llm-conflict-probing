@@ -1,0 +1,25 @@
+{
+  "_header": {
+    "ROBUSTNESS_ANNEX": true,
+    "post_hoc": true,
+    "date": "2026-08-06",
+    "motivation": "researcher-directed too-good-to-be-true audit (executive chat, 2026-08-06); exploratory, run after seeing the as-designed results",
+    "produced_by": "Claude Fable 5 (model id claude-fable-5)",
+    "pipeline_commit": "0f0366f6cf7fdc5ec07a2171647c4bb6bf949152",
+    "freeze_sha256": "adce95fd1df5fc383b1f420744fd27b3003f8112bff46c0801a6071f9bcbf49a",
+    "run_dir": "results\\battery_run\\20260803_222047_llama8b",
+    "generated_utc": "2026-08-04T02:09:20+00:00",
+    "separation_definition": "(mean opp proj - mean agr proj) / pooled SD, order-averaged cells, in-sample over all choice scenarios",
+    "length_proxy": "whitespace tokens of the administered user message (rendered_prompts.txt); model tokenizer not loadable off-pod"
+  },
+  "artifacts": {
+    "ANNEX_check1_surface_features.json": {
+      "sha256": "b4fb803b4296da5f94ed6305f0222228bb85220554cec75664ef7c1f5371fd1a",
+      "bytes": 1645
+    },
+    "ANNEX_check2_placebo_panel.json": {
+      "sha256": "78386b9f25176891676d1840ab5c01f5e3a2782093424e0650a0a4264d3d887a",
+      "bytes": 4824
+    }
+  }
+}

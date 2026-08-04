@@ -1,0 +1,30 @@
+{
+  "_header": {
+    "ROBUSTNESS_ANNEX": true,
+    "post_hoc": true,
+    "part": 4,
+    "date": "2026-08-06",
+    "status": "INTERPRETIVE \u2014 converging evidence only, adjudicates nothing; the length checks (parts 1\u20133) are the decisive tests",
+    "operative_conditional": "parts 1\u20133 LANDED BADLY (deep length confound; transfer contaminated; matched check gated out) \u2014 this annex CANNOT rehabilitate the direction",
+    "label_caveat": "SAE feature names are auto-generated interpretations, suggestive never dispositive",
+    "sae_caveat": "base-model SAE (Llama-Scope L8R-8x) on instruct-model activations is an approximation; instruct-trained SAE exists only at L19 (Goodfire), 11 layers off-band",
+    "encode_note": "encode = jumprelu(a_scaled @ W_enc + b_enc), a_scaled = a * (6.3125 / mean ||a|| over our L8 anchors) \u2014 matches the SAE's dataset-average input norm; approximation stated",
+    "attribution_note": "attribution = cosine(direction, decoder row); reconstruction quality = R^2 of the direction onto its top-20 decoder atoms (the full 32k basis is overcomplete and reconstructs anything trivially)"
+  },
+  "artifacts": {
+    "ANNEX_part4_sae_directions.json": {
+      "sha256": "b85dc953dcd538689ad853a286c0c005167bd1bfa875aa33eb7f6da0f2c71991",
+      "bytes": 16240
+    },
+    "ANNEX_part4_sae_conditions.json": {
+      "sha256": "7480fe9a061cc56f516a0d314b8183ce09e99c383dc64044f672d0c498058b8c",
+      "bytes": 2789
+    },
+    "ANNEX_part4_sae_screening.json": {
+      "sha256": "7749f0c5d7e9f2f6767dd994cfeb8bb53b1b7c427ccf1b94f230e0f64423c902",
+      "bytes": 11393
+    }
+  },
+  "sae_checkpoint": "OpenMOSS-Team/Llama3_1-8B-Base-LXR-8x / Llama3_1-8B-Base-L8R-8x (JumpReLU, 32768 features)",
+  "labels_source": "neuronpedia llama3.1-8b/8-llamascope-res-32k"
+}

@@ -1,0 +1,86 @@
+{
+  "_header": {
+    "ROBUSTNESS_ANNEX": true,
+    "post_hoc": true,
+    "part": 4,
+    "date": "2026-08-06",
+    "status": "INTERPRETIVE \u2014 converging evidence only, adjudicates nothing; the length checks (parts 1\u20133) are the decisive tests",
+    "operative_conditional": "parts 1\u20133 LANDED BADLY (deep length confound; transfer contaminated; matched check gated out) \u2014 this annex CANNOT rehabilitate the direction",
+    "label_caveat": "SAE feature names are auto-generated interpretations, suggestive never dispositive",
+    "sae_caveat": "base-model SAE (Llama-Scope L8R-8x) on instruct-model activations is an approximation; instruct-trained SAE exists only at L19 (Goodfire), 11 layers off-band",
+    "encode_note": "encode = jumprelu(a_scaled @ W_enc + b_enc), a_scaled = a * (6.3125 / mean ||a|| over our L8 anchors) \u2014 matches the SAE's dataset-average input norm; approximation stated",
+    "attribution_note": "attribution = cosine(direction, decoder row); reconstruction quality = R^2 of the direction onto its top-20 decoder atoms (the full 32k basis is overcomplete and reconstructs anything trivially)",
+    "check": "brief check 6 \u2014 feature activation by condition"
+  },
+  "top10_conflict_features": [
+    13524,
+    18954,
+    26045,
+    8834,
+    25149,
+    20867,
+    22253,
+    5653,
+    16259,
+    10740
+  ],
+  "mean_activation_by_group": {
+    "opposition": {
+      "13524": 0.0,
+      "18954": 0.0,
+      "26045": 0.0,
+      "8834": 0.0,
+      "25149": 0.0,
+      "20867": 0.0,
+      "22253": 0.0,
+      "5653": 0.0,
+      "16259": 0.0156,
+      "10740": 0.0
+    },
+    "agreement": {
+      "13524": 0.0,
+      "18954": 0.0,
+      "26045": 0.0,
+      "8834": 0.0,
+      "25149": 0.0,
+      "20867": 0.0,
+      "22253": 0.0,
+      "5653": 0.0,
+      "16259": 0.0,
+      "10740": 0.0
+    },
+    "agreement_long_top_tercile(>=97tok)": {
+      "13524": 0.0,
+      "18954": 0.0,
+      "26045": 0.0,
+      "8834": 0.0,
+      "25149": 0.0,
+      "20867": 0.0,
+      "22253": 0.0,
+      "5653": 0.0,
+      "16259": 0.0,
+      "10740": 0.0
+    },
+    "competition_torn": {
+      "13524": 0.0,
+      "18954": 0.0,
+      "26045": 0.0,
+      "8834": 0.0,
+      "25149": 0.0,
+      "20867": 0.0,
+      "22253": 0.0,
+      "5653": 0.0,
+      "16259": 0.0,
+      "10740": 0.0
+    }
+  },
+  "n_per_group": {
+    "opposition": 120,
+    "agreement": 120,
+    "agreement_long_top_tercile(>=97tok)": 40,
+    "competition_torn": 40
+  },
+  "anchor_mean_norm_ours": 5.26,
+  "sae_dataset_norm": 6.3125,
+  "prestated_reading": "fires on opposition AND torn but not long-agreement -> tension/deliberation-like; tracks length tercile regardless of condition -> the confound; opposition-only (not torn) -> candidate value-conflict-specific, flagged not over-claimed"
+}

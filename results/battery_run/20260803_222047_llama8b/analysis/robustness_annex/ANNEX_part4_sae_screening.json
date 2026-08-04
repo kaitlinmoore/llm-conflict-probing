@@ -1,0 +1,363 @@
+{
+  "_header": {
+    "ROBUSTNESS_ANNEX": true,
+    "post_hoc": true,
+    "part": 4,
+    "date": "2026-08-06",
+    "status": "INTERPRETIVE \u2014 converging evidence only, adjudicates nothing; the length checks (parts 1\u20133) are the decisive tests",
+    "operative_conditional": "parts 1\u20133 LANDED BADLY (deep length confound; transfer contaminated; matched check gated out) \u2014 this annex CANNOT rehabilitate the direction",
+    "label_caveat": "SAE feature names are auto-generated interpretations, suggestive never dispositive",
+    "sae_caveat": "base-model SAE (Llama-Scope L8R-8x) on instruct-model activations is an approximation; instruct-trained SAE exists only at L19 (Goodfire), 11 layers off-band",
+    "encode_note": "encode = jumprelu(a_scaled @ W_enc + b_enc), a_scaled = a * (6.3125 / mean ||a|| over our L8 anchors) \u2014 matches the SAE's dataset-average input norm; approximation stated",
+    "attribution_note": "attribution = cosine(direction, decoder row); reconstruction quality = R^2 of the direction onto its top-20 decoder atoms (the full 32k basis is overcomplete and reconstructs anything trivially)",
+    "check": "amendment job 3 \u2014 label-space candidate screening"
+  },
+  "queries": {
+    "dilemma": [
+      {
+        "index": 11990,
+        "label": "phrases related to dilemmas or conflicting choices",
+        "score": 0.6802891307459701
+      },
+      {
+        "index": 11864,
+        "label": "decisions",
+        "score": 0.5622380954106472
+      },
+      {
+        "index": 3584,
+        "label": "discussions about moral and ethical dilemmas",
+        "score": 0.5571580789923624
+      },
+      {
+        "index": 29590,
+        "label": "questions related to societal issues and dilemmas",
+        "score": 0.5554926292405397
+      },
+      {
+        "index": 15518,
+        "label": "conflict",
+        "score": 0.5400578518859313
+      },
+      {
+        "index": 31883,
+        "label": "concepts related to moral dilemmas and ethical contradictions",
+        "score": 0.5340943143748857
+      },
+      {
+        "index": 11990,
+        "label": "trade-offs or choices",
+        "score": 0.5279810335364689
+      },
+      {
+        "index": 15475,
+        "label": "discussions surrounding moral dilemmas and the complexities of societal norms",
+        "score": 0.5271808494230542
+      },
+      {
+        "index": 18805,
+        "label": "expressions of concern about decisions and their consequences",
+        "score": 0.5234587270745782
+      },
+      {
+        "index": 8272,
+        "label": "questions regarding decisions and actions",
+        "score": 0.5232292322104208
+      }
+    ],
+    "tension": [
+      {
+        "index": 488,
+        "label": "instances of tension or suspenseful situations",
+        "score": 0.5754054808843025
+      },
+      {
+        "index": 11535,
+        "label": "expressions of anxiety and tension",
+        "score": 0.5325339456157653
+      },
+      {
+        "index": 13304,
+        "label": "force",
+        "score": 0.5165302717695923
+      },
+      {
+        "index": 12213,
+        "label": "emphasis or intensity",
+        "score": 0.5117549638838956
+      },
+      {
+        "index": 14981,
+        "label": "potential",
+        "score": 0.4966515121494176
+      },
+      {
+        "index": 12179,
+        "label": "stress relief",
+        "score": 0.488159910997751
+      },
+      {
+        "index": 18018,
+        "label": "power",
+        "score": 0.4826560802722333
+      },
+      {
+        "index": 19288,
+        "label": "worry or fear",
+        "score": 0.47895353628688664
+      },
+      {
+        "index": 24858,
+        "label": "references to various forms of pressure in different contexts",
+        "score": 0.47622959718439306
+      },
+      {
+        "index": 13129,
+        "label": "support",
+        "score": 0.45616696176989313
+      }
+    ],
+    "tradeoff": [
+      {
+        "index": 11990,
+        "label": "trade-offs or choices",
+        "score": 0.7160895122835602
+      },
+      {
+        "index": 19186,
+        "label": "work-life balance",
+        "score": 0.48801648471867654
+      },
+      {
+        "index": 16192,
+        "label": "contributions or value",
+        "score": 0.48676214055604294
+      },
+      {
+        "index": 11574,
+        "label": "comparing alternatives",
+        "score": 0.44719348897609035
+      },
+      {
+        "index": 30830,
+        "label": "phrases that evaluate the worth or value of experiences, items, or investments",
+        "score": 0.44131063363976153
+      },
+      {
+        "index": 29714,
+        "label": "discussions around achieving a balance between different elements or factors",
+        "score": 0.4410045644461922
+      },
+      {
+        "index": 16749,
+        "label": "comparative phrases that discuss differences or contrasts in value or performance",
+        "score": 0.4373501773291175
+      },
+      {
+        "index": 15518,
+        "label": "conflict",
+        "score": 0.4357361920028492
+      },
+      {
+        "index": 17236,
+        "label": "minimal cost or risk",
+        "score": 0.4202159421808923
+      },
+      {
+        "index": 22787,
+        "label": "phrases that reflect a balance between positive and negative qualities or outcomes",
+        "score": 0.41941743458124026
+      }
+    ],
+    "deliberation": [
+      {
+        "index": 11864,
+        "label": "decisions",
+        "score": 0.565520855550621
+      },
+      {
+        "index": 26848,
+        "label": "expressions of consideration or proposals regarding actions and decisions",
+        "score": 0.5570966060805908
+      },
+      {
+        "index": 15756,
+        "label": "serious discussions and actions related to commitment or matters of importance",
+        "score": 0.5431925876160467
+      },
+      {
+        "index": 16090,
+        "label": "phrases related to careful consideration and selection",
+        "score": 0.5419186043879348
+      },
+      {
+        "index": 30615,
+        "label": "references to procedural aspects and decision-making in a council or committee context",
+        "score": 0.5391648351881905
+      },
+      {
+        "index": 8916,
+        "label": "references to formal hearings or discussions in a legislative context",
+        "score": 0.5363699696297427
+      },
+      {
+        "index": 17591,
+        "label": "action-oriented terms related to formal decisions or statements",
+        "score": 0.5216593033200643
+      },
+      {
+        "index": 20777,
+        "label": "discussion or discourse",
+        "score": 0.5209768675431984
+      },
+      {
+        "index": 10421,
+        "label": "reports or discussions regarding formal proposals and legislative matters",
+        "score": 0.5064616396743338
+      },
+      {
+        "index": 12964,
+        "label": "desire or intention",
+        "score": 0.50624463392795
+      }
+    ],
+    "conflict between values": [
+      {
+        "index": 15518,
+        "label": "conflict",
+        "score": 0.7570536904583199
+      },
+      {
+        "index": 30700,
+        "label": "discussions of ideological conflicts and inconsistencies in beliefs",
+        "score": 0.6209693073140358
+      },
+      {
+        "index": 14666,
+        "label": "political extremism and conflict",
+        "score": 0.5784892785252028
+      },
+      {
+        "index": 5802,
+        "label": "sentences related to conflict and negotiation outcomes",
+        "score": 0.5716488261016217
+      },
+      {
+        "index": 28992,
+        "label": "themes of conflict and opposing forces",
+        "score": 0.5676543714310928
+      },
+      {
+        "index": 22653,
+        "label": "instances of conflict or opposition in human interactions and societal norms",
+        "score": 0.5648096481912169
+      },
+      {
+        "index": 31575,
+        "label": "instances of conflict or disputes within social or political contexts",
+        "score": 0.5612672120466006
+      },
+      {
+        "index": 21013,
+        "label": "instances of conflict or confrontation",
+        "score": 0.5611498395789167
+      },
+      {
+        "index": 6685,
+        "label": "phrases indicating conflict or opposing viewpoints",
+        "score": 0.5601032842425244
+      },
+      {
+        "index": 25090,
+        "label": "elements related to conflict and survival",
+        "score": 0.5586840299813366
+      }
+    ]
+  },
+  "candidates_evaluated": {
+    "488": {
+      "label": "instances of tension or suspenseful situations",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "3584": {
+      "label": "discussions about moral and ethical dilemmas",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "11535": {
+      "label": "expressions of anxiety and tension",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "11864": {
+      "label": "phrases and concepts related to decision-making and the importance of making informed choices",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "11990": {
+      "label": "phrases related to dilemmas or conflicting choices",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "13304": {
+      "label": "instances of coercion or pressure in relationships and situations",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "14666": {
+      "label": "references to political tensions and conflicts involving nationalism and religious identity",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "15518": {
+      "label": "terms related to conflict and dispute resolution",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "15756": {
+      "label": "serious discussions and actions related to commitment or matters of importance",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "16192": {
+      "label": "expressions of community contribution and importance",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "19186": {
+      "label": "concepts related to balancing work and personal commitments",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    },
+    "26848": {
+      "label": "expressions of consideration or proposals regarding actions and decisions",
+      "mean_act_opposition": 0.0,
+      "mean_act_agreement": 0.0,
+      "r_length_within_agreement": null,
+      "r_length_within_opposition": null
+    }
+  }
+}
