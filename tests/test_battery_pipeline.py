@@ -95,6 +95,37 @@ class PipelineTests(unittest.TestCase):
         c = bp.analysis_existence(cap, sm.PLANT_LAYER, seed=100)
         self.assertNotEqual(a["null_mean"], c["null_mean"])
 
+    def test_refusal_refit_reads_real_comparator_format(self):
+        # capture_refusal.py layout: prompts.csv (prompt_class/split),
+        # activations_<tag>.pt — the gap the smoke fixture masked
+        import csv as _csv
+        import numpy as _np
+        import torch as _torch
+        d = Path(self.tmp.name) / "real_cmp"
+        d.mkdir()
+        rows, acts = [], {}
+        rng = _np.random.default_rng(7)
+        for cls, boost in (("harmful", 2.0), ("harmless", 0.0)):
+            for split in ("train", "holdout"):
+                for i in range(4):
+                    k = f"{cls}:{split}:{i}"
+                    v = rng.normal(size=(sm.N_LAYERS, sm.D))
+                    v[sm.PLANT_LAYER] += boost
+                    acts[k] = _torch.from_numpy(v)
+                    rows.append({"prompt_key": k, "prompt_class": cls,
+                                 "split": split, "n_tokens": 5})
+        with (d / "prompts.csv").open("w", newline="",
+                                      encoding="utf-8") as f:
+            w = _csv.DictWriter(f, fieldnames=["prompt_key", "prompt_class",
+                                               "split", "n_tokens"])
+            w.writeheader()
+            w.writerows(rows)
+        _torch.save({"activations": acts, "partial": False},
+                    d / "activations_llama8b.pt")
+        vec, nh, nb = bp.fit_refusal_direction(d, sm.PLANT_LAYER)
+        self.assertEqual((nh, nb), (4, 4))     # train split only
+        self.assertGreater(float(_np.mean(vec)), 0.5)  # planted offset found
+
     def test_verified_tier_refuses_without_lock(self):
         with self.assertRaises(SystemExit):
             bp.run_verified(None, Path("x"), Path(self.tmp.name))

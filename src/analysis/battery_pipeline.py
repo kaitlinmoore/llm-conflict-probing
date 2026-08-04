@@ -346,14 +346,47 @@ def select_layer(cap, seed=SEED, gate_threshold=None):
 # Other directions (same estimator)
 # ---------------------------------------------------------------------------
 
+def _load_comparator(comparator_dir: Path):
+    """Comparator captures come in TWO formats: the real capture_refusal.py
+    layout (prompts.csv with prompt_class/split, activations_<tag>.pt) and
+    the smoke fixture's battery-style layout (capture_rows.csv with `set`).
+    Loader fixed 2026-08-05 BEFORE any real run output was read — the smoke
+    fixture had masked the mismatch. -> (harmful_rows, harmless_rows, acts),
+    train split only for the real format, mirroring refusal_direction.py
+    (holdout is reserved for the functional check)."""
+    import torch
+    comparator_dir = Path(comparator_dir)
+    real = comparator_dir / "prompts.csv"
+    if real.exists():
+        rows = list(csv.DictReader(real.open(encoding="utf-8", newline="")))
+        rows = [r for r in rows if r.get("split") == "train"]
+        harm = [r for r in rows if r["prompt_class"] == "harmful"]
+        benign = [r for r in rows if r["prompt_class"] == "harmless"]
+        pt = sorted(comparator_dir.glob("activations_*.pt"))
+        if not pt:
+            raise FileNotFoundError(f"{comparator_dir}: no activations_*.pt")
+        blob = torch.load(pt[0], map_location="cpu", weights_only=False)
+    else:
+        rows = list(csv.DictReader(
+            (comparator_dir / "capture_rows.csv").open(encoding="utf-8",
+                                                       newline="")))
+        harm = [r for r in rows if r.get("set") == "harmful"]
+        benign = [r for r in rows if r.get("set") == "harmless"]
+        blob = torch.load(comparator_dir / "activations.pt",
+                          map_location="cpu", weights_only=False)
+    if blob.get("partial"):
+        raise RuntimeError(f"{comparator_dir}: partial capture")
+    acts = {k: np.asarray(v, dtype=np.float32)
+            for k, v in blob["activations"].items()}
+    return harm, benign, acts
+
+
 def fit_refusal_direction(comparator_dir: Path, layer):
     """Native refusal refit at `layer` from the comparator capture
-    (harmful vs harmless sets). Same estimator."""
-    rows, acts, _, _ = _load_run(comparator_dir)
-    harm = [acts[r["prompt_key"]][layer] for r in rows
-            if r.get("set") == "harmful"]
-    benign = [acts[r["prompt_key"]][layer] for r in rows
-              if r.get("set") == "harmless"]
+    (harmful vs harmless, train split). Same estimator."""
+    harm_rows, benign_rows, acts = _load_comparator(comparator_dir)
+    harm = [acts[r["prompt_key"]][layer] for r in harm_rows]
+    benign = [acts[r["prompt_key"]][layer] for r in benign_rows]
     return diff_of_means(harm, benign), len(harm), len(benign)
 
 
@@ -405,12 +438,12 @@ def analysis_distinctness(cap, layer, comparator_dir, seed=SEED):
     cosine = float(conflict @ refusal)
     ceil_c, _ = split_half_agreement(cap, layer, np.random.default_rng(seed))
     # refusal self-consistency ceiling: split-half over comparator prompts
-    rows, acts, _, _ = _load_run(Path(comparator_dir))
+    harm_rows, benign_rows, acts = _load_comparator(Path(comparator_dir))
     rng = np.random.default_rng(seed)
     cos = []
     for _ in range(N_SPLITS // 2):
-        h = [r for r in rows if r.get("set") == "harmful"]
-        b = [r for r in rows if r.get("set") == "harmless"]
+        h = list(harm_rows)
+        b = list(benign_rows)
         rng.shuffle(h)
         rng.shuffle(b)
         d1 = diff_of_means([acts[r["prompt_key"]][layer] for r in h[::2]],
@@ -478,9 +511,12 @@ def analysis_transfer(cap, refusal_cap, layer, seed=SEED):
         null = []
         rng = np.random.default_rng(seed)
         for _ in range(max(50, N_PERM // 10)):
+            # sorted(): set iteration order varies with interpreter hash
+            # randomization, silently de-seeding the null across processes
+            # (caught by the 2026-08-06 robustness-annex reproduction check)
             null.append(_refusal_separation(sub, u, layer, scen,
                                             flip={s: rng.random() < 0.5
-                                                  for s in scen}))
+                                                  for s in sorted(scen)}))
         null = np.array(null)
         out[label] = {"separation": sep,
                       "null_p95": float(np.percentile(null, 95)),
