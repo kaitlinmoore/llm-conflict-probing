@@ -51,3 +51,22 @@ results (`ablation_*_L12_r0..r4`, PASS — findings log 2026-08-05).
 **pre-merge intermediate** (shard re-run; byte-identity receipt in the
 findings log, 2026-07-21). The **merged run is canonical** — analyses join
 against the merged directory only.
+
+## Battery session capture — `20260803_222047_llama8b`
+
+Canonical run record: `results/battery_run/20260803_222047_llama8b/`
+(committed text artifacts + `manifest.json`; VERIFY PASS 10/10,
+2026-08-05). 809 administered prompts (both arms + competition against
+frozen set `adce95fd…`), stability shard 82 disputed refusal rows.
+
+`activations.pt` — 212,344,557 bytes, sha256
+`320605de4050315e983c6e0a141b600fe8cc2f73c421b64b00e5bb467baa0aa1`:
+
+| copy | path | notes |
+|---|---|---|
+| MooseFS volume (pod) | `/workspace/llm-conflict-probing/results/battery_run/20260803_222047_llama8b/` | origin of record |
+| local mirror | `activations/20260803_222047_llama8b/` (repo-root-relative, gitignored) | scp-mirrored + sha-verified at B4, before pod stop |
+
+Consumers seat the tensor back into the run dir
+(`results/battery_run/<id>/activations.pt`, gitignored) for the pipeline's
+loaders; verify the sha against the manifest before use.
