@@ -795,6 +795,58 @@ def check_depth(cap, refusal_cap, run_dir):
     return curves
 
 
+def presentation_depth_figure(curves, out_path):
+    """Slide version of the depth profile (researcher spec, 2026-08-06):
+    two curves only, twin y-axes, region shading drawn BENEATH the curves
+    (zorder), labels sized for projection. The three-curve version with
+    L4/L8 stays as the appendix figure."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    xs = [c["layer"] for c in curves]
+    sep = [c["residualized_separation_choice"] for c in curves]
+    wr = [c["within_condition_length_r"] for c in curves]
+
+    fig, ax1 = plt.subplots(figsize=(10, 5.2))
+    ax2 = ax1.twinx()
+    # regions first, low zorder: hatching sits under the curves
+    ax1.axvspan(-0.5, 11.5, facecolor="0.88", edgecolor="0.75",
+                hatch="///", linewidth=0, alpha=0.55, zorder=0)
+    ax1.axvspan(11.5, 31.5, facecolor="#2c7fb8", alpha=0.08, zorder=0)
+    ax1.text(5.5, 1.31, "confound-dominated", ha="center", fontsize=15,
+             color="0.35", zorder=2)
+    ax1.text(21.5, 1.31, "candidate measurement band", ha="center",
+             fontsize=15, color="#1b5a85", zorder=2)
+
+    l1, = ax1.plot(xs, sep, "-", lw=3.0, color="#2c7fb8", zorder=3,
+                   label="residualized separation (SD, left)")
+    l2, = ax2.plot(xs, wr, "--", lw=1.6, color="#d95f0e", alpha=0.85,
+                   zorder=3, label="within-condition length r (right)")
+
+    ax1.axvline(8, color="0.55", lw=1.0, zorder=1)
+    ax1.text(8.25, 0.06, "original measurement layer", rotation=90,
+             fontsize=11, color="0.4", va="bottom", zorder=2)
+
+    ax1.set_xlim(-0.5, 31.5)
+    ax1.set_ylim(0, 1.4)
+    ax2.set_ylim(0, 1.0)
+    ax1.set_xticks(range(0, 32, 4))
+    ax1.tick_params(labelsize=12)
+    ax2.tick_params(labelsize=12)
+    ax1.set_xlabel("layer", fontsize=13)
+    ax1.set_ylabel("residualized opposition/agreement separation (SD)",
+                   fontsize=12, color="#2c7fb8")
+    ax2.set_ylabel("within-condition length correlation (r)",
+                   fontsize=12, color="#d95f0e")
+    ax1.legend(handles=[l1, l2], loc=(0.44, 0.55), fontsize=11,
+               framealpha=0.9)
+    fig.tight_layout()
+    tmp = str(out_path) + ".tmp"
+    fig.savefig(tmp, dpi=200, format="png")
+    plt.close(fig)
+    Path(tmp).replace(out_path)
+
+
 def depth_figure(curves, out_path):
     import matplotlib
     matplotlib.use("Agg")
